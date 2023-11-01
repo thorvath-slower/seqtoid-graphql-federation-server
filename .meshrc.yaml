@@ -6,6 +6,7 @@ sources:
         source: ./sources/czid-schema.graphql
         operationHeaders:
           Cookie: "{context.headers['cookie']}"
+          "X-CSRF-Token": "{context.headers['x-csrf-token']}"
   - name: CZIDREST
     handler:
       jsonSchema:
