@@ -1,9 +1,21 @@
 # Changelog
 
-## Note: release tags and commits not available for version 1.5.0 and below
+
+## 1.6.0 (2023-11-02)
+
+
+### Features
+
+* Pass CSRF token when querying CZID Rails graphql ([#10](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/10)) ([cf9b8db](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/cf9b8db24428a8addaaacb8c9bbaf006fb1036d6))
+
+
+### Miscellaneous Chores
+
+* release 1.6.0  ([#12](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/12)) ([f805fca](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f805fcaab1870800e69f8b6047763df4c39740e6))
 
 ## 1.5.0 (2023-10-23)
 
+### **Release tags and commits not available for version 1.5.0 and below**
 
 ### Features
 
