@@ -59,6 +59,12 @@ sources:
             responseSchema: ./json-schemas/mngsWorkflowResults.json
             responseTypeName: MngsWorkflowResults
           - type: Query
+            field: CoverageVizSummary
+            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary
+            method: GET
+            responseSchema: ./json-schemas/coverageVizSummary.json
+            responseTypeName: CoverageVizSummary
+          - type: Query
             field: Pathogens
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
             method: GET

@@ -1,0 +1,566 @@
+{
+    "11250": {
+        "best_accessions": [
+            {
+                "id": "LC474545.1",
+                "name": "Human orthopneumovirus RSV/B/Sendai/1060/16 viral cRNA, nearly complete genome\n",
+                "num_contigs": 118,
+                "num_reads": 280,
+                "score": 13154,
+                "coverage_breadth": 0.107,
+                "coverage_depth": 501.2
+            },
+            {
+                "id": "MT107528.1",
+                "name": "Human respiratory syncytial virus B isolate HRSV/B/Bern/2019, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 35,
+                "score": 4637,
+                "coverage_breadth": 0.181,
+                "coverage_depth": 101.8
+            },
+            {
+                "id": "MK361076.1",
+                "name": "Respiratory syncytial virus type B strain TVGH-161 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 25,
+                "num_reads": 249,
+                "score": 3160,
+                "coverage_breadth": 0.383,
+                "coverage_depth": 6369.5
+            },
+            {
+                "id": "MH760731.1",
+                "name": "Human orthopneumovirus strain B/NSW/WM1819A/15, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 17,
+                "score": 2853,
+                "coverage_breadth": 0.124,
+                "coverage_depth": 9.2
+            },
+            {
+                "id": "MH760728.1",
+                "name": "Human orthopneumovirus strain B/NSW/WM2082A/15, partial genome\n",
+                "num_contigs": 20,
+                "num_reads": 38,
+                "score": 2688,
+                "coverage_breadth": 0.056,
+                "coverage_depth": 153.1
+            },
+            {
+                "id": "MN167840.1",
+                "name": "Human orthopneumovirus strain GH530223/USA/2013, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 448,
+                "score": 1988,
+                "coverage_breadth": 0.085,
+                "coverage_depth": 5.5
+            },
+            {
+                "id": "MN365478.1",
+                "name": "Human orthopneumovirus isolate KHDSS/177/08-Feb-2016/MTO, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 36,
+                "score": 1893,
+                "coverage_breadth": 0.085,
+                "coverage_depth": 39.3
+            },
+            {
+                "id": "LC474531.1",
+                "name": "Human orthopneumovirus RSV/B/Sendai/631/13 viral cRNA, nearly complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 168,
+                "score": 1641,
+                "coverage_breadth": 0.079,
+                "coverage_depth": 33.7
+            },
+            {
+                "id": "MN365313.1",
+                "name": "Human orthopneumovirus isolate KHDSS/12/19-Feb-2016/CHA, complete genome\n",
+                "num_contigs": 12,
+                "num_reads": 175,
+                "score": 1507,
+                "coverage_breadth": 0.04,
+                "coverage_depth": 80.6
+            },
+            {
+                "id": "MN365418.1",
+                "name": "Human orthopneumovirus isolate KHDSS/117/02-May-2017/MAT, complete genome\n",
+                "num_contigs": 4,
+                "num_reads": 71,
+                "score": 1452,
+                "coverage_breadth": 0.078,
+                "coverage_depth": 41.8
+            },
+            {
+                "id": "KY249660.1",
+                "name": "Human respiratory syncytial virus B isolate RSVB/England583/2013, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 61,
+                "score": 1411,
+                "coverage_breadth": 0.099,
+                "coverage_depth": 108.8
+            },
+            {
+                "id": "LC474537.1",
+                "name": "Human orthopneumovirus RSV/B/Sendai/906/15 viral cRNA, nearly complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 103,
+                "score": 1185,
+                "coverage_breadth": 0.077,
+                "coverage_depth": 57.4
+            },
+            {
+                "id": "MN163124.1",
+                "name": "Human orthopneumovirus isolate HRSV/43/ZJ/CHN/2018, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 64,
+                "score": 910,
+                "coverage_breadth": 0.07,
+                "coverage_depth": 1.6
+            },
+            {
+                "id": "JX576754.1",
+                "name": "Human respiratory syncytial virus strain 05-040399 from Netherlands, complete genome\n",
+                "num_contigs": 3,
+                "num_reads": 341,
+                "score": 862,
+                "coverage_breadth": 0.03,
+                "coverage_depth": 31.0
+            },
+            {
+                "id": "KY674984.1",
+                "name": "Human respiratory syncytial virus B strain 16B7, complete genome\n",
+                "num_contigs": 3,
+                "num_reads": 98,
+                "score": 597,
+                "coverage_breadth": 0.052,
+                "coverage_depth": 23.4
+            },
+            {
+                "id": "MT373705.1",
+                "name": "Human respiratory syncytial virus B strain RSVB/Novosibirsk/5019/2019, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 356,
+                "score": 576,
+                "coverage_breadth": 0.048,
+                "coverage_depth": 3.4
+            },
+            {
+                "id": "MH760653.1",
+                "name": "Human orthopneumovirus strain B/NSW/WM3045A/15, partial genome\n",
+                "num_contigs": 3,
+                "num_reads": 40,
+                "score": 566,
+                "coverage_breadth": 0.033,
+                "coverage_depth": 5.9
+            },
+            {
+                "id": "KJ672438.1",
+                "name": "Human respiratory syncytial virus strain RSVB/Homo sapiens/USA/LA2_50/2013, complete genome\n",
+                "num_contigs": 3,
+                "num_reads": 28,
+                "score": 546,
+                "coverage_breadth": 0.026,
+                "coverage_depth": 37.1
+            },
+            {
+                "id": "MN365389.1",
+                "name": "Human orthopneumovirus isolate KHDSS/88/29-May-2017/JUN, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 18,
+                "score": 468,
+                "coverage_breadth": 0.037,
+                "coverage_depth": 15.4
+            },
+            {
+                "id": "KU254638.1",
+                "name": "Human respiratory syncytial virus B strain CC-02B-16 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 3,
+                "num_reads": 25,
+                "score": 431,
+                "coverage_breadth": 0.571,
+                "coverage_depth": 1376.3
+            },
+            {
+                "id": "MK167041.1",
+                "name": "Human orthopneumovirus strain SC3198, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 76,
+                "score": 428,
+                "coverage_breadth": 0.055,
+                "coverage_depth": 3.1
+            },
+            {
+                "id": "KP258714.1",
+                "name": "Human respiratory syncytial virus strain RSVB/Homo sapiens/USA/86E-435-01/1986, complete genome\n",
+                "num_contigs": 4,
+                "num_reads": 137,
+                "score": 427,
+                "coverage_breadth": 0.018,
+                "coverage_depth": 3.2
+            },
+            {
+                "id": "MN365399.1",
+                "name": "Human orthopneumovirus isolate KHDSS/98/26-Jan-2016/MAT, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 23,
+                "score": 361,
+                "coverage_breadth": 0.042,
+                "coverage_depth": 25.8
+            },
+            {
+                "id": "MN365372.1",
+                "name": "Human orthopneumovirus isolate KHDSS/71/19-Jan-2017/JUN, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 58,
+                "score": 353,
+                "coverage_breadth": 0.033,
+                "coverage_depth": 0.74
+            },
+            {
+                "id": "KF826842.1",
+                "name": "Human respiratory syncytial virus strain RSVB/Homo sapiens/ARG/195/2007, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 52,
+                "score": 349,
+                "coverage_breadth": 0.025,
+                "coverage_depth": 1.3
+            },
+            {
+                "id": "JQ582844.1",
+                "name": "Human respiratory syncytial virus strain NH1067, complete genome\n",
+                "num_contigs": 3,
+                "num_reads": 11,
+                "score": 345,
+                "coverage_breadth": 0.016,
+                "coverage_depth": 9.5
+            },
+            {
+                "id": "MG967045.1",
+                "name": "Human respiratory syncytial virus B strain WUE/7577/16 attachment glycoprotein (G) mRNA, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 46,
+                "score": 338,
+                "coverage_breadth": 0.59,
+                "coverage_depth": 394.2
+            },
+            {
+                "id": "KU316181.1",
+                "name": "Human respiratory syncytial virus strain RSVB/Homo sapiens/USA/90E-158-01/1990, complete genome\n",
+                "num_contigs": 2,
+                "num_reads": 1,
+                "score": 321,
+                "coverage_breadth": 0.009,
+                "coverage_depth": 2.7
+            },
+            {
+                "id": "MW019662.1",
+                "name": "Human respiratory syncytial virus B isolate RSVB-1845-Jeddah-2017 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 15,
+                "score": 306,
+                "coverage_breadth": 0.208,
+                "coverage_depth": 36.4
+            },
+            {
+                "id": "KX893019.1",
+                "name": "Human respiratory syncytial virus B strain Hunan14-12 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 10,
+                "score": 298,
+                "coverage_breadth": 0.68,
+                "coverage_depth": 284.6
+            },
+            {
+                "id": "MF496578.1",
+                "name": "Respiratory syncytial virus type B isolate most-A105-23 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 12,
+                "score": 296,
+                "coverage_breadth": 0.242,
+                "coverage_depth": 161.9
+            },
+            {
+                "id": "MK361074.1",
+                "name": "Respiratory syncytial virus type B strain CBSH-321 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 63,
+                "score": 294,
+                "coverage_breadth": 0.31,
+                "coverage_depth": 89.2
+            },
+            {
+                "id": "MH760673.1",
+                "name": "Human orthopneumovirus strain B/NSW/WM0426A/16, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 22,
+                "score": 288,
+                "coverage_breadth": 0.038,
+                "coverage_depth": 8.0
+            },
+            {
+                "id": "MF001058.1",
+                "name": "Human respiratory syncytial virus B strain SC2935, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 40,
+                "score": 278,
+                "coverage_breadth": 0.042,
+                "coverage_depth": 4.9
+            },
+            {
+                "id": "MK361100.1",
+                "name": "Respiratory syncytial virus type B strain CBSH-456 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 61,
+                "score": 277,
+                "coverage_breadth": 0.5,
+                "coverage_depth": 115.3
+            },
+            {
+                "id": "MH447731.1",
+                "name": "Human respiratory syncytial virus B isolate TH/B17325/2016C attachment glycoprotein gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 12,
+                "score": 273,
+                "coverage_breadth": 0.797,
+                "coverage_depth": 139.7
+            },
+            {
+                "id": "MN365328.1",
+                "name": "Human orthopneumovirus isolate KHDSS/27/19-Apr-2017/CHA, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 70,
+                "score": 268,
+                "coverage_breadth": 0.052,
+                "coverage_depth": 2.4
+            },
+            {
+                "id": "MK749916.1",
+                "name": "Human respiratory syncytial virus B strain RSVB/Homo sapiens/NIC/IIIn_16_0137_01NT/2016, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 52,
+                "score": 252,
+                "coverage_breadth": 0.047,
+                "coverage_depth": 2.0
+            },
+            {
+                "id": "KY249673.1",
+                "name": "Human respiratory syncytial virus B isolate RSVB/England537/2012, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 31,
+                "score": 245,
+                "coverage_breadth": 0.049,
+                "coverage_depth": 1.4
+            },
+            {
+                "id": "MH742894.1",
+                "name": "Human respiratory syncytial virus B isolate KEN/RSVB/2487/Jan-2017 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 2,
+                "num_reads": 25,
+                "score": 235,
+                "coverage_breadth": 0.36,
+                "coverage_depth": 42.6
+            },
+            {
+                "id": "MT373704.1",
+                "name": "Human respiratory syncytial virus B strain RSVB/Novosibirsk/293/2019, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 21,
+                "score": 216,
+                "coverage_breadth": 0.059,
+                "coverage_depth": 1.7
+            },
+            {
+                "id": "MH760723.1",
+                "name": "Human orthopneumovirus strain B/NSW/WM1418A/16, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 21,
+                "score": 193,
+                "coverage_breadth": 0.039,
+                "coverage_depth": 0.63
+            },
+            {
+                "id": "KP317954.1",
+                "name": "Human respiratory syncytial virus isolate Kilifi_9697_6_RSVB_2004, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 22,
+                "score": 190,
+                "coverage_breadth": 0.023,
+                "coverage_depth": 4.8
+            },
+            {
+                "id": "MF973154.1",
+                "name": "Human respiratory syncytial virus B strain 7I8, complete genome\n",
+                "num_contigs": 1,
+                "num_reads": 27,
+                "score": 187,
+                "coverage_breadth": 0.043,
+                "coverage_depth": 5.1
+            },
+            {
+                "id": "KU954801.1",
+                "name": "Human respiratory syncytial virus B strain 4082A/2014 attachment glycoprotein (G) gene, complete cds\n",
+                "num_contigs": 2,
+                "num_reads": 10,
+                "score": 179,
+                "coverage_breadth": 0.221,
+                "coverage_depth": 27.7
+            },
+            {
+                "id": "KU254640.1",
+                "name": "Human respiratory syncytial virus B strain CC-04B-35 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 12,
+                "score": 170,
+                "coverage_breadth": 0.525,
+                "coverage_depth": 57.0
+            },
+            {
+                "id": "KX892929.1",
+                "name": "Human respiratory syncytial virus B strain Changchun14-35 attachment glycoprotein (G) gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 60,
+                "score": 138,
+                "coverage_breadth": 0.16,
+                "coverage_depth": 119.1
+            }
+        ],
+        "num_accessions": 3024
+    },
+    "12814": {
+        "best_accessions": [
+            {
+                "id": "MT543897.1",
+                "name": "Respiratory syncytial virus isolate Subject0208_Day5_F fusion glycoprotein gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 20,
+                "score": 252,
+                "coverage_breadth": 0.12,
+                "coverage_depth": 7.3
+            },
+            {
+                "id": "MK947228.1",
+                "name": "Respiratory syncytial virus isolate 02-336 G protein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 136,
+                "score": 136,
+                "coverage_breadth": 0.094,
+                "coverage_depth": 10.3
+            },
+            {
+                "id": "MK947353.1",
+                "name": "Respiratory syncytial virus isolate 18-078 G protein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 14,
+                "score": 14,
+                "coverage_breadth": 0.3,
+                "coverage_depth": 1.2
+            },
+            {
+                "id": "JN032123.1",
+                "name": "Respiratory syncytial virus strain B/WI/629-DC10/08-09, partial genome\n",
+                "num_contigs": 0,
+                "num_reads": 12,
+                "score": 12,
+                "coverage_breadth": 0.007,
+                "coverage_depth": 0.061
+            },
+            {
+                "id": "JN032118.1",
+                "name": "Respiratory syncytial virus strain B/WI/629-DC8/08-09, partial genome\n",
+                "num_contigs": 0,
+                "num_reads": 12,
+                "score": 12,
+                "coverage_breadth": 0.007,
+                "coverage_depth": 0.07
+            },
+            {
+                "id": "MT543896.1",
+                "name": "Respiratory syncytial virus isolate Subject0208_Day7_F fusion glycoprotein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 10,
+                "score": 10,
+                "coverage_breadth": 0.101,
+                "coverage_depth": 0.74
+            },
+            {
+                "id": "MN517106.1",
+                "name": "Respiratory syncytial virus isolate R2542-15 G protein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 10,
+                "score": 10,
+                "coverage_breadth": 0.225,
+                "coverage_depth": 1.4
+            },
+            {
+                "id": "MK947341.1",
+                "name": "Respiratory syncytial virus isolate 17-670 G protein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 10,
+                "score": 10,
+                "coverage_breadth": 0.283,
+                "coverage_depth": 0.94
+            },
+            {
+                "id": "MK947325.1",
+                "name": "Respiratory syncytial virus isolate 17-555 G protein gene, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 9,
+                "score": 9,
+                "coverage_breadth": 0.206,
+                "coverage_depth": 0.94
+            },
+            {
+                "id": "MT544284.1",
+                "name": "Respiratory syncytial virus isolate Subject0369_BL_F fusion glycoprotein gene, complete cds\n",
+                "num_contigs": 0,
+                "num_reads": 9,
+                "score": 9,
+                "coverage_breadth": 0.074,
+                "coverage_depth": 0.59
+            }
+        ],
+        "num_accessions": 211
+    },
+    "11676": {
+        "best_accessions": [
+            {
+                "id": "AY829323.1",
+                "name": "HIV-1 isolate 01BW.3726.N from Botswana pol protein (pol) gene, partial cds\n",
+                "num_contigs": 1,
+                "num_reads": 0,
+                "score": 2204,
+                "coverage_breadth": 0.846,
+                "coverage_depth": 39.8
+            },
+            {
+                "id": "AY734550.1",
+                "name": "HIV-1 isolate CO3056 from Tanzania, partial genome\n",
+                "num_contigs": 1,
+                "num_reads": 0,
+                "score": 2048,
+                "coverage_breadth": 0.118,
+                "coverage_depth": 7.8
+            },
+            {
+                "id": "DQ164121.1",
+                "name": "HIV-1 isolate 04ZAPS168B1 from South Africa, complete genome\n",
+                "num_contigs": 0,
+                "num_reads": 1,
+                "score": 1,
+                "coverage_breadth": 0.012,
+                "coverage_depth": 0.012
+            },
+            {
+                "id": "KR861060.1",
+                "name": "HIV-1 isolate mpp_00284_amp1 from Botswana gag protein (gag) and pol protein (pol) genes, partial cds\n",
+                "num_contigs": 0,
+                "num_reads": 1,
+                "score": 1,
+                "coverage_breadth": 0.031,
+                "coverage_depth": 0.031
+            }
+        ],
+        "num_accessions": 4
+    }
+}
