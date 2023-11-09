@@ -161,6 +161,14 @@ export const resolvers: Resolvers = {
         return formatSamples(samples);
       }
     },
+    ValidateUserCanDeleteObjects: async (root, args, context, info) => {
+      const body = {
+        selectedIds: args?.input?.selectedIds,
+        workflow: args?.input?.workflow,
+      }
+      const res = await postWithCSRF(`/samples/validate_user_can_delete_objects.json`, body, args, context)
+      return res;
+    },
     Taxons: async (root, args, context, info) => {
       const urlParams = formatUrlParams({
         id: args.sampleId,

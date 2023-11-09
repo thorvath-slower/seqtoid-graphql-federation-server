@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+        "validIds": {
+            "type": "array",
+            "items": {
+                "type": "str"
+            }
+        },
+        "invalidSampleNames": {
+            "type": "array",
+            "items": {
+                "type": "str"
+            }
+        },
+        "error": {
+            "type": "NoneType"
+        }
+    }
+}
