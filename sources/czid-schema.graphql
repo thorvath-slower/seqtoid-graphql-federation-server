@@ -208,7 +208,7 @@ type Query {
   pathogenList(version: String): PathogenList!
   project(id: Int!): Project!
   sample(sampleId: Int!): Sample!
-  sampleReadsStats(sampleIds: [String!]!): SampleReadsStatsList!
+  sampleReadsStats(sampleIds: [Int!]!): SampleReadsStatsList!
   samplesList(annotations: [Annotation!], basic: Boolean, domain: String, hostIds: [Int!], limit: Int, listAllIds: Boolean, location: String, locationV2: [String!], offset: Int, orderBy: String, orderDir: String, projectId: Int, requestedSampleIds: [Int!], sampleIds: [Int!], searchString: String, taxIds: [Int!], taxLevels: [String!], thresholdFilterInfo: String, time: [String!], tissue: [String!], visibility: [String!], workflow: String): SampleList!
   user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
 }
@@ -225,7 +225,7 @@ type Sample {
   editable: Boolean
   hostGenome: HostGenome
   hostGenomeId: Int
-  id: ID!
+  id: Int!
   initialWorkflow: String!
   maxInputFragments: Int
   name: String!
@@ -280,7 +280,7 @@ type SampleReadsStats {
   initialReads: Int
   name: String
   pipelineVersion: String
-  sampleId: ID!
+  sampleId: Int!
   steps: [SampleSteps!]
   wdlVersion: String
 }
