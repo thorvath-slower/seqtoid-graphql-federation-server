@@ -80,7 +80,7 @@ sources:
               Cookie: "{context.headers['cookie']}"
           - type: Query
             field: PipelineData
-            path: /samples/{args.sampleId}/pipeline_viz/7.0.json
+            path: /samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json
             method: GET
             responseSchema: ./json-schemas/pipelineData.json
             responseTypeName: PipelineData
