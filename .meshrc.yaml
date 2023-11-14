@@ -129,16 +129,62 @@ sources:
             field: DeleteSamples
             path: /samples/bulk_delete
             method: POST
-            requestSample: { "ids": [1], "_workflow": "short-read-mngs", "authenticityToken": "token"}
+            requestSample:
+              {
+                "ids": [1],
+                "_workflow": "short-read-mngs",
+                "authenticityToken": "token",
+              }
             responseSchema: ./json-schemas/deleteSamples.json
             responseTypeName: DeleteSamples
           - type: Mutation
             field: UpdateSampleNotes
             path: /samples/{args.sampleId}/save_metadata
             method: POST
-            requestSample: {"value": "test", "field": "notes", "authenticityToken": "token"}
+            requestSample:
+              {
+                "value": "test",
+                "field": "notes",
+                "authenticityToken": "token",
+              }
             responseSchema: ./json-schemas/updateSampleNotes.json
             responseTypeName: UpdateSampleNotes
+            headers:
+              Cookie: "{context.headers['cookie']}"
+          - type: Mutation
+            field: KickoffWGSWorkflow
+            path: /samples/{args.sampleId}/kickoff_workflow
+            method: POST
+            requestSample:
+              {
+                "inputs_json":
+                  {
+                    "accession_id": "KX882832.1",
+                    "accession_name": "Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds",
+                    "taxon_id": "1922926",
+                    "taxon_name": "Menispermaceae",
+                    "alignment_config_name": "2020-02-03",
+                    "technology": "Illumina",
+                  },
+                "workflow": "amr",
+                "authenticityToken": "token",
+              }
+            responseSchema: ./json-schemas/kickoffWorkflow.json
+            responseTypeName: KickoffWGSWorkflow
+            headers:
+              Cookie: "{context.headers['cookie']}"
+          - type: Mutation
+            field: KickoffAMRWorkflow
+            path: /samples/{args.sampleId}/kickoff_workflow
+            method: POST
+            requestSample:
+              {
+                "inputs_json": { "start_from_mngs": true },
+                "workflow": "amr",
+                "authenticityToken": "token",
+              }
+            responseSchema: ./json-schemas/kickoffWorkflow.json
+            responseTypeName: KickoffAMRWorkflow
             headers:
               Cookie: "{context.headers['cookie']}"
       transforms:
