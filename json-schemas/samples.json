@@ -1,105 +1,216 @@
 {
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "id": {
-                "type": "int"
-            },
-            "name": {
-                "type": "str"
-            },
-            "entity": {
-                "type": "object",
-                "properties": {
-                    "created_at": {
-                        "type": "str"
-                    },
-                    "updated_at": {
-                        "type": "str"
-                    },
-                    "owner_user_id": {
-                        "type": "int"
-                    },
-                    "producing_run_id": {
-                        "type": "int"
-                    },
-                    "project": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "int"
-                            },
-                            "name": {
-                                "type": "str"
-                            }
-                        }
-                    }
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        },
+        "project_id": {
+            "type": "integer"
+        },
+        "status": {
+            "type": "string"
+        },
+        "host_genome_id": {
+            "type": "integer"
+        },
+        "user_id": {
+            "type": "integer"
+        },
+        "upload_error": {
+            "type": "NoneType"
+        },
+        "initial_workflow": {
+            "type": "string"
+        },
+        "project": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
                 }
-            },
-            "reference_genome": {
+            }
+        },
+        "default_background_id": {
+            "type": "integer"
+        },
+        "default_pipeline_run_id": {
+            "type": "integer"
+        },
+        "editable": {
+            "type": "boolean"
+        },
+        "pipeline_runs": {
+            "type": "array",
+            "items": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "int"
+                        "type": "integer"
                     },
-                    "background_id": {
-                        "type": "int"
+                    "pipeline_version": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "alignment_config_name": {
+                        "type": "string"
+                    },
+                    "assembled": {
+                        "type": "integer"
+                    },
+                    "adjusted_remaining_reads": {
+                        "type": "integer"
+                    },
+                    "total_ercc_reads": {
+                        "type": "integer"
+                    },
+                    "run_finalized": {
+                        "type": "boolean"
                     }
                 }
-            },
-            "sequence_reads": {
+            }
+        },
+        "workflow_runs": {
+            "type": "array",
+            "items": {
                 "type": "object",
                 "properties": {
-                    "sequencing_technology": {
-                        "type": "str"
-                    }
-                }
-            },
-            "file": {
-                "type": "object",
-                "properties": {
-                    "upload_status": {
-                        "type": "str"
+                    "id": {
+                        "type": "integer"
                     },
-                    "upload_error": {
-                        "type": "str"
-                    }
-                }
-            },
-            "runs": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "int"
-                        },
-                        "status": {
-                            "type": "str"
-                        },
-                        "started_at": {
-                            "type": "str"
-                        },
-                        "workflow_version_id": {
-                            "type": "str"
-                        },
-                        "inputs_json": {
-                            "type": "object",
-                            "properties": {
-                                "alignment_config_name": {
-                                    "type": "str"
-                                }
+                    "status": {
+                        "type": "string"
+                    },
+                    "workflow": {
+                        "type": "string"
+                    },
+                    "wdl_version": {
+                        "type": "string"
+                    },
+                    "executed_at": {
+                        "type": "string"
+                    },
+                    "deprecated": {
+                        "type": "boolean"
+                    },
+                    "input_error": {
+                        "type": "NoneType"
+                    },
+                    "inputs": {
+                        "type": "object",
+                        "properties": {
+                            "accession_id": {
+                                "type": "string"
+                            },
+                            "accession_name": {
+                                "type": "string"
+                            },
+                            "taxon_id": {
+                                "type": "integer"
+                            },
+                            "taxon_name": {
+                                "type": "string"
+                            },
+                            "technology": {
+                                "type": "string"
+                            },
+                            "alignment_config_name": {
+                                "type": "string"
+                            },
+                            "creation_source": {
+                                "type": "string"
                             }
-                        },
-                        "outputs_json": {
-                            "type": "object",
-                            "properties": {
-                                "input_error": {
-                                    "type": "str"
+                        }
+                    },
+                    "parsed_cached_results": {
+                        "type": "object",
+                        "properties": {
+                            "coverage_viz": {
+                                "type": "object",
+                                "properties": {
+                                    "coverage_breadth": {
+                                        "type": "number"
+                                    },
+                                    "coverage_depth": {
+                                        "type": "number"
+                                    },
+                                    "max_aligned_length": {
+                                        "type": "integer"
+                                    },
+                                    "total_length": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "quality_metrics": {
+                                "type": "object",
+                                "properties": {
+                                    "ercc_mapped_reads": {
+                                        "type": "integer"
+                                    },
+                                    "mapped_reads": {
+                                        "type": "integer"
+                                    },
+                                    "n_actg": {
+                                        "type": "integer"
+                                    },
+                                    "n_ambiguous": {
+                                        "type": "integer"
+                                    },
+                                    "n_missing": {
+                                        "type": "integer"
+                                    },
+                                    "ref_snps": {
+                                        "type": "integer"
+                                    },
+                                    "total_reads": {
+                                        "type": "integer"
+                                    },
+                                    "percent_identity": {
+                                        "type": "number"
+                                    },
+                                    "gc_percent": {
+                                        "type": "number"
+                                    },
+                                    "percent_genome_called": {
+                                        "type": "number"
+                                    },
+                                    "reference_genome_length": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "taxon_info": {
+                                "type": "object",
+                                "properties": {
+                                    "accession_id": {
+                                        "type": "string"
+                                    },
+                                    "accession_name": {
+                                        "type": "string"
+                                    },
+                                    "taxon_id": {
+                                        "type": "integer"
+                                    },
+                                    "taxon_name": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
+                    },
+                    "run_finalized": {
+                        "type": "boolean"
                     }
                 }
             }

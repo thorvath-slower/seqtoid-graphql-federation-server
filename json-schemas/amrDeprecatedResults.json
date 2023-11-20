@@ -1,50 +1,47 @@
 {
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "id": {
-                "type": "int"
-            },
-            "gene": {
-                "type": "str"
-            },
-            "allele": {
-                "type": "str"
-            },
-            "coverage": {
-                "type": "float"
-            },
-            "depth": {
-                "type": "float"
-            },
-            "pipeline_run_id": {
-                "type": "int"
-            },
-            "drug_family": {
-                "type": "str"
-            },
-            "created_at": {
-                "type": "str"
-            },
-            "updated_at": {
-                "type": "str"
-            },
-            "annotation_gene": {
-                "type": "str"
-            },
-            "genbank_accession": {
-                "type": "str"
-            },
-            "total_reads": {
-                "type": "int"
-            },
-            "rpm": {
-                "type": "float"
-            },
-            "dpm": {
-                "type": "float"
-            }
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "gene": {
+            "type": "string"
+        },
+        "allele": {
+            "type": "string"
+        },
+        "coverage": {
+            "type": "number"
+        },
+        "depth": {
+            "type": "number"
+        },
+        "pipeline_run_id": {
+            "type": "integer"
+        },
+        "drug_family": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        },
+        "annotation_gene": {
+            "type": "string"
+        },
+        "genbank_accession": {
+            "type": "string"
+        },
+        "total_reads": {
+            "type": "integer"
+        },
+        "rpm": {
+            "type": "number"
+        },
+        "dpm": {
+            "type": "number"
         }
     }
 }

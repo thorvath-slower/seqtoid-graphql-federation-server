@@ -2,22 +2,22 @@
     "type": "object",
     "properties": {
         "id": {
-            "type": "int"
+            "type": "integer"
         },
         "status": {
-            "type": "str"
+            "type": "string"
         },
         "workflow": {
-            "type": "str"
+            "type": "string"
         },
         "wdl_version": {
-            "type": "str"
+            "type": "string"
         },
         "executed_at": {
-            "type": "str"
+            "type": "string"
         },
         "deprecated": {
-            "type": "bool"
+            "type": "boolean"
         },
         "input_error": {
             "type": "NoneType"
@@ -26,13 +26,13 @@
             "type": "object",
             "properties": {
                 "start_from_mngs": {
-                    "type": "str"
+                    "type": "string"
                 },
                 "card_version": {
-                    "type": "str"
+                    "type": "string"
                 },
                 "wildcard_version": {
-                    "type": "str"
+                    "type": "string"
                 }
             }
         },
@@ -40,7 +40,7 @@
             "type": "NoneType"
         },
         "run_finalized": {
-            "type": "bool"
+            "type": "boolean"
         }
     }
 }

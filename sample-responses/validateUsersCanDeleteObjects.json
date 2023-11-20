@@ -1,1 +1,5 @@
-{"validIds":[28114],"invalidSampleNames":["RR004_water_2_S23A_1"],"error":null}
+{
+  "validIds": [28114],
+  "invalidSampleNames": ["RR004_water_2_S23A_1"],
+  "error": null
+}

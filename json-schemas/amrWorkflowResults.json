@@ -1,99 +1,99 @@
 {
     "type": "object",
     "properties": {
-        "metric_amr": {
+        "quality_metrics": {
             "type": "object",
             "properties": {
                 "total_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "qc_percent": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "adjusted_remaining_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "compression_ratio": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "total_ercc_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "fraction_subsampled": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "insert_size_mean": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "insert_size_standard_deviation": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "percent_remaining": {
-                    "type": "float"
+                    "type": "number"
                 }
             }
         },
-        "amr_hit": {
+        "report_table_data": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "drug_class": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "gene": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "gene_id": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "gene_family": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "high_level_drug_class": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "mechanism": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "model": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "contigs": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "cutoff": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "contig_coverage_breadth": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "contig_percent_id": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "reads": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "rpm": {
-                        "type": "float"
+                        "type": "number"
                     },
                     "read_coverage_breadth": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "read_coverage_depth": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "dpm": {
-                        "type": "float"
+                        "type": "number"
                     },
                     "read_species": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "contig_species": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "aro_accession": {
-                        "type": "str"
+                        "type": "string"
                     }
                 }
             }

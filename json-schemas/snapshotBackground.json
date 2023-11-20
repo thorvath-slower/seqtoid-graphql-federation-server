@@ -1,26 +1,46 @@
 {
-  "type": "array",
-  "items": {
     "type": "object",
     "properties": {
-      "id": {
-        "type": "int"
-      },
-      "name": {
-        "type": "str"
-      },
-      "description": {
-        "type": "str"
-      },
-      "is_public": {
-        "type": "int"
-      },
-      "is_mass_normalized": {
-        "type": "bool"
-      },
-      "owned": {
-        "type": "bool"
-      }
+        "other_backgrounds": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "public_access": {
+                        "type": "integer"
+                    },
+                    "ready": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "mass_normalized": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "owned_backgrounds": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        }
     }
-  }
 }

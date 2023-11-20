@@ -5,18 +5,18 @@
             "type": "object",
             "properties": {
                 "tax_level": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "mean": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "stdev": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "rpm_list": {
                     "type": "array",
                     "items": {
-                        "type": "float"
+                        "type": "number"
                     }
                 }
             }
@@ -25,18 +25,18 @@
             "type": "object",
             "properties": {
                 "tax_level": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "mean": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "stdev": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "rpm_list": {
                     "type": "array",
                     "items": {
-                        "type": "float"
+                        "type": "number"
                     }
                 }
             }
@@ -45,18 +45,18 @@
             "type": "object",
             "properties": {
                 "tax_level": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "mean": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "stdev": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "rpm_list": {
                     "type": "array",
                     "items": {
-                        "type": "float"
+                        "type": "number"
                     }
                 }
             }

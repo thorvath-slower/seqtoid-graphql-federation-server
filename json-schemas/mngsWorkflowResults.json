@@ -5,19 +5,19 @@
             "type": "object",
             "properties": {
                 "assembled": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "adjusted_remaining_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "total_ercc_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "num_reads": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "num_reads_after_subsampling": {
-                    "type": "int"
+                    "type": "integer"
                 },
                 "_": {
                     "type": "object",
@@ -38,55 +38,55 @@
                         "type": "object",
                         "properties": {
                             "count_type": {
-                                "type": "str"
+                                "type": "string"
                             },
                             "count": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "base_count": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "rpm": {
-                                "type": "float"
+                                "type": "number"
                             },
                             "bpm": {
-                                "type": "float"
+                                "type": "number"
                             },
                             "alignment_length": {
-                                "type": "float"
+                                "type": "number"
                             },
                             "percent_identity": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "e_value": {
-                                "type": "float"
+                                "type": "number"
                             },
                             "tax_id": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "_": {
                                 "type": "object",
                                 "properties": {
                                     "bg_mean": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "bg_stdev": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "bg_mean_mass_normalized": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "bg_stdev_mass_normalized": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "z_score": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "max_z_score": {
-                                        "type": "float"
+                                        "type": "number"
                                     },
                                     "agg_score": {
-                                        "type": "float"
+                                        "type": "number"
                                     }
                                 }
                             }
@@ -104,13 +104,13 @@
                         "type": "object",
                         "properties": {
                             "tax_id": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "name": {
-                                "type": "str"
+                                "type": "string"
                             },
                             "rank": {
-                                "type": "str"
+                                "type": "string"
                             }
                         }
                     }

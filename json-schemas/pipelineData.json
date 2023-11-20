@@ -7,7 +7,7 @@
                 "type": "object",
                 "properties": {
                     "name": {
-                        "type": "str"
+                        "type": "string"
                     },
                     "steps": {
                         "type": "array",
@@ -15,10 +15,10 @@
                             "type": "object",
                             "properties": {
                                 "name": {
-                                    "type": "str"
+                                    "type": "string"
                                 },
                                 "description": {
-                                    "type": "str"
+                                    "type": "string"
                                 },
                                 "inputVariables": {
                                     "type": "array",
@@ -26,10 +26,10 @@
                                         "type": "object",
                                         "properties": {
                                             "name": {
-                                                "type": "str"
+                                                "type": "string"
                                             },
                                             "type": {
-                                                "type": "str"
+                                                "type": "string"
                                             }
                                         }
                                     }
@@ -40,7 +40,7 @@
                                         "type": "object",
                                         "properties": {
                                             "displayName": {
-                                                "type": "str"
+                                                "type": "string"
                                             },
                                             "url": {
                                                 "type": "NoneType"
@@ -51,17 +51,17 @@
                                 "inputEdges": {
                                     "type": "array",
                                     "items": {
-                                        "type": "int"
+                                        "type": "integer"
                                     }
                                 },
                                 "outputEdges": {
                                     "type": "array",
                                     "items": {
-                                        "type": "int"
+                                        "type": "integer"
                                     }
                                 },
                                 "status": {
-                                    "type": "str"
+                                    "type": "string"
                                 },
                                 "startTime": {
                                     "type": "NoneType"
@@ -79,7 +79,7 @@
                         }
                     },
                     "jobStatus": {
-                        "type": "str"
+                        "type": "string"
                     }
                 }
             }
@@ -93,10 +93,10 @@
                         "type": "object",
                         "properties": {
                             "stageIndex": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "stepIndex": {
-                                "type": "int"
+                                "type": "integer"
                             }
                         }
                     },
@@ -104,10 +104,10 @@
                         "type": "object",
                         "properties": {
                             "stageIndex": {
-                                "type": "int"
+                                "type": "integer"
                             },
                             "stepIndex": {
-                                "type": "int"
+                                "type": "integer"
                             }
                         }
                     },
@@ -117,7 +117,7 @@
                             "type": "object",
                             "properties": {
                                 "displayName": {
-                                    "type": "str"
+                                    "type": "string"
                                 },
                                 "url": {
                                     "type": "NoneType"
@@ -126,13 +126,13 @@
                         }
                     },
                     "isIntraStage": {
-                        "type": "bool"
+                        "type": "boolean"
                     }
                 }
             }
         },
         "status": {
-            "type": "str"
+            "type": "string"
         }
     }
 }

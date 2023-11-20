@@ -3,22 +3,22 @@
   "items": {
     "properties": {
       "id": {
-        "type": "int"
+        "type": "integer"
       },
       "pipeline_id": {
-        "type": "int"
+        "type": "integer"
       },
       "name": {
-        "type": "str"
+        "type": "string"
       },
       "num_contigs": {
-        "type": "int"
+        "type": "integer"
       },
       "num_reads": {
-        "type": "int"
+        "type": "integer"
       },
       "score": {
-        "type": "int"
+        "type": "integer"
       },
       "coverage_breadth": {
         "type": "float"

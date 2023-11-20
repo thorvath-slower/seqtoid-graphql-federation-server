@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "properties": {
+        "samples": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "host_genome_id": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}

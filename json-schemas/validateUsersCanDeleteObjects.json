@@ -4,13 +4,13 @@
         "validIds": {
             "type": "array",
             "items": {
-                "type": "str"
+                "type": "integer"
             }
         },
         "invalidSampleNames": {
             "type": "array",
             "items": {
-                "type": "str"
+                "type": "string"
             }
         },
         "error": {

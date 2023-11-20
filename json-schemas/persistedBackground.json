@@ -2,7 +2,7 @@
     "type": "object",
     "properties": {
         "background_id": {
-            "type": "int"
+            "type": "integer"
         }
     }
 }
