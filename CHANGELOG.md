@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [1.7.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v1.6.0...v1.7.0) (2023-11-21)
+
+
+### Features
+
+* added coverage viz summary ([#4](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/4)) ([e20662e](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e20662efd6b8504312ef1dc5bbb1d43b3f0cf358))
+* added kickoff_workflow ([#9](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/9)) ([65ede16](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/65ede161c23ee775058cffd31df150472317ddfd))
+* **ci:** promote images from staging when deploying to prod ([#5](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/5)) ([3854cbf](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/3854cbf33ab245c466d53cf1a2444a325d64b70f))
+* enable additional variables for PipelineData ([#15](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/15)) ([4c23ca7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/4c23ca780c2481bdae72cb88d19edb810705db38))
+* federeated /samples/validate_users_can_delete_objects ([#14](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/14)) ([106dc4a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/106dc4a7bc9fd4d5273881ee0a65ccf9a5108d80))
+
+
+### Bug Fixes
+
+* updated all json schemas  ([#22](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/22)) ([bb397de](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/bb397decb41713ae01870979536b25c6be6f271d))
+
+
+### Reverts
+
+* "chore: swap sampleId type to ID to support QualityControlQuery" ([#20](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/20)) ([078b0c2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/078b0c2230ef0f3818372614ccf45b2df57f6066))
+
 ## 1.6.0 (2023-11-02)
 
 
