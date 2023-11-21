@@ -38,7 +38,7 @@ jobs:
         run: |
           HAPPY_OIDC_ID_TOKEN=${{env.id_token}} happy config set API_URL ${{ vars.API_URL }} --env staging --aws-profile ""
       - name: Deploy to staging env
-        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@main
+        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
         with:
           tfe-token: ${{ secrets.TFE_TOKEN }}
           env: ${{ vars.HAPPY_ENV }}

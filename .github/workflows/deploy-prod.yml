@@ -38,10 +38,12 @@ jobs:
         run: |
           HAPPY_OIDC_ID_TOKEN=${{env.id_token}} happy config set API_URL ${{ vars.API_URL }} --env prod --aws-profile ""
       - name: Deploy to production env
-        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@main
+        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
         with:
           tfe-token: ${{ secrets.TFE_TOKEN }}
           env: ${{ vars.HAPPY_ENV }}
-          create-tag: true
+          image-source-env: ${{ vars.IMAGE_SOURCE_ENV }}
+          image-source-stack: ${{ secrets.IMAGE_SOURCE_STACK }}
+          image-source-role-arn: ${{ secrets.IMAGE_SOURCE_ROLE_ARN }}
           stack-name: ${{ secrets.HAPPY_STACK_NAME }}
           version-lock-file: .happy/version.lock
