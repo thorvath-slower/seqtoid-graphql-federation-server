@@ -1,6 +1,17 @@
 # Changelog
 
 
+## [2.0.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v1.7.0...v2.0.0) (2023-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* swap sampleId type to ID to support QualityControlQuery ([#21](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/21))
+
+### Features
+
+* swap sampleId type to ID to support QualityControlQuery ([#21](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/21)) ([532a648](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/532a6488c4cbafa23f980fd126938bfdb1492322))
+
 ## [1.7.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v1.6.0...v1.7.0) (2023-11-21)
 
 
