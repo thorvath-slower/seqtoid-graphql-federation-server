@@ -1,46 +1,95 @@
 {
-    "type": "object",
-    "properties": {
-        "id": {
-            "type": "integer"
-        },
-        "status": {
-            "type": "string"
-        },
-        "workflow": {
-            "type": "string"
-        },
-        "wdl_version": {
-            "type": "string"
-        },
-        "executed_at": {
-            "type": "string"
-        },
-        "deprecated": {
-            "type": "boolean"
-        },
-        "input_error": {
-            "type": "NoneType"
-        },
-        "inputs": {
-            "type": "object",
-            "properties": {
-                "start_from_mngs": {
-                    "type": "string"
-                },
-                "card_version": {
-                    "type": "string"
-                },
-                "wildcard_version": {
-                    "type": "string"
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "status": {
+                "type": "string"
+            },
+            "workflow": {
+                "type": "string"
+            },
+            "wdl_version": {
+                "type": "string"
+            },
+            "executed_at": {
+                "type": "string"
+            },
+            "deprecated": {
+                "type": "boolean"
+            },
+            "input_error": {
+                "type": "NoneType"
+            },
+            "inputs": {
+                "type": "object",
+                "properties": {
+                    "accession_id": {
+                        "type": "NoneType"
+                    },
+                    "accession_name": {
+                        "type": "NoneType"
+                    },
+                    "taxon_id": {
+                        "type": "NoneType"
+                    },
+                    "taxon_name": {
+                        "type": "NoneType"
+                    },
+                    "technology": {
+                        "type": "string"
+                    },
+                    "card_version": {
+                        "type": "string"
+                    },
+                    "wildcard_version": {
+                        "type": "string"
+                    }
                 }
+            },
+            "parsed_cached_results": {
+                "type": "object",
+                "properties": {
+                    "quality_metrics": {
+                        "type": "object",
+                        "properties": {
+                            "total_reads": {
+                                "type": "integer"
+                            },
+                            "qc_percent": {
+                                "type": "number"
+                            },
+                            "adjusted_remaining_reads": {
+                                "type": "integer"
+                            },
+                            "compression_ratio": {
+                                "type": "number"
+                            },
+                            "total_ercc_reads": {
+                                "type": "integer"
+                            },
+                            "fraction_subsampled": {
+                                "type": "number"
+                            },
+                            "insert_size_mean": {
+                                "type": "NoneType"
+                            },
+                            "insert_size_standard_deviation": {
+                                "type": "NoneType"
+                            },
+                            "percent_remaining": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            },
+            "run_finalized": {
+                "type": "boolean"
             }
-        },
-        "parsed_cached_results": {
-            "type": "NoneType"
-        },
-        "run_finalized": {
-            "type": "boolean"
         }
     }
 }

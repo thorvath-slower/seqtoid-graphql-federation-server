@@ -163,7 +163,7 @@ sources:
                     "accession_name": "Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds",
                     "taxon_id": "1922926",
                     "taxon_name": "Menispermaceae",
-                    "alignment_config_name": "2020-02-03",
+                    "alignment_config_name": "config_name",
                     "technology": "Illumina",
                   },
                 "workflow": "amr",

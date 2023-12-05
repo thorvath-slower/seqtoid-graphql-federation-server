@@ -1,16 +1,34 @@
-{
-  "id": 3024,
-  "status": "RUNNING",
-  "workflow": "amr",
-  "wdl_version": "1.3.0",
-  "executed_at": "2023-10-30T12:38:41.000-07:00",
-  "deprecated": false,
-  "input_error": null,
-  "inputs": {
-    "start_from_mngs": "true",
-    "card_version": "3.2.6",
-    "wildcard_version": "4.0.0"
-  },
-  "parsed_cached_results": null,
-  "run_finalized": false
-}
+[
+  {
+      "id": 3112,
+      "status": "SUCCEEDED",
+      "workflow": "amr",
+      "wdl_version": "1.3.2",
+      "executed_at": "2023-11-29T09:02:32.000-08:00",
+      "deprecated": false,
+      "input_error": null,
+      "inputs": {
+          "accession_id": null,
+          "accession_name": null,
+          "taxon_id": null,
+          "taxon_name": null,
+          "technology": "Illumina",
+          "card_version": "3.2.6",
+          "wildcard_version": "4.0.0"
+      },
+      "parsed_cached_results": {
+          "quality_metrics": {
+              "total_reads": 9698,
+              "qc_percent": 74.24148606811146,
+              "adjusted_remaining_reads": 7134,
+              "compression_ratio": 1.0002804262478968,
+              "total_ercc_reads": 8,
+              "fraction_subsampled": 1.0,
+              "insert_size_mean": null,
+              "insert_size_standard_deviation": null,
+              "percent_remaining": 73.5615590843473
+          }
+      },
+      "run_finalized": true
+  }
+]
