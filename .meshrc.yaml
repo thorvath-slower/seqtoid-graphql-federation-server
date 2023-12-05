@@ -125,6 +125,12 @@ sources:
             requestSample: {"selectedIds":[28114,28151],"workflow":"short-read-mngs","authenticityToken":"token"}
             responseSchema: ./json-schemas/validateUsersCanDeleteObjects.json
             responseTypeName: ValidateUserCanDeleteObjects
+          - type: Query
+            field: ZipLink
+            path: /workflow_runs/{args.workflowRunId}/zip_link.json
+            method: GET
+            responseSchema: ./json-schemas/zipLink.json
+            responseTypeName: ZipLink
           - type: Mutation
             field: DeleteSamples
             path: /samples/bulk_delete
