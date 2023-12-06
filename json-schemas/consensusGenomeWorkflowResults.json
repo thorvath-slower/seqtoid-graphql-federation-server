@@ -26,13 +26,13 @@
                     "type": "integer"
                 },
                 "percent_identity": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "gc_percent": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "percent_genome_called": {
-                    "type": "float"
+                    "type": "number"
                 },
                 "reference_genome_length": {
                     "type": "integer"
@@ -48,21 +48,21 @@
                             "items": {
                                 "type": "array",
                                 "items": {
-                                    "type": "integer"
+                                    "type": "number"
                                 }
                             }
                         },
                         "coverage_bin_size": {
-                            "type": "float"
+                            "type": "number"
                         },
                         "max_aligned_length": {
                             "type": "integer"
                         },
                         "coverage_depth": {
-                            "type": "float"
+                            "type": "number"
                         },
                         "coverage_breadth": {
-                            "type": "float"
+                            "type": "number"
                         }
                     }
                 }
@@ -81,7 +81,7 @@
                     "type": "object",
                     "properties": {
                         "id": {
-                            "type": "integer"
+                            "type": "string"
                         },
                         "name": {
                             "type": "string"
