@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [2.1.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.0.0...v2.1.0) (2023-12-07)
+
+
+### Features
+
+* Add CSRF prevention plugin ([#13](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/13)) ([64c8215](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/64c82152fd8c48575c52441be2896fb432a97e67))
+* federated /workflow_runs/{args.workflowRunId}/zip_link.json ([#25](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/25)) ([e97ab08](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e97ab08450dbfe25267bad6ccf6a067fd2293386))
+
+
+### Bug Fixes
+
+* Change schema back to next gen format ([#28](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/28)) ([0771869](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/0771869d8aeb5aab0ef5d652947e45d85fcd9ab1))
+* ConsensusGenomeWorkflowResults - add fall back for null values ([#34](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/34)) ([17d3193](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/17d3193bb304dda06b0faf5415020dd86147073a))
+* Updated schema for kick off workflow ([#27](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/27)) ([9939a7b](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/9939a7b6b25f15eec38636d3fa2247d9157f3844))
+* updates to ConsensusGenomeWorkflowResults type ([#33](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/33)) ([b25922a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b25922a1cbda73bfe2811558489b5c8e2f8545b8))
+
 ## [2.0.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v1.7.0...v2.0.0) (2023-11-28)
 
 
