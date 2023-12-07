@@ -46,7 +46,7 @@ export const resolvers: Resolvers = {
         args,
         context
       );
-      const {accession_id, accession_name, taxon_id, taxon_name} = taxon_info;
+      const {accession_id, accession_name, taxon_id, taxon_name} = taxon_info || {};
       return {
         metric_consensus_genome: {
           ...quality_metrics,
@@ -56,7 +56,7 @@ export const resolvers: Resolvers = {
           accession_id: accession_id,
           accession_name: accession_name,
           taxon: {
-            id: taxon_id.toString(),
+            id: taxon_id?.toString(),
             name: taxon_name,
           },
         },
