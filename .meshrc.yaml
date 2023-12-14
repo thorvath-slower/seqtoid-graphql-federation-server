@@ -213,3 +213,5 @@ serve:
   port: 4444
   endpoint: "/graphqlfed"
   playground: true
+  cors:
+    origin: "${ALLOWED_CORS_ORIGINS}"
