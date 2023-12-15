@@ -192,6 +192,15 @@ sources:
             responseTypeName: KickoffAMRWorkflow
             headers:
               Cookie: "{context.headers['cookie']}"
+          - type: Mutation
+            field: UpdateMetadata
+            path: /samples/{args.sampleId}/save_metadata_v2
+            method: POST
+            requestSchema: ./json-schemas/updateMetadata.json
+            responseSchema: ./json-schemas/updateMetadataResponse.json
+            responseTypeName: UpdateMetadataReponse
+            headers:
+              Cookie: "{context.headers['cookie']}"
       transforms:
         - namingConvention:
             typeNames: camelCase

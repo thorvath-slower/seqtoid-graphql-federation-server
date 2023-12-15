@@ -343,5 +343,18 @@ export const resolvers: Resolvers = {
       );
       return res;
     },
+    UpdateMetadata: async (root, args, context, info) => {
+      const body = {
+        field: args?.input?.field,
+        value: args?.input?.value,
+      };
+      const res = await postWithCSRF(
+        `/samples/${args.sampleId}/save_metadata_v2`,
+        body,
+        args,
+        context
+      );
+      return res;
+    }
   },
 };
