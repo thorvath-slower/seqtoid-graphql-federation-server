@@ -1,11 +1,12 @@
 {
     "type": "object",
     "properties": {
-        "status": {
+        "value": {
             "type": "string"
         },
-        "message": {
+        "authenticityToken": {
             "type": "string"
         }
-    }
+    },
+    "required" : ["value", "authenticityToken"]
 }

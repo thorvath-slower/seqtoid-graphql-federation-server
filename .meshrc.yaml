@@ -155,16 +155,20 @@ sources:
             field: UpdateSampleNotes
             path: /samples/{args.sampleId}/save_metadata
             method: POST
-            requestSample:
-              {
-                "value": "test",
-                "field": "notes",
-                "authenticityToken": "token",
-              }
+            requestSchema: ./json-schemas/updateMetadataSimple.json
             responseSchema: ./json-schemas/updateSampleNotes.json
             responseTypeName: UpdateSampleNotes
             headers:
               Cookie: "{context.headers['cookie']}"
+          - type: Mutation
+            field: UpdateSampleName
+            path: /samples/{args.sampleId}/save_metadata
+            method: POST
+            requestSchema: ./json-schemas/updateMetadataSimple.json
+            responseSchema: ./json-schemas/updateSampleName.json
+            responseTypeName: UpdateSampleName
+            headers:
+              Cookie: "{context.headers['cookie']}"  
           - type: Mutation
             field: KickoffWGSWorkflow
             path: /samples/{args.sampleId}/kickoff_workflow
