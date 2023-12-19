@@ -25,20 +25,24 @@ jobs:
           role-session-name: CzidGraphQLFederationUpdateSandbox
       - name: Install happy
         uses: chanzuckerberg/github-actions/.github/actions/install-happy@main
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-          script: |
-            const id_token = await core.getIDToken()
-            core.setOutput('id_token', id_token)
-            core.exportVariable('id_token', id_token);
       - name: Set version info
-        run: |
-          HAPPY_OIDC_ID_TOKEN=${{env.id_token}} happy config set CZID_GQL_FED_GIT_SHA ${{ github.sha }} --env sandbox --aws-profile ""
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: CZID_GQL_FED_GIT_SHA
+          app_config_value: ${{ github.sha }}
+          happy_env: sandbox
       - name: Set CZ ID Rails API URL
-        run: |
-          HAPPY_OIDC_ID_TOKEN=${{env.id_token}} happy config set API_URL ${{ vars.API_URL }} --env sandbox --aws-profile ""
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: API_URL
+          app_config_value: ${{ vars.API_URL}}
+          happy_env: sandbox
+      - name: Set allowed CORS origins
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: ALLOWED_CORS_ORIGINS
+          app_config_value: ${{ vars.ALLOWED_CORS_ORIGINS}}
+          happy_env: sandbox
       - name: Update sandbox
         uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
         with:
