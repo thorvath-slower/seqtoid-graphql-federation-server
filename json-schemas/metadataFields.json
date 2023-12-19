@@ -1,0 +1,52 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "key": {
+                "type": "string"
+            },
+            "dataType": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "options": {
+                "type": "NoneType"
+            },
+            "group": {
+                "type": "string"
+            },
+            "host_genome_ids": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            },
+            "description": {
+                "type": "string"
+            },
+            "is_required": {
+                "type": "integer"
+            },
+            "examples": {
+                "type": "object",
+                "properties": {
+                    "all": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "default_for_new_host_genome": {
+                "type": "integer"
+            },
+            "isBoolean": {
+                "type": "boolean"
+            }
+        }
+    }
+}

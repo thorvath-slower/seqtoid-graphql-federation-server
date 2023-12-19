@@ -46,7 +46,9 @@ export const getFullResponse = async (url: string, args: any, context: any) => {
 
 export const postWithCSRF = async (url: string, body: any, args: any, context: any) => {
     try {
-        const response = await fetch(process.env.API_URL + url, {
+        const baseURL = process.env.API_URL;
+        const urlPrefix = args.snapshotLinkId ? `/pub/${args.snapshotLinkId}` : "";
+        const response = await fetch(baseURL + urlPrefix + url, {
             method: 'POST',
             headers: {
               'Cookie': context.request.headers.get("cookie"),

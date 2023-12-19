@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "sampleIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "authenticityToken": {
+            "type": "string"
+        }
+    },
+    "required": ["sampleIds", "authenticityToken"]
+}

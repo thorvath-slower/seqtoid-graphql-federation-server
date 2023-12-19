@@ -46,6 +46,21 @@ sources:
             responseSchema: ./json-schemas/consensusGenomeWorkflowResults.json
             responseTypeName: ConsensusGenomeWorkflowResults
           - type: Query
+            field: CoverageVizSummary
+            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary
+            method: GET
+            responseSchema: ./json-schemas/coverageVizSummary.json
+            responseTypeName: CoverageVizSummary
+          - type: Query
+            field: MetadataFields
+            path: /pub/{args.snapshotLinkId}/samples/metadata_fields
+            method: POST
+            requestSchema: ./json-schemas/sampleArray.json
+            responseSchema: ./json-schemas/metadataFields.json
+            responseTypeName: MetadataFields
+            headers:
+              Cookie: "{context.headers['cookie']}"
+          - type: Query
             field: MngsWorkflowResults
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}.json
             method: GET
@@ -57,12 +72,6 @@ sources:
             method: GET
             responseSchema: ./json-schemas/mngsWorkflowResults.json
             responseTypeName: MngsWorkflowResults
-          - type: Query
-            field: CoverageVizSummary
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary
-            method: GET
-            responseSchema: ./json-schemas/coverageVizSummary.json
-            responseTypeName: CoverageVizSummary
           - type: Query
             field: Pathogens
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
