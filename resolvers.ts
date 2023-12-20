@@ -46,7 +46,8 @@ export const resolvers: Resolvers = {
         args,
         context
       );
-      const {accession_id, accession_name, taxon_id, taxon_name} = taxon_info || {};
+      const { accession_id, accession_name, taxon_id, taxon_name } =
+        taxon_info || {};
       return {
         metric_consensus_genome: {
           ...quality_metrics,
@@ -296,7 +297,7 @@ export const resolvers: Resolvers = {
       }
       const url = res.url;
       return {
-        url
+        url,
       };
     },
     GraphQLFederationVersion: () => ({
@@ -308,7 +309,7 @@ export const resolvers: Resolvers = {
     DeleteSamples: async (root, args, context, info) => {
       const body = {
         selectedIds: args?.input?.ids,
-        workflow: args?.input?._workflow,
+        workflow: args?.input?.workflow,
       };
       const { deletedIds, error } = await postWithCSRF(
         `/samples/bulk_delete`,
@@ -334,8 +335,8 @@ export const resolvers: Resolvers = {
       );
       try {
         const formattedRes = res.map((item) => {
-          item.id = item.id.toString()
-          return item
+          item.id = item.id.toString();
+          return item;
         });
         return formattedRes;
       } catch {

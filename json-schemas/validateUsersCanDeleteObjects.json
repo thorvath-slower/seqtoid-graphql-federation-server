@@ -14,7 +14,11 @@
             }
         },
         "error": {
-            "type": "NoneType"
+            "type": "string"
         }
-    }
+    },
+    "required": [
+        "validIds",
+        "invalidSampleNames"
+    ]
 }
