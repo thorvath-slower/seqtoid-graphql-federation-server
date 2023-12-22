@@ -61,6 +61,15 @@ sources:
             headers:
               Cookie: "{context.headers['cookie']}"
           - type: Query
+            field: SampleMetadata
+            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata
+            method: GET
+            requestSample: {
+                pipelineVersion: "8.0"
+              }
+            responseSchema: ./json-schemas/sampleMetadata.json
+            responseTypeName: SampleMetadata
+          - type: Query
             field: MngsWorkflowResults
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}.json
             method: GET
@@ -168,7 +177,7 @@ sources:
             responseSchema: ./json-schemas/updateSampleName.json
             responseTypeName: UpdateSampleName
             headers:
-              Cookie: "{context.headers['cookie']}"  
+              Cookie: "{context.headers['cookie']}"
           - type: Mutation
             field: KickoffWGSWorkflow
             path: /samples/{args.sampleId}/kickoff_workflow

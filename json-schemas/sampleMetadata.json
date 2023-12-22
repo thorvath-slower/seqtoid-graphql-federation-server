@@ -1,0 +1,287 @@
+{
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "raw_value": {
+                        "type": "string"
+                    },
+                    "string_validated_value": {
+                        "type": "string"
+                    },
+                    "number_validated_value": {
+                        "type": "string"
+                    },
+                    "sample_id": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "date_validated_value": {
+                        "type": "string"
+                    },
+                    "metadata_field_id": {
+                        "type": "integer"
+                    },
+                    "location_id": {
+                        "type": "integer"
+                    },
+                    "base_type": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "additional_info": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "host_genome_name": {
+                    "type": "string"
+                },
+                "host_genome_taxa_category": {
+                    "type": "string"
+                },
+                "upload_date": {
+                    "type": "string"
+                },
+                "project_name": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "ercc_comparison": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "actual": {
+                                "type": "integer"
+                            },
+                            "expected": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "pipeline_run": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "sample_id": {
+                            "type": "integer"
+                        },
+                        "created_at": {
+                            "type": "string"
+                        },
+                        "updated_at": {
+                            "type": "string"
+                        },
+                        "job_status": {
+                            "type": "string"
+                        },
+                        "finalized": {
+                            "type": "integer"
+                        },
+                        "total_reads": {
+                            "type": "integer"
+                        },
+                        "adjusted_remaining_reads": {
+                            "type": "integer"
+                        },
+                        "unmapped_reads": {
+                            "type": "integer"
+                        },
+                        "subsample": {
+                            "type": "integer"
+                        },
+                        "pipeline_branch": {
+                            "type": "string"
+                        },
+                        "total_ercc_reads": {
+                            "type": "integer"
+                        },
+                        "fraction_subsampled": {
+                            "type": "number"
+                        },
+                        "pipeline_version": {
+                            "type": "string"
+                        },
+                        "pipeline_commit": {
+                            "type": "string"
+                        },
+                        "truncated": {
+                            "type": "NoneType"
+                        },
+                        "results_finalized": {
+                            "type": "integer"
+                        },
+                        "alignment_config_id": {
+                            "type": "integer"
+                        },
+                        "alert_sent": {
+                            "type": "integer"
+                        },
+                        "dag_vars": {
+                            "type": "NoneType"
+                        },
+                        "assembled": {
+                            "type": "integer"
+                        },
+                        "max_input_fragments": {
+                            "type": "integer"
+                        },
+                        "error_message": {
+                            "type": "NoneType"
+                        },
+                        "known_user_error": {
+                            "type": "NoneType"
+                        },
+                        "pipeline_execution_strategy": {
+                            "type": "string"
+                        },
+                        "sfn_execution_arn": {
+                            "type": "string"
+                        },
+                        "use_taxon_whitelist": {
+                            "type": "boolean"
+                        },
+                        "wdl_version": {
+                            "type": "string"
+                        },
+                        "s3_output_prefix": {
+                            "type": "string"
+                        },
+                        "executed_at": {
+                            "type": "string"
+                        },
+                        "time_to_finalized": {
+                            "type": "integer"
+                        },
+                        "time_to_results_finalized": {
+                            "type": "integer"
+                        },
+                        "qc_percent": {
+                            "type": "number"
+                        },
+                        "compression_ratio": {
+                            "type": "number"
+                        },
+                        "deprecated": {
+                            "type": "boolean"
+                        },
+                        "technology": {
+                            "type": "string"
+                        },
+                        "guppy_basecaller_setting": {
+                            "type": "NoneType"
+                        },
+                        "total_bases": {
+                            "type": "NoneType"
+                        },
+                        "unmapped_bases": {
+                            "type": "NoneType"
+                        },
+                        "fraction_subsampled_bases": {
+                            "type": "NoneType"
+                        },
+                        "truncated_bases": {
+                            "type": "NoneType"
+                        },
+                        "deleted_at": {
+                            "type": "NoneType"
+                        },
+                        "mapped_reads": {
+                            "type": "NoneType"
+                        },
+                        "version": {
+                            "type": "object",
+                            "properties": {
+                                "pipeline": {
+                                    "type": "string"
+                                },
+                                "alignment_db": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "host_subtracted": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "summary_stats": {
+                    "type": "object",
+                    "properties": {
+                        "adjusted_remaining_reads": {
+                            "type": "integer"
+                        },
+                        "compression_ratio": {
+                            "type": "number"
+                        },
+                        "qc_percent": {
+                            "type": "number"
+                        },
+                        "percent_remaining": {
+                            "type": "number"
+                        },
+                        "unmapped_reads": {
+                            "type": "integer"
+                        },
+                        "insert_size_mean": {
+                            "type": "NoneType"
+                        },
+                        "insert_size_standard_deviation": {
+                            "type": "NoneType"
+                        },
+                        "last_processed_at": {
+                            "type": "string"
+                        },
+                        "reads_after_bowtie2_ercc_filtered": {
+                            "type": "NoneType"
+                        },
+                        "reads_after_fastp": {
+                            "type": "integer"
+                        },
+                        "reads_after_bowtie2_host_filtered": {
+                            "type": "integer"
+                        },
+                        "reads_after_hisat2_host_filtered": {
+                            "type": "integer"
+                        },
+                        "reads_after_czid_dedup": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

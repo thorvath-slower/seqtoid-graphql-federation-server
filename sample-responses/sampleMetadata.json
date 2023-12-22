@@ -1,0 +1,612 @@
+{
+  "metadata": [
+      {
+          "id": 67761,
+          "key": "collection_date",
+          "raw_value": "2020-05",
+          "string_validated_value": null,
+          "number_validated_value": null,
+          "sample_id": 25653,
+          "created_at": "2023-04-11T12:27:36.000-07:00",
+          "updated_at": "2023-04-11T12:27:36.000-07:00",
+          "date_validated_value": "2020-05-01",
+          "metadata_field_id": 3,
+          "location_id": null,
+          "base_type": "date"
+      },
+      {
+          "id": 67762,
+          "key": "collection_location_v2",
+          "raw_value": null,
+          "string_validated_value": "California, USA",
+          "number_validated_value": null,
+          "sample_id": 25653,
+          "created_at": "2023-04-11T12:27:36.000-07:00",
+          "updated_at": "2023-04-11T12:27:36.000-07:00",
+          "date_validated_value": null,
+          "metadata_field_id": 64,
+          "location_id": null,
+          "location_validated_value": "California, USA",
+          "base_type": "location"
+      },
+      {
+          "id": 67760,
+          "key": "nucleotide_type",
+          "raw_value": "DNA",
+          "string_validated_value": "DNA",
+          "number_validated_value": null,
+          "sample_id": 25653,
+          "created_at": "2023-04-11T12:27:36.000-07:00",
+          "updated_at": "2023-12-14T08:24:53.000-08:00",
+          "date_validated_value": null,
+          "metadata_field_id": 2,
+          "location_id": null,
+          "base_type": "string"
+      },
+      {
+          "id": 67759,
+          "key": "sample_type",
+          "raw_value": "CSF",
+          "string_validated_value": "CSF",
+          "number_validated_value": null,
+          "sample_id": 25653,
+          "created_at": "2023-04-11T12:27:36.000-07:00",
+          "updated_at": "2023-04-11T12:27:36.000-07:00",
+          "date_validated_value": null,
+          "metadata_field_id": 1,
+          "location_id": null,
+          "base_type": "string"
+      },
+      {
+          "id": 67763,
+          "key": "water_control",
+          "raw_value": "No",
+          "string_validated_value": "No",
+          "number_validated_value": null,
+          "sample_id": 25653,
+          "created_at": "2023-04-11T12:27:36.000-07:00",
+          "updated_at": "2023-04-11T12:27:36.000-07:00",
+          "date_validated_value": null,
+          "metadata_field_id": 43,
+          "location_id": null,
+          "base_type": "string"
+      }
+  ],
+  "additional_info": {
+      "name": "NO_DELETE_PipelineVs",
+      "editable": true,
+      "host_genome_name": "Human",
+      "host_genome_taxa_category": "human",
+      "upload_date": "2023-04-11T12:27:36.000-07:00",
+      "project_name": "SuzetteDec13",
+      "project_id": 900,
+      "notes": "allo",
+      "ercc_comparison": [
+          {
+              "name": "ERCC-00130",
+              "actual": 0,
+              "expected": 30000
+          },
+          {
+              "name": "ERCC-00004",
+              "actual": 0,
+              "expected": 7500
+          },
+          {
+              "name": "ERCC-00136",
+              "actual": 0,
+              "expected": 1875
+          },
+          {
+              "name": "ERCC-00108",
+              "actual": 0,
+              "expected": 937.5
+          },
+          {
+              "name": "ERCC-00116",
+              "actual": 0,
+              "expected": 468.75
+          },
+          {
+              "name": "ERCC-00092",
+              "actual": 0,
+              "expected": 234.375
+          },
+          {
+              "name": "ERCC-00095",
+              "actual": 0,
+              "expected": 117.1875
+          },
+          {
+              "name": "ERCC-00131",
+              "actual": 0,
+              "expected": 117.1875
+          },
+          {
+              "name": "ERCC-00062",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00019",
+              "actual": 0,
+              "expected": 29.296875
+          },
+          {
+              "name": "ERCC-00144",
+              "actual": 0,
+              "expected": 29.296875
+          },
+          {
+              "name": "ERCC-00170",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00154",
+              "actual": 0,
+              "expected": 7.32421875
+          },
+          {
+              "name": "ERCC-00085",
+              "actual": 0,
+              "expected": 7.32421875
+          },
+          {
+              "name": "ERCC-00028",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00033",
+              "actual": 0,
+              "expected": 1.83105469
+          },
+          {
+              "name": "ERCC-00134",
+              "actual": 0,
+              "expected": 1.83105469
+          },
+          {
+              "name": "ERCC-00147",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00097",
+              "actual": 0,
+              "expected": 0.45776367
+          },
+          {
+              "name": "ERCC-00156",
+              "actual": 0,
+              "expected": 0.45776367
+          },
+          {
+              "name": "ERCC-00123",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00017",
+              "actual": 0,
+              "expected": 0.11444092
+          },
+          {
+              "name": "ERCC-00083",
+              "actual": 0,
+              "expected": 0.02861023
+          },
+          {
+              "name": "ERCC-00096",
+              "actual": 0,
+              "expected": 15000
+          },
+          {
+              "name": "ERCC-00171",
+              "actual": 0,
+              "expected": 3750
+          },
+          {
+              "name": "ERCC-00009",
+              "actual": 0,
+              "expected": 937.5
+          },
+          {
+              "name": "ERCC-00042",
+              "actual": 0,
+              "expected": 468.75
+          },
+          {
+              "name": "ERCC-00060",
+              "actual": 0,
+              "expected": 234.375
+          },
+          {
+              "name": "ERCC-00035",
+              "actual": 0,
+              "expected": 117.1875
+          },
+          {
+              "name": "ERCC-00025",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00051",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00053",
+              "actual": 0,
+              "expected": 29.296875
+          },
+          {
+              "name": "ERCC-00148",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00126",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00034",
+              "actual": 0,
+              "expected": 7.32421875
+          },
+          {
+              "name": "ERCC-00150",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00067",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00031",
+              "actual": 0,
+              "expected": 1.83105469
+          },
+          {
+              "name": "ERCC-00109",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00073",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00158",
+              "actual": 0,
+              "expected": 0.45776367
+          },
+          {
+              "name": "ERCC-00104",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00142",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00138",
+              "actual": 0,
+              "expected": 0.11444092
+          },
+          {
+              "name": "ERCC-00117",
+              "actual": 0,
+              "expected": 0.05722046
+          },
+          {
+              "name": "ERCC-00075",
+              "actual": 0,
+              "expected": 0.01430512
+          },
+          {
+              "name": "ERCC-00074",
+              "actual": 0,
+              "expected": 15000
+          },
+          {
+              "name": "ERCC-00113",
+              "actual": 0,
+              "expected": 3750
+          },
+          {
+              "name": "ERCC-00145",
+              "actual": 0,
+              "expected": 937.5
+          },
+          {
+              "name": "ERCC-00111",
+              "actual": 0,
+              "expected": 468.75
+          },
+          {
+              "name": "ERCC-00076",
+              "actual": 0,
+              "expected": 234.375
+          },
+          {
+              "name": "ERCC-00044",
+              "actual": 0,
+              "expected": 117.1875
+          },
+          {
+              "name": "ERCC-00162",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00071",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00084",
+              "actual": 0,
+              "expected": 29.296875
+          },
+          {
+              "name": "ERCC-00099",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00054",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00157",
+              "actual": 0,
+              "expected": 7.32421875
+          },
+          {
+              "name": "ERCC-00143",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00039",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00058",
+              "actual": 0,
+              "expected": 1.83105469
+          },
+          {
+              "name": "ERCC-00120",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00040",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00164",
+              "actual": 0,
+              "expected": 0.45776367
+          },
+          {
+              "name": "ERCC-00024",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00016",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00012",
+              "actual": 0,
+              "expected": 0.11444092
+          },
+          {
+              "name": "ERCC-00098",
+              "actual": 0,
+              "expected": 0.05722046
+          },
+          {
+              "name": "ERCC-00057",
+              "actual": 0,
+              "expected": 0.01430512
+          },
+          {
+              "name": "ERCC-00002",
+              "actual": 0,
+              "expected": 15000
+          },
+          {
+              "name": "ERCC-00046",
+              "actual": 0,
+              "expected": 3750
+          },
+          {
+              "name": "ERCC-00003",
+              "actual": 0,
+              "expected": 937.5
+          },
+          {
+              "name": "ERCC-00043",
+              "actual": 0,
+              "expected": 468.75
+          },
+          {
+              "name": "ERCC-00022",
+              "actual": 0,
+              "expected": 234.375
+          },
+          {
+              "name": "ERCC-00112",
+              "actual": 0,
+              "expected": 117.1875
+          },
+          {
+              "name": "ERCC-00165",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00079",
+              "actual": 0,
+              "expected": 58.59375
+          },
+          {
+              "name": "ERCC-00078",
+              "actual": 0,
+              "expected": 29.296875
+          },
+          {
+              "name": "ERCC-00163",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00059",
+              "actual": 0,
+              "expected": 14.6484375
+          },
+          {
+              "name": "ERCC-00160",
+              "actual": 0,
+              "expected": 7.32421875
+          },
+          {
+              "name": "ERCC-00014",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00077",
+              "actual": 0,
+              "expected": 3.66210938
+          },
+          {
+              "name": "ERCC-00069",
+              "actual": 0,
+              "expected": 1.83105469
+          },
+          {
+              "name": "ERCC-00137",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00013",
+              "actual": 0,
+              "expected": 0.91552734
+          },
+          {
+              "name": "ERCC-00168",
+              "actual": 0,
+              "expected": 0.45776367
+          },
+          {
+              "name": "ERCC-00041",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00081",
+              "actual": 0,
+              "expected": 0.22888184
+          },
+          {
+              "name": "ERCC-00086",
+              "actual": 0,
+              "expected": 0.11444092
+          },
+          {
+              "name": "ERCC-00061",
+              "actual": 0,
+              "expected": 0.05722046
+          },
+          {
+              "name": "ERCC-00048",
+              "actual": 0,
+              "expected": 0.01430512
+          }
+      ],
+      "pipeline_run": {
+          "id": 31105,
+          "sample_id": 25653,
+          "created_at": "2023-06-21T08:13:32.000-07:00",
+          "updated_at": "2023-06-21T08:38:58.000-07:00",
+          "job_status": "CHECKED",
+          "finalized": 1,
+          "total_reads": 129990,
+          "adjusted_remaining_reads": 100022,
+          "unmapped_reads": 1931,
+          "subsample": 1000000,
+          "pipeline_branch": "master",
+          "total_ercc_reads": 0,
+          "fraction_subsampled": 1.0,
+          "pipeline_version": "8.0",
+          "pipeline_commit": "e1aa20c3f72c2e460caa59dd3c390e986de859e9",
+          "truncated": null,
+          "results_finalized": 10,
+          "alignment_config_id": 11,
+          "alert_sent": 0,
+          "dag_vars": null,
+          "assembled": 1,
+          "max_input_fragments": 75000000,
+          "error_message": null,
+          "known_user_error": null,
+          "pipeline_execution_strategy": "step_function",
+          "sfn_execution_arn": "arn:aws:states:us-west-2:732052188396:execution:idseq-swipe-staging-short-read-mngs-wdl:idseq-staging-900-25653-31105-20230621081332",
+          "use_taxon_whitelist": false,
+          "wdl_version": "8.0.1",
+          "s3_output_prefix": "s3://idseq-samples-staging/samples/900/25653/31105",
+          "executed_at": "2023-06-21T08:13:32.000-07:00",
+          "time_to_finalized": 1521,
+          "time_to_results_finalized": 1526,
+          "qc_percent": 77.2059,
+          "compression_ratio": 1.00072,
+          "deprecated": false,
+          "technology": "Illumina",
+          "guppy_basecaller_setting": null,
+          "total_bases": null,
+          "unmapped_bases": null,
+          "fraction_subsampled_bases": null,
+          "truncated_bases": null,
+          "deleted_at": null,
+          "mapped_reads": null,
+          "version": {
+              "pipeline": "8.0",
+              "alignment_db": "2021-01-22"
+          },
+          "host_subtracted": "Human"
+      },
+      "summary_stats": {
+          "adjusted_remaining_reads": 100022,
+          "compression_ratio": 1.00072,
+          "qc_percent": 77.2059,
+          "percent_remaining": 76.94591891683976,
+          "unmapped_reads": 1931,
+          "insert_size_mean": null,
+          "insert_size_standard_deviation": null,
+          "last_processed_at": "2023-06-21T08:13:32.000-07:00",
+          "reads_after_bowtie2_ercc_filtered": null,
+          "reads_after_fastp": 100360,
+          "reads_after_bowtie2_host_filtered": 100024,
+          "reads_after_hisat2_host_filtered": 100022,
+          "reads_after_czid_dedup": 99950
+      }
+  }
+}
