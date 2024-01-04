@@ -84,7 +84,7 @@
                                 "type": "integer"
                             },
                             "expected": {
-                                "type": "integer"
+                                "type": "float"
                             }
                         }
                     }
