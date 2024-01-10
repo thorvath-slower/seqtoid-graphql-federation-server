@@ -5,7 +5,14 @@
             "type": "string"
         },
         "value": {
-            "type": "string"
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "./locationV2.json"
+                }
+            ]
         },
         "authenticityToken": {
             "type": "string"

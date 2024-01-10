@@ -33,6 +33,21 @@
                     "date_validated_value": {
                         "type": "string"
                     },
+                    "location_validated_value": {
+                         "oneOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            {
+                                "$ref": "./locationV2.json"
+                            }
+                          ]
+                    },
                     "metadata_field_id": {
                         "type": "integer"
                     },

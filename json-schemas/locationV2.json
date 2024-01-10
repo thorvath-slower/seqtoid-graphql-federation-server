@@ -1,0 +1,74 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "geo_level": {
+            "type": "string"
+        },
+        "country_name": {
+            "type": "string"
+        },
+        "country_code": {
+            "type": "string"
+        },
+        "state_name": {
+            "type": "string"
+        },
+        "subdivision_name": {
+            "type": "string"
+        },
+        "city_name": {
+            "type": "string"
+        },
+        "osm_id": {
+            "type": "integer"
+        },
+        "locationiq_id": {
+            "type": "float"
+        },
+        "lat": {
+            "type": "float"
+        },
+        "lng": {
+            "type": "float"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        },
+        "osm_type": {
+            "type": "string"
+        },
+        "country_id": {
+            "type": "integer"
+        },
+        "state_id": {
+            "type": "integer"
+        },
+        "subdivision_id": {
+            "type": "integer"
+        },
+        "city_id": {
+            "type": "string"
+        },
+        "raw_value": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        }
+    }
+}

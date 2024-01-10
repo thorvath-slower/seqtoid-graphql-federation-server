@@ -91,6 +91,23 @@ export const resolvers: Resolvers = {
         if (res?.additional_info?.pipeline_run?.id){
           res.additional_info.pipeline_run.id = res.additional_info.pipeline_run.id.toString();
         }
+        // location_validated_value is a union type, so we need to add __typename to the object
+        metadata.map((field) => {
+          if( typeof field.location_validated_value === "object" ) {
+          field.location_validated_value = {
+            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1", 
+            ...field.location_validated_value,
+            id: field.location_validated_value.id.toString(),
+          };
+        } else if ( typeof field.location_validated_value === "string" ){
+          field.location_validated_value = {
+            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0", 
+            name: field.location_validated_value
+          };
+        } else {
+          field.location_validated_value = null;
+        }
+      });
         res.metadata = metadata;
         return res;
       } catch {
@@ -381,7 +398,7 @@ export const resolvers: Resolvers = {
     UpdateMetadata: async (root, args, context, info) => {
       const body = {
         field: args?.input?.field,
-        value: args?.input?.value,
+        value: args?.input?.value.String ? args.input.value.String : args?.input?.value.query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input,
       };
       const res = await postWithCSRF(
         `/samples/${args.sampleId}/save_metadata_v2`,

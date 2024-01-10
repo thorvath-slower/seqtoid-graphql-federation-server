@@ -1,0 +1,21 @@
+{ 
+  "id": 5280, 
+  "name": "Río Mula, Region of Murcia, Spain", 
+  "geo_level": "subdivision", 
+  "country_name": "Spain", 
+  "country_code": "es", 
+  "state_name": "Region of Murcia", 
+  "subdivision_name": "Río Mula", 
+  "city_name": "", 
+  "osm_id": 2902369, 
+  "locationiq_id": 330187145, 
+  "lat": "38.03", 
+  "lng": "-1.48", 
+  "created_at": "2024-01-04T12:57:24.000-08:00", 
+  "updated_at": "2024-01-04T12:57:25.000-08:00", 
+  "osm_type": "relation", 
+  "country_id": 3679, 
+  "state_id": 5281, 
+  "subdivision_id": 5280, 
+  "city_id": null 
+}
