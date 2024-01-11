@@ -11,6 +11,8 @@ services:
     environment:
       API_URL: http://web:3001
       ALLOWED_CORS_ORIGINS: "http://web:3001,http://localhost:3000"
+      NEXTGEN_ENTITIES_URL: "http://entities.czidnet:8008"
+      NEXTGEN_WORKFLOWS_URL: "http://workflows.czidnet:8042"
     ports:
       - "4444:4444"
     volumes:
