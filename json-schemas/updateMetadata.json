@@ -10,7 +10,7 @@
                     "type": "string"
                 },
                 {
-                    "$ref": "./locationV2.json"
+                    "$ref": "./location.json"
                 }
             ]
         },
