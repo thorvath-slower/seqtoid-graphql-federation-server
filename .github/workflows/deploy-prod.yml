@@ -20,24 +20,27 @@ jobs:
         id: get-release
         with:
           retries: 3
+          result-encoding: string
           script: |
+            let releaseObj;
             if (${{ github.event.inputs.release_tag != '' }}) {
-              return github.rest.repos.getReleaseByTag({
+              releaseObj = github.rest.repos.getReleaseByTag({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 tag: "${{ github.event.inputs.release_tag }}"
               })
             } else {
-              return github.rest.repos.getLatestRelease({
+              releaseObj = github.rest.repos.getLatestRelease({
                 owner: context.repo.owner,
                 repo: context.repo.repo
               })
             }
+            return releaseObj.tag_name
       - name: Output Github Release
         if: steps.get-release.outputs.result != ''
         id: set-release-tag
         run: |
-          parsed_tag_name=$(echo '${{ steps.get-release.outputs.result }}' | jq -r '.data.tag_name')
+          parsed_tag_name=${{ steps.get-release.outputs.result }}
           echo "Tag name is: $parsed_tag_name"
           echo "release_tag=$parsed_tag_name\n" >> $GITHUB_OUTPUT
       - name: Checkout repository
