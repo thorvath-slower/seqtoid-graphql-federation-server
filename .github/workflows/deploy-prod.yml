@@ -8,41 +8,25 @@ on:
 
 name: Deploy release to prod
 jobs:
+  get-release-tag:
+    runs-on: [ARM64, self-hosted, Linux]
+    environment: production
+    outputs:
+      release_tag: ${{ steps.get-release.outputs.release_tag}}
+    steps:
+      - name: Get latest or specified release
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/get-release-tag@main
+        id: get-release
+
   deploy-to-prod-env:
+    needs: get-release-tag
+    if: needs.get-release-tag.outputs.release_tag != ''
     runs-on: [ARM64, self-hosted, Linux]
     environment: production
     permissions:
       id-token: write
       contents: read
     steps:
-      - name: Get latest or specified release
-        uses: actions/github-script@v7
-        id: get-release
-        with:
-          retries: 3
-          result-encoding: string
-          script: |
-            let releaseObj;
-            if (${{ github.event.inputs.release_tag != '' }}) {
-              releaseObj = await github.rest.repos.getReleaseByTag({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                tag: "${{ github.event.inputs.release_tag }}"
-              })
-            } else {
-              releaseObj = await github.rest.repos.getLatestRelease({
-                owner: context.repo.owner,
-                repo: context.repo.repo
-              })
-            }
-            return releaseObj.data.tag_name
-      - name: Output Github Release
-        if: steps.get-release.outputs.result != ''
-        id: set-release-tag
-        run: |
-          parsed_tag_name=${{ steps.get-release.outputs.result }}
-          echo "Tag name is: $parsed_tag_name"
-          echo "release_tag=$parsed_tag_name\n" >> $GITHUB_OUTPUT
       - name: Checkout repository
         uses: actions/checkout@v3
         with:

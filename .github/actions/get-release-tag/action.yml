@@ -1,0 +1,35 @@
+name: Get release tag from GitHub API
+description: This workflow will get the requested release tag specified in the input, or the latest release tag via the Github API
+inputs:
+  requested_release_tag:
+    description: The release tag to search for
+    required: false
+    type: string
+outputs:
+  release_tag:
+    description: The release tag
+    value: ${{ steps.get-release.outputs.result }}
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest or specified release
+      uses: actions/github-script@v7
+      id: get-release
+      with:
+        retries: 3
+        result-encoding: string
+        script: |
+          let releaseObj;
+          if (${{ inputs.requested_release_tag != '' }}) {
+            releaseObj = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: "${{ github.event.inputs.release_tag }}"
+            })
+          } else {
+            releaseObj = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            })
+          }
+          return releaseObj.data.tag_name
