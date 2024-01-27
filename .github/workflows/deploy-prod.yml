@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag version to deploy to production'
+        description: 'Release tag version to deploy to production (defaults to latest)'
         required: false
         type: string
 
@@ -17,6 +17,8 @@ jobs:
       - name: Get latest or specified release
         uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/get-release-tag@main
         id: get-release
+        with:
+          requested_release_tag: ${{ github.event.inputs.release_tag || '' }}
 
   deploy-to-prod-env:
     needs: get-release-tag
