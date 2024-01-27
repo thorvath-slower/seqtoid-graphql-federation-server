@@ -40,10 +40,19 @@ export const formatTaxonHits = (counts: any) => {
     return taxonHits;
 }
 
+interface LineageType {
+  [key: number]: TaxInfoType
+};
+
+type TaxInfoType = {
+  name: string;
+  rank: string;
+};
+
 // Note that the tax_id, name, and rank data returned here are computed values
 // and not db values. Refer to encode_taxon_lineage in the czid-web-private repo.
-export const formatTaxonLineage = (lineage: any) => {
-  return Object.entries(lineage).map(([taxId, taxInfo] : [string, any]) => {
+export const formatTaxonLineage = (lineage: LineageType) => {
+  return Object.entries(lineage).map(([taxId, taxInfo] : [string, TaxInfoType]) => {
     return {
       tax_id: taxId,
       name: taxInfo.name,

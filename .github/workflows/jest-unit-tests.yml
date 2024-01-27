@@ -1,0 +1,27 @@
+name: Jest unit tests
+on: push
+
+jobs:
+  jest-unit-tests:
+    runs-on: [ARM64, self-hosted, Linux]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev
+      - name: Build Docker image
+        run: |
+          make build
+      - name: Create Docker network
+        run: |
+          docker swarm init
+          docker network create czidnet --attachable --driver overlay
+      - name: Run tests in Docker container
+        run: |
+          make test

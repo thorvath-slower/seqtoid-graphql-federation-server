@@ -5,7 +5,8 @@
   "scripts": {
     "start": "mesh start",
     "build": "mesh build",
-    "dev": "mesh dev"
+    "dev": "mesh dev",
+    "test": "mesh build && MOCKING_ENABLED=1 jest"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,15 @@
   },
   "homepage": "https://github.com/chanzuckerberg/graphql-federation-server#readme",
   "dependencies": {
-    "@graphql-mesh/cli": "^0.87.15",
-    "@graphql-mesh/graphql": "^0.95.7",
-    "@graphql-mesh/json-schema": "^0.95.10",
-    "@graphql-yoga/plugin-csrf-prevention": "^3.0.0",
+    "@graphql-mesh/cli": "^0.88.5",
+    "@graphql-mesh/graphql": "^0.96.3",
+    "@graphql-mesh/json-schema": "^0.97.4",
+    "@graphql-yoga/plugin-csrf-prevention": "^3.1.1",
     "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "ts-jest": "^29.1.1"
   },
   "overrides": {}
 }

@@ -1,7 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "quality_metrics": {
+        "metric_amr": {
             "type": "object",
             "properties": {
                 "total_reads": {
@@ -33,7 +33,7 @@
                 }
             }
         },
-        "report_table_data": {
+        "amr_hit": {
             "type": "array",
             "items": {
                 "type": "object",

@@ -95,13 +95,13 @@ export const resolvers: Resolvers = {
         metadata.map((field) => {
           if( typeof field.location_validated_value === "object" ) {
           field.location_validated_value = {
-            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1", 
+            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1",
             ...field.location_validated_value,
             id: field.location_validated_value.id.toString(),
           };
         } else if ( typeof field.location_validated_value === "string" ){
           field.location_validated_value = {
-            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0", 
+            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0",
             name: field.location_validated_value
           };
         } else {
@@ -112,7 +112,7 @@ export const resolvers: Resolvers = {
         return res;
       } catch {
         return res;
-      } 
+      }
     },
     MngsWorkflowResults: async (root, args, context, info) => {
       const data = await get(`/samples/${args.sampleId}.json`, args, context);
@@ -436,4 +436,3 @@ export const resolvers: Resolvers = {
     }
   },
 };
-

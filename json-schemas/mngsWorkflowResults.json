@@ -104,7 +104,7 @@
                         "type": "object",
                         "properties": {
                             "tax_id": {
-                                "type": "integer"
+                                "type": "string"
                             },
                             "name": {
                                 "type": "string"

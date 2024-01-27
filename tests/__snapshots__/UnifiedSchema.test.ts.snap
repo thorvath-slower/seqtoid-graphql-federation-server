@@ -1,0 +1,1166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CZ ID graphQL federation generated schema should generate a valid schema 1`] = `
+"schema {
+  query: Query
+  mutation: Mutation
+}
+
+directive @oneOf on OBJECT | INTERFACE | INPUT_OBJECT
+
+directive @example(value: ObjMap) repeatable on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM | SCALAR
+
+directive @resolveRoot on FIELD_DEFINITION
+
+directive @globalOptions(sourceName: String, endpoint: String, operationHeaders: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
+
+directive @httpOperation(path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap) on FIELD_DEFINITION
+
+type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") {
+  appConfig(id: ID!): AppConfig
+  pathogenList(version: String): PathogenList!
+  project(id: Int!): Project!
+  sample(sampleId: Int!): Sample!
+  sampleReadsStats(sampleIds: [String!]!): SampleReadsStatsList!
+  samplesList(annotations: [Annotation!], basic: Boolean, domain: String, hostIds: [Int!], limit: Int, listAllIds: Boolean, location: String, locationV2: [String!], offset: Int, orderBy: String, orderDir: String, projectId: Int, requestedSampleIds: [Int!], sampleIds: [Int!], searchString: String, taxIds: [Int!], taxLevels: [String!], thresholdFilterInfo: String, time: [String!], tissue: [String!], visibility: [String!], workflow: String): SampleList!
+  user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
+  AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
+  BulkDownload(bulkDownloadId: String): BulkDownload @httpOperation(path: "/bulk_downloads/{args.bulkDownloadId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
+  MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  SampleMetadata(snapshotLinkId: String, sampleId: String, input: queryInput_SampleMetadata_input_Input): SampleMetadata @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
+  MngsWorkflowResults(snapshotLinkId: String, sampleId: String, workflowVersionId: String, _backgroundId: String): MngsWorkflowResults @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
+  Pathogens(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  PersistedBackground(projectId: String): PersistedBackground @httpOperation(path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  Samples(snapshotLinkId: String, sampleId: String, projectId: String): Samples @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/index_v2.json?projectId={args.projectId}", httpMethod: GET)
+  Taxons(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
+  ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
+  GraphQLFederationVersion: GraphQLFederationVersion
+}
+
+type Mutation {
+  createUser(archetypes: String, email: String!, institution: String, name: String, role: Int, segments: String, sendActivation: Boolean): CreateUserPayload!
+  DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(path: "/samples/bulk_delete", httpMethod: POST)
+  UpdateSampleNotes(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleNotes @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateSampleName(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleName @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  KickoffWGSWorkflow(sampleId: String, input: mutationInput_KickoffWGSWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  KickoffAMRWorkflow(sampleId: String, input: mutationInput_KickoffAMRWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateMetadata(sampleId: String, input: mutationInput_UpdateMetadata_input_Input): UpdateMetadataReponse @httpOperation(path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+}
+
+type AlignmentConfig {
+  createdAt: ISO8601DateTime!
+  indexDirSuffix: String
+  lineageVersion: String!
+  lineageVersionOld: Int
+  name: String
+  s3Accession2taxidPath: String
+  s3DeuterostomeDbPath: String
+  s3LineagePath: String
+  s3NrDbPath: String
+  s3NrLocDbPath: String
+  s3NtDbPath: String
+  s3NtInfoDbPath: String
+  s3NtLocDbPath: String
+  s3TaxonBlacklistPath: String
+  updatedAt: ISO8601DateTime!
+}
+
+input Annotation {
+  name: String!
+}
+
+type AppConfig {
+  key: String!
+  value: String!
+}
+
+"""
+Represents non-fractional signed whole numeric values. Since the value may
+exceed the size of a 32-bit integer, it's encoded as a string.
+"""
+scalar BigInt
+
+"""Autogenerated return type of CreateUser."""
+type CreateUserPayload {
+  archetypes: String
+  email: String
+  institution: String
+  name: String
+  role: Int
+  segments: String
+  sendActivation: Boolean
+}
+
+type DbSample {
+  alignmentConfigName: String
+  basespaceAccessToken: String
+  clientUpdatedAt: ISO8601DateTime
+  createdAt: ISO8601DateTime!
+  dagVars: String
+  doNotProcess: Boolean!
+  hostGenomeId: Int
+  hostGenomeName: String
+  id: Int!
+  initialWorkflow: String!
+  inputFiles: [InputFile!]!
+  maxInputFragments: Int
+  name: String
+  pipelineBranch: String
+  pipelineCommit: String
+  pipelineExecutionStrategy: String
+  privateUntil: ISO8601DateTime
+  projectId: Int
+  s3Bowtie2IndexPath: String
+  s3PreloadResultPath: String
+  s3StarIndexPath: String
+  sampleNotes: String
+  status: String
+  subsample: Int
+  updatedAt: ISO8601DateTime!
+  uploadError: String
+  uploadedFromBasespace: Int!
+  useTaxonWhitelist: Boolean!
+  userId: Int!
+  webCommit: String
+}
+
+type DerivedSampleOutput {
+  hostGenomeName: String!
+  pipelineRun: PipelineRun
+  projectName: String!
+  summaryStats: SampleSummaryStats
+}
+
+type HostGenome {
+  createdAt: ISO8601DateTime!
+  defaultBackgroundId: Int
+  id: Int!
+  name: String!
+  s3Bowtie2IndexPath: String!
+  s3Minimap2IndexPath: String
+  s3StarIndexPath: String!
+  samplesCount: Int!
+  skipDeuteroFilter: Int!
+  taxaCategory: String!
+  updatedAt: ISO8601DateTime!
+  user: User
+  userId: Int
+}
+
+"""An ISO 8601-encoded datetime"""
+scalar ISO8601DateTime
+
+type InputFile {
+  createdAt: ISO8601DateTime!
+  id: Int!
+  name: String
+  parts: String
+  presignedUrl: String
+  sampleId: Int!
+  source: String
+  sourceType: String
+  updatedAt: ISO8601DateTime
+  uploadClient: String
+}
+
+type MngsRunInfo {
+  createdAt: ISO8601DateTime
+  finalized: Int
+  reportReady: Boolean
+  resultStatusDescription: String
+  totalRuntime: Int
+  withAssembly: Int
+}
+
+type Pathogen {
+  category: String
+  name: String
+  taxId: Int
+}
+
+type PathogenList {
+  citations: [String!]
+  createdAt: ISO8601DateTime
+  id: ID
+  name: String
+  pathogens: [Pathogen!]
+  updatedAt: ISO8601DateTime
+  version: String
+}
+
+type PipelineRun {
+  adjustedRemainingReads: Int
+  alertSent: Boolean!
+  alignmentConfig: AlignmentConfig
+  alignmentConfigId: Int
+  alignmentConfigName: String
+  assembled: Int
+  compressionRatio: Float
+  createdAt: ISO8601DateTime
+  dagVars: String
+  deprecated: Boolean
+  errorMessage: String
+  executedAt: ISO8601DateTime
+  finalized: Int
+  fractionSubsampled: Float
+  id: Int!
+  jobStatus: String
+  knownUserError: String
+  maxInputFragments: Int
+  pipelineBranch: String
+  pipelineCommit: String
+  pipelineExecutionStrategy: String
+  pipelineVersion: String
+  qcPercent: Float
+  resultsFinalized: Int
+  s3OutputPrefix: String
+  sampleId: Int
+  sfnExecutionArn: String
+  subsample: Int
+  timeToFinalized: Int
+  timeToResultsFinalized: Int
+  totalErccReads: Int
+  totalReads: Int
+  truncated: Int
+  unmappedReads: Int
+  updatedAt: ISO8601DateTime!
+  useTaxonWhitelist: Boolean!
+  wdlVersion: String
+}
+
+type Project {
+  backgroundFlag: Int
+  createdAt: ISO8601DateTime!
+  creator: User
+  daysToKeepSamplePrivate: Int!
+  description: String
+  id: Int!
+  maxInputFragmentsDefault: Int
+  name: String!
+  publicAccess: Int!
+  samples: [Sample!]
+  subsampleDefault: Int
+  totalSampleCount: Int!
+  updatedAt: ISO8601DateTime!
+}
+
+type Sample {
+  alignmentConfigName: String
+  basespaceAccessToken: String
+  createdAt: ISO8601DateTime
+  dagVars: String
+  defaultBackgroundId: Int
+  defaultPipelineRunId: Int
+  details: SampleDetails!
+  doNotProcess: Boolean!
+  editable: Boolean
+  hostGenome: HostGenome
+  hostGenomeId: Int
+  id: ID!
+  initialWorkflow: String!
+  maxInputFragments: Int
+  name: String!
+  pipelineBranch: String
+  pipelineCommit: String
+  pipelineExecutionStrategy: String
+  pipelineRuns: [PipelineRun!]
+  privateUntil: ISO8601DateTime
+  project: Project
+  projectId: Int
+  public: Int!
+  s3Bowtie2IndexPath: String
+  s3PreloadResultPath: String
+  s3StarIndexPath: String
+  sampleDeletable: Boolean
+  sampleNotes: String
+  status: String
+  subsample: Int
+  updatedAt: ISO8601DateTime
+  uploadError: String
+  uploadedFromBasespace: Int
+  useTaxonWhitelist: Boolean!
+  user: User
+  userId: Int
+  webCommit: String
+  workflowRuns: [WorkflowRun!]
+}
+
+type SampleDetails {
+  dbSample: DbSample
+  derivedSampleOutput: DerivedSampleOutput
+  metadata: SampleMetadata
+  mngsRunInfo: MngsRunInfo
+  uploader: SampleUploader!
+  workflowRunsCountByWorkflow: String
+}
+
+type SampleList {
+  sampleIds: [Int!]
+  samples: [Sample!]!
+}
+
+type SampleMetadata {
+  collectionDate: String
+  collectionLocationV2: String
+  nucleotideType: String
+  sampleType: String
+  waterControl: String
+  metadata: [query_SampleMetadata_metadata_items]
+  additional_info: query_SampleMetadata_additional_info
+}
+
+type SampleReadsStats {
+  initialReads: Int
+  name: String
+  pipelineVersion: String
+  sampleId: ID!
+  steps: [SampleSteps!]
+  wdlVersion: String
+}
+
+type SampleReadsStatsList {
+  sampleReadsStats: [SampleReadsStats!]!
+}
+
+type SampleSteps {
+  name: String
+  readsAfter: Int
+}
+
+type SampleSummaryStats {
+  adjustedRemainingReads: Int
+  compressionRatio: Float
+  insertSizeMean: Float
+  insertSizeStandardDeviation: Float
+  lastProcessedAt: ISO8601DateTime
+  percentRemaining: Float
+  qcPercent: Float
+  readsAfterCzidDedup: Int
+  readsAfterPriceseq: Int
+  readsAfterStar: Int
+  readsAfterTrimmomatic: Int
+  unmappedReads: Int
+}
+
+type SampleUploader {
+  id: Int!
+  name: String
+}
+
+type User {
+  archetypes: String!
+  createdByUserId: BigInt!
+  email: String!
+  id: ID!
+  institution: String!
+  name: String!
+  role: Int!
+  segments: String!
+}
+
+type WorkflowRun {
+  cachedResults: String
+  createdAt: ISO8601DateTime!
+  deprecated: Boolean!
+  errorMessage: String
+  executedAt: ISO8601DateTime
+  inputsJson: String
+  rerunFrom: Int
+  s3OutputPrefix: String
+  sample: Sample
+  sampleId: Int
+  sfnExecutionArn: String
+  status: String!
+  timeToFinalized: Int
+  updatedAt: ISO8601DateTime!
+  wdlVersion: String
+  workflow: String!
+}
+
+type AmrDeprecatedResults {
+  id: Int
+  gene: String
+  allele: String
+  coverage: Float
+  depth: Float
+  pipeline_run_id: Int
+  drug_family: String
+  created_at: String
+  updated_at: String
+  annotation_gene: String
+  genbank_accession: String
+  total_reads: Int
+  rpm: Float
+  dpm: Float
+}
+
+type AmrWorkflowResults {
+  metric_amr: query_AmrWorkflowResults_metric_amr
+  amr_hit: [query_AmrWorkflowResults_amr_hit_items]
+}
+
+type query_AmrWorkflowResults_metric_amr {
+  total_reads: Int
+  qc_percent: Float
+  adjusted_remaining_reads: Int
+  compression_ratio: Float
+  total_ercc_reads: Int
+  fraction_subsampled: Float
+  insert_size_mean: Int
+  insert_size_standard_deviation: Float
+  percent_remaining: Float
+}
+
+type query_AmrWorkflowResults_amr_hit_items {
+  drug_class: String
+  gene: String
+  gene_id: String
+  gene_family: String
+  high_level_drug_class: String
+  mechanism: String
+  model: String
+  contigs: String
+  cutoff: String
+  contig_coverage_breadth: String
+  contig_percent_id: String
+  reads: String
+  rpm: Float
+  read_coverage_breadth: String
+  read_coverage_depth: String
+  dpm: Float
+  read_species: String
+  contig_species: String
+  aro_accession: String
+}
+
+type Background {
+  other_backgrounds: [query_Background_other_backgrounds_items]
+  owned_backgrounds: [JSON]
+}
+
+type query_Background_other_backgrounds_items {
+  id: Int
+  name: String
+  created_at: String
+  updated_at: String
+  description: String
+  public_access: Int
+  ready: Int
+  user_id: Int
+  mass_normalized: Boolean
+}
+
+"""
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type BulkDownload {
+  bulk_download: query_BulkDownload_bulk_download
+  download_type: query_BulkDownload_download_type
+}
+
+type query_BulkDownload_bulk_download {
+  id: Int
+  params_json: String
+  download_type: String
+  status: String
+  error_message: JSON
+  user_id: Int
+  created_at: String
+  updated_at: String
+  progress: Float
+  ecs_task_arn: JSON
+  output_file_size: Int
+  description: JSON
+  deleted_at: JSON
+  analysis_type: String
+  analysis_count: Int
+  num_samples: Int
+  download_name: String
+  file_size: String
+  user_name: String
+  execution_type: String
+  log_url: JSON
+  params: query_BulkDownload_bulk_download_params
+  pipeline_runs: [JSON]
+  workflow_runs: [JSON]
+  presigned_output_url: String
+}
+
+type query_BulkDownload_bulk_download_params {
+  background: query_BulkDownload_bulk_download_params_background
+}
+
+type query_BulkDownload_bulk_download_params_background {
+  value: Int
+  displayName: String
+}
+
+type query_BulkDownload_download_type {
+  type: String
+  display_name: String
+  description: String
+  category: String
+  execution_type: String
+  fields: [query_BulkDownload_download_type_fields_items]
+  file_type_display: String
+  workflows: [String]
+}
+
+type query_BulkDownload_download_type_fields_items {
+  display_name: String
+  type: String
+}
+
+type ConsensusGenomeWorkflowResults {
+  metric_consensus_genome: query_ConsensusGenomeWorkflowResults_metric_consensus_genome
+  reference_genome: query_ConsensusGenomeWorkflowResults_reference_genome
+}
+
+type query_ConsensusGenomeWorkflowResults_metric_consensus_genome {
+  ercc_mapped_reads: Int
+  mapped_reads: Int
+  n_actg: Int
+  n_ambiguous: Int
+  n_missing: Int
+  ref_snps: Int
+  total_reads: Int
+  percent_identity: Float
+  gc_percent: Float
+  percent_genome_called: Float
+  reference_genome_length: Int
+  coverage_viz: query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz
+}
+
+type query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz {
+  total_length: Int
+  coverage: [[Float]]
+  coverage_bin_size: Float
+  max_aligned_length: Int
+  coverage_depth: Float
+  coverage_breadth: Float
+}
+
+type query_ConsensusGenomeWorkflowResults_reference_genome {
+  accession_id: String
+  accession_name: String
+  taxon: query_ConsensusGenomeWorkflowResults_reference_genome_taxon
+}
+
+type query_ConsensusGenomeWorkflowResults_reference_genome_taxon {
+  id: String
+  name: String
+}
+
+type query_CoverageVizSummary_items {
+  id: Int
+  pipeline_id: Int
+  name: String
+  num_contigs: Int
+  num_reads: Int
+  score: Int
+  coverage_breadth: JSON
+  coverage_depth: JSON
+}
+
+type query_MetadataFields_items {
+  key: String
+  dataType: String
+  name: String
+  options: JSON
+  group: String
+  host_genome_ids: [Int]
+  description: String
+  is_required: Int
+  examples: query_MetadataFields_items_examples
+  default_for_new_host_genome: Int
+  isBoolean: Boolean
+}
+
+type query_MetadataFields_items_examples {
+  all: [String]
+}
+
+input queryInput_MetadataFields_input_Input {
+  sampleIds: [String]!
+  authenticityToken: String!
+}
+
+type query_SampleMetadata_metadata_items {
+  id: String
+  key: String
+  raw_value: String
+  string_validated_value: String
+  number_validated_value: String
+  sample_id: Int
+  created_at: String
+  updated_at: String
+  date_validated_value: String
+  location_validated_value: query_SampleMetadata_metadata_items_location_validated_value
+  metadata_field_id: Int
+  location_id: Int
+  base_type: String
+}
+
+union query_SampleMetadata_metadata_items_location_validated_value = query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 | query_SampleMetadata_metadata_items_location_validated_value_oneOf_1
+
+type query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 {
+  name: String
+}
+
+type query_SampleMetadata_metadata_items_location_validated_value_oneOf_1 {
+  id: String
+  name: String
+  geo_level: String
+  country_name: String
+  country_code: String
+  state_name: String
+  subdivision_name: String
+  city_name: String
+  osm_id: Int
+  locationiq_id: JSON
+  lat: JSON
+  lng: JSON
+  created_at: String
+  updated_at: String
+  osm_type: String
+  country_id: Int
+  state_id: Int
+  subdivision_id: Int
+  city_id: String
+  raw_value: String
+  title: String
+  description: String
+  key: String
+  refetch_adjusted_location: Boolean
+}
+
+type query_SampleMetadata_additional_info {
+  name: String
+  editable: Boolean
+  host_genome_name: String
+  host_genome_taxa_category: String
+  upload_date: String
+  project_name: String
+  project_id: Int
+  notes: String
+  ercc_comparison: [query_SampleMetadata_additional_info_ercc_comparison_items]
+  pipeline_run: query_SampleMetadata_additional_info_pipeline_run
+  summary_stats: query_SampleMetadata_additional_info_summary_stats
+}
+
+type query_SampleMetadata_additional_info_ercc_comparison_items {
+  name: String
+  actual: Int
+  expected: JSON
+}
+
+type query_SampleMetadata_additional_info_pipeline_run {
+  id: String
+  sample_id: Int
+  created_at: String
+  updated_at: String
+  job_status: String
+  finalized: Int
+  total_reads: Int
+  adjusted_remaining_reads: Int
+  unmapped_reads: Int
+  subsample: Int
+  pipeline_branch: String
+  total_ercc_reads: Int
+  fraction_subsampled: Float
+  pipeline_version: String
+  pipeline_commit: String
+  truncated: JSON
+  results_finalized: Int
+  alignment_config_id: Int
+  alert_sent: Int
+  dag_vars: JSON
+  assembled: Int
+  max_input_fragments: Int
+  error_message: JSON
+  known_user_error: JSON
+  pipeline_execution_strategy: String
+  sfn_execution_arn: String
+  use_taxon_whitelist: Boolean
+  wdl_version: String
+  s3_output_prefix: String
+  executed_at: String
+  time_to_finalized: Int
+  time_to_results_finalized: Int
+  qc_percent: Float
+  compression_ratio: Float
+  deprecated: Boolean
+  technology: String
+  guppy_basecaller_setting: JSON
+  total_bases: JSON
+  unmapped_bases: JSON
+  fraction_subsampled_bases: JSON
+  truncated_bases: JSON
+  deleted_at: JSON
+  mapped_reads: JSON
+  version: query_SampleMetadata_additional_info_pipeline_run_version
+  host_subtracted: String
+}
+
+type query_SampleMetadata_additional_info_pipeline_run_version {
+  pipeline: String
+  alignment_db: String
+}
+
+type query_SampleMetadata_additional_info_summary_stats {
+  adjusted_remaining_reads: Int
+  compression_ratio: Float
+  qc_percent: Float
+  percent_remaining: Float
+  unmapped_reads: Int
+  insert_size_mean: JSON
+  insert_size_standard_deviation: JSON
+  last_processed_at: String
+  reads_after_bowtie2_ercc_filtered: JSON
+  reads_after_fastp: Int
+  reads_after_bowtie2_host_filtered: Int
+  reads_after_hisat2_host_filtered: Int
+  reads_after_czid_dedup: Int
+}
+
+input queryInput_SampleMetadata_input_Input @example(value: "{\\"pipelineVersion\\":\\"8.0\\"}") {
+  pipelineVersion: String
+}
+
+type MngsWorkflowResults {
+  metric_mngs: query_MngsWorkflowResults_metric_mngs
+  taxon_hit_results: query_MngsWorkflowResults_taxon_hit_results
+  _: query_MngsWorkflowResults__
+}
+
+type query_MngsWorkflowResults_metric_mngs {
+  assembled: Int
+  adjusted_remaining_reads: Int
+  total_ercc_reads: Int
+  num_reads: Int
+  num_reads_after_subsampling: Int
+  _: query_MngsWorkflowResults_metric_mngs__
+}
+
+type query_MngsWorkflowResults_metric_mngs__ {
+  has_byteranges: Boolean
+}
+
+type query_MngsWorkflowResults_taxon_hit_results {
+  taxon_hits: [query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items]
+}
+
+type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items {
+  count_type: String
+  count: Int
+  base_count: Int
+  rpm: Float
+  bpm: Float
+  alignment_length: Float
+  percent_identity: Int
+  e_value: Float
+  tax_id: Int
+  _: query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__
+}
+
+type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__ {
+  bg_mean: Float
+  bg_stdev: Float
+  bg_mean_mass_normalized: Float
+  bg_stdev_mass_normalized: Float
+  z_score: Float
+  max_z_score: Float
+  agg_score: Float
+}
+
+type query_MngsWorkflowResults__ {
+  lineage: [query_MngsWorkflowResults___lineage_items]
+}
+
+type query_MngsWorkflowResults___lineage_items {
+  tax_id: String
+  name: String
+  rank: String
+}
+
+type query_Pathogens_items {
+  tax_id: JSON
+}
+
+type PersistedBackground {
+  background_id: Int
+}
+
+type PipelineData {
+  stages: [query_PipelineData_stages_items]
+  edges: [query_PipelineData_edges_items]
+  status: String
+}
+
+type query_PipelineData_stages_items {
+  name: String
+  steps: [query_PipelineData_stages_items_steps_items]
+  jobStatus: String
+}
+
+type query_PipelineData_stages_items_steps_items {
+  name: String
+  description: String
+  inputVariables: [query_PipelineData_stages_items_steps_items_inputVariables_items]
+  outputFiles: [query_PipelineData_stages_items_steps_items_outputFiles_items]
+  inputEdges: [Int]
+  outputEdges: [Int]
+  status: String
+  startTime: JSON
+  endTime: JSON
+  resources: [JSON]
+}
+
+type query_PipelineData_stages_items_steps_items_inputVariables_items {
+  name: String
+  type: String
+}
+
+type query_PipelineData_stages_items_steps_items_outputFiles_items {
+  displayName: String
+  url: JSON
+}
+
+type query_PipelineData_edges_items {
+  to: query_PipelineData_edges_items_to
+  from: query_PipelineData_edges_items_from
+  files: [query_PipelineData_edges_items_files_items]
+  isIntraStage: Boolean
+}
+
+type query_PipelineData_edges_items_to {
+  stageIndex: Int
+  stepIndex: Int
+}
+
+type query_PipelineData_edges_items_from {
+  stageIndex: Int
+  stepIndex: Int
+}
+
+type query_PipelineData_edges_items_files_items {
+  displayName: String
+  url: JSON
+}
+
+type Samples {
+  name: String
+  created_at: String
+  updated_at: String
+  project_id: Int
+  status: String
+  host_genome_id: Int
+  user_id: Int
+  upload_error: JSON
+  initial_workflow: String
+  project: query_Samples_project
+  default_background_id: Int
+  default_pipeline_run_id: Int
+  editable: Boolean
+  pipeline_runs: [query_Samples_pipeline_runs_items]
+  workflow_runs: [query_Samples_workflow_runs_items]
+}
+
+type query_Samples_project {
+  id: Int
+  name: String
+}
+
+type query_Samples_pipeline_runs_items {
+  id: Int
+  pipeline_version: String
+  created_at: String
+  alignment_config_name: String
+  assembled: Int
+  adjusted_remaining_reads: Int
+  total_ercc_reads: Int
+  run_finalized: Boolean
+}
+
+type query_Samples_workflow_runs_items {
+  id: Int
+  status: String
+  workflow: String
+  wdl_version: String
+  executed_at: String
+  deprecated: Boolean
+  input_error: JSON
+  inputs: query_Samples_workflow_runs_items_inputs
+  parsed_cached_results: query_Samples_workflow_runs_items_parsed_cached_results
+  run_finalized: Boolean
+}
+
+type query_Samples_workflow_runs_items_inputs {
+  accession_id: String
+  accession_name: String
+  taxon_id: Int
+  taxon_name: String
+  technology: String
+  alignment_config_name: String
+  creation_source: String
+}
+
+type query_Samples_workflow_runs_items_parsed_cached_results {
+  coverage_viz: query_Samples_workflow_runs_items_parsed_cached_results_coverage_viz
+  quality_metrics: query_Samples_workflow_runs_items_parsed_cached_results_quality_metrics
+  taxon_info: query_Samples_workflow_runs_items_parsed_cached_results_taxon_info
+}
+
+type query_Samples_workflow_runs_items_parsed_cached_results_coverage_viz {
+  coverage_breadth: Float
+  coverage_depth: Float
+  max_aligned_length: Int
+  total_length: Int
+}
+
+type query_Samples_workflow_runs_items_parsed_cached_results_quality_metrics {
+  ercc_mapped_reads: Int
+  mapped_reads: Int
+  n_actg: Int
+  n_ambiguous: Int
+  n_missing: Int
+  ref_snps: Int
+  total_reads: Int
+  percent_identity: Float
+  gc_percent: Float
+  percent_genome_called: Float
+  reference_genome_length: Int
+}
+
+type query_Samples_workflow_runs_items_parsed_cached_results_taxon_info {
+  accession_id: String
+  accession_name: String
+  taxon_id: Int
+  taxon_name: String
+}
+
+type query_Taxons_items {
+  tax_id: JSON
+  tax_id_genus: JSON
+  common_name: JSON
+  name: JSON
+  is_phage: JSON
+  level: JSON
+  _: query_Taxons_items__
+}
+
+type query_Taxons_items__ {
+  category: JSON
+}
+
+type TaxonDist {
+  merged_NT_NR: query_TaxonDist_merged_NT_NR
+  NR: query_TaxonDist_NR
+  NT: query_TaxonDist_NT
+}
+
+type query_TaxonDist_merged_NT_NR {
+  tax_level: Int
+  mean: Float
+  stdev: Float
+  rpm_list: [Float]
+}
+
+type query_TaxonDist_NR {
+  tax_level: Int
+  mean: Float
+  stdev: Float
+  rpm_list: [Float]
+}
+
+type query_TaxonDist_NT {
+  tax_level: Int
+  mean: Float
+  stdev: Float
+  rpm_list: [Float]
+}
+
+type query_UserBlastAnnotations_items {
+  tax_id: JSON
+  annotation: JSON
+}
+
+type ValidateUserCanDeleteObjects {
+  validIds: [Int]!
+  invalidSampleNames: [String]!
+  error: String
+}
+
+input queryInput_ValidateUserCanDeleteObjects_input_Input @example(value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+  selectedIds: [Int]
+  workflow: String
+  authenticityToken: String
+}
+
+type ZipLink {
+  url: String
+  error: String
+}
+
+type DeleteSamples {
+  deleted_workflow_ids: [Int]
+  error: String
+}
+
+input mutationInput_DeleteSamples_input_Input @example(value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+  ids: [Int]
+  workflow: String
+  authenticityToken: String
+}
+
+type UpdateSampleNotes {
+  status: String
+  message: String
+}
+
+input mutationInput_UpdateSampleNotes_input_Input {
+  value: String!
+  authenticityToken: String!
+}
+
+type UpdateSampleName {
+  status: String
+  message: String
+}
+
+type mutation_KickoffWGSWorkflow_items {
+  id: String
+  status: String
+  workflow: String
+  wdl_version: String
+  executed_at: String
+  deprecated: Boolean
+  input_error: JSON
+  inputs: mutation_KickoffWGSWorkflow_items_inputs
+  parsed_cached_results: mutation_KickoffWGSWorkflow_items_parsed_cached_results
+  run_finalized: Boolean
+}
+
+type mutation_KickoffWGSWorkflow_items_inputs {
+  accession_id: JSON
+  accession_name: JSON
+  taxon_id: JSON
+  taxon_name: JSON
+  technology: String
+  card_version: String
+  wildcard_version: String
+}
+
+type mutation_KickoffWGSWorkflow_items_parsed_cached_results {
+  quality_metrics: mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics
+}
+
+type mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics {
+  total_reads: Int
+  qc_percent: Float
+  adjusted_remaining_reads: Int
+  compression_ratio: Float
+  total_ercc_reads: Int
+  fraction_subsampled: Float
+  insert_size_mean: JSON
+  insert_size_standard_deviation: JSON
+  percent_remaining: Float
+}
+
+input mutationInput_KickoffWGSWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+  inputs_json: mutationInput_KickoffWGSWorkflow_input_inputs_json_Input
+  workflow: String
+  authenticityToken: String
+}
+
+input mutationInput_KickoffWGSWorkflow_input_inputs_json_Input {
+  accession_id: String
+  accession_name: String
+  taxon_id: String
+  taxon_name: String
+  alignment_config_name: String
+  technology: String
+}
+
+input mutationInput_KickoffAMRWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+  inputs_json: mutationInput_KickoffAMRWorkflow_input_inputs_json_Input
+  workflow: String
+  authenticityToken: String
+}
+
+input mutationInput_KickoffAMRWorkflow_input_inputs_json_Input {
+  start_from_mngs: Boolean
+}
+
+type UpdateMetadataReponse {
+  status: String
+  message: String
+}
+
+input mutationInput_UpdateMetadata_input_Input {
+  field: String!
+  value: mutationInput_UpdateMetadata_input_value_Input!
+  authenticityToken: String!
+}
+
+input mutationInput_UpdateMetadata_input_value_Input @oneOf {
+  String: String
+  query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input: query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input
+}
+
+input query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input {
+  id: String
+  name: String
+  geo_level: String
+  country_name: String
+  country_code: String
+  state_name: String
+  subdivision_name: String
+  city_name: String
+  osm_id: Int
+  locationiq_id: JSON
+  lat: JSON
+  lng: JSON
+  created_at: String
+  updated_at: String
+  osm_type: String
+  country_id: Int
+  state_id: Int
+  subdivision_id: Int
+  city_id: String
+  raw_value: String
+  title: String
+  description: String
+  key: String
+  refetch_adjusted_location: Boolean
+}
+
+scalar ObjMap
+
+enum HTTPMethod {
+  GET
+  HEAD
+  POST
+  PUT
+  DELETE
+  CONNECT
+  OPTIONS
+  TRACE
+  PATCH
+}
+
+type GraphQLFederationVersion {
+  version: String
+  gitCommit: String
+}"
+`;

@@ -1,0 +1,6 @@
+query ZipLinkQuery($workflowRunId: String) {
+  ZipLink(workflowRunId: $workflowRunId) {
+    url
+    error
+  }
+}
