@@ -24,13 +24,13 @@ jobs:
           script: |
             let releaseObj;
             if (${{ github.event.inputs.release_tag != '' }}) {
-              releaseObj = github.rest.repos.getReleaseByTag({
+              releaseObj = await github.rest.repos.getReleaseByTag({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 tag: "${{ github.event.inputs.release_tag }}"
               })
             } else {
-              releaseObj = github.rest.repos.getLatestRelease({
+              releaseObj = await github.rest.repos.getLatestRelease({
                 owner: context.repo.owner,
                 repo: context.repo.repo
               })
