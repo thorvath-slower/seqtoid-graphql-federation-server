@@ -36,8 +36,8 @@ jobs:
               })
             }
             console.log("releaseObj", releaseObj);
-            console.log("releaseObj.tag_name", releaseObj.tag_name);
-            return releaseObj.tag_name
+            console.log("releaseObj.data.tag_name", releaseObj.data.tag_name);
+            return releaseObj.data.tag_name
       - name: Output Github Release
         if: steps.get-release.outputs.result != ''
         id: set-release-tag
