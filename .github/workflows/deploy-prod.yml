@@ -35,6 +35,8 @@ jobs:
                 repo: context.repo.repo
               })
             }
+            console.log("releaseObj", releaseObj);
+            console.log("releaseObj.tag_name", releaseObj.tag_name);
             return releaseObj.tag_name
       - name: Output Github Release
         if: steps.get-release.outputs.result != ''
