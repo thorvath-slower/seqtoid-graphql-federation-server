@@ -35,8 +35,6 @@ jobs:
                 repo: context.repo.repo
               })
             }
-            console.log("releaseObj", releaseObj);
-            console.log("releaseObj.data.tag_name", releaseObj.data.tag_name);
             return releaseObj.data.tag_name
       - name: Output Github Release
         if: steps.get-release.outputs.result != ''
@@ -48,7 +46,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ steps.set-release-tag.outputs.release_tag }}
+          ref: '${{ steps.get-release.outputs.result }}'
       # - name: Assume happy-api deployment role
       #   uses: aws-actions/configure-aws-credentials@v2
       #   with:
