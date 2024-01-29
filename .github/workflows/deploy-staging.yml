@@ -1,10 +1,30 @@
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag version to deploy to staging (defaults to latest)'
+        required: false
+        type: string
 
-name: Deploy main to staging
+name: Deploy release to staging
 jobs:
+  get-release-tag:
+    runs-on: [ARM64, self-hosted, Linux]
+    environment: staging
+    outputs:
+      release_tag: ${{ steps.get-release.outputs.release_tag}}
+    steps:
+      - name: Get latest or specified release
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/get-release-tag@main
+        id: get-release
+        with:
+          requested_release_tag: ${{ github.event.inputs.release_tag || '' }}
+
   deploy-to-staging-env:
+    needs: get-release-tag
+    if: needs.get-release-tag.outputs.release_tag != ''
     runs-on: [ARM64, self-hosted, Linux]
     environment: staging
     permissions:
@@ -13,6 +33,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: '${{ needs.get-release-tag.outputs.release_tag }}'
       - name: Assume happy-api deployment role
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -22,11 +44,17 @@ jobs:
           role-session-name: CzidGraphQLFederationUpdateStaging
       - name: Install happy
         uses: chanzuckerberg/github-actions/.github/actions/install-happy@main
-      - name: Set version info
+      - name: Set git SHA
         uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
         with:
           app_config_name: CZID_GQL_FED_GIT_SHA
           app_config_value: ${{ github.sha }}
+          happy_env: staging
+      - name: Set release version
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: CZID_GQL_FED_GIT_VERSION
+          app_config_value: ${{ needs.get-release-tag.outputs.release_tag || ''}}
           happy_env: staging
       - name: Set CZ ID Rails API URL
         uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
@@ -45,6 +73,7 @@ jobs:
         with:
           tfe-token: ${{ secrets.TFE_TOKEN }}
           env: ${{ vars.HAPPY_ENV }}
+          github-repo-branch: ${{ needs.get-release-tag.outputs.release_tag }}
           create-tag: true
           stack-name: ${{ secrets.HAPPY_STACK_NAME }}
           version-lock-file: .happy/version.lock

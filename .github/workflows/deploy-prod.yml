@@ -33,46 +33,45 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: '${{ needs.get-release-tag.outputs.release_tag }}'
-      # - name: Assume happy-api deployment role
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #     aws-region: us-west-2
-      #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-      #     role-duration-seconds: 1200
-      #     role-session-name: CzidGraphQLFederationUpdateProd
-      # - name: Install happy
-      #   uses: chanzuckerberg/github-actions/.github/actions/install-happy@main
-      # - name: Set git SHA
-      #   uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
-      #   with:
-      #     app_config_name: CZID_GQL_FED_GIT_SHA
-      #     app_config_value: ${{ github.sha }}
-      #     happy_env: prod
-      # - name: Set release version
-      #   uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
-      #   with:
-      #     app_config_name: CZID_GQL_FED_GIT_VERSION
-      #     app_config_value: ${{ github.event.release.tag_name || }}
-      #     happy_env: prod
-      # - name: Set CZ ID Rails API URL
-      #   uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
-      #   with:
-      #     app_config_name: API_URL
-      #     app_config_value: ${{ vars.API_URL}}
-      #     happy_env: prod
-      # - name: Set allowed CORS origins
-      #   uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
-      #   with:
-      #     app_config_name: ALLOWED_CORS_ORIGINS
-      #     app_config_value: ${{ vars.ALLOWED_CORS_ORIGINS}}
-      #     happy_env: prod
-      # - name: Deploy to production env
-      #   uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
-      #   with:
-      #     tfe-token: ${{ secrets.TFE_TOKEN }}
-      #     env: ${{ vars.HAPPY_ENV }}
-      #     image-source-env: ${{ vars.IMAGE_SOURCE_ENV }}
-      #     image-source-stack: ${{ secrets.IMAGE_SOURCE_STACK }}
-      #     image-source-role-arn: ${{ secrets.IMAGE_SOURCE_ROLE_ARN }}
-      #     stack-name: ${{ secrets.HAPPY_STACK_NAME }}
-      #     version-lock-file: .happy/version.lock
+      - name: Assume happy-api deployment role
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 1200
+          role-session-name: CzidGraphQLFederationUpdateProd
+      - name: Install happy
+        uses: chanzuckerberg/github-actions/.github/actions/install-happy@main
+      - name: Set git SHA
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: CZID_GQL_FED_GIT_SHA
+          app_config_value: ${{ github.sha }}
+          happy_env: prod
+      - name: Set release version
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: CZID_GQL_FED_GIT_VERSION
+          app_config_value: ${{ needs.get-release-tag.outputs.release_tag || ''}}
+          happy_env: prod
+      - name: Set CZ ID Rails API URL
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: API_URL
+          app_config_value: ${{ vars.API_URL}}
+          happy_env: prod
+      - name: Set allowed CORS origins
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: ALLOWED_CORS_ORIGINS
+          app_config_value: ${{ vars.ALLOWED_CORS_ORIGINS}}
+          happy_env: prod
+      - name: Deploy to production env
+        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
+        with:
+          tfe-token: ${{ secrets.TFE_TOKEN }}
+          env: ${{ vars.HAPPY_ENV }}
+          github-repo-branch: ${{ needs.get-release-tag.outputs.release_tag }}
+          create-tag: true
+          stack-name: ${{ secrets.HAPPY_STACK_NAME }}
+          version-lock-file: .happy/version.lock

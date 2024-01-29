@@ -65,13 +65,30 @@ There are two ways to [trigger a deploy to the sandbox environment](https://gith
 
 ### Staging deployment
 
-When there is a push to the `main` branch, the [`deploy-staging` workflow](https://github.com/chanzuckerberg/czid-graphql-federation-server/actions/workflows/deploy-staging.yml) pushes the `main` branch onto the `staging` branch, and deploys to the staging environment
+Merging a release-please release PR creates a new release, which triggers the [`deploy-staging` workflow](https://github.com/chanzuckerberg/czid-graphql-federation-server/actions/workflows/deploy-staging.yml).  This Github workflow deploys the newly created release tag to the staging environment.
+
+This workflow can also be manually triggered on [the actions page](https://github.com/chanzuckerberg/czid-graphql-federation-server/actions/workflows/deploy-staging.yml), with a optional release version tag.
 
 ### Production deployment
 
-When there is a push to the `main` branch (generally via PR merge), a release PR is created by the Release Please action.  The `release-please` bot keeps the release up to date as long as new commits comply with conventional commits (which is a required PR check).  So the release is always up to date with staging.
+Production releases are triggered by [manually running the deploy-prod workflow](https://github.com/chanzuckerberg/czid-graphql-federation-server/actions/workflows/deploy-prod.yml).  The workflow accepts a optional release version tag to deploy, but is set up to deploy the newer release version tag by default.
 
-When the PR is merged, Release Please will publish a Github release, which triggers a prod deployment.  During prod deployment, the image built in staging is promoted to the prod environment, with env vars updated.
+During prod deployment, the image built in staging is promoted to the prod environment, with env vars updated.
+
+### Release / Hot fix
+
+Since the staging and production deploys workflows can be triggered manually with a release tag, the workflows can be used to perform release / hot fixes.
+
+Before doing a release / hot fix, it is strongly recommended to perform a rollback to the last good version, if that can be done safely (i.e. no downstream dependencies).
+
+To perform a release / hot fix, perform the following steps
+
+1. Create and merge a pull request with the fix to the `main` branch.
+2. Check out the staging (for release fix) or production (for hot fix) release tag.
+3. Cherry-pick the fix PR commit to `main` onto the release tag.
+4. Bump the patch version of the release tag and create a tag.
+5. Deploy the new tag onto staging (release fix) and/or production.
+6. If this was a hotfix, you will also need to repeat the process to update the staging release version with the fix.
 
 ## TODO
 
