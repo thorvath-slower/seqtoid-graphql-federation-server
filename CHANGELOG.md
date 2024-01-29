@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [2.6.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.5.0...v2.6.0) (2024-01-29)
+
+
+### Features
+
+* allow manual staging deploy, re-enable prod deploy ([#82](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/82)) ([c1a07ce](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c1a07cefad79200c108d8055907c1ef8a51b5995))
+* **ci:** Align release process to CZ ID manual release cadence ([#72](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/72)) ([83c97c6](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/83c97c68f952e40bba7a7aeca0b576b762d88c66))
+* move get release tag into composite action ([#79](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/79)) ([ef26dcf](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ef26dcfed522126a22afcb6018923083a8ce5f6e))
+
+
+### Bug Fixes
+
+* Access tag name path correctly ([#77](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/77)) ([60ba125](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/60ba125c7e4387a66dd40de195e3a32432c063ad))
+* Checkout repo with release tag from action ([#80](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/80)) ([232a351](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/232a3513e9997a6ab6a95e74fc072ed8893d4c45))
+* pass requested release tag to action ([#81](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/81)) ([f7c2bb3](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f7c2bb393ea04ef4bf48d7f9b6537af6742ebc1a))
+* quote release tag ([#78](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/78)) ([929ebf5](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/929ebf5f08fffde192ab548b2ce5446de0bdcaef))
+
 ## [2.5.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.4.0...v2.5.0) (2024-01-12)
 
 
