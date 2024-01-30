@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.6.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.6.0...v2.6.1) (2024-01-30)
+
+
+### Bug Fixes
+
+* **ci:** Pin happy stack eks to working version ([#83](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/83)) ([c172a25](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c172a250b11b7242fe00f1a431ed7c60d5f3b1b1))
+
 ## [2.6.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.5.0...v2.6.0) (2024-01-29)
 
 
