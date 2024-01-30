@@ -1,5 +1,5 @@
 module "stack" {
-  source           = "git@github.com:chanzuckerberg/happy//terraform/modules/happy-stack-eks?ref=main"
+  source           = "git@github.com:chanzuckerberg/happy//terraform/modules/happy-stack-eks?ref=happy-stack-eks-v4.27.1"
   image_tag        = var.image_tag
   image_tags       = jsondecode(var.image_tags)
   stack_name       = var.stack_name
