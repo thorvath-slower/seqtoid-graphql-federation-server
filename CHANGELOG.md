@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.7.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.6.1...v2.7.0) (2024-02-02)
+
+
+### Features
+
+* [CZID-9279] Add entities to graphql sources ([#88](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/88)) ([8e38c3a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/8e38c3aa9dc62703f0850bac8be438ae71d821b4))
+
 ## [2.6.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.6.0...v2.6.1) (2024-01-30)
 
 
