@@ -111,17 +111,12 @@ sources:
             headers:
               Cookie: "{context.headers['cookie']}"
           - type: Query
-            field: Samples
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}.json
+            field: samples
             method: GET
-            responseSchema: ./json-schemas/samples.json
-            responseTypeName: Samples
-          - type: Query
-            field: Samples
-            path: /pub/{args.snapshotLinkId}/samples/index_v2.json?projectId={args.projectId}
-            method: GET
-            responseSchema: ./json-schemas/samples.json
-            responseTypeName: Samples
+            path: /workflow_runs.json
+            requestSchema: ./json-schemas/samplesRequest.json
+            responseSchema: ./json-schemas/samplesResponse.json
+            responseTypeName: samples
           - type: Query
             field: Taxons
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false

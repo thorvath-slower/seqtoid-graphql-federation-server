@@ -1,5 +1,5 @@
 // resolvers.ts
-import { Resolvers } from "./.mesh";
+import { Resolvers, query_samples_items } from "./.mesh";
 import {
   get,
   notFound,
@@ -65,7 +65,7 @@ export const resolvers: Resolvers = {
     },
     MetadataFields: async (root, args, context, info) => {
       const body = {
-        sampleIds: args?.input?.sampleIds
+        sampleIds: args?.input?.sampleIds,
       };
       const res = await postWithCSRF(
         `/samples/metadata_fields`,
@@ -77,37 +77,38 @@ export const resolvers: Resolvers = {
     },
     SampleMetadata: async (root, args, context, info) => {
       const url = `/samples/${args.sampleId}/metadata`;
-      const urlWithParams = args?.input?.pipelineVersion ? url + `?pipeline_version=${args?.input?.pipelineVersion}` : url;
-      const res = await get(
-        urlWithParams,
-        args,
-        context
-      );
+      const urlWithParams = args?.input?.pipelineVersion
+        ? url + `?pipeline_version=${args?.input?.pipelineVersion}`
+        : url;
+      const res = await get(urlWithParams, args, context);
       try {
         const metadata = res.metadata.map((item) => {
           item.id = item.id.toString();
           return item;
         });
-        if (res?.additional_info?.pipeline_run?.id){
-          res.additional_info.pipeline_run.id = res.additional_info.pipeline_run.id.toString();
+        if (res?.additional_info?.pipeline_run?.id) {
+          res.additional_info.pipeline_run.id =
+            res.additional_info.pipeline_run.id.toString();
         }
         // location_validated_value is a union type, so we need to add __typename to the object
         metadata.map((field) => {
-          if( typeof field.location_validated_value === "object" ) {
-          field.location_validated_value = {
-            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1",
-            ...field.location_validated_value,
-            id: field.location_validated_value.id.toString(),
-          };
-        } else if ( typeof field.location_validated_value === "string" ){
-          field.location_validated_value = {
-            __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0",
-            name: field.location_validated_value
-          };
-        } else {
-          field.location_validated_value = null;
-        }
-      });
+          if (typeof field.location_validated_value === "object") {
+            field.location_validated_value = {
+              __typename:
+                "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1",
+              ...field.location_validated_value,
+              id: field.location_validated_value.id.toString(),
+            };
+          } else if (typeof field.location_validated_value === "string") {
+            field.location_validated_value = {
+              __typename:
+                "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0",
+              name: field.location_validated_value,
+            };
+          } else {
+            field.location_validated_value = null;
+          }
+        });
         res.metadata = metadata;
         return res;
       } catch {
@@ -193,27 +194,143 @@ export const resolvers: Resolvers = {
       });
       return pathogens;
     },
-    Samples: async (root, args, context, info) => {
-      if (args.sampleId) {
-        const sample = await get(
-          `/samples/${args.sampleId}.json`,
-          args,
-          context
-        );
-        if (args.projectId && sample.project.id !== parseInt(args.projectId)) {
-          return notFound(
-            `Sample ${args.sampleId} not found in project ${args.projectId}`
-          );
-        }
-        return formatSample(sample);
-      } else if (args.projectId) {
-        const { samples } = await get(
-          `/samples/index_v2.json?projectId=${args.projectId}&snapshotShareId=&basic=true`,
-          args,
-          context
-        );
-        return formatSamples(samples);
+    samples: async (root, args, context) => {
+      const input = args.input;
+
+      // The comments in the formatUrlParams() call correspond to the line in the current
+      // codebase's callstack where the params are set, so help ensure we're not missing anything.
+      const { workflow_runs } = await get(
+        "/workflow_runs.json" +
+          formatUrlParams({
+            // index.ts
+            // const getWorkflowRuns = ({
+            mode: "with_sample_info",
+            //  - DiscoveryDataLayer.ts
+            //    await this._collection.fetchDataCallback({
+            domain: input?.todoRemove?.domain,
+            //  -- DiscoveryView.tsx
+            //     ...this.getConditions(workflow)
+            projectId: input?.todoRemove?.projectId,
+            search: input?.where?.name._like,
+            orderBy: input?.orderBy?.key,
+            orderDir: input?.orderBy?.dir,
+            //  --- DiscoveryView.tsx
+            //      filters: {
+            host: input?.where?.hostTaxon?.upstreamDatabaseIdentifier?._in,
+            locationV2: input?.where?.collectionLocation?._in,
+            taxon: input?.todoRemove?.taxons,
+            taxaLevels: input?.todoRemove?.taxaLevels,
+            time: input?.todoRemove?.time,
+            tissue: input?.where?.sampleType?._in,
+            visibility: input?.todoRemove?.visibility,
+            workflow: input?.todoRemove?.workflow,
+            //  - DiscoveryDataLayer.ts
+            //    await this._collection.fetchDataCallback({
+            limit: input?.todoRemove?.limit,
+            offset: input?.todoRemove?.offset,
+            listAllIds: input?.todoRemove?.listAllIds,
+          }),
+        args,
+        context
+      );
+      if (!workflow_runs?.length) {
+        return [];
       }
+
+      return workflow_runs.map((run): query_samples_items => {
+        const inputs = run.inputs;
+        const qualityMetrics = run.cached_results?.quality_metrics;
+        const sample = run.sample;
+        const sampleInfo = sample?.info;
+        const sampleMetadata = sample?.metadata;
+        return {
+          todoRemove: {
+            status: run.status,
+            startedAt: run.created_at,
+            creationSource: inputs?.creation_source,
+            workflowVersion: {
+              version: run.wdl_version,
+            },
+          },
+          id: sample?.id,
+          name: sampleInfo?.name,
+          notes: sampleInfo?.sample_notes,
+          collectionLocation: sampleMetadata?.collection_location_v2,
+          sampleType: sampleMetadata?.sample_type,
+          waterControl: sampleMetadata?.water_control,
+          hostTaxon: {
+            name: sampleInfo?.host_genome_name,
+          },
+          collection: {
+            name: sample?.project_name,
+            public: Boolean(sampleInfo?.public),
+          },
+          ownerUser: {
+            name: sample?.uploader?.name,
+          },
+          metadatas: {
+            edges:
+              sampleMetadata != null
+                ? Object.entries(sampleMetadata)
+                    .filter(
+                      ([fieldName]) =>
+                        fieldName !== "nucleotide_type" &&
+                        fieldName !== "collection_location_v2" &&
+                        fieldName !== "sample_type" &&
+                        fieldName !== "water_control"
+                    )
+                    .map(([fieldName, value]) => ({
+                      node: {
+                        fieldName,
+                        value: String(value),
+                      },
+                    }))
+                : [],
+          },
+          sequencingReads: {
+            edges: [
+              {
+                node: {
+                  nucleicAcid: sampleMetadata?.nucleotide_type,
+                  protocol: inputs?.wetlab_protocol,
+                  medakaModel: inputs?.medaka_model,
+                  technology: inputs?.technology,
+                  consensusGenomes: {
+                    edges: [
+                      {
+                        node: {
+                          taxon: {
+                            name: inputs?.taxon_name,
+                          },
+                          referenceGenome: {
+                            accessionId: inputs?.accession_id,
+                            accessionName: inputs?.accession_name,
+                          },
+                          metric: {
+                            coverageDepth:
+                              run.cached_results?.coverage_viz?.coverage_depth,
+                            totalReads: qualityMetrics?.total_reads,
+                            gcPercent: qualityMetrics?.gc_percent,
+                            refSnps: qualityMetrics?.ref_snps,
+                            percentIdentity: qualityMetrics?.percent_identity,
+                            nActg: qualityMetrics?.n_actg,
+                            percentGenomeCalled:
+                              qualityMetrics?.percent_genome_called,
+                            nMissing: qualityMetrics?.n_missing,
+                            nAmbiguous: qualityMetrics?.n_ambiguous,
+                            referenceGenomeLength:
+                              qualityMetrics?.reference_genome_length,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        };
+      });
     },
     ValidateUserCanDeleteObjects: async (root, args, context, info) => {
       const body = {
@@ -398,7 +515,10 @@ export const resolvers: Resolvers = {
     UpdateMetadata: async (root, args, context, info) => {
       const body = {
         field: args?.input?.field,
-        value: args?.input?.value.String ? args.input.value.String : args?.input?.value.query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input,
+        value: args?.input?.value.String
+          ? args.input.value.String
+          : args?.input?.value
+              .query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input,
       };
       const res = await postWithCSRF(
         `/samples/${args.sampleId}/save_metadata_v2`,
@@ -433,6 +553,6 @@ export const resolvers: Resolvers = {
         context
       );
       return res;
-    }
+    },
   },
 };
