@@ -6,11 +6,8 @@ module "stack" {
   deployment_stage = "dev"
   stack_prefix     = "/${var.stack_name}"
   k8s_namespace    = "czid-dev-happy-happy-env"
-  app_name         = var.app
   additional_env_vars = {
     API_URL = "https://sandbox.czid.org"
-    NEXTGEN_ENTITIES_URL = "http://ryan-test-entities.czid-dev-happy-happy-env.svc.cluster.local:8008"
-    NEXTGEN_WORKFLOWS_URL = "http://workflows.czidnet"
   }
   services = {
     gql = {
