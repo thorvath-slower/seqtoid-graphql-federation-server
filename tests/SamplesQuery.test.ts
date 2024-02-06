@@ -44,7 +44,7 @@ const query = `
     }
 `;
 
-describe.only("samples query:", () => {
+describe("samples query:", () => {
   let execute: ExecuteMeshFn;
 
   beforeEach(async () => {
