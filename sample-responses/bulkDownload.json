@@ -1,0 +1,32 @@
+{
+        "id": 448,
+        "params_json": "{\"background\":{\"value\":140,\"displayName\":\"floo nickel two\"}}",
+        "download_type": "sample_taxon_report",
+        "status": "success",
+        "error_message": null,
+        "user_id": 263,
+        "created_at": "2020-03-26T12:59:18.000-07:00",
+        "updated_at": "2020-03-26T13:00:27.000-07:00",
+        "progress": 0.52,
+        "ecs_task_arn": null,
+        "output_file_size": 18768267,
+        "description": null,
+        "deleted_at": null,
+        "analysis_type": "short-read-mngs",
+        "analysis_count": 0,
+        "num_samples": 0,
+        "download_name": "Sample Taxon Reports",
+        "file_size": "17.9 MB",
+        "user_name": "Francisco Loo",
+        "execution_type": "resque",
+        "log_url": null,
+        "params": {
+            "background": {
+                "value": 140,
+                "displayName": "floo nickel two"
+            }
+        },
+        "pipeline_runs": [],
+        "workflow_runs": [],
+        "presigned_output_url": "https://czi-infectious-disease-development-samples.s3.us-west-2.amazonaws.com/downloads/448/Sample%20Taxon%20Reports.tar.gz?response-content-disposition=attachment%3B%20filename%3D%22Sample%20Taxon%20Reports.tar.gz%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA2U4NV5TWOKHZ2HPB%2F20230606%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230606T192235Z&X-Amz-Expires=86400&X-Amz-Security-Token=FwoGZXIvYXdzEBUaDN6%2FUr2O9GqiQdWzACL1Ao82NWxBclGUTSjJjN1Bmu%2BzxMmr2O4BDgxkdel89ElwYJYX144Me%2BGo3FHhkC23K9XiD4wrwsSAwQJmiFIBGq9TMHbRO1OhboVogauqX4QqJARttbeQG0q23tgBF4VyovlP5Wi42hFzlUtz%2FQPWC%2BC4t65w1pnZozkqRalg%2BhQBx11LEV3UQfeoccKj0XNlnwjM0CdQbVFkmIPzOsXOpYh%2Bpq%2FxaduHCRXcCPZE3LiWdoqBVfR4OxA2byq%2FOuRoDymgYp3z6p6ydJ7nhEJyvRGI42uMiplYyuq7lU2OODJ7lokSfp5RiHoOwpJgPGAQ%2F8aTvTq68c2WQkoUBINQoLeAbeq%2B7Lw7CK3S1BXMhgQOJLa1G27bvGtTM5AMPJUxyRrSQFP%2ByMpMwvbSh9bvB0fTIFziVk4pFklX6NVH3Vz623Ll%2BxSMrkJ8MXVH1bmLkXbFqMP8jaUYzkpDcWYjOe2Lvm%2FJFz8br03iupJUdKSEGx84O7Qoi4v%2BowYyIwFuP2HdvTF9XHrbv0Xj6NqDBaBHw3DhVOJXBKYNfd%2BolN8e&X-Amz-SignedHeaders=host&X-Amz-Signature=892907a657f9bdedc644ab87e1b61ab30a40a09eeaed7e4609d9951e6147ee6a"
+    }

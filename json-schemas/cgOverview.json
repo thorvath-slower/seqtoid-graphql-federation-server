@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "cgOverviewRows": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "required": ["cgOverviewRows"]
+}

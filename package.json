@@ -6,7 +6,7 @@
     "start": "mesh start",
     "build": "mesh build",
     "dev": "mesh dev",
-    "test": "mesh build && MOCKING_ENABLED=1 jest"
+    "test": "mesh build && jest"
   },
   "repository": {
     "type": "git",

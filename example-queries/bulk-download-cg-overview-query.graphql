@@ -1,0 +1,19 @@
+query BulkDownloadModalQuery(
+    $workflowRunIds: [Int]
+    $includeMetadata: Boolean
+    $downloadType: String!
+    $workflow: String!
+    $authenticityToken: String!
+  ) {
+    BulkDownloadCGOverview(
+      input: {
+        workflowRunIds: $workflowRunIds
+        includeMetadata: $includeMetadata,
+        downloadType: $downloadType, 
+        workflow: $workflow, 
+        authenticityToken: $authenticityToken,
+      }
+    ) {
+      cgOverviewRows
+    }
+  }

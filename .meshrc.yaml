@@ -32,13 +32,20 @@ sources:
             responseSchema: ./json-schemas/snapshotBackground.json
             responseTypeName: Background
           - type: Query
-            field: BulkDownload
+            field: BulkDownloadDetails
             path: /bulk_downloads/{args.bulkDownloadId}
             method: GET
-            responseSchema: ./json-schemas/bulkDownloads.json
-            responseTypeName: BulkDownload
+            responseSchema: ./json-schemas/bulkDownloadDetails.json
+            responseTypeName: BulkDownloadDetails
             headers:
               Cookie: "{context.headers['cookie']}"
+          - type: Query
+            field: BulkDownloadCGOverview
+            path: /bulk_downloads
+            method: POST
+            requestSchema: ./json-schemas/createBulkDownloadCSV.json
+            responseSchema: ./json-schemas/cgOverview.json
+            responseTypeName: ConsensusGenomeOverviewRows
           - type: Query
             field: ConsensusGenomeWorkflowResults
             path: /workflow_runs/{args.workflowRunId}/results
@@ -149,6 +156,12 @@ sources:
             method: GET
             responseSchema: ./json-schemas/zipLink.json
             responseTypeName: ZipLink
+          - type: Mutation
+            field: CreateBulkDownload
+            path: /bulk_download
+            method: POST
+            requestSchema: ./json-schemas/createBulkDownload.json
+            responseName: BulkDownload
           - type: Mutation
             field: DeleteSamples
             path: /samples/bulk_delete

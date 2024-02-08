@@ -49,6 +49,44 @@ export const resolvers: Resolvers = {
         };
       }, []);
     },
+    BulkDownloadCGOverview: async (root, args, context, info) => {
+      if (!args?.input){
+        throw new Error("No input provided");
+      }
+      const {
+        downloadType,
+        workflow,
+        includeMetadata,
+        workflowRunIds,
+      } = args?.input;
+      const body = {
+        download_type: downloadType,
+        workflow: workflow,
+        params: {
+          include_metadata: { value: includeMetadata }, 
+        sample_ids: {
+          value: workflowRunIds
+        }, 
+        workflow: {
+          value: workflow
+        }
+        },
+        workflow_run_ids: workflowRunIds,
+      };
+      const res = await postWithCSRF(
+        `/bulk_downloads/consensus_genome_overview_data`,
+        body,
+        args,
+        context,
+      );
+      if (res?.cg_overview_rows){
+        return {
+          cgOverviewRows: res?.cg_overview_rows,
+        }
+      } else {
+        throw new Error(res.error);
+      }
+    },
     ConsensusGenomeWorkflowResults: async (root, args, context, info) => {
       const { coverage_viz, quality_metrics, taxon_info } = await get(
         `/workflow_runs/${args.workflowRunId}/results`,
@@ -532,6 +570,35 @@ export const resolvers: Resolvers = {
     }),
   },
   Mutation: {
+    CreateBulkDownload: async (root, args, context, info) => {
+      if(!args?.input){
+        throw new Error("No input provided");
+      }
+      const { downloadType, workflow, downloadFormat, workflowRunIds } = args?.input;
+      const body = {
+        download_type: downloadType,
+        workflow: workflow,
+        params: {
+          download_format: {
+            value: downloadFormat,
+          },
+          sample_ids: {
+            value: workflowRunIds,
+          }, 
+          workflow: {
+            value: workflow,
+          }
+        },
+        workflow_run_ids: workflowRunIds,
+      };
+      const res = await postWithCSRF(
+        `/bulk_downloads`,
+        body,
+        args,
+        context
+      );
+      return res;
+    },
     DeleteSamples: async (root, args, context, info) => {
       const body = {
         selectedIds: args?.input?.ids,

@@ -1,0 +1,30 @@
+{
+  "downloadType": "consensus_genome_overview",
+  "workflowRunIds": [
+    3972,
+    3973,
+    3974,
+    3975,
+    3976,
+    3977,
+    3978,
+    3979,
+    3981,
+    3982,
+    4335,
+    4336,
+    4741,
+    4742,
+    4894,
+    4895,
+    5022,
+    5023,
+    5024,
+    5025,
+    5026,
+    5027
+  ],
+  "workflow": "consensus-genome",
+  "includeMetadata": true,
+  "authenticityToken": "nZBzmByhA28wEpFPEy9bfvFtmHIDCVviBzQTme9T6Et6sF5Aum8Z9UHFfDkYKAxTPApHjjXkEYJ9d5FxpeXlGQ=="
+}

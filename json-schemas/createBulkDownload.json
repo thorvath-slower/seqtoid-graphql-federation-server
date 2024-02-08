@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+      "downloadType": {
+        "type": "string"
+      },
+      "workflowRunIds": {
+        "type": "array",
+        "items": {
+            "type": "integer"
+        }
+      },
+      "workflow": {
+        "type": "string"
+      },
+      "downloadFormat": {
+        "type": "string"
+      },
+      "authenticityToken": {
+        "type": "string"
+      }
+  }
+}
