@@ -1,6 +1,20 @@
 # Changelog
 
 
+## [2.8.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.7.0...v2.8.0) (2024-02-08)
+
+
+### Features
+
+* Federate the samples NextGen field ([#85](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/85)) ([946d7dc](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/946d7dc259d1f7f8f22e716b6317fc5f7433408b))
+* Federate workflowRuns endpoint ([#89](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/89)) ([3e15fac](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/3e15fac558eda082a4e3bdb7489eac9ed0c71e5f))
+
+
+### Bug Fixes
+
+* Revert "feat: [CZID-9279] Add entities to graphql sources" ([#94](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/94)) ([214d344](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/214d344e80c078c72547c8bd774a14b1acad501c))
+* Update snapshot to fix tests ([#95](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/95)) ([db56d3d](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/db56d3d3e1122ca7af49fb2718d7c60cb31d6b83))
+
 ## [2.7.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.6.1...v2.7.0) (2024-02-02)
 
 
