@@ -8,7 +8,7 @@ import fetch from "node-fetch";
  */
 export const formatUrlParams = (params: { [s: string]: unknown }) => {
   const paramList = Object.entries(params)
-    .filter(([_, value]) => value !== undefined)
+    .filter(([_, value]) => value != null)
     .flatMap(([key, value]) =>
       Array.isArray(value)
         ? value.map((arrayElement) => `${key}[]=${arrayElement}`)

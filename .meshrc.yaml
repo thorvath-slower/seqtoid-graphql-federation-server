@@ -138,6 +138,12 @@ sources:
             responseSchema: ./json-schemas/validateUsersCanDeleteObjects.json
             responseTypeName: ValidateUserCanDeleteObjects
           - type: Query
+            field: workflowRuns
+            path: /workflow_runs.json
+            method: POST
+            requestSchema: ./json-schemas/workflowRunsRequest.json
+            responseSchema: ./json-schemas/workflowRunsResponse.json
+          - type: Query
             field: ZipLink
             path: /workflow_runs/{args.workflowRunId}/zip_link.json
             method: GET

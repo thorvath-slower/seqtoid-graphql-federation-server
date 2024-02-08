@@ -1,5 +1,9 @@
 // resolvers.ts
-import { Resolvers, query_samples_items } from "./.mesh";
+import {
+  Resolvers,
+  query_samples_items,
+  query_workflowRuns_items,
+} from "./.mesh";
 import {
   get,
   notFound,
@@ -11,7 +15,12 @@ import {
   formatTaxonHits,
   formatTaxonLineage,
 } from "./utils/mngsWorkflowResultsUtils";
-import { formatSample, formatSamples } from "./utils/samplesUtils";
+
+/**
+ * Arbitrary very large number used temporarily during Rails read phase to force Rails not to
+ * paginate our fake "Workflows Service" call.
+ */
+const TEN_MILLION = 10_000_000;
 
 export const resolvers: Resolvers = {
   Query: {
@@ -62,6 +71,25 @@ export const resolvers: Resolvers = {
           },
         },
       };
+    },
+    CoverageVizSummary: async (root, args, context, info) => {
+      // should be fetched using pipeline run id instead of sample id
+      // from the new backend
+      const coverage_viz_summary = await get(
+        `/samples/${args.sampleId}/coverage_viz_summary`,
+        args,
+        context
+      );
+      const return_obj: any[] = [];
+      for (const key in coverage_viz_summary) {
+        for (const accension of coverage_viz_summary[key]["best_accessions"]) {
+          return_obj.push({
+            pipeline_id: key,
+            ...accension,
+          });
+        }
+      }
+      return return_obj;
     },
     MetadataFields: async (root, args, context, info) => {
       const body = {
@@ -211,7 +239,7 @@ export const resolvers: Resolvers = {
             //  -- DiscoveryView.tsx
             //     ...this.getConditions(workflow)
             projectId: input?.todoRemove?.projectId,
-            search: input?.where?.name._like,
+            search: input?.where?.name?._like,
             orderBy: input?.orderBy?.key,
             orderDir: input?.orderBy?.dir,
             //  --- DiscoveryView.tsx
@@ -253,6 +281,7 @@ export const resolvers: Resolvers = {
             },
           },
           id: sample?.id,
+          railsSampleId: sample?.id,
           name: sampleInfo?.name,
           notes: sampleInfo?.sample_notes,
           collectionLocation: sampleMetadata?.collection_location_v2,
@@ -420,24 +449,65 @@ export const resolvers: Resolvers = {
       });
       return annotations;
     },
-    CoverageVizSummary: async (root, args, context, info) => {
-      // should be fetched using pipeline run id instead of sample id
-      // from the new backend
-      const coverage_viz_summary = await get(
-        `/samples/${args.sampleId}/coverage_viz_summary`,
+    workflowRuns: async (root, args, context) => {
+      const input = args.input;
+
+      // TODO(bchu): Remove all the non-Workflows fields after moving and integrating them into the
+      // Entities call.
+      // These only have to be ordered by time, if sorting by time.
+      const { workflow_runs } = await get(
+        "/workflow_runs.json" +
+          formatUrlParams({
+            mode: "with_sample_info",
+            domain: input?.todoRemove?.domain,
+            projectId: input?.todoRemove?.projectId,
+            search: input?.todoRemove?.search,
+            orderBy:
+              input?.orderBy?.startedAt != null ? "createdAt" : undefined,
+            orderDir: input?.orderBy?.startedAt,
+            host: input?.todoRemove?.host,
+            locationV2: input?.todoRemove?.locationV2,
+            taxon: input?.todoRemove?.taxon,
+            taxaLevels: input?.todoRemove?.taxonLevels,
+            time: input?.todoRemove?.time,
+            tissue: input?.todoRemove?.tissue,
+            visibility: input?.todoRemove?.visibility,
+            workflow: input?.todoRemove?.workflow,
+            limit: TEN_MILLION,
+            offset: 0,
+            listAllIds: false,
+          }),
         args,
         context
       );
-      const return_obj: any[] = [];
-      for (const key in coverage_viz_summary) {
-        for (const accension of coverage_viz_summary[key]["best_accessions"]) {
-          return_obj.push({
-            pipeline_id: key,
-            ...accension,
-          });
-        }
+      if (!workflow_runs?.length) {
+        return [];
       }
-      return return_obj;
+
+      return workflow_runs.map(
+        (run): query_workflowRuns_items => ({
+          id: run.id,
+          ownerUserId: run.runner?.id,
+          startedAt: run.created_at,
+          status: run.status,
+          workflowVersion: {
+            version: run.wdl_version,
+            workflow: {
+              name: run.inputs?.creation_source,
+            },
+          },
+          entityInputs: {
+            edges: [
+              {
+                node: {
+                  fieldName: "Sample",
+                  inputEntityId: run.sample?.id,
+                },
+              },
+            ],
+          },
+        })
+      );
     },
     ZipLink: async (root, args, context, info) => {
       const res = await getFullResponse(

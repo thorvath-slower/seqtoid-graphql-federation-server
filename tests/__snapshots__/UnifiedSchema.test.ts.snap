@@ -41,6 +41,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
   UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
+  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
   ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   GraphQLFederationVersion: GraphQLFederationVersion
 }
@@ -1109,6 +1110,110 @@ input queryInput_ValidateUserCanDeleteObjects_input_Input @example(value: "{\\"s
   selectedIds: [Int]
   workflow: String
   authenticityToken: String
+}
+
+type query_workflowRuns_items {
+  id: String!
+  ownerUserId: Int!
+  startedAt: String
+  status: String
+  workflowVersion: query_workflowRuns_items_workflowVersion
+  entityInputs: query_workflowRuns_items_entityInputs!
+}
+
+type query_workflowRuns_items_workflowVersion {
+  version: String
+  workflow: query_workflowRuns_items_workflowVersion_workflow
+}
+
+type query_workflowRuns_items_workflowVersion_workflow {
+  name: String
+}
+
+type query_workflowRuns_items_entityInputs {
+  edges: [query_workflowRuns_items_entityInputs_edges_items]!
+}
+
+type query_workflowRuns_items_entityInputs_edges_items {
+  node: query_workflowRuns_items_entityInputs_edges_items_node!
+}
+
+type query_workflowRuns_items_entityInputs_edges_items_node {
+  inputEntityId: String
+  fieldName: String
+}
+
+input queryInput_workflowRuns_input_Input {
+  todoRemove: queryInput_workflowRuns_input_todoRemove_Input
+  orderBy: queryInput_workflowRuns_input_orderBy_Input
+  where: queryInput_workflowRuns_input_where_Input
+  entityInputsInput: queryInput_workflowRuns_input_entityInputsInput_Input
+}
+
+input queryInput_workflowRuns_input_todoRemove_Input {
+  domain: String
+  projectId: String
+  search: String
+  host: [Int]
+  locationV2: [String]
+  taxon: [Int]
+  taxonLevels: [String]
+  time: [String]
+  tissue: [String]
+  visibility: String
+  workflow: String
+}
+
+input queryInput_workflowRuns_input_orderBy_Input {
+  startedAt: String
+}
+
+input queryInput_workflowRuns_input_where_Input {
+  id: queryInput_workflowRuns_input_where_id_Input
+  ownerUserId: queryInput_workflowRuns_input_where_ownerUserId_Input
+  startedAt: queryInput_workflowRuns_input_where_startedAt_Input
+  collectionId: queryInput_workflowRuns_input_where_collectionId_Input
+  workflowVersion: queryInput_workflowRuns_input_where_workflowVersion_Input
+}
+
+input queryInput_workflowRuns_input_where_id_Input {
+  _in: [String]
+}
+
+input queryInput_workflowRuns_input_where_ownerUserId_Input {
+  _eq: Int
+}
+
+input queryInput_workflowRuns_input_where_startedAt_Input {
+  _gte: String
+}
+
+input queryInput_workflowRuns_input_where_collectionId_Input {
+  _in: [Int]
+}
+
+input queryInput_workflowRuns_input_where_workflowVersion_Input {
+  workflow: queryInput_workflowRuns_input_where_workflowVersion_workflow_Input
+}
+
+input queryInput_workflowRuns_input_where_workflowVersion_workflow_Input {
+  name: queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input
+}
+
+input queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input {
+  _in: [String]
+}
+
+input queryInput_workflowRuns_input_entityInputsInput_Input {
+  where: queryInput_workflowRuns_input_entityInputsInput_where_Input
+}
+
+input queryInput_workflowRuns_input_entityInputsInput_where_Input {
+  fieldName: queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input
+}
+
+input queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input {
+  _eq: String
 }
 
 type ZipLink {

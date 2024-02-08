@@ -3,37 +3,38 @@ import { getZipLinkExampleQuery } from "./utils/ExampleQueryFiles";
 import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
-jest.mock("../utils/httpUtils");
+jest.spyOn(httpUtils, "get");
 
 beforeEach(() => {
-  (httpUtils.getFullResponse as jest.Mock).mockClear();
+  (httpUtils.get as jest.Mock).mockClear();
 });
 
 const query = `
     query TestQuery($unused: String) {
-        samples(where: {
+      samples(input: {
+        where: {
           name: {
             _like: "abc",
-          },
-        }) {
-          id
-          metadatas {
-            edges {
-              node {
-                fieldName
-                value
-              }
+          }
+        },
+      }) {
+        id
+        metadatas {
+          edges {
+            node {
+              fieldName
+              value
             }
           }
-          sequencingReads {
-            edges {
-              node {
-                consensusGenomes {
-                  edges {
-                    node {
-                      taxon {
-                        name
-                      }
+        }
+        sequencingReads {
+          edges {
+            node {
+              consensusGenomes {
+                edges {
+                  node {
+                    taxon {
+                      name
                     }
                   }
                 }
@@ -41,6 +42,7 @@ const query = `
             }
           }
         }
+      }
     }
 `;
 
@@ -59,6 +61,11 @@ describe("samples query:", () => {
 
     const response = await execute(query, {});
 
+    expect(httpUtils.get).toHaveBeenCalledWith(
+      "/workflow_runs.json?&mode=with_sample_info&search=abc",
+      expect.anything(),
+      expect.anything()
+    );
     expect(response.data.samples).toHaveLength(0);
   });
 

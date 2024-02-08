@@ -1,0 +1,63 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "ownerUserId": {
+                "type": "integer"
+            },
+            "startedAt": {
+                "type": "string"
+            },
+            "status": {
+                "type": "string"
+            },
+            "workflowVersion": {
+                "type": "object",
+                "properties": {
+                    "version": {
+                        "type": "string"
+                    },
+                    "workflow": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "entityInputs": {
+                "type": "object",
+                "properties": {
+                    "edges": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "node": {
+                                    "type": "object",
+                                    "properties": {
+                                        "inputEntityId": {
+                                            "type": "string"
+                                        },
+                                        "fieldName": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": ["node"]
+                        }
+                    }
+                },
+                "required": ["edges"]
+            }
+        },
+        "required": ["id", "ownerUserId", "entityInputs"]
+    }
+}

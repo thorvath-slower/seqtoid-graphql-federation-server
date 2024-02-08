@@ -11,14 +11,15 @@ describe("HttpUtils:", () => {
       ).toBe("?&param1=123&param2=456");
     });
 
-    it("Filters out undefined", () => {
+    it("Filters out nullishes", () => {
       expect(
         formatUrlParams({
           param1: 123,
           param2: undefined,
-          param3: 456,
+          param3: null,
+          param4: 456,
         })
-      ).toBe("?&param1=123&param3=456");
+      ).toBe("?&param1=123&param4=456");
     });
 
     it("Handles arrays", () => {
