@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.9.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.8.0...v2.9.0) (2024-02-08)
+
+
+### Features
+
+* Federate CreateBulkDownload Endpoint ([#91](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/91)) ([6f85f6a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/6f85f6ae58b532e4d199a0fb56428176023ae5c8))
+
 ## [2.8.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.7.0...v2.8.0) (2024-02-08)
 
 
