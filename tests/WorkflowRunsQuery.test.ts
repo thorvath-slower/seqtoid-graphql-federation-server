@@ -25,7 +25,7 @@ describe("workflowRuns query:", () => {
                 entityInputs {
                     edges {
                         node {
-                            fieldName
+                            entityType
                             inputEntityId
                         }
                     }
@@ -38,13 +38,17 @@ describe("workflowRuns query:", () => {
         {
           id: 1,
           sample: {
-            id: 2,
+            info: {
+              id: 2,
+            },
           },
         },
         {
           id: 3,
           sample: {
-            id: 4,
+            info: {
+              id: 4,
+            },
           },
         },
       ],
@@ -53,20 +57,20 @@ describe("workflowRuns query:", () => {
     const result = await execute(query, {});
 
     expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=with_sample_info&limit=10000000&offset=0&listAllIds=false",
+      "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
       expect.anything(),
       expect.anything()
     );
     expect(result.data.workflowRuns).toHaveLength(2);
     expect(result.data.workflowRuns[0]).toEqual(
       expect.objectContaining({
-        id: 1,
+        id: "1",
         entityInputs: {
           edges: [
             {
               node: {
-                fieldName: "Sample",
-                inputEntityId: 2,
+                entityType: "Sample",
+                inputEntityId: "2",
               },
             },
           ],
@@ -75,13 +79,13 @@ describe("workflowRuns query:", () => {
     );
     expect(result.data.workflowRuns[1]).toEqual(
       expect.objectContaining({
-        id: 3,
+        id: "3",
         entityInputs: {
           edges: [
             {
               node: {
-                fieldName: "Sample",
-                inputEntityId: 4,
+                entityType: "Sample",
+                inputEntityId: "4",
               },
             },
           ],
@@ -117,7 +121,7 @@ describe("workflowRuns query:", () => {
     const result = await execute(query, {});
 
     expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=with_sample_info&orderBy=createdAt&orderDir=ASC&limit=10000000&offset=0&listAllIds=false",
+      "/workflow_runs.json?&mode=basic&orderBy=createdAt&orderDir=ASC&limit=10000000&offset=0&listAllIds=false",
       expect.anything(),
       expect.anything()
     );

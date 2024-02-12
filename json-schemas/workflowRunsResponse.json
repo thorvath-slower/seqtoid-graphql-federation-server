@@ -45,7 +45,7 @@
                                         "inputEntityId": {
                                             "type": "string"
                                         },
-                                        "fieldName": {
+                                        "entityType": {
                                             "type": "string"
                                         }
                                     }

@@ -874,111 +874,9 @@ type query_PipelineData_edges_items_files_items {
 }
 
 type query_samples_items {
-  todoRemove: query_samples_items_todoRemove
   id: String
   railsSampleId: Int
-  name: String
-  notes: String
-  collectionLocation: String
-  sampleType: String
-  waterControl: Boolean
-  hostTaxon: query_samples_items_hostTaxon
-  collection: query_samples_items_collection
-  ownerUser: query_samples_items_ownerUser
-  metadatas: query_samples_items_metadatas
-  sequencingReads: query_samples_items_sequencingReads
   required: JSON
-}
-
-type query_samples_items_todoRemove {
-  startedAt: String
-  workflowVersion: query_samples_items_todoRemove_workflowVersion
-  creationSource: String
-  status: String
-}
-
-type query_samples_items_todoRemove_workflowVersion {
-  version: String
-}
-
-type query_samples_items_hostTaxon {
-  name: String
-}
-
-type query_samples_items_collection {
-  name: String
-  public: Boolean
-}
-
-type query_samples_items_ownerUser {
-  name: String
-}
-
-type query_samples_items_metadatas {
-  edges: [query_samples_items_metadatas_edges_items]!
-}
-
-type query_samples_items_metadatas_edges_items {
-  node: query_samples_items_metadatas_edges_items_node!
-}
-
-type query_samples_items_metadatas_edges_items_node {
-  fieldName: String!
-  value: String!
-}
-
-type query_samples_items_sequencingReads {
-  edges: [query_samples_items_sequencingReads_edges_items]!
-}
-
-type query_samples_items_sequencingReads_edges_items {
-  node: query_samples_items_sequencingReads_edges_items_node!
-}
-
-type query_samples_items_sequencingReads_edges_items_node {
-  nucleicAcid: String
-  protocol: String
-  medakaModel: String
-  technology: String
-  consensusGenomes: query_samples_items_sequencingReads_edges_items_node_consensusGenomes
-  required: JSON
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes {
-  edges: [query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items]
-  required: JSON
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items {
-  node: query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node!
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node {
-  taxon: query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_taxon
-  referenceGenome: query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome
-  metric: query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_metric
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_taxon {
-  name: String!
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome {
-  accessionId: String
-  accessionName: String
-}
-
-type query_samples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_metric {
-  coverageDepth: Float
-  totalReads: Int
-  gcPercent: Float
-  refSnps: Int
-  percentIdentity: Float
-  nActg: Int
-  percentGenomeCalled: Float
-  nMissing: Int
-  nAmbiguous: Int
-  referenceGenomeLength: Float
 }
 
 input queryInput_samples_input_Input {
@@ -1154,7 +1052,7 @@ type query_workflowRuns_items_entityInputs_edges_items {
 
 type query_workflowRuns_items_entityInputs_edges_items_node {
   inputEntityId: String
-  fieldName: String
+  entityType: String
 }
 
 input queryInput_workflowRuns_input_Input {
