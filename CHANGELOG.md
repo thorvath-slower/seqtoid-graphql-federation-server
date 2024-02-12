@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.10.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.9.0...v2.10.0) (2024-02-12)
+
+
+### Features
+
+* Switch mode to basic to improve performance of unpaginated Rails request ([#97](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/97)) ([ed41e0c](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ed41e0cc516559342235092da8e4bed41feabba2))
+
 ## [2.9.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.8.0...v2.9.0) (2024-02-08)
 
 
