@@ -1074,6 +1074,7 @@ input queryInput_workflowRuns_input_todoRemove_Input {
   tissue: [String]
   visibility: String
   workflow: String
+  authenticityToken: String
 }
 
 input queryInput_workflowRuns_input_orderBy_Input {

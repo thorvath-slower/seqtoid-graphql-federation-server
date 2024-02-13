@@ -402,6 +402,30 @@ export const resolvers: Resolvers = {
     workflowRuns: async (root, args, context) => {
       const input = args.input;
 
+      // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
+      // This endpoint only provides id, ownerUserId, and status.
+      if (input?.where?.id?._in && typeof input?.where?.id?._in === "object") {
+        const body = {
+          authenticity_token: input?.todoRemove?.authenticityToken,
+          workflowRunIds: input.where.id._in.map(id => id && parseInt(id)),
+        };
+
+        const { workflowRuns } = await postWithCSRF(
+          `/workflow_runs/valid_consensus_genome_workflow_runs`,
+          body,
+          args,
+          context,
+        );
+        return workflowRuns.map(
+          (run) => ({
+            id: run.id,
+            ownerUserId: run.owner_user_id,
+            status: run.status,
+          }),
+        );
+      }
+
+
       // TODO(bchu): Remove all the non-Workflows fields after moving and integrating them into the
       // Entities call.
       // These only have to be ordered by time, if sorting by time.

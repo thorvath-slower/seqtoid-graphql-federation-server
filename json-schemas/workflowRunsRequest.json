@@ -54,6 +54,9 @@
                 },
                 "workflow": {
                     "type": "string"
+                },
+                "authenticityToken": {
+                    "type": "string"
                 }
             }
         },

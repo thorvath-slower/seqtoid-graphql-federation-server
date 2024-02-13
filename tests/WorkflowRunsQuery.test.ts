@@ -4,9 +4,11 @@ import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
 jest.spyOn(httpUtils, "get");
+jest.spyOn(httpUtils, "postWithCSRF");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
+  (httpUtils.postWithCSRF as jest.Mock).mockClear();
 });
 
 describe("workflowRuns query:", () => {
@@ -126,5 +128,41 @@ describe("workflowRuns query:", () => {
       expect.anything()
     );
     expect(result.data.workflowRuns).toHaveLength(0);
+  });
+
+  describe("validConsensusGenomes query", () => {
+    const query = `
+      query ValidConsensusGenomeWorkflowRunsQuery(
+        $workflowRunIds: [String]
+        $authenticityToken: String!
+      ) {
+        workflowRuns(
+          input: {
+            where: { id: { _in: $workflowRunIds } }
+            todoRemove: { authenticityToken: $authenticityToken }
+          }
+        ) {
+          id
+          ownerUserId
+          status
+        }
+      }
+    `;
+
+    it("should call the correct rails endpoint", async () => {
+      await execute(query, {
+        authenticityToken: "authtoken1234",
+        workflowRunIds: ["1997", "2007"],
+      });
+      expect(httpUtils.postWithCSRF).toHaveBeenCalledWith(
+        "/workflow_runs/valid_consensus_genome_workflow_runs",
+        {
+          authenticity_token: "authtoken1234",
+          workflowRunIds: [1997, 2007],
+        },
+        expect.anything(),
+        expect.anything(),
+      );
+    });
   });
 });
