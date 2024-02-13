@@ -19,6 +19,10 @@ local-init:
 local-start:
 	docker compose up -d
 
+.PHONY: local-dev ## Start the service in development mode
+local-dev:
+	docker compose run --rm gql npm run dev
+
 .PHONY: local-stop ## Stop the service
 local-stop:
 	docker compose stop
