@@ -33,6 +33,10 @@ module "stack" {
   stack_prefix     = "/${var.stack_name}"
   app_name         = var.app
   k8s_namespace    = var.k8s_namespace
+  additional_env_vars = {
+    NEXTGEN_ENTITIES_URL = "http://entities-entities:8008"
+    NEXTGEN_WORKFLOWS_URL = "http://workflows-workflows:8042"
+  }
   services = {
     gql = merge(local.routing_config[local.service_type], {
       name              = "graphql-federation"
