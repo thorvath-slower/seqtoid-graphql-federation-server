@@ -6,7 +6,6 @@ import {
 } from "./.mesh";
 import {
   get,
-  notFound,
   formatUrlParams,
   postWithCSRF,
   getFullResponse,
@@ -63,10 +62,10 @@ export const resolvers: Resolvers = {
         download_type: downloadType,
         workflow: workflow,
         params: {
-          include_metadata: { value: includeMetadata }, 
+          include_metadata: { value: includeMetadata },
         sample_ids: {
           value: workflowRunIds
-        }, 
+        },
         workflow: {
           value: workflow
         }
@@ -520,7 +519,7 @@ export const resolvers: Resolvers = {
           },
           sample_ids: {
             value: workflowRunIds,
-          }, 
+          },
           workflow: {
             value: workflow,
           }
