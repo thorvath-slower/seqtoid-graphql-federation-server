@@ -6,1968 +6,15 @@ exports[`CZ ID graphQL federation generated schema should generate a valid schem
   mutation: Mutation
 }
 
-directive @oneOf on OBJECT | INTERFACE | INPUT_OBJECT
+directive @example(value: ObjMap) repeatable on ENUM | FIELD_DEFINITION | INPUT_OBJECT | OBJECT | SCALAR
 
-directive @example(value: ObjMap) repeatable on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM | SCALAR
+directive @globalOptions(endpoint: String, operationHeaders: ObjMap, queryParams: ObjMap, queryStringOptions: ObjMap, sourceName: String) on OBJECT
+
+directive @httpOperation(httpMethod: HTTPMethod, isBinary: Boolean, operationSpecificHeaders: ObjMap, path: String, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap, requestBaseBody: ObjMap) on FIELD_DEFINITION
+
+directive @oneOf on INPUT_OBJECT | INTERFACE | OBJECT
 
 directive @resolveRoot on FIELD_DEFINITION
-
-directive @globalOptions(sourceName: String, endpoint: String, operationHeaders: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
-
-directive @httpOperation(path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap) on FIELD_DEFINITION
-
-type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") {
-  node(
-    """The ID of the object."""
-    id: GlobalID!
-  ): Node!
-  nodes(
-    """The IDs of the objects."""
-    ids: [GlobalID!]!
-  ): [Node!]!
-  files(where: FileWhereClause = null): [File!]!
-  samples(input: queryInput_samples_input_Input): [query_samples_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
-  sequencingReads(where: SequencingReadWhereClause = null): [SequencingRead!]!
-  genomicRanges(where: GenomicRangeWhereClause = null): [GenomicRange!]!
-  referenceGenomes(where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
-  sequenceAlignmentIndices(where: SequenceAlignmentIndexWhereClause = null): [SequenceAlignmentIndex!]!
-  metadatas(where: MetadatumWhereClause = null): [Metadatum!]!
-  consensusGenomes(where: ConsensusGenomeWhereClause = null): [ConsensusGenome!]!
-  metricsConsensusGenomes(where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
-  taxa(where: TaxonWhereClause = null): [Taxon!]!
-  upstreamDatabases(where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
-  contigs(where: ContigWhereClause = null): [Contig!]!
-  phylogeneticTrees(where: PhylogeneticTreeWhereClause = null): [PhylogeneticTree!]!
-  samplesAggregate(where: SampleWhereClause = null): SampleAggregate!
-  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
-  genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
-  referenceGenomesAggregate(where: ReferenceGenomeWhereClause = null): ReferenceGenomeAggregate!
-  sequenceAlignmentIndicesAggregate(where: SequenceAlignmentIndexWhereClause = null): SequenceAlignmentIndexAggregate!
-  metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate!
-  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate!
-  metricsConsensusGenomesAggregate(where: MetricConsensusGenomeWhereClause = null): MetricConsensusGenomeAggregate!
-  taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate!
-  upstreamDatabasesAggregate(where: UpstreamDatabaseWhereClause = null): UpstreamDatabaseAggregate!
-  contigsAggregate(where: ContigWhereClause = null): ContigAggregate!
-  phylogeneticTreesAggregate(where: PhylogeneticTreeWhereClause = null): PhylogeneticTreeAggregate!
-  appConfig(id: ID!): AppConfig
-  pathogenList(version: String): PathogenList!
-  project(id: Int!): Project!
-  sample(sampleId: Int!): Sample!
-  sampleReadsStats(sampleIds: [String!]!): SampleReadsStatsList!
-  samplesList(annotations: [Annotation!], basic: Boolean, domain: String, hostIds: [Int!], limit: Int, listAllIds: Boolean, location: String, locationV2: [String!], offset: Int, orderBy: String, orderDir: String, projectId: Int, requestedSampleIds: [Int!], sampleIds: [Int!], searchString: String, taxIds: [Int!], taxLevels: [String!], thresholdFilterInfo: String, time: [String!], tissue: [String!], visibility: [String!], workflow: String): SampleList!
-  user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
-  AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
-  Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
-  BulkDownloadDetails(bulkDownloadId: String): BulkDownloadDetails @httpOperation(path: "/bulk_downloads/{args.bulkDownloadId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(path: "/bulk_downloads", httpMethod: POST)
-  ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
-  CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
-  MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  SampleMetadata(snapshotLinkId: String, sampleId: String, input: queryInput_SampleMetadata_input_Input): SampleMetadata @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
-  MngsWorkflowResults(snapshotLinkId: String, sampleId: String, workflowVersionId: String, _backgroundId: String): MngsWorkflowResults @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
-  Pathogens(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  PersistedBackground(projectId: String): PersistedBackground @httpOperation(path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  Taxons(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
-  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
-  ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
-  GraphQLFederationVersion: GraphQLFederationVersion
-}
-
-type Mutation {
-  createFile(entityId: ID!, entityFieldName: String!, file: FileCreate!): File!
-  uploadFile(entityId: ID!, entityFieldName: String!, file: FileUpload!, expiration: Int! = 3600): MultipartUploadResponse!
-  markUploadComplete(fileId: ID!): File!
-  concatenateFiles(ids: [UUID!]!): SignedURL!
-  createSample(input: SampleCreateInput!): Sample!
-  updateSample(input: SampleUpdateInput!, where: SampleWhereClauseMutations!): [Sample!]!
-  deleteSample(where: SampleWhereClauseMutations!): [Sample!]!
-  createSequencingRead(input: SequencingReadCreateInput!): SequencingRead!
-  updateSequencingRead(input: SequencingReadUpdateInput!, where: SequencingReadWhereClauseMutations!): [SequencingRead!]!
-  deleteSequencingRead(where: SequencingReadWhereClauseMutations!): [SequencingRead!]!
-  createGenomicRange(input: GenomicRangeCreateInput!): GenomicRange!
-  updateGenomicRange(input: GenomicRangeUpdateInput!, where: GenomicRangeWhereClauseMutations!): [GenomicRange!]!
-  deleteGenomicRange(where: GenomicRangeWhereClauseMutations!): [GenomicRange!]!
-  createReferenceGenome(input: ReferenceGenomeCreateInput!): ReferenceGenome!
-  updateReferenceGenome(input: ReferenceGenomeUpdateInput!, where: ReferenceGenomeWhereClauseMutations!): [ReferenceGenome!]!
-  deleteReferenceGenome(where: ReferenceGenomeWhereClauseMutations!): [ReferenceGenome!]!
-  createSequenceAlignmentIndex(input: SequenceAlignmentIndexCreateInput!): SequenceAlignmentIndex!
-  updateSequenceAlignmentIndex(input: SequenceAlignmentIndexUpdateInput!, where: SequenceAlignmentIndexWhereClauseMutations!): [SequenceAlignmentIndex!]!
-  deleteSequenceAlignmentIndex(where: SequenceAlignmentIndexWhereClauseMutations!): [SequenceAlignmentIndex!]!
-  createMetadatum(input: MetadatumCreateInput!): Metadatum!
-  updateMetadatum(input: MetadatumUpdateInput!, where: MetadatumWhereClauseMutations!): [Metadatum!]!
-  deleteMetadatum(where: MetadatumWhereClauseMutations!): [Metadatum!]!
-  createConsensusGenome(input: ConsensusGenomeCreateInput!): ConsensusGenome!
-  updateConsensusGenome(input: ConsensusGenomeUpdateInput!, where: ConsensusGenomeWhereClauseMutations!): [ConsensusGenome!]!
-  deleteConsensusGenome(where: ConsensusGenomeWhereClauseMutations!): [ConsensusGenome!]!
-  createMetricConsensusGenome(input: MetricConsensusGenomeCreateInput!): MetricConsensusGenome!
-  updateMetricConsensusGenome(input: MetricConsensusGenomeUpdateInput!, where: MetricConsensusGenomeWhereClauseMutations!): [MetricConsensusGenome!]!
-  deleteMetricConsensusGenome(where: MetricConsensusGenomeWhereClauseMutations!): [MetricConsensusGenome!]!
-  createTaxon(input: TaxonCreateInput!): Taxon!
-  updateTaxon(input: TaxonUpdateInput!, where: TaxonWhereClauseMutations!): [Taxon!]!
-  deleteTaxon(where: TaxonWhereClauseMutations!): [Taxon!]!
-  createUpstreamDatabase(input: UpstreamDatabaseCreateInput!): UpstreamDatabase!
-  updateUpstreamDatabase(input: UpstreamDatabaseUpdateInput!, where: UpstreamDatabaseWhereClauseMutations!): [UpstreamDatabase!]!
-  deleteUpstreamDatabase(where: UpstreamDatabaseWhereClauseMutations!): [UpstreamDatabase!]!
-  createContig(input: ContigCreateInput!): Contig!
-  updateContig(input: ContigUpdateInput!, where: ContigWhereClauseMutations!): [Contig!]!
-  deleteContig(where: ContigWhereClauseMutations!): [Contig!]!
-  createPhylogeneticTree(input: PhylogeneticTreeCreateInput!): PhylogeneticTree!
-  updatePhylogeneticTree(input: PhylogeneticTreeUpdateInput!, where: PhylogeneticTreeWhereClauseMutations!): [PhylogeneticTree!]!
-  deletePhylogeneticTree(where: PhylogeneticTreeWhereClauseMutations!): [PhylogeneticTree!]!
-  createUser(archetypes: String, email: String!, institution: String, name: String, role: Int, segments: String, sendActivation: Boolean): CreateUserPayload!
-  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(path: "/bulk_download", httpMethod: POST)
-  DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(path: "/samples/bulk_delete", httpMethod: POST)
-  UpdateSampleNotes(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleNotes @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  UpdateSampleName(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleName @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  KickoffWGSWorkflow(sampleId: String, input: mutationInput_KickoffWGSWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  KickoffAMRWorkflow(sampleId: String, input: mutationInput_KickoffAMRWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  UpdateMetadata(sampleId: String, input: mutationInput_UpdateMetadata_input_Input): UpdateMetadataReponse @httpOperation(path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-}
-
-enum AlignmentTool {
-  bowtie2
-  minimap2
-  czid_index_generation
-}
-
-input AlignmentToolEnumComparators {
-  _eq: AlignmentTool
-  _neq: AlignmentTool
-  _in: [AlignmentTool!]
-  _nin: [AlignmentTool!]
-  _gt: AlignmentTool
-  _gte: AlignmentTool
-  _lt: AlignmentTool
-  _lte: AlignmentTool
-  _is_null: AlignmentTool
-}
-
-input BoolComparators {
-  _eq: Int
-  _neq: Int
-  _in: [Int!]
-  _nin: [Int!]
-  _gt: Int
-  _gte: Int
-  _lt: Int
-  _lte: Int
-  _is_null: Int
-}
-
-type ConsensusGenome implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  taxon(where: TaxonWhereClause = null): Taxon
-  sequenceRead(where: SequencingReadWhereClause = null): SequencingRead
-  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
-  sequenceId: ID
-  sequence(where: FileWhereClause = null): File
-  intermediateOutputsId: ID
-  intermediateOutputs(where: FileWhereClause = null): File
-  metrics(
-    where: MetricConsensusGenomeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): MetricConsensusGenomeConnection!
-  metricsAggregate(where: MetricConsensusGenomeWhereClause = null): MetricConsensusGenomeAggregate
-}
-
-type ConsensusGenomeAggregate {
-  aggregate: ConsensusGenomeAggregateFunctions
-}
-
-type ConsensusGenomeAggregateFunctions {
-  sum: ConsensusGenomeNumericalColumns
-  avg: ConsensusGenomeNumericalColumns
-  min: ConsensusGenomeMinMaxColumns
-  max: ConsensusGenomeMinMaxColumns
-  stddev: ConsensusGenomeNumericalColumns
-  variance: ConsensusGenomeNumericalColumns
-  count(distinct: Boolean = false, columns: ConsensusGenomeCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type ConsensusGenomeConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [ConsensusGenomeEdge!]!
-}
-
-enum ConsensusGenomeCountColumns {
-  taxon
-  sequence_read
-  reference_genome
-  sequence
-  intermediate_outputs
-  metrics
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input ConsensusGenomeCreateInput {
-  collectionId: Int!
-  taxonId: ID!
-  sequenceReadId: ID!
-  referenceGenomeId: ID!
-  sequenceId: ID = null
-  intermediateOutputsId: ID = null
-}
-
-"""An edge in a connection."""
-type ConsensusGenomeEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: ConsensusGenome!
-}
-
-type ConsensusGenomeMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-type ConsensusGenomeNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input ConsensusGenomeUpdateInput {
-  collectionId: Int = null
-  taxonId: ID = null
-  sequenceReadId: ID = null
-  referenceGenomeId: ID = null
-  sequenceId: ID = null
-  intermediateOutputsId: ID = null
-}
-
-input ConsensusGenomeWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  taxon: TaxonWhereClause
-  sequenceRead: SequencingReadWhereClause
-  referenceGenome: ReferenceGenomeWhereClause
-  metrics: MetricConsensusGenomeWhereClause
-}
-
-input ConsensusGenomeWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type Contig implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  sequencingRead(where: SequencingReadWhereClause = null): SequencingRead
-  sequence: String!
-}
-
-type ContigAggregate {
-  aggregate: ContigAggregateFunctions
-}
-
-type ContigAggregateFunctions {
-  sum: ContigNumericalColumns
-  avg: ContigNumericalColumns
-  min: ContigMinMaxColumns
-  max: ContigMinMaxColumns
-  stddev: ContigNumericalColumns
-  variance: ContigNumericalColumns
-  count(distinct: Boolean = false, columns: ContigCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type ContigConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [ContigEdge!]!
-}
-
-enum ContigCountColumns {
-  sequencing_read
-  sequence
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input ContigCreateInput {
-  collectionId: Int!
-  sequencingReadId: ID = null
-  sequence: String!
-}
-
-"""An edge in a connection."""
-type ContigEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: Contig!
-}
-
-type ContigMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  sequence: String
-}
-
-type ContigNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input ContigUpdateInput {
-  collectionId: Int = null
-  sequencingReadId: ID = null
-  sequence: String = null
-}
-
-input ContigWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  sequencingRead: SequencingReadWhereClause
-  sequence: StrComparators
-}
-
-input ContigWhereClauseMutations {
-  id: UUIDComparators
-}
-
-"""Date with time (isoformat)"""
-scalar DateTime
-
-input DatetimeComparators {
-  _eq: DateTime
-  _neq: DateTime
-  _in: [DateTime!]
-  _nin: [DateTime!]
-  _gt: DateTime
-  _gte: DateTime
-  _lt: DateTime
-  _lte: DateTime
-  _is_null: DateTime
-}
-
-type Entity {
-  id: ID!
-  type: String!
-  producingRunId: ID!
-  ownerUserId: Int!
-  collectionId: Int!
-}
-
-interface EntityInterface implements Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-}
-
-input EntityWhereClause {
-  id: UUIDComparators
-  entityId: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-}
-
-type File {
-  id: ID!
-  entityId: ID!
-  entityFieldName: String!
-  entity(where: EntityWhereClause = null): Entity
-  status: FileStatus!
-  protocol: FileAccessProtocol!
-  namespace: String!
-  path: String!
-  fileFormat: String!
-  compressionType: Int
-  size: Int
-  downloadLink(expiration: Int! = 3600): SignedURL
-  contents: String
-}
-
-enum FileAccessProtocol {
-  s3
-}
-
-input FileCreate {
-  name: String!
-  fileFormat: String!
-  compressionType: String = null
-  protocol: FileAccessProtocol!
-  namespace: String!
-  path: String!
-}
-
-enum FileStatus {
-  SUCCESS
-  FAILED
-  PENDING
-}
-
-input FileStatusEnumComparators {
-  _eq: FileStatus
-  _neq: FileStatus
-  _in: [FileStatus!]
-  _nin: [FileStatus!]
-  _gt: FileStatus
-  _gte: FileStatus
-  _lt: FileStatus
-  _lte: FileStatus
-  _is_null: FileStatus
-}
-
-input FileUpload {
-  name: String!
-  fileFormat: String!
-  compressionType: String = null
-}
-
-input FileWhereClause {
-  id: UUIDComparators
-  entityId: UUIDComparators
-  entityFieldName: StrComparators
-  status: FileStatusEnumComparators
-  protocol: StrComparators
-  namespace: StrComparators
-  path: StrComparators
-  fileFormat: StrComparators
-  compressionType: StrComparators
-  size: IntComparators
-}
-
-input FloatComparators {
-  _eq: Float
-  _neq: Float
-  _in: [Float!]
-  _nin: [Float!]
-  _gt: Float
-  _gte: Float
-  _lt: Float
-  _lte: Float
-  _is_null: Float
-}
-
-type GenomicRange implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
-  fileId: ID
-  file(where: FileWhereClause = null): File
-  sequencingReads(
-    where: SequencingReadWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): SequencingReadConnection!
-  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
-}
-
-type GenomicRangeAggregate {
-  aggregate: GenomicRangeAggregateFunctions
-}
-
-type GenomicRangeAggregateFunctions {
-  sum: GenomicRangeNumericalColumns
-  avg: GenomicRangeNumericalColumns
-  min: GenomicRangeMinMaxColumns
-  max: GenomicRangeMinMaxColumns
-  stddev: GenomicRangeNumericalColumns
-  variance: GenomicRangeNumericalColumns
-  count(distinct: Boolean = false, columns: GenomicRangeCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type GenomicRangeConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [GenomicRangeEdge!]!
-}
-
-enum GenomicRangeCountColumns {
-  reference_genome
-  file
-  sequencing_reads
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input GenomicRangeCreateInput {
-  collectionId: Int!
-  referenceGenomeId: ID!
-  fileId: ID = null
-}
-
-"""An edge in a connection."""
-type GenomicRangeEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: GenomicRange!
-}
-
-type GenomicRangeMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-type GenomicRangeNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input GenomicRangeUpdateInput {
-  collectionId: Int = null
-  referenceGenomeId: ID = null
-  fileId: ID = null
-}
-
-input GenomicRangeWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  referenceGenome: ReferenceGenomeWhereClause
-  sequencingReads: SequencingReadWhereClause
-}
-
-input GenomicRangeWhereClauseMutations {
-  id: UUIDComparators
-}
-
-"""
-The \`ID\` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as \`"4"\`) or integer (such as \`4\`) input value will be accepted as an ID.
-"""
-scalar GlobalID @specifiedBy(url: "https://relay.dev/graphql/objectidentification.htm")
-
-input IntComparators {
-  _eq: Int
-  _neq: Int
-  _in: [Int!]
-  _nin: [Int!]
-  _gt: Int
-  _gte: Int
-  _lt: Int
-  _lte: Int
-  _is_null: Int
-}
-
-"""
-The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
-type Metadatum implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  sample(where: SampleWhereClause = null): Sample
-  fieldName: String!
-  value: String!
-}
-
-type MetadatumAggregate {
-  aggregate: MetadatumAggregateFunctions
-}
-
-type MetadatumAggregateFunctions {
-  sum: MetadatumNumericalColumns
-  avg: MetadatumNumericalColumns
-  min: MetadatumMinMaxColumns
-  max: MetadatumMinMaxColumns
-  stddev: MetadatumNumericalColumns
-  variance: MetadatumNumericalColumns
-  count(distinct: Boolean = false, columns: MetadatumCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type MetadatumConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [MetadatumEdge!]!
-}
-
-enum MetadatumCountColumns {
-  sample
-  field_name
-  value
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input MetadatumCreateInput {
-  collectionId: Int!
-  sampleId: ID!
-  fieldName: String!
-  value: String!
-}
-
-"""An edge in a connection."""
-type MetadatumEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: Metadatum!
-}
-
-type MetadatumMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  fieldName: String
-  value: String
-}
-
-type MetadatumNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input MetadatumUpdateInput {
-  collectionId: Int = null
-  sampleId: ID = null
-  fieldName: String = null
-  value: String = null
-}
-
-input MetadatumWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  sample: SampleWhereClause
-  fieldName: StrComparators
-  value: StrComparators
-}
-
-input MetadatumWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type MetricConsensusGenome implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  consensusGenome(where: ConsensusGenomeWhereClause = null): ConsensusGenome
-  coverageDepth: Float
-  referenceGenomeLength: Float
-  percentGenomeCalled: Float
-  percentIdentity: Float
-  gcPercent: Float
-  totalReads: Int
-  mappedReads: Int
-  refSnps: Int
-  nActg: Int
-  nMissing: Int
-  nAmbiguous: Int
-  coverageVizSummaryFileId: ID
-  coverageVizSummaryFile(where: FileWhereClause = null): File
-}
-
-type MetricConsensusGenomeAggregate {
-  aggregate: MetricConsensusGenomeAggregateFunctions
-}
-
-type MetricConsensusGenomeAggregateFunctions {
-  sum: MetricConsensusGenomeNumericalColumns
-  avg: MetricConsensusGenomeNumericalColumns
-  min: MetricConsensusGenomeMinMaxColumns
-  max: MetricConsensusGenomeMinMaxColumns
-  stddev: MetricConsensusGenomeNumericalColumns
-  variance: MetricConsensusGenomeNumericalColumns
-  count(distinct: Boolean = false, columns: MetricConsensusGenomeCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type MetricConsensusGenomeConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [MetricConsensusGenomeEdge!]!
-}
-
-enum MetricConsensusGenomeCountColumns {
-  consensus_genome
-  coverage_depth
-  reference_genome_length
-  percent_genome_called
-  percent_identity
-  gc_percent
-  total_reads
-  mapped_reads
-  ref_snps
-  n_actg
-  n_missing
-  n_ambiguous
-  coverage_viz_summary_file
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input MetricConsensusGenomeCreateInput {
-  collectionId: Int!
-  consensusGenomeId: ID!
-  coverageDepth: Float = null
-  referenceGenomeLength: Float = null
-  percentGenomeCalled: Float = null
-  percentIdentity: Float = null
-  gcPercent: Float = null
-  totalReads: Int = null
-  mappedReads: Int = null
-  refSnps: Int = null
-  nActg: Int = null
-  nMissing: Int = null
-  nAmbiguous: Int = null
-  coverageVizSummaryFileId: ID = null
-}
-
-"""An edge in a connection."""
-type MetricConsensusGenomeEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: MetricConsensusGenome!
-}
-
-type MetricConsensusGenomeMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  coverageDepth: Float
-  referenceGenomeLength: Float
-  percentGenomeCalled: Float
-  percentIdentity: Float
-  gcPercent: Float
-  totalReads: Int
-  mappedReads: Int
-  refSnps: Int
-  nActg: Int
-  nMissing: Int
-  nAmbiguous: Int
-}
-
-type MetricConsensusGenomeNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  coverageDepth: Float
-  referenceGenomeLength: Float
-  percentGenomeCalled: Float
-  percentIdentity: Float
-  gcPercent: Float
-  totalReads: Int
-  mappedReads: Int
-  refSnps: Int
-  nActg: Int
-  nMissing: Int
-  nAmbiguous: Int
-}
-
-input MetricConsensusGenomeUpdateInput {
-  collectionId: Int = null
-  consensusGenomeId: ID = null
-  coverageDepth: Float = null
-  referenceGenomeLength: Float = null
-  percentGenomeCalled: Float = null
-  percentIdentity: Float = null
-  gcPercent: Float = null
-  totalReads: Int = null
-  mappedReads: Int = null
-  refSnps: Int = null
-  nActg: Int = null
-  nMissing: Int = null
-  nAmbiguous: Int = null
-  coverageVizSummaryFileId: ID = null
-}
-
-input MetricConsensusGenomeWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  consensusGenome: ConsensusGenomeWhereClause
-  coverageDepth: FloatComparators
-  referenceGenomeLength: FloatComparators
-  percentGenomeCalled: FloatComparators
-  percentIdentity: FloatComparators
-  gcPercent: FloatComparators
-  totalReads: IntComparators
-  mappedReads: IntComparators
-  refSnps: IntComparators
-  nActg: IntComparators
-  nMissing: IntComparators
-  nAmbiguous: IntComparators
-}
-
-input MetricConsensusGenomeWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type MultipartUploadCredentials {
-  protocol: String!
-  namespace: String!
-  path: String!
-  accessKeyId: String!
-  secretAccessKey: String!
-  sessionToken: String!
-  expiration: String!
-}
-
-type MultipartUploadResponse {
-  credentials: MultipartUploadCredentials!
-  file: File!
-}
-
-"""An object with a Globally Unique ID"""
-interface Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-}
-
-enum NucleicAcid {
-  RNA
-  DNA
-}
-
-input NucleicAcidEnumComparators {
-  _eq: NucleicAcid
-  _neq: NucleicAcid
-  _in: [NucleicAcid!]
-  _nin: [NucleicAcid!]
-  _gt: NucleicAcid
-  _gte: NucleicAcid
-  _lt: NucleicAcid
-  _lte: NucleicAcid
-  _is_null: NucleicAcid
-}
-
-"""Information to aid in pagination."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-type PhylogeneticTree implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  treeId: ID
-  tree(where: FileWhereClause = null): File
-  format: PhylogeneticTreeFormat!
-}
-
-type PhylogeneticTreeAggregate {
-  aggregate: PhylogeneticTreeAggregateFunctions
-}
-
-type PhylogeneticTreeAggregateFunctions {
-  sum: PhylogeneticTreeNumericalColumns
-  avg: PhylogeneticTreeNumericalColumns
-  min: PhylogeneticTreeMinMaxColumns
-  max: PhylogeneticTreeMinMaxColumns
-  stddev: PhylogeneticTreeNumericalColumns
-  variance: PhylogeneticTreeNumericalColumns
-  count(distinct: Boolean = false, columns: PhylogeneticTreeCountColumns = null): Int
-}
-
-enum PhylogeneticTreeCountColumns {
-  tree
-  format
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input PhylogeneticTreeCreateInput {
-  collectionId: Int!
-  treeId: ID = null
-  format: PhylogeneticTreeFormat!
-}
-
-enum PhylogeneticTreeFormat {
-  newick
-  auspice_v1
-  auspice_v2
-}
-
-input PhylogeneticTreeFormatEnumComparators {
-  _eq: PhylogeneticTreeFormat
-  _neq: PhylogeneticTreeFormat
-  _in: [PhylogeneticTreeFormat!]
-  _nin: [PhylogeneticTreeFormat!]
-  _gt: PhylogeneticTreeFormat
-  _gte: PhylogeneticTreeFormat
-  _lt: PhylogeneticTreeFormat
-  _lte: PhylogeneticTreeFormat
-  _is_null: PhylogeneticTreeFormat
-}
-
-type PhylogeneticTreeMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-type PhylogeneticTreeNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input PhylogeneticTreeUpdateInput {
-  collectionId: Int = null
-  treeId: ID = null
-  format: PhylogeneticTreeFormat = null
-}
-
-input PhylogeneticTreeWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  format: PhylogeneticTreeFormatEnumComparators
-}
-
-input PhylogeneticTreeWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type ReferenceGenome implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  fileId: ID
-  file(where: FileWhereClause = null): File
-  fileIndexId: ID
-  fileIndex(where: FileWhereClause = null): File
-  name: String!
-  description: String!
-  taxon(where: TaxonWhereClause = null): Taxon
-  accessionId: String
-  sequenceAlignmentIndices(
-    where: SequenceAlignmentIndexWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): SequenceAlignmentIndexConnection!
-  sequenceAlignmentIndicesAggregate(where: SequenceAlignmentIndexWhereClause = null): SequenceAlignmentIndexAggregate
-  consensusGenomes(
-    where: ConsensusGenomeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): ConsensusGenomeConnection!
-  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
-  genomicRanges(
-    where: GenomicRangeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): GenomicRangeConnection!
-  genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate
-}
-
-type ReferenceGenomeAggregate {
-  aggregate: ReferenceGenomeAggregateFunctions
-}
-
-type ReferenceGenomeAggregateFunctions {
-  sum: ReferenceGenomeNumericalColumns
-  avg: ReferenceGenomeNumericalColumns
-  min: ReferenceGenomeMinMaxColumns
-  max: ReferenceGenomeMinMaxColumns
-  stddev: ReferenceGenomeNumericalColumns
-  variance: ReferenceGenomeNumericalColumns
-  count(distinct: Boolean = false, columns: ReferenceGenomeCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type ReferenceGenomeConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [ReferenceGenomeEdge!]!
-}
-
-enum ReferenceGenomeCountColumns {
-  file
-  file_index
-  name
-  description
-  taxon
-  accession_id
-  sequence_alignment_indices
-  consensus_genomes
-  genomic_ranges
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input ReferenceGenomeCreateInput {
-  collectionId: Int!
-  fileId: ID = null
-  fileIndexId: ID = null
-  name: String!
-  description: String!
-  taxonId: ID!
-  accessionId: String = null
-}
-
-"""An edge in a connection."""
-type ReferenceGenomeEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: ReferenceGenome!
-}
-
-type ReferenceGenomeMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  name: String
-  description: String
-  accessionId: String
-}
-
-type ReferenceGenomeNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input ReferenceGenomeUpdateInput {
-  collectionId: Int = null
-  fileId: ID = null
-  fileIndexId: ID = null
-  name: String = null
-  description: String = null
-  taxonId: ID = null
-  accessionId: String = null
-}
-
-input ReferenceGenomeWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  name: StrComparators
-  description: StrComparators
-  taxon: TaxonWhereClause
-  accessionId: StrComparators
-  sequenceAlignmentIndices: SequenceAlignmentIndexWhereClause
-  consensusGenomes: ConsensusGenomeWhereClause
-  genomicRanges: GenomicRangeWhereClause
-}
-
-input ReferenceGenomeWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type Sample implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  name: String!
-  sampleType: String!
-  waterControl: Boolean!
-  collectionDate: DateTime
-  collectionLocation: String!
-  description: String
-  hostTaxon(where: TaxonWhereClause = null): Taxon
-  sequencingReads(
-    where: SequencingReadWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): SequencingReadConnection!
-  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
-  metadatas(
-    where: MetadatumWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): MetadatumConnection!
-  metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate
-  alignmentConfigName: String
-  basespaceAccessToken: String
-  createdAt: ISO8601DateTime
-  dagVars: String
-  defaultBackgroundId: Int
-  defaultPipelineRunId: Int
-  details: SampleDetails!
-  doNotProcess: Boolean!
-  editable: Boolean
-  hostGenome: HostGenome
-  hostGenomeId: Int
-  initialWorkflow: String!
-  maxInputFragments: Int
-  pipelineBranch: String
-  pipelineCommit: String
-  pipelineExecutionStrategy: String
-  pipelineRuns: [PipelineRun!]
-  privateUntil: ISO8601DateTime
-  project: Project
-  projectId: Int
-  public: Int!
-  s3Bowtie2IndexPath: String
-  s3PreloadResultPath: String
-  s3StarIndexPath: String
-  sampleDeletable: Boolean
-  sampleNotes: String
-  status: String
-  subsample: Int
-  updatedAt: ISO8601DateTime
-  uploadError: String
-  uploadedFromBasespace: Int
-  useTaxonWhitelist: Boolean!
-  user: User
-  userId: Int
-  webCommit: String
-  workflowRuns: [WorkflowRun!]
-}
-
-type SampleAggregate {
-  aggregate: SampleAggregateFunctions
-}
-
-type SampleAggregateFunctions {
-  sum: SampleNumericalColumns
-  avg: SampleNumericalColumns
-  min: SampleMinMaxColumns
-  max: SampleMinMaxColumns
-  stddev: SampleNumericalColumns
-  variance: SampleNumericalColumns
-  count(distinct: Boolean = false, columns: SampleCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type SampleConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [SampleEdge!]!
-}
-
-enum SampleCountColumns {
-  name
-  sample_type
-  water_control
-  collection_date
-  collection_location
-  description
-  host_taxon
-  sequencing_reads
-  metadatas
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input SampleCreateInput {
-  collectionId: Int!
-  name: String!
-  sampleType: String!
-  waterControl: Boolean!
-  collectionDate: DateTime = null
-  collectionLocation: String!
-  description: String = null
-  hostTaxonId: ID = null
-}
-
-"""An edge in a connection."""
-type SampleEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: Sample!
-}
-
-type SampleMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  name: String
-  sampleType: String
-  collectionDate: DateTime
-  collectionLocation: String
-  description: String
-}
-
-type SampleNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input SampleUpdateInput {
-  collectionId: Int = null
-  name: String = null
-  sampleType: String = null
-  waterControl: Boolean = null
-  collectionDate: DateTime = null
-  collectionLocation: String = null
-  description: String = null
-  hostTaxonId: ID = null
-}
-
-input SampleWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  name: StrComparators
-  sampleType: StrComparators
-  waterControl: BoolComparators
-  collectionDate: DatetimeComparators
-  collectionLocation: StrComparators
-  description: StrComparators
-  hostTaxon: TaxonWhereClause
-  sequencingReads: SequencingReadWhereClause
-  metadatas: MetadatumWhereClause
-}
-
-input SampleWhereClauseMutations {
-  id: UUIDComparators
-}
-
-type SequenceAlignmentIndex implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  indexFileId: ID
-  indexFile(where: FileWhereClause = null): File
-  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
-  tool: AlignmentTool!
-  version: String
-}
-
-type SequenceAlignmentIndexAggregate {
-  aggregate: SequenceAlignmentIndexAggregateFunctions
-}
-
-type SequenceAlignmentIndexAggregateFunctions {
-  sum: SequenceAlignmentIndexNumericalColumns
-  avg: SequenceAlignmentIndexNumericalColumns
-  min: SequenceAlignmentIndexMinMaxColumns
-  max: SequenceAlignmentIndexMinMaxColumns
-  stddev: SequenceAlignmentIndexNumericalColumns
-  variance: SequenceAlignmentIndexNumericalColumns
-  count(distinct: Boolean = false, columns: SequenceAlignmentIndexCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type SequenceAlignmentIndexConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [SequenceAlignmentIndexEdge!]!
-}
-
-enum SequenceAlignmentIndexCountColumns {
-  index_file
-  reference_genome
-  tool
-  version
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input SequenceAlignmentIndexCreateInput {
-  collectionId: Int!
-  indexFileId: ID = null
-  referenceGenomeId: ID = null
-  tool: AlignmentTool!
-  version: String = null
-}
-
-"""An edge in a connection."""
-type SequenceAlignmentIndexEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: SequenceAlignmentIndex!
-}
-
-type SequenceAlignmentIndexMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  version: String
-}
-
-type SequenceAlignmentIndexNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input SequenceAlignmentIndexUpdateInput {
-  collectionId: Int = null
-  indexFileId: ID = null
-  referenceGenomeId: ID = null
-  tool: AlignmentTool = null
-  version: String = null
-}
-
-input SequenceAlignmentIndexWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  referenceGenome: ReferenceGenomeWhereClause
-  tool: AlignmentToolEnumComparators
-  version: StrComparators
-}
-
-input SequenceAlignmentIndexWhereClauseMutations {
-  id: UUIDComparators
-}
-
-enum SequencingProtocol {
-  ampliseq
-  artic
-  artic_v3
-  artic_v4
-  artic_v5
-  combined_msspe_artic
-  covidseq
-  midnight
-  msspe
-  snap
-  varskip
-  easyseq
-}
-
-input SequencingProtocolEnumComparators {
-  _eq: SequencingProtocol
-  _neq: SequencingProtocol
-  _in: [SequencingProtocol!]
-  _nin: [SequencingProtocol!]
-  _gt: SequencingProtocol
-  _gte: SequencingProtocol
-  _lt: SequencingProtocol
-  _lte: SequencingProtocol
-  _is_null: SequencingProtocol
-}
-
-type SequencingRead implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  sample(where: SampleWhereClause = null): Sample
-  protocol: SequencingProtocol!
-  r1FileId: ID
-  r1File(where: FileWhereClause = null): File
-  r2FileId: ID
-  r2File(where: FileWhereClause = null): File
-  technology: SequencingTechnology!
-  nucleicAcid: NucleicAcid!
-  hasErcc: Boolean!
-  taxon(where: TaxonWhereClause = null): Taxon
-  primerFile(where: GenomicRangeWhereClause = null): GenomicRange
-  consensusGenomes(
-    where: ConsensusGenomeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): ConsensusGenomeConnection!
-  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
-  contigs(
-    where: ContigWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): ContigConnection!
-  contigsAggregate(where: ContigWhereClause = null): ContigAggregate
-}
-
-type SequencingReadAggregate {
-  aggregate: SequencingReadAggregateFunctions
-}
-
-type SequencingReadAggregateFunctions {
-  sum: SequencingReadNumericalColumns
-  avg: SequencingReadNumericalColumns
-  min: SequencingReadMinMaxColumns
-  max: SequencingReadMinMaxColumns
-  stddev: SequencingReadNumericalColumns
-  variance: SequencingReadNumericalColumns
-  count(distinct: Boolean = false, columns: SequencingReadCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type SequencingReadConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [SequencingReadEdge!]!
-}
-
-enum SequencingReadCountColumns {
-  sample
-  protocol
-  r1_file
-  r2_file
-  technology
-  nucleic_acid
-  has_ercc
-  taxon
-  primer_file
-  consensus_genomes
-  contigs
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input SequencingReadCreateInput {
-  collectionId: Int!
-  sampleId: ID = null
-  protocol: SequencingProtocol!
-  r1FileId: ID = null
-  r2FileId: ID = null
-  technology: SequencingTechnology!
-  nucleicAcid: NucleicAcid!
-  hasErcc: Boolean!
-  taxonId: ID = null
-  primerFileId: ID = null
-}
-
-"""An edge in a connection."""
-type SequencingReadEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: SequencingRead!
-}
-
-type SequencingReadMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-type SequencingReadNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input SequencingReadUpdateInput {
-  collectionId: Int = null
-  sampleId: ID = null
-  protocol: SequencingProtocol = null
-  r1FileId: ID = null
-  r2FileId: ID = null
-  technology: SequencingTechnology = null
-  nucleicAcid: NucleicAcid = null
-  hasErcc: Boolean = null
-  taxonId: ID = null
-  primerFileId: ID = null
-}
-
-input SequencingReadWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  sample: SampleWhereClause
-  protocol: SequencingProtocolEnumComparators
-  technology: SequencingTechnologyEnumComparators
-  nucleicAcid: NucleicAcidEnumComparators
-  hasErcc: BoolComparators
-  taxon: TaxonWhereClause
-  primerFile: GenomicRangeWhereClause
-  consensusGenomes: ConsensusGenomeWhereClause
-  contigs: ContigWhereClause
-}
-
-input SequencingReadWhereClauseMutations {
-  id: UUIDComparators
-}
-
-enum SequencingTechnology {
-  Illumina
-  Nanopore
-}
-
-input SequencingTechnologyEnumComparators {
-  _eq: SequencingTechnology
-  _neq: SequencingTechnology
-  _in: [SequencingTechnology!]
-  _nin: [SequencingTechnology!]
-  _gt: SequencingTechnology
-  _gte: SequencingTechnology
-  _lt: SequencingTechnology
-  _lte: SequencingTechnology
-  _is_null: SequencingTechnology
-}
-
-type SignedURL {
-  url: String!
-  protocol: String!
-  method: String!
-  expiration: Int!
-  fields: JSON
-}
-
-input StrComparators {
-  _eq: String
-  _neq: String
-  _in: [String!]
-  _nin: [String!]
-  _is_null: Int
-  _gt: String
-  _gte: String
-  _lt: String
-  _lte: String
-  _like: String
-  _nlike: String
-  _ilike: String
-  _nilike: String
-  _regex: String
-  _nregex: String
-  _iregex: String
-  _niregex: String
-}
-
-type Taxon implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  wikipediaId: String
-  description: String
-  commonName: String
-  name: String!
-  isPhage: Boolean!
-  upstreamDatabase(where: UpstreamDatabaseWhereClause = null): UpstreamDatabase
-  upstreamDatabaseIdentifier: String!
-  level: TaxonLevel!
-  consensusGenomes(
-    where: ConsensusGenomeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): ConsensusGenomeConnection!
-  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
-  referenceGenomes(
-    where: ReferenceGenomeWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): ReferenceGenomeConnection!
-  referenceGenomesAggregate(where: ReferenceGenomeWhereClause = null): ReferenceGenomeAggregate
-  sequencingReads(
-    where: SequencingReadWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): SequencingReadConnection!
-  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
-  samples(
-    where: SampleWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): SampleConnection!
-  samplesAggregate(where: SampleWhereClause = null): SampleAggregate
-}
-
-type TaxonAggregate {
-  aggregate: TaxonAggregateFunctions
-}
-
-type TaxonAggregateFunctions {
-  sum: TaxonNumericalColumns
-  avg: TaxonNumericalColumns
-  min: TaxonMinMaxColumns
-  max: TaxonMinMaxColumns
-  stddev: TaxonNumericalColumns
-  variance: TaxonNumericalColumns
-  count(distinct: Boolean = false, columns: TaxonCountColumns = null): Int
-}
-
-"""A connection to a list of items."""
-type TaxonConnection {
-  """Pagination data for this connection"""
-  pageInfo: PageInfo!
-  """Contains the nodes in this connection"""
-  edges: [TaxonEdge!]!
-}
-
-enum TaxonCountColumns {
-  wikipedia_id
-  description
-  common_name
-  name
-  is_phage
-  upstream_database
-  upstream_database_identifier
-  level
-  tax_parent
-  tax_subspecies
-  tax_species
-  tax_genus
-  tax_family
-  tax_order
-  tax_class
-  tax_phylum
-  tax_kingdom
-  tax_superkingdom
-  consensus_genomes
-  reference_genomes
-  sequencing_reads
-  samples
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input TaxonCreateInput {
-  collectionId: Int!
-  wikipediaId: String = null
-  description: String = null
-  commonName: String = null
-  name: String!
-  isPhage: Boolean!
-  upstreamDatabaseId: ID!
-  upstreamDatabaseIdentifier: String!
-  level: TaxonLevel!
-}
-
-"""An edge in a connection."""
-type TaxonEdge {
-  """A cursor for use in pagination"""
-  cursor: String!
-  """The item at the end of the edge"""
-  node: Taxon!
-}
-
-enum TaxonLevel {
-  level_subspecies
-  level_species
-  level_genus
-  level_family
-  level_order
-  level_class
-  level_phylum
-  level_kingdom
-  level_superkingdom
-}
-
-input TaxonLevelEnumComparators {
-  _eq: TaxonLevel
-  _neq: TaxonLevel
-  _in: [TaxonLevel!]
-  _nin: [TaxonLevel!]
-  _gt: TaxonLevel
-  _gte: TaxonLevel
-  _lt: TaxonLevel
-  _lte: TaxonLevel
-  _is_null: TaxonLevel
-}
-
-type TaxonMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  wikipediaId: String
-  description: String
-  commonName: String
-  name: String
-  upstreamDatabaseIdentifier: String
-}
-
-type TaxonNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input TaxonUpdateInput {
-  collectionId: Int = null
-  wikipediaId: String = null
-  description: String = null
-  commonName: String = null
-  name: String = null
-  isPhage: Boolean = null
-  upstreamDatabaseId: ID = null
-  upstreamDatabaseIdentifier: String = null
-  level: TaxonLevel = null
-}
-
-input TaxonWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  wikipediaId: StrComparators
-  description: StrComparators
-  commonName: StrComparators
-  name: StrComparators
-  isPhage: BoolComparators
-  upstreamDatabase: UpstreamDatabaseWhereClause
-  upstreamDatabaseIdentifier: StrComparators
-  level: TaxonLevelEnumComparators
-  consensusGenomes: ConsensusGenomeWhereClause
-  referenceGenomes: ReferenceGenomeWhereClause
-  sequencingReads: SequencingReadWhereClause
-  samples: SampleWhereClause
-}
-
-input TaxonWhereClauseMutations {
-  id: UUIDComparators
-}
-
-scalar UUID
-
-input UUIDComparators {
-  _eq: UUID
-  _neq: UUID
-  _in: [UUID!]
-  _nin: [UUID!]
-  _gt: UUID
-  _gte: UUID
-  _lt: UUID
-  _lte: UUID
-}
-
-type UpstreamDatabase implements EntityInterface & Node {
-  """The Globally Unique ID of this object"""
-  _id: GlobalID!
-  id: ID!
-  producingRunId: Int
-  ownerUserId: Int!
-  collectionId: Int!
-  name: String!
-  taxa(
-    where: TaxonWhereClause = null
-    """Returns the items in the list that come before the specified cursor."""
-    before: String = null
-    """Returns the items in the list that come after the specified cursor."""
-    after: String = null
-    """Returns the first n items from the list."""
-    first: Int = null
-    """Returns the items in the list that come after the specified cursor."""
-    last: Int = null
-  ): TaxonConnection!
-  taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate
-}
-
-type UpstreamDatabaseAggregate {
-  aggregate: UpstreamDatabaseAggregateFunctions
-}
-
-type UpstreamDatabaseAggregateFunctions {
-  sum: UpstreamDatabaseNumericalColumns
-  avg: UpstreamDatabaseNumericalColumns
-  min: UpstreamDatabaseMinMaxColumns
-  max: UpstreamDatabaseMinMaxColumns
-  stddev: UpstreamDatabaseNumericalColumns
-  variance: UpstreamDatabaseNumericalColumns
-  count(distinct: Boolean = false, columns: UpstreamDatabaseCountColumns = null): Int
-}
-
-enum UpstreamDatabaseCountColumns {
-  name
-  taxa
-  entity_id
-  id
-  producing_run_id
-  owner_user_id
-  collection_id
-}
-
-input UpstreamDatabaseCreateInput {
-  collectionId: Int!
-  name: String!
-}
-
-type UpstreamDatabaseMinMaxColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-  name: String
-}
-
-type UpstreamDatabaseNumericalColumns {
-  producingRunId: Int
-  ownerUserId: Int
-  collectionId: Int
-}
-
-input UpstreamDatabaseUpdateInput {
-  collectionId: Int = null
-  name: String = null
-}
-
-input UpstreamDatabaseWhereClause {
-  id: UUIDComparators
-  producingRunId: IntComparators
-  ownerUserId: IntComparators
-  collectionId: IntComparators
-  name: StrComparators
-  taxa: TaxonWhereClause
-}
-
-input UpstreamDatabaseWhereClauseMutations {
-  id: UUIDComparators
-}
 
 type AlignmentConfig {
   createdAt: ISO8601DateTime!
@@ -1987,6 +34,46 @@ type AlignmentConfig {
   updatedAt: ISO8601DateTime!
 }
 
+enum AlignmentTool {
+  bowtie2
+  czid_index_generation
+  minimap2
+}
+
+input AlignmentToolEnumComparators {
+  _eq: AlignmentTool
+  _gt: AlignmentTool
+  _gte: AlignmentTool
+  _in: [AlignmentTool!]
+  _is_null: AlignmentTool
+  _lt: AlignmentTool
+  _lte: AlignmentTool
+  _neq: AlignmentTool
+  _nin: [AlignmentTool!]
+}
+
+type AmrDeprecatedResults {
+  allele: String
+  annotation_gene: String
+  coverage: Float
+  created_at: String
+  depth: Float
+  dpm: Float
+  drug_family: String
+  genbank_accession: String
+  gene: String
+  id: Int
+  pipeline_run_id: Int
+  rpm: Float
+  total_reads: Int
+  updated_at: String
+}
+
+type AmrWorkflowResults {
+  amr_hit: [query_AmrWorkflowResults_amr_hit_items]
+  metric_amr: query_AmrWorkflowResults_metric_amr
+}
+
 input Annotation {
   name: String!
 }
@@ -1996,11 +83,248 @@ type AppConfig {
   value: String!
 }
 
+type Background {
+  other_backgrounds: [query_Background_other_backgrounds_items]
+  owned_backgrounds: [JSON]
+}
+
 """
 Represents non-fractional signed whole numeric values. Since the value may
 exceed the size of a 32-bit integer, it's encoded as a string.
 """
 scalar BigInt
+
+input BoolComparators {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Int
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+type BulkDownloadDetails {
+  bulk_download: query_BulkDownloadDetails_bulk_download
+  download_type: query_BulkDownloadDetails_download_type
+}
+
+type ConsensusGenome implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  intermediateOutputs(where: FileWhereClause = null): File
+  intermediateOutputsId: ID
+  metrics(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: MetricConsensusGenomeWhereClause = null
+  ): MetricConsensusGenomeConnection!
+  metricsAggregate(where: MetricConsensusGenomeWhereClause = null): MetricConsensusGenomeAggregate
+  ownerUserId: Int!
+  producingRunId: Int
+  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
+  sequence(where: FileWhereClause = null): File
+  sequenceId: ID
+  sequenceRead(where: SequencingReadWhereClause = null): SequencingRead
+  taxon(where: TaxonWhereClause = null): Taxon
+}
+
+type ConsensusGenomeAggregate {
+  aggregate: ConsensusGenomeAggregateFunctions
+}
+
+type ConsensusGenomeAggregateFunctions {
+  avg: ConsensusGenomeNumericalColumns
+  count(columns: ConsensusGenomeCountColumns = null, distinct: Boolean = false): Int
+  max: ConsensusGenomeMinMaxColumns
+  min: ConsensusGenomeMinMaxColumns
+  stddev: ConsensusGenomeNumericalColumns
+  sum: ConsensusGenomeNumericalColumns
+  variance: ConsensusGenomeNumericalColumns
+}
+
+"""A connection to a list of items."""
+type ConsensusGenomeConnection {
+  """Contains the nodes in this connection"""
+  edges: [ConsensusGenomeEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum ConsensusGenomeCountColumns {
+  collection_id
+  entity_id
+  id
+  intermediate_outputs
+  metrics
+  owner_user_id
+  producing_run_id
+  reference_genome
+  sequence
+  sequence_read
+  taxon
+}
+
+input ConsensusGenomeCreateInput {
+  collectionId: Int!
+  intermediateOutputsId: ID = null
+  referenceGenomeId: ID!
+  sequenceId: ID = null
+  sequenceReadId: ID!
+  taxonId: ID!
+}
+
+"""An edge in a connection."""
+type ConsensusGenomeEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: ConsensusGenome!
+}
+
+type ConsensusGenomeMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type ConsensusGenomeNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type ConsensusGenomeOverviewRows {
+  cgOverviewRows: [[String]]!
+}
+
+input ConsensusGenomeUpdateInput {
+  collectionId: Int = null
+  intermediateOutputsId: ID = null
+  referenceGenomeId: ID = null
+  sequenceId: ID = null
+  sequenceReadId: ID = null
+  taxonId: ID = null
+}
+
+input ConsensusGenomeWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  metrics: MetricConsensusGenomeWhereClause
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  referenceGenome: ReferenceGenomeWhereClause
+  sequenceRead: SequencingReadWhereClause
+  taxon: TaxonWhereClause
+}
+
+input ConsensusGenomeWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type ConsensusGenomeWorkflowResults {
+  metric_consensus_genome: query_ConsensusGenomeWorkflowResults_metric_consensus_genome
+  reference_genome: query_ConsensusGenomeWorkflowResults_reference_genome
+}
+
+type Contig implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  ownerUserId: Int!
+  producingRunId: Int
+  sequence: String!
+  sequencingRead(where: SequencingReadWhereClause = null): SequencingRead
+}
+
+type ContigAggregate {
+  aggregate: ContigAggregateFunctions
+}
+
+type ContigAggregateFunctions {
+  avg: ContigNumericalColumns
+  count(columns: ContigCountColumns = null, distinct: Boolean = false): Int
+  max: ContigMinMaxColumns
+  min: ContigMinMaxColumns
+  stddev: ContigNumericalColumns
+  sum: ContigNumericalColumns
+  variance: ContigNumericalColumns
+}
+
+"""A connection to a list of items."""
+type ContigConnection {
+  """Contains the nodes in this connection"""
+  edges: [ContigEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum ContigCountColumns {
+  collection_id
+  entity_id
+  id
+  owner_user_id
+  producing_run_id
+  sequence
+  sequencing_read
+}
+
+input ContigCreateInput {
+  collectionId: Int!
+  sequence: String!
+  sequencingReadId: ID = null
+}
+
+"""An edge in a connection."""
+type ContigEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: Contig!
+}
+
+type ContigMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  sequence: String
+}
+
+type ContigNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input ContigUpdateInput {
+  collectionId: Int = null
+  sequence: String = null
+  sequencingReadId: ID = null
+}
+
+input ContigWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  sequence: StrComparators
+  sequencingRead: SequencingReadWhereClause
+}
+
+input ContigWhereClauseMutations {
+  id: UUIDComparators
+}
 
 """Autogenerated return type of CreateUser."""
 type CreateUserPayload {
@@ -2011,6 +335,21 @@ type CreateUserPayload {
   role: Int
   segments: String
   sendActivation: Boolean
+}
+
+"""Date with time (isoformat)"""
+scalar DateTime
+
+input DatetimeComparators {
+  _eq: DateTime
+  _gt: DateTime
+  _gte: DateTime
+  _in: [DateTime!]
+  _is_null: DateTime
+  _lt: DateTime
+  _lte: DateTime
+  _neq: DateTime
+  _nin: [DateTime!]
 }
 
 type DbSample {
@@ -2046,11 +385,234 @@ type DbSample {
   webCommit: String
 }
 
+type DeleteSamples {
+  deleted_workflow_ids: [Int]
+  error: String
+}
+
 type DerivedSampleOutput {
   hostGenomeName: String!
   pipelineRun: PipelineRun
   projectName: String!
   summaryStats: SampleSummaryStats
+}
+
+type Entity {
+  collectionId: Int!
+  id: ID!
+  ownerUserId: Int!
+  producingRunId: ID!
+  type: String!
+}
+
+interface EntityInterface implements Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+}
+
+input EntityWhereClause {
+  collectionId: IntComparators
+  entityId: UUIDComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+}
+
+type File {
+  compressionType: Int
+  downloadLink(expiration: Int! = 3600): SignedURL
+  entity(where: EntityWhereClause = null): Entity
+  entityFieldName: String!
+  entityId: ID!
+  fileFormat: String!
+  id: ID!
+  namespace: String!
+  path: String!
+  protocol: String!
+  size: Int
+  status: FileStatus!
+}
+
+input FileCreate {
+  compressionType: String = null
+  fileFormat: String!
+  name: String!
+  namespace: String!
+  path: String!
+  protocol: String!
+}
+
+enum FileStatus {
+  FAILED
+  PENDING
+  SUCCESS
+}
+
+input FileStatusEnumComparators {
+  _eq: FileStatus
+  _gt: FileStatus
+  _gte: FileStatus
+  _in: [FileStatus!]
+  _is_null: FileStatus
+  _lt: FileStatus
+  _lte: FileStatus
+  _neq: FileStatus
+  _nin: [FileStatus!]
+}
+
+input FileUpload {
+  compressionType: String = null
+  fileFormat: String!
+  name: String!
+}
+
+input FileWhereClause {
+  compressionType: StrComparators
+  entityFieldName: StrComparators
+  entityId: UUIDComparators
+  fileFormat: StrComparators
+  id: UUIDComparators
+  namespace: StrComparators
+  path: StrComparators
+  protocol: StrComparators
+  size: IntComparators
+  status: FileStatusEnumComparators
+}
+
+input FloatComparators {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  _is_null: Float
+  _lt: Float
+  _lte: Float
+  _neq: Float
+  _nin: [Float!]
+}
+
+type GenomicRange implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  file(where: FileWhereClause = null): File
+  fileId: ID
+  id: ID!
+  ownerUserId: Int!
+  producingRunId: Int
+  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
+  sequencingReads(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: SequencingReadWhereClause = null
+  ): SequencingReadConnection!
+  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
+}
+
+type GenomicRangeAggregate {
+  aggregate: GenomicRangeAggregateFunctions
+}
+
+type GenomicRangeAggregateFunctions {
+  avg: GenomicRangeNumericalColumns
+  count(columns: GenomicRangeCountColumns = null, distinct: Boolean = false): Int
+  max: GenomicRangeMinMaxColumns
+  min: GenomicRangeMinMaxColumns
+  stddev: GenomicRangeNumericalColumns
+  sum: GenomicRangeNumericalColumns
+  variance: GenomicRangeNumericalColumns
+}
+
+"""A connection to a list of items."""
+type GenomicRangeConnection {
+  """Contains the nodes in this connection"""
+  edges: [GenomicRangeEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum GenomicRangeCountColumns {
+  collection_id
+  entity_id
+  file
+  id
+  owner_user_id
+  producing_run_id
+  reference_genome
+  sequencing_reads
+}
+
+input GenomicRangeCreateInput {
+  collectionId: Int!
+  fileId: ID = null
+  referenceGenomeId: ID!
+}
+
+"""An edge in a connection."""
+type GenomicRangeEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: GenomicRange!
+}
+
+type GenomicRangeMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type GenomicRangeNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input GenomicRangeUpdateInput {
+  collectionId: Int = null
+  fileId: ID = null
+  referenceGenomeId: ID = null
+}
+
+input GenomicRangeWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  referenceGenome: ReferenceGenomeWhereClause
+  sequencingReads: SequencingReadWhereClause
+}
+
+input GenomicRangeWhereClauseMutations {
+  id: UUIDComparators
+}
+
+"""
+The \`ID\` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as \`"4"\`) or integer (such as \`4\`) input value will be accepted as an ID.
+"""
+scalar GlobalID @specifiedBy(url: "https://relay.dev/graphql/objectidentification.htm")
+
+type GraphQLFederationVersion {
+  gitCommit: String
+  version: String
+}
+
+enum HTTPMethod {
+  CONNECT
+  DELETE
+  GET
+  HEAD
+  OPTIONS
+  PATCH
+  POST
+  PUT
+  TRACE
 }
 
 type HostGenome {
@@ -2085,6 +647,497 @@ type InputFile {
   uploadClient: String
 }
 
+input IntComparators {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Int
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type MetadataField implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  defaultValue: String
+  description: String!
+  fieldGroup(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: MetadataFieldProjectWhereClause = null
+  ): MetadataFieldProjectConnection!
+  fieldGroupAggregate(where: MetadataFieldProjectWhereClause = null): MetadataFieldProjectAggregate
+  fieldName: String!
+  fieldType: String!
+  id: ID!
+  isRequired: Boolean!
+  metadatas(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: MetadatumWhereClause = null
+  ): MetadatumConnection!
+  metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate
+  options: String
+  ownerUserId: Int!
+  producingRunId: Int
+}
+
+type MetadataFieldAggregate {
+  aggregate: MetadataFieldAggregateFunctions
+}
+
+type MetadataFieldAggregateFunctions {
+  avg: MetadataFieldNumericalColumns
+  count(columns: MetadataFieldCountColumns = null, distinct: Boolean = false): Int
+  max: MetadataFieldMinMaxColumns
+  min: MetadataFieldMinMaxColumns
+  stddev: MetadataFieldNumericalColumns
+  sum: MetadataFieldNumericalColumns
+  variance: MetadataFieldNumericalColumns
+}
+
+enum MetadataFieldCountColumns {
+  collection_id
+  default_value
+  description
+  entity_id
+  field_group
+  field_name
+  field_type
+  id
+  is_required
+  metadatas
+  options
+  owner_user_id
+  producing_run_id
+}
+
+input MetadataFieldCreateInput {
+  collectionId: Int!
+  defaultValue: String = null
+  description: String!
+  fieldName: String!
+  fieldType: String!
+  isRequired: Boolean!
+  options: String = null
+}
+
+type MetadataFieldMinMaxColumns {
+  collectionId: Int
+  defaultValue: String
+  description: String
+  fieldName: String
+  fieldType: String
+  options: String
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type MetadataFieldNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type MetadataFieldProject implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  metadataField(where: MetadataFieldWhereClause = null): MetadataField
+  ownerUserId: Int!
+  producingRunId: Int
+  projectId: Int!
+}
+
+type MetadataFieldProjectAggregate {
+  aggregate: MetadataFieldProjectAggregateFunctions
+}
+
+type MetadataFieldProjectAggregateFunctions {
+  avg: MetadataFieldProjectNumericalColumns
+  count(columns: MetadataFieldProjectCountColumns = null, distinct: Boolean = false): Int
+  max: MetadataFieldProjectMinMaxColumns
+  min: MetadataFieldProjectMinMaxColumns
+  stddev: MetadataFieldProjectNumericalColumns
+  sum: MetadataFieldProjectNumericalColumns
+  variance: MetadataFieldProjectNumericalColumns
+}
+
+"""A connection to a list of items."""
+type MetadataFieldProjectConnection {
+  """Contains the nodes in this connection"""
+  edges: [MetadataFieldProjectEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum MetadataFieldProjectCountColumns {
+  collection_id
+  entity_id
+  id
+  metadata_field
+  owner_user_id
+  producing_run_id
+  project_id
+}
+
+input MetadataFieldProjectCreateInput {
+  collectionId: Int!
+  metadataFieldId: ID!
+  projectId: Int!
+}
+
+"""An edge in a connection."""
+type MetadataFieldProjectEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: MetadataFieldProject!
+}
+
+type MetadataFieldProjectMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  projectId: Int
+}
+
+type MetadataFieldProjectNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  projectId: Int
+}
+
+input MetadataFieldProjectUpdateInput {
+  collectionId: Int = null
+  metadataFieldId: ID = null
+  projectId: Int = null
+}
+
+input MetadataFieldProjectWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  metadataField: MetadataFieldWhereClause
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  projectId: IntComparators
+}
+
+input MetadataFieldProjectWhereClauseMutations {
+  id: UUIDComparators
+}
+
+input MetadataFieldUpdateInput {
+  collectionId: Int = null
+  defaultValue: String = null
+  description: String = null
+  fieldName: String = null
+  fieldType: String = null
+  isRequired: Boolean = null
+  options: String = null
+}
+
+input MetadataFieldWhereClause {
+  collectionId: IntComparators
+  defaultValue: StrComparators
+  description: StrComparators
+  fieldGroup: MetadataFieldProjectWhereClause
+  fieldName: StrComparators
+  fieldType: StrComparators
+  id: UUIDComparators
+  isRequired: BoolComparators
+  metadatas: MetadatumWhereClause
+  options: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+}
+
+input MetadataFieldWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type Metadatum implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  metadataField(where: MetadataFieldWhereClause = null): MetadataField
+  ownerUserId: Int!
+  producingRunId: Int
+  sample(where: SampleWhereClause = null): Sample
+  value: String!
+}
+
+type MetadatumAggregate {
+  aggregate: MetadatumAggregateFunctions
+}
+
+type MetadatumAggregateFunctions {
+  avg: MetadatumNumericalColumns
+  count(columns: MetadatumCountColumns = null, distinct: Boolean = false): Int
+  max: MetadatumMinMaxColumns
+  min: MetadatumMinMaxColumns
+  stddev: MetadatumNumericalColumns
+  sum: MetadatumNumericalColumns
+  variance: MetadatumNumericalColumns
+}
+
+"""A connection to a list of items."""
+type MetadatumConnection {
+  """Contains the nodes in this connection"""
+  edges: [MetadatumEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum MetadatumCountColumns {
+  collection_id
+  entity_id
+  id
+  metadata_field
+  owner_user_id
+  producing_run_id
+  sample
+  value
+}
+
+input MetadatumCreateInput {
+  collectionId: Int!
+  metadataFieldId: ID!
+  sampleId: ID!
+  value: String!
+}
+
+"""An edge in a connection."""
+type MetadatumEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: Metadatum!
+}
+
+type MetadatumMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  value: String
+}
+
+type MetadatumNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input MetadatumUpdateInput {
+  collectionId: Int = null
+  metadataFieldId: ID = null
+  sampleId: ID = null
+  value: String = null
+}
+
+input MetadatumWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  metadataField: MetadataFieldWhereClause
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  sample: SampleWhereClause
+  value: StrComparators
+}
+
+input MetadatumWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type MetricConsensusGenome implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  consensusGenome(where: ConsensusGenomeWhereClause = null): ConsensusGenome
+  coverageDepth: Float
+  coverageVizSummaryFile(where: FileWhereClause = null): File
+  coverageVizSummaryFileId: ID
+  gcPercent: Float
+  id: ID!
+  mappedReads: Int
+  nActg: Int
+  nAmbiguous: Int
+  nMissing: Int
+  ownerUserId: Int!
+  percentGenomeCalled: Float
+  percentIdentity: Float
+  producingRunId: Int
+  refSnps: Int
+  referenceGenomeLength: Float
+  totalReads: Int
+}
+
+type MetricConsensusGenomeAggregate {
+  aggregate: MetricConsensusGenomeAggregateFunctions
+}
+
+type MetricConsensusGenomeAggregateFunctions {
+  avg: MetricConsensusGenomeNumericalColumns
+  count(columns: MetricConsensusGenomeCountColumns = null, distinct: Boolean = false): Int
+  max: MetricConsensusGenomeMinMaxColumns
+  min: MetricConsensusGenomeMinMaxColumns
+  stddev: MetricConsensusGenomeNumericalColumns
+  sum: MetricConsensusGenomeNumericalColumns
+  variance: MetricConsensusGenomeNumericalColumns
+}
+
+"""A connection to a list of items."""
+type MetricConsensusGenomeConnection {
+  """Contains the nodes in this connection"""
+  edges: [MetricConsensusGenomeEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum MetricConsensusGenomeCountColumns {
+  collection_id
+  consensus_genome
+  coverage_depth
+  coverage_viz_summary_file
+  entity_id
+  gc_percent
+  id
+  mapped_reads
+  n_actg
+  n_ambiguous
+  n_missing
+  owner_user_id
+  percent_genome_called
+  percent_identity
+  producing_run_id
+  ref_snps
+  reference_genome_length
+  total_reads
+}
+
+input MetricConsensusGenomeCreateInput {
+  collectionId: Int!
+  consensusGenomeId: ID!
+  coverageDepth: Float = null
+  coverageVizSummaryFileId: ID = null
+  gcPercent: Float = null
+  mappedReads: Int = null
+  nActg: Int = null
+  nAmbiguous: Int = null
+  nMissing: Int = null
+  percentGenomeCalled: Float = null
+  percentIdentity: Float = null
+  refSnps: Int = null
+  referenceGenomeLength: Float = null
+  totalReads: Int = null
+}
+
+"""An edge in a connection."""
+type MetricConsensusGenomeEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: MetricConsensusGenome!
+}
+
+type MetricConsensusGenomeMinMaxColumns {
+  collectionId: Int
+  coverageDepth: Float
+  gcPercent: Float
+  mappedReads: Int
+  nActg: Int
+  nAmbiguous: Int
+  nMissing: Int
+  ownerUserId: Int
+  percentGenomeCalled: Float
+  percentIdentity: Float
+  producingRunId: Int
+  refSnps: Int
+  referenceGenomeLength: Float
+  totalReads: Int
+}
+
+type MetricConsensusGenomeNumericalColumns {
+  collectionId: Int
+  coverageDepth: Float
+  gcPercent: Float
+  mappedReads: Int
+  nActg: Int
+  nAmbiguous: Int
+  nMissing: Int
+  ownerUserId: Int
+  percentGenomeCalled: Float
+  percentIdentity: Float
+  producingRunId: Int
+  refSnps: Int
+  referenceGenomeLength: Float
+  totalReads: Int
+}
+
+input MetricConsensusGenomeUpdateInput {
+  collectionId: Int = null
+  consensusGenomeId: ID = null
+  coverageDepth: Float = null
+  coverageVizSummaryFileId: ID = null
+  gcPercent: Float = null
+  mappedReads: Int = null
+  nActg: Int = null
+  nAmbiguous: Int = null
+  nMissing: Int = null
+  percentGenomeCalled: Float = null
+  percentIdentity: Float = null
+  refSnps: Int = null
+  referenceGenomeLength: Float = null
+  totalReads: Int = null
+}
+
+input MetricConsensusGenomeWhereClause {
+  collectionId: IntComparators
+  consensusGenome: ConsensusGenomeWhereClause
+  coverageDepth: FloatComparators
+  gcPercent: FloatComparators
+  id: UUIDComparators
+  mappedReads: IntComparators
+  nActg: IntComparators
+  nAmbiguous: IntComparators
+  nMissing: IntComparators
+  ownerUserId: IntComparators
+  percentGenomeCalled: FloatComparators
+  percentIdentity: FloatComparators
+  producingRunId: IntComparators
+  refSnps: IntComparators
+  referenceGenomeLength: FloatComparators
+  totalReads: IntComparators
+}
+
+input MetricConsensusGenomeWhereClauseMutations {
+  id: UUIDComparators
+}
+
 type MngsRunInfo {
   createdAt: ISO8601DateTime
   finalized: Int
@@ -2092,6 +1145,136 @@ type MngsRunInfo {
   resultStatusDescription: String
   totalRuntime: Int
   withAssembly: Int
+}
+
+type MngsWorkflowResults {
+  _: query_MngsWorkflowResults__
+  metric_mngs: query_MngsWorkflowResults_metric_mngs
+  taxon_hit_results: query_MngsWorkflowResults_taxon_hit_results
+}
+
+type MultipartUploadCredentials {
+  accessKeyId: String!
+  expiration: String!
+  namespace: String!
+  path: String!
+  protocol: String!
+  secretAccessKey: String!
+  sessionToken: String!
+}
+
+type MultipartUploadResponse {
+  credentials: MultipartUploadCredentials!
+  file: File!
+}
+
+type Mutation {
+  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(path: "/bulk_download", httpMethod: POST)
+  DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(path: "/samples/bulk_delete", httpMethod: POST)
+  KickoffAMRWorkflow(input: mutationInput_KickoffAMRWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  KickoffWGSWorkflow(input: mutationInput_KickoffWGSWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateMetadata(input: mutationInput_UpdateMetadata_input_Input, sampleId: String): UpdateMetadataReponse @httpOperation(path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateSampleName(input: mutationInput_UpdateSampleNotes_input_Input, sampleId: String): UpdateSampleName @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateSampleNotes(input: mutationInput_UpdateSampleNotes_input_Input, sampleId: String): UpdateSampleNotes @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  concatenateFiles(ids: [UUID!]!): SignedURL!
+  createConsensusGenome(input: ConsensusGenomeCreateInput!): ConsensusGenome!
+  createContig(input: ContigCreateInput!): Contig!
+  createFile(entityFieldName: String!, entityId: ID!, file: FileCreate!): File!
+  createGenomicRange(input: GenomicRangeCreateInput!): GenomicRange!
+  createMetadataField(input: MetadataFieldCreateInput!): MetadataField!
+  createMetadataFieldProject(input: MetadataFieldProjectCreateInput!): MetadataFieldProject!
+  createMetadatum(input: MetadatumCreateInput!): Metadatum!
+  createMetricConsensusGenome(input: MetricConsensusGenomeCreateInput!): MetricConsensusGenome!
+  createPhylogeneticTree(input: PhylogeneticTreeCreateInput!): PhylogeneticTree!
+  createReferenceGenome(input: ReferenceGenomeCreateInput!): ReferenceGenome!
+  createRun(input: RunCreateInput!): Run!
+  createRunEntityInput(input: RunEntityInputCreateInput!): RunEntityInput!
+  createRunStep(input: RunStepCreateInput!): RunStep!
+  createSample(input: SampleCreateInput!): Sample!
+  createSequenceAlignmentIndex(input: SequenceAlignmentIndexCreateInput!): SequenceAlignmentIndex!
+  createSequencingRead(input: SequencingReadCreateInput!): SequencingRead!
+  createTaxon(input: TaxonCreateInput!): Taxon!
+  createUpstreamDatabase(input: UpstreamDatabaseCreateInput!): UpstreamDatabase!
+  createUser(archetypes: String, email: String!, institution: String, name: String, role: Int, segments: String, sendActivation: Boolean): CreateUserPayload!
+  createWorkflow(input: WorkflowCreateInput!): Workflow!
+  createWorkflowVersion(input: WorkflowVersionCreateInput!): WorkflowVersion!
+  deleteConsensusGenome(where: ConsensusGenomeWhereClauseMutations!): [ConsensusGenome!]!
+  deleteContig(where: ContigWhereClauseMutations!): [Contig!]!
+  deleteGenomicRange(where: GenomicRangeWhereClauseMutations!): [GenomicRange!]!
+  deleteMetadataField(where: MetadataFieldWhereClauseMutations!): [MetadataField!]!
+  deleteMetadataFieldProject(where: MetadataFieldProjectWhereClauseMutations!): [MetadataFieldProject!]!
+  deleteMetadatum(where: MetadatumWhereClauseMutations!): [Metadatum!]!
+  deleteMetricConsensusGenome(where: MetricConsensusGenomeWhereClauseMutations!): [MetricConsensusGenome!]!
+  deletePhylogeneticTree(where: PhylogeneticTreeWhereClauseMutations!): [PhylogeneticTree!]!
+  deleteReferenceGenome(where: ReferenceGenomeWhereClauseMutations!): [ReferenceGenome!]!
+  deleteRun(where: RunWhereClauseMutations!): [Run!]!
+  deleteRunEntityInput(where: RunEntityInputWhereClauseMutations!): [RunEntityInput!]!
+  deleteRunStep(where: RunStepWhereClauseMutations!): [RunStep!]!
+  deleteSample(where: SampleWhereClauseMutations!): [Sample!]!
+  deleteSequenceAlignmentIndex(where: SequenceAlignmentIndexWhereClauseMutations!): [SequenceAlignmentIndex!]!
+  deleteSequencingRead(where: SequencingReadWhereClauseMutations!): [SequencingRead!]!
+  deleteTaxon(where: TaxonWhereClauseMutations!): [Taxon!]!
+  deleteUpstreamDatabase(where: UpstreamDatabaseWhereClauseMutations!): [UpstreamDatabase!]!
+  deleteWorkflow(where: WorkflowWhereClauseMutations!): [Workflow!]!
+  deleteWorkflowVersion(where: WorkflowVersionWhereClauseMutations!): [WorkflowVersion!]!
+  markUploadComplete(fileId: ID!): File!
+  updateConsensusGenome(input: ConsensusGenomeUpdateInput!, where: ConsensusGenomeWhereClauseMutations!): [ConsensusGenome!]!
+  updateContig(input: ContigUpdateInput!, where: ContigWhereClauseMutations!): [Contig!]!
+  updateGenomicRange(input: GenomicRangeUpdateInput!, where: GenomicRangeWhereClauseMutations!): [GenomicRange!]!
+  updateMetadataField(input: MetadataFieldUpdateInput!, where: MetadataFieldWhereClauseMutations!): [MetadataField!]!
+  updateMetadataFieldProject(input: MetadataFieldProjectUpdateInput!, where: MetadataFieldProjectWhereClauseMutations!): [MetadataFieldProject!]!
+  updateMetadatum(input: MetadatumUpdateInput!, where: MetadatumWhereClauseMutations!): [Metadatum!]!
+  updateMetricConsensusGenome(input: MetricConsensusGenomeUpdateInput!, where: MetricConsensusGenomeWhereClauseMutations!): [MetricConsensusGenome!]!
+  updatePhylogeneticTree(input: PhylogeneticTreeUpdateInput!, where: PhylogeneticTreeWhereClauseMutations!): [PhylogeneticTree!]!
+  updateReferenceGenome(input: ReferenceGenomeUpdateInput!, where: ReferenceGenomeWhereClauseMutations!): [ReferenceGenome!]!
+  updateRun(input: RunUpdateInput!, where: RunWhereClauseMutations!): [Run!]!
+  updateRunEntityInput(input: RunEntityInputUpdateInput!, where: RunEntityInputWhereClauseMutations!): [RunEntityInput!]!
+  updateRunStep(input: RunStepUpdateInput!, where: RunStepWhereClauseMutations!): [RunStep!]!
+  updateSample(input: SampleUpdateInput!, where: SampleWhereClauseMutations!): [Sample!]!
+  updateSequenceAlignmentIndex(input: SequenceAlignmentIndexUpdateInput!, where: SequenceAlignmentIndexWhereClauseMutations!): [SequenceAlignmentIndex!]!
+  updateSequencingRead(input: SequencingReadUpdateInput!, where: SequencingReadWhereClauseMutations!): [SequencingRead!]!
+  updateTaxon(input: TaxonUpdateInput!, where: TaxonWhereClauseMutations!): [Taxon!]!
+  updateUpstreamDatabase(input: UpstreamDatabaseUpdateInput!, where: UpstreamDatabaseWhereClauseMutations!): [UpstreamDatabase!]!
+  updateWorkflow(input: WorkflowUpdateInput!, where: WorkflowWhereClauseMutations!): [Workflow!]!
+  updateWorkflowVersion(input: WorkflowVersionUpdateInput!, where: WorkflowVersionWhereClauseMutations!): [WorkflowVersion!]!
+  uploadFile(entityFieldName: String!, entityId: ID!, expiration: Int! = 3600, file: FileUpload!): MultipartUploadResponse!
+}
+
+"""An object with a Globally Unique ID"""
+interface Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+}
+
+enum NucleicAcid {
+  DNA
+  RNA
+}
+
+input NucleicAcidEnumComparators {
+  _eq: NucleicAcid
+  _gt: NucleicAcid
+  _gte: NucleicAcid
+  _in: [NucleicAcid!]
+  _is_null: NucleicAcid
+  _lt: NucleicAcid
+  _lte: NucleicAcid
+  _neq: NucleicAcid
+  _nin: [NucleicAcid!]
+}
+
+scalar ObjMap
+
+"""Information to aid in pagination."""
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
 }
 
 type Pathogen {
@@ -2108,6 +1291,106 @@ type PathogenList {
   pathogens: [Pathogen!]
   updatedAt: ISO8601DateTime
   version: String
+}
+
+type PersistedBackground {
+  background_id: Int
+}
+
+type PhylogeneticTree implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  format: PhylogeneticTreeFormat!
+  id: ID!
+  ownerUserId: Int!
+  producingRunId: Int
+  tree(where: FileWhereClause = null): File
+  treeId: ID
+}
+
+type PhylogeneticTreeAggregate {
+  aggregate: PhylogeneticTreeAggregateFunctions
+}
+
+type PhylogeneticTreeAggregateFunctions {
+  avg: PhylogeneticTreeNumericalColumns
+  count(columns: PhylogeneticTreeCountColumns = null, distinct: Boolean = false): Int
+  max: PhylogeneticTreeMinMaxColumns
+  min: PhylogeneticTreeMinMaxColumns
+  stddev: PhylogeneticTreeNumericalColumns
+  sum: PhylogeneticTreeNumericalColumns
+  variance: PhylogeneticTreeNumericalColumns
+}
+
+enum PhylogeneticTreeCountColumns {
+  collection_id
+  entity_id
+  format
+  id
+  owner_user_id
+  producing_run_id
+  tree
+}
+
+input PhylogeneticTreeCreateInput {
+  collectionId: Int!
+  format: PhylogeneticTreeFormat!
+  treeId: ID = null
+}
+
+enum PhylogeneticTreeFormat {
+  auspice_v1
+  auspice_v2
+  newick
+}
+
+input PhylogeneticTreeFormatEnumComparators {
+  _eq: PhylogeneticTreeFormat
+  _gt: PhylogeneticTreeFormat
+  _gte: PhylogeneticTreeFormat
+  _in: [PhylogeneticTreeFormat!]
+  _is_null: PhylogeneticTreeFormat
+  _lt: PhylogeneticTreeFormat
+  _lte: PhylogeneticTreeFormat
+  _neq: PhylogeneticTreeFormat
+  _nin: [PhylogeneticTreeFormat!]
+}
+
+type PhylogeneticTreeMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type PhylogeneticTreeNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input PhylogeneticTreeUpdateInput {
+  collectionId: Int = null
+  format: PhylogeneticTreeFormat = null
+  treeId: ID = null
+}
+
+input PhylogeneticTreeWhereClause {
+  collectionId: IntComparators
+  format: PhylogeneticTreeFormatEnumComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+}
+
+input PhylogeneticTreeWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type PipelineData {
+  edges: [query_PipelineData_edges_items]
+  stages: [query_PipelineData_stages_items]
+  status: String
 }
 
 type PipelineRun {
@@ -2166,6 +1449,589 @@ type Project {
   updatedAt: ISO8601DateTime!
 }
 
+type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") {
+  AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
+  BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(path: "/bulk_downloads", httpMethod: POST)
+  BulkDownloadDetails(bulkDownloadId: String): BulkDownloadDetails @httpOperation(path: "/bulk_downloads/{args.bulkDownloadId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  CoverageVizSummary(sampleId: String, snapshotLinkId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
+  GraphQLFederationVersion: GraphQLFederationVersion
+  MetadataFields(input: queryInput_MetadataFields_input_Input, snapshotLinkId: String): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  MngsWorkflowResults(_backgroundId: String, sampleId: String, snapshotLinkId: String, workflowVersionId: String): MngsWorkflowResults @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
+  Pathogens(sampleId: String, snapshotLinkId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  PersistedBackground(projectId: String): PersistedBackground @httpOperation(path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  SampleMetadata(input: queryInput_SampleMetadata_input_Input, sampleId: String, snapshotLinkId: String): SampleMetadata @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
+  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  Taxons(sampleId: String, snapshotLinkId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
+  ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
+  appConfig(id: ID!): AppConfig
+  consensusGenomes(where: ConsensusGenomeWhereClause = null): [ConsensusGenome!]!
+  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate!
+  contigs(where: ContigWhereClause = null): [Contig!]!
+  contigsAggregate(where: ContigWhereClause = null): ContigAggregate!
+  files(where: FileWhereClause = null): [File!]!
+  genomicRanges(where: GenomicRangeWhereClause = null): [GenomicRange!]!
+  genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
+  metadataFieldProjects(where: MetadataFieldProjectWhereClause = null): [MetadataFieldProject!]!
+  metadataFieldProjectsAggregate(where: MetadataFieldProjectWhereClause = null): MetadataFieldProjectAggregate!
+  metadataFields(where: MetadataFieldWhereClause = null): [MetadataField!]!
+  metadataFieldsAggregate(where: MetadataFieldWhereClause = null): MetadataFieldAggregate!
+  metadatas(where: MetadatumWhereClause = null): [Metadatum!]!
+  metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate!
+  metricsConsensusGenomes(where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
+  metricsConsensusGenomesAggregate(where: MetricConsensusGenomeWhereClause = null): MetricConsensusGenomeAggregate!
+  node(
+    """The ID of the object."""
+    id: GlobalID!
+  ): Node!
+  nodes(
+    """The IDs of the objects."""
+    ids: [GlobalID!]!
+  ): [Node!]!
+  pathogenList(version: String): PathogenList!
+  phylogeneticTrees(where: PhylogeneticTreeWhereClause = null): [PhylogeneticTree!]!
+  phylogeneticTreesAggregate(where: PhylogeneticTreeWhereClause = null): PhylogeneticTreeAggregate!
+  project(id: Int!): Project!
+  referenceGenomes(where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
+  referenceGenomesAggregate(where: ReferenceGenomeWhereClause = null): ReferenceGenomeAggregate!
+  runEntityInputs(where: RunEntityInputWhereClause = null): [RunEntityInput!]!
+  runSteps(where: RunStepWhereClause = null): [RunStep!]!
+  runs(where: RunWhereClause = null): [Run!]!
+  sample(sampleId: Int!): Sample!
+  sampleReadsStats(sampleIds: [String!]!): SampleReadsStatsList!
+  samples(input: queryInput_samples_input_Input): [query_samples_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
+  samplesAggregate(where: SampleWhereClause = null): SampleAggregate!
+  samplesList(annotations: [Annotation!], basic: Boolean, domain: String, hostIds: [Int!], limit: Int, listAllIds: Boolean, location: String, locationV2: [String!], offset: Int, orderBy: String, orderDir: String, projectId: Int, requestedSampleIds: [Int!], sampleIds: [Int!], searchString: String, taxIds: [Int!], taxLevels: [String!], thresholdFilterInfo: String, time: [String!], tissue: [String!], visibility: [String!], workflow: String): SampleList!
+  sequenceAlignmentIndices(where: SequenceAlignmentIndexWhereClause = null): [SequenceAlignmentIndex!]!
+  sequenceAlignmentIndicesAggregate(where: SequenceAlignmentIndexWhereClause = null): SequenceAlignmentIndexAggregate!
+  sequencingReads(where: SequencingReadWhereClause = null): [SequencingRead!]!
+  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
+  taxa(where: TaxonWhereClause = null): [Taxon!]!
+  taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate!
+  upstreamDatabases(where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
+  upstreamDatabasesAggregate(where: UpstreamDatabaseWhereClause = null): UpstreamDatabaseAggregate!
+  user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
+  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
+  workflowVersions(where: WorkflowVersionWhereClause = null): [WorkflowVersion!]!
+  workflows(where: WorkflowWhereClause = null): [Workflow!]!
+}
+
+type ReferenceGenome implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  accessionId: String
+  collectionId: Int!
+  consensusGenomes(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: ConsensusGenomeWhereClause = null
+  ): ConsensusGenomeConnection!
+  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
+  description: String!
+  file(where: FileWhereClause = null): File
+  fileId: ID
+  fileIndex(where: FileWhereClause = null): File
+  fileIndexId: ID
+  genomicRanges(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: GenomicRangeWhereClause = null
+  ): GenomicRangeConnection!
+  genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate
+  id: ID!
+  name: String!
+  ownerUserId: Int!
+  producingRunId: Int
+  sequenceAlignmentIndices(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: SequenceAlignmentIndexWhereClause = null
+  ): SequenceAlignmentIndexConnection!
+  sequenceAlignmentIndicesAggregate(where: SequenceAlignmentIndexWhereClause = null): SequenceAlignmentIndexAggregate
+  taxon(where: TaxonWhereClause = null): Taxon
+}
+
+type ReferenceGenomeAggregate {
+  aggregate: ReferenceGenomeAggregateFunctions
+}
+
+type ReferenceGenomeAggregateFunctions {
+  avg: ReferenceGenomeNumericalColumns
+  count(columns: ReferenceGenomeCountColumns = null, distinct: Boolean = false): Int
+  max: ReferenceGenomeMinMaxColumns
+  min: ReferenceGenomeMinMaxColumns
+  stddev: ReferenceGenomeNumericalColumns
+  sum: ReferenceGenomeNumericalColumns
+  variance: ReferenceGenomeNumericalColumns
+}
+
+"""A connection to a list of items."""
+type ReferenceGenomeConnection {
+  """Contains the nodes in this connection"""
+  edges: [ReferenceGenomeEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum ReferenceGenomeCountColumns {
+  accession_id
+  collection_id
+  consensus_genomes
+  description
+  entity_id
+  file
+  file_index
+  genomic_ranges
+  id
+  name
+  owner_user_id
+  producing_run_id
+  sequence_alignment_indices
+  taxon
+}
+
+input ReferenceGenomeCreateInput {
+  accessionId: String = null
+  collectionId: Int!
+  description: String!
+  fileId: ID = null
+  fileIndexId: ID = null
+  name: String!
+  taxonId: ID!
+}
+
+"""An edge in a connection."""
+type ReferenceGenomeEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: ReferenceGenome!
+}
+
+type ReferenceGenomeMinMaxColumns {
+  accessionId: String
+  collectionId: Int
+  description: String
+  name: String
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type ReferenceGenomeNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input ReferenceGenomeUpdateInput {
+  accessionId: String = null
+  collectionId: Int = null
+  description: String = null
+  fileId: ID = null
+  fileIndexId: ID = null
+  name: String = null
+  taxonId: ID = null
+}
+
+input ReferenceGenomeWhereClause {
+  accessionId: StrComparators
+  collectionId: IntComparators
+  consensusGenomes: ConsensusGenomeWhereClause
+  description: StrComparators
+  genomicRanges: GenomicRangeWhereClause
+  id: UUIDComparators
+  name: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  sequenceAlignmentIndices: SequenceAlignmentIndexWhereClause
+  taxon: TaxonWhereClause
+}
+
+input ReferenceGenomeWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type Run implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  endedAt: DateTime
+  executionId: String
+  id: ID!
+  inputsJson: String
+  outputsJson: String
+  ownerUserId: Int!
+  producingRunId: Int
+  runEntityInputs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: RunEntityInputWhereClause = null
+  ): RunEntityInputConnection!
+  runSteps(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: RunStepWhereClause = null
+  ): RunStepConnection!
+  startedAt: DateTime
+  status: RunStatus
+  workflowVersion(where: WorkflowVersionWhereClause = null): WorkflowVersion
+}
+
+"""A connection to a list of items."""
+type RunConnection {
+  """Contains the nodes in this connection"""
+  edges: [RunEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+input RunCreateInput {
+  collectionId: Int!
+  endedAt: DateTime = null
+  executionId: String = null
+  inputsJson: String = null
+  outputsJson: String = null
+  startedAt: DateTime = null
+  status: RunStatus = null
+  workflowVersionId: ID = null
+}
+
+"""An edge in a connection."""
+type RunEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: Run!
+}
+
+type RunEntityInput implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  fieldName: String
+  id: ID!
+  newEntityId: Int
+  ownerUserId: Int!
+  producingRunId: Int
+  run(where: RunWhereClause = null): Run
+}
+
+"""A connection to a list of items."""
+type RunEntityInputConnection {
+  """Contains the nodes in this connection"""
+  edges: [RunEntityInputEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+input RunEntityInputCreateInput {
+  collectionId: Int!
+  fieldName: String = null
+  newEntityId: Int = null
+  runId: ID = null
+}
+
+"""An edge in a connection."""
+type RunEntityInputEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: RunEntityInput!
+}
+
+input RunEntityInputUpdateInput {
+  collectionId: Int = null
+  fieldName: String = null
+  newEntityId: Int = null
+  runId: ID = null
+}
+
+input RunEntityInputWhereClause {
+  collectionId: IntComparators
+  fieldName: StrComparators
+  id: UUIDComparators
+  newEntityId: IntComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  run: RunWhereClause
+}
+
+input RunEntityInputWhereClauseMutations {
+  id: UUIDComparators
+}
+
+enum RunStatus {
+  FAILED
+  PENDING
+  RUNNING
+  STARTED
+  SUCCEEDED
+}
+
+input RunStatusEnumComparators {
+  _eq: RunStatus
+  _gt: RunStatus
+  _gte: RunStatus
+  _in: [RunStatus!]
+  _is_null: RunStatus
+  _lt: RunStatus
+  _lte: RunStatus
+  _neq: RunStatus
+  _nin: [RunStatus!]
+}
+
+type RunStep implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  endedAt: DateTime
+  id: ID!
+  ownerUserId: Int!
+  producingRunId: Int
+  run(where: RunWhereClause = null): Run
+  startedAt: DateTime
+  status: RunStatus
+}
+
+"""A connection to a list of items."""
+type RunStepConnection {
+  """Contains the nodes in this connection"""
+  edges: [RunStepEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+input RunStepCreateInput {
+  collectionId: Int!
+  endedAt: DateTime = null
+  runId: ID = null
+  startedAt: DateTime = null
+  status: RunStatus = null
+}
+
+"""An edge in a connection."""
+type RunStepEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: RunStep!
+}
+
+input RunStepUpdateInput {
+  collectionId: Int = null
+  endedAt: DateTime = null
+  runId: ID = null
+  startedAt: DateTime = null
+  status: RunStatus = null
+}
+
+input RunStepWhereClause {
+  collectionId: IntComparators
+  endedAt: DatetimeComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  run: RunWhereClause
+  startedAt: DatetimeComparators
+  status: RunStatusEnumComparators
+}
+
+input RunStepWhereClauseMutations {
+  id: UUIDComparators
+}
+
+input RunUpdateInput {
+  collectionId: Int = null
+  endedAt: DateTime = null
+  executionId: String = null
+  inputsJson: String = null
+  outputsJson: String = null
+  startedAt: DateTime = null
+  status: RunStatus = null
+  workflowVersionId: ID = null
+}
+
+input RunWhereClause {
+  collectionId: IntComparators
+  endedAt: DatetimeComparators
+  executionId: StrComparators
+  id: UUIDComparators
+  inputsJson: StrComparators
+  outputsJson: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  runEntityInputs: RunEntityInputWhereClause
+  runSteps: RunStepWhereClause
+  startedAt: DatetimeComparators
+  status: RunStatusEnumComparators
+  workflowVersion: WorkflowVersionWhereClause
+}
+
+input RunWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type Sample implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  alignmentConfigName: String
+  basespaceAccessToken: String
+  collectionDate: DateTime
+  collectionId: Int!
+  collectionLocation: String!
+  createdAt: ISO8601DateTime
+  dagVars: String
+  defaultBackgroundId: Int
+  defaultPipelineRunId: Int
+  description: String
+  details: SampleDetails!
+  doNotProcess: Boolean!
+  editable: Boolean
+  hostGenome: HostGenome
+  hostGenomeId: Int
+  hostTaxon(where: TaxonWhereClause = null): Taxon
+  id: ID!
+  initialWorkflow: String!
+  maxInputFragments: Int
+  metadatas(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: MetadatumWhereClause = null
+  ): MetadatumConnection!
+  metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate
+  name: String!
+  ownerUserId: Int!
+  pipelineBranch: String
+  pipelineCommit: String
+  pipelineExecutionStrategy: String
+  pipelineRuns: [PipelineRun!]
+  privateUntil: ISO8601DateTime
+  producingRunId: Int
+  project: Project
+  projectId: Int
+  public: Int!
+  s3Bowtie2IndexPath: String
+  s3PreloadResultPath: String
+  s3StarIndexPath: String
+  sampleDeletable: Boolean
+  sampleNotes: String
+  sampleType: String!
+  sequencingReads(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: SequencingReadWhereClause = null
+  ): SequencingReadConnection!
+  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
+  status: String
+  subsample: Int
+  updatedAt: ISO8601DateTime
+  uploadError: String
+  uploadedFromBasespace: Int
+  useTaxonWhitelist: Boolean!
+  user: User
+  userId: Int
+  waterControl: Boolean!
+  webCommit: String
+  workflowRuns: [WorkflowRun!]
+}
+
+type SampleAggregate {
+  aggregate: SampleAggregateFunctions
+}
+
+type SampleAggregateFunctions {
+  avg: SampleNumericalColumns
+  count(columns: SampleCountColumns = null, distinct: Boolean = false): Int
+  max: SampleMinMaxColumns
+  min: SampleMinMaxColumns
+  stddev: SampleNumericalColumns
+  sum: SampleNumericalColumns
+  variance: SampleNumericalColumns
+}
+
+"""A connection to a list of items."""
+type SampleConnection {
+  """Contains the nodes in this connection"""
+  edges: [SampleEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum SampleCountColumns {
+  collection_date
+  collection_id
+  collection_location
+  description
+  entity_id
+  host_taxon
+  id
+  metadatas
+  name
+  owner_user_id
+  producing_run_id
+  sample_type
+  sequencing_reads
+  water_control
+}
+
+input SampleCreateInput {
+  collectionDate: DateTime = null
+  collectionId: Int!
+  collectionLocation: String!
+  description: String = null
+  hostTaxonId: ID = null
+  name: String!
+  sampleType: String!
+  waterControl: Boolean!
+}
+
 type SampleDetails {
   dbSample: DbSample
   derivedSampleOutput: DerivedSampleOutput
@@ -2175,19 +2041,44 @@ type SampleDetails {
   workflowRunsCountByWorkflow: String
 }
 
+"""An edge in a connection."""
+type SampleEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: Sample!
+}
+
 type SampleList {
   sampleIds: [Int!]
   samples: [Sample!]!
 }
 
 type SampleMetadata {
+  additional_info: query_SampleMetadata_additional_info
   collectionDate: String
   collectionLocationV2: String
+  metadata: [query_SampleMetadata_metadata_items]
   nucleotideType: String
   sampleType: String
   waterControl: String
-  metadata: [query_SampleMetadata_metadata_items]
-  additional_info: query_SampleMetadata_additional_info
+}
+
+type SampleMinMaxColumns {
+  collectionDate: DateTime
+  collectionId: Int
+  collectionLocation: String
+  description: String
+  name: String
+  ownerUserId: Int
+  producingRunId: Int
+  sampleType: String
+}
+
+type SampleNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
 }
 
 type SampleReadsStats {
@@ -2223,9 +2114,738 @@ type SampleSummaryStats {
   unmappedReads: Int
 }
 
+input SampleUpdateInput {
+  collectionDate: DateTime = null
+  collectionId: Int = null
+  collectionLocation: String = null
+  description: String = null
+  hostTaxonId: ID = null
+  name: String = null
+  sampleType: String = null
+  waterControl: Boolean = null
+}
+
 type SampleUploader {
   id: Int!
   name: String
+}
+
+input SampleWhereClause {
+  collectionDate: DatetimeComparators
+  collectionId: IntComparators
+  collectionLocation: StrComparators
+  description: StrComparators
+  hostTaxon: TaxonWhereClause
+  id: UUIDComparators
+  metadatas: MetadatumWhereClause
+  name: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  sampleType: StrComparators
+  sequencingReads: SequencingReadWhereClause
+  waterControl: BoolComparators
+}
+
+input SampleWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type SequenceAlignmentIndex implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  indexFile(where: FileWhereClause = null): File
+  indexFileId: ID
+  ownerUserId: Int!
+  producingRunId: Int
+  referenceGenome(where: ReferenceGenomeWhereClause = null): ReferenceGenome
+  tool: AlignmentTool!
+  version: String
+}
+
+type SequenceAlignmentIndexAggregate {
+  aggregate: SequenceAlignmentIndexAggregateFunctions
+}
+
+type SequenceAlignmentIndexAggregateFunctions {
+  avg: SequenceAlignmentIndexNumericalColumns
+  count(columns: SequenceAlignmentIndexCountColumns = null, distinct: Boolean = false): Int
+  max: SequenceAlignmentIndexMinMaxColumns
+  min: SequenceAlignmentIndexMinMaxColumns
+  stddev: SequenceAlignmentIndexNumericalColumns
+  sum: SequenceAlignmentIndexNumericalColumns
+  variance: SequenceAlignmentIndexNumericalColumns
+}
+
+"""A connection to a list of items."""
+type SequenceAlignmentIndexConnection {
+  """Contains the nodes in this connection"""
+  edges: [SequenceAlignmentIndexEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum SequenceAlignmentIndexCountColumns {
+  collection_id
+  entity_id
+  id
+  index_file
+  owner_user_id
+  producing_run_id
+  reference_genome
+  tool
+  version
+}
+
+input SequenceAlignmentIndexCreateInput {
+  collectionId: Int!
+  indexFileId: ID = null
+  referenceGenomeId: ID = null
+  tool: AlignmentTool!
+  version: String = null
+}
+
+"""An edge in a connection."""
+type SequenceAlignmentIndexEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: SequenceAlignmentIndex!
+}
+
+type SequenceAlignmentIndexMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  version: String
+}
+
+type SequenceAlignmentIndexNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input SequenceAlignmentIndexUpdateInput {
+  collectionId: Int = null
+  indexFileId: ID = null
+  referenceGenomeId: ID = null
+  tool: AlignmentTool = null
+  version: String = null
+}
+
+input SequenceAlignmentIndexWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  referenceGenome: ReferenceGenomeWhereClause
+  tool: AlignmentToolEnumComparators
+  version: StrComparators
+}
+
+input SequenceAlignmentIndexWhereClauseMutations {
+  id: UUIDComparators
+}
+
+enum SequencingProtocol {
+  ampliseq
+  artic
+  artic_v3
+  artic_v4
+  artic_v5
+  combined_msspe_artic
+  covidseq
+  easyseq
+  midnight
+  msspe
+  snap
+  varskip
+}
+
+input SequencingProtocolEnumComparators {
+  _eq: SequencingProtocol
+  _gt: SequencingProtocol
+  _gte: SequencingProtocol
+  _in: [SequencingProtocol!]
+  _is_null: SequencingProtocol
+  _lt: SequencingProtocol
+  _lte: SequencingProtocol
+  _neq: SequencingProtocol
+  _nin: [SequencingProtocol!]
+}
+
+type SequencingRead implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  consensusGenomes(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: ConsensusGenomeWhereClause = null
+  ): ConsensusGenomeConnection!
+  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
+  contigs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: ContigWhereClause = null
+  ): ContigConnection!
+  contigsAggregate(where: ContigWhereClause = null): ContigAggregate
+  hasErcc: Boolean!
+  id: ID!
+  nucleicAcid: NucleicAcid!
+  ownerUserId: Int!
+  primerFile(where: GenomicRangeWhereClause = null): GenomicRange
+  producingRunId: Int
+  protocol: SequencingProtocol!
+  r1File(where: FileWhereClause = null): File
+  r1FileId: ID
+  r2File(where: FileWhereClause = null): File
+  r2FileId: ID
+  sample(where: SampleWhereClause = null): Sample
+  taxon(where: TaxonWhereClause = null): Taxon
+  technology: SequencingTechnology!
+}
+
+type SequencingReadAggregate {
+  aggregate: SequencingReadAggregateFunctions
+}
+
+type SequencingReadAggregateFunctions {
+  avg: SequencingReadNumericalColumns
+  count(columns: SequencingReadCountColumns = null, distinct: Boolean = false): Int
+  max: SequencingReadMinMaxColumns
+  min: SequencingReadMinMaxColumns
+  stddev: SequencingReadNumericalColumns
+  sum: SequencingReadNumericalColumns
+  variance: SequencingReadNumericalColumns
+}
+
+"""A connection to a list of items."""
+type SequencingReadConnection {
+  """Contains the nodes in this connection"""
+  edges: [SequencingReadEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum SequencingReadCountColumns {
+  collection_id
+  consensus_genomes
+  contigs
+  entity_id
+  has_ercc
+  id
+  nucleic_acid
+  owner_user_id
+  primer_file
+  producing_run_id
+  protocol
+  r1_file
+  r2_file
+  sample
+  taxon
+  technology
+}
+
+input SequencingReadCreateInput {
+  collectionId: Int!
+  hasErcc: Boolean!
+  nucleicAcid: NucleicAcid!
+  primerFileId: ID = null
+  protocol: SequencingProtocol!
+  r1FileId: ID = null
+  r2FileId: ID = null
+  sampleId: ID = null
+  taxonId: ID = null
+  technology: SequencingTechnology!
+}
+
+"""An edge in a connection."""
+type SequencingReadEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: SequencingRead!
+}
+
+type SequencingReadMinMaxColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type SequencingReadNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input SequencingReadUpdateInput {
+  collectionId: Int = null
+  hasErcc: Boolean = null
+  nucleicAcid: NucleicAcid = null
+  primerFileId: ID = null
+  protocol: SequencingProtocol = null
+  r1FileId: ID = null
+  r2FileId: ID = null
+  sampleId: ID = null
+  taxonId: ID = null
+  technology: SequencingTechnology = null
+}
+
+input SequencingReadWhereClause {
+  collectionId: IntComparators
+  consensusGenomes: ConsensusGenomeWhereClause
+  contigs: ContigWhereClause
+  hasErcc: BoolComparators
+  id: UUIDComparators
+  nucleicAcid: NucleicAcidEnumComparators
+  ownerUserId: IntComparators
+  primerFile: GenomicRangeWhereClause
+  producingRunId: IntComparators
+  protocol: SequencingProtocolEnumComparators
+  sample: SampleWhereClause
+  taxon: TaxonWhereClause
+  technology: SequencingTechnologyEnumComparators
+}
+
+input SequencingReadWhereClauseMutations {
+  id: UUIDComparators
+}
+
+enum SequencingTechnology {
+  Illumina
+  Nanopore
+}
+
+input SequencingTechnologyEnumComparators {
+  _eq: SequencingTechnology
+  _gt: SequencingTechnology
+  _gte: SequencingTechnology
+  _in: [SequencingTechnology!]
+  _is_null: SequencingTechnology
+  _lt: SequencingTechnology
+  _lte: SequencingTechnology
+  _neq: SequencingTechnology
+  _nin: [SequencingTechnology!]
+}
+
+type SignedURL {
+  expiration: Int!
+  fields: JSON
+  method: String!
+  protocol: String!
+  url: String!
+}
+
+input StrComparators {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _iregex: String
+  _is_null: Int
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _niregex: String
+  _nlike: String
+  _nregex: String
+  _regex: String
+}
+
+type Taxon implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  commonName: String
+  consensusGenomes(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: ConsensusGenomeWhereClause = null
+  ): ConsensusGenomeConnection!
+  consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate
+  description: String
+  id: ID!
+  isPhage: Boolean!
+  level: TaxonLevel!
+  name: String!
+  ownerUserId: Int!
+  producingRunId: Int
+  referenceGenomes(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: ReferenceGenomeWhereClause = null
+  ): ReferenceGenomeConnection!
+  referenceGenomesAggregate(where: ReferenceGenomeWhereClause = null): ReferenceGenomeAggregate
+  samples(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: SampleWhereClause = null
+  ): SampleConnection!
+  samplesAggregate(where: SampleWhereClause = null): SampleAggregate
+  sequencingReads(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: SequencingReadWhereClause = null
+  ): SequencingReadConnection!
+  sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
+  taxId: Int!
+  taxIdClass: Int!
+  taxIdFamily: Int!
+  taxIdGenus: Int!
+  taxIdKingdom: Int!
+  taxIdOrder: Int!
+  taxIdParent: Int!
+  taxIdPhylum: Int!
+  taxIdSpecies: Int!
+  upstreamDatabase(where: UpstreamDatabaseWhereClause = null): UpstreamDatabase
+  upstreamDatabaseIdentifier: String!
+  wikipediaId: String
+}
+
+type TaxonAggregate {
+  aggregate: TaxonAggregateFunctions
+}
+
+type TaxonAggregateFunctions {
+  avg: TaxonNumericalColumns
+  count(columns: TaxonCountColumns = null, distinct: Boolean = false): Int
+  max: TaxonMinMaxColumns
+  min: TaxonMinMaxColumns
+  stddev: TaxonNumericalColumns
+  sum: TaxonNumericalColumns
+  variance: TaxonNumericalColumns
+}
+
+"""A connection to a list of items."""
+type TaxonConnection {
+  """Contains the nodes in this connection"""
+  edges: [TaxonEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+enum TaxonCountColumns {
+  collection_id
+  common_name
+  consensus_genomes
+  description
+  entity_id
+  id
+  is_phage
+  level
+  name
+  owner_user_id
+  producing_run_id
+  reference_genomes
+  samples
+  sequencing_reads
+  tax_id
+  tax_id_class
+  tax_id_family
+  tax_id_genus
+  tax_id_kingdom
+  tax_id_order
+  tax_id_parent
+  tax_id_phylum
+  tax_id_species
+  upstream_database
+  upstream_database_identifier
+  wikipedia_id
+}
+
+input TaxonCreateInput {
+  collectionId: Int!
+  commonName: String = null
+  description: String = null
+  isPhage: Boolean!
+  level: TaxonLevel!
+  name: String!
+  taxId: Int!
+  taxIdClass: Int!
+  taxIdFamily: Int!
+  taxIdGenus: Int!
+  taxIdKingdom: Int!
+  taxIdOrder: Int!
+  taxIdParent: Int!
+  taxIdPhylum: Int!
+  taxIdSpecies: Int!
+  upstreamDatabaseId: ID!
+  upstreamDatabaseIdentifier: String!
+  wikipediaId: String = null
+}
+
+type TaxonDist {
+  NR: query_TaxonDist_NR
+  NT: query_TaxonDist_NT
+  merged_NT_NR: query_TaxonDist_merged_NT_NR
+}
+
+"""An edge in a connection."""
+type TaxonEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: Taxon!
+}
+
+enum TaxonLevel {
+  family
+  genus
+  species
+}
+
+input TaxonLevelEnumComparators {
+  _eq: TaxonLevel
+  _gt: TaxonLevel
+  _gte: TaxonLevel
+  _in: [TaxonLevel!]
+  _is_null: TaxonLevel
+  _lt: TaxonLevel
+  _lte: TaxonLevel
+  _neq: TaxonLevel
+  _nin: [TaxonLevel!]
+}
+
+type TaxonMinMaxColumns {
+  collectionId: Int
+  commonName: String
+  description: String
+  name: String
+  ownerUserId: Int
+  producingRunId: Int
+  taxId: Int
+  taxIdClass: Int
+  taxIdFamily: Int
+  taxIdGenus: Int
+  taxIdKingdom: Int
+  taxIdOrder: Int
+  taxIdParent: Int
+  taxIdPhylum: Int
+  taxIdSpecies: Int
+  upstreamDatabaseIdentifier: String
+  wikipediaId: String
+}
+
+type TaxonNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+  taxId: Int
+  taxIdClass: Int
+  taxIdFamily: Int
+  taxIdGenus: Int
+  taxIdKingdom: Int
+  taxIdOrder: Int
+  taxIdParent: Int
+  taxIdPhylum: Int
+  taxIdSpecies: Int
+}
+
+input TaxonUpdateInput {
+  collectionId: Int = null
+  commonName: String = null
+  description: String = null
+  isPhage: Boolean = null
+  level: TaxonLevel = null
+  name: String = null
+  taxId: Int = null
+  taxIdClass: Int = null
+  taxIdFamily: Int = null
+  taxIdGenus: Int = null
+  taxIdKingdom: Int = null
+  taxIdOrder: Int = null
+  taxIdParent: Int = null
+  taxIdPhylum: Int = null
+  taxIdSpecies: Int = null
+  upstreamDatabaseId: ID = null
+  upstreamDatabaseIdentifier: String = null
+  wikipediaId: String = null
+}
+
+input TaxonWhereClause {
+  collectionId: IntComparators
+  commonName: StrComparators
+  consensusGenomes: ConsensusGenomeWhereClause
+  description: StrComparators
+  id: UUIDComparators
+  isPhage: BoolComparators
+  level: TaxonLevelEnumComparators
+  name: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  referenceGenomes: ReferenceGenomeWhereClause
+  samples: SampleWhereClause
+  sequencingReads: SequencingReadWhereClause
+  taxId: IntComparators
+  taxIdClass: IntComparators
+  taxIdFamily: IntComparators
+  taxIdGenus: IntComparators
+  taxIdKingdom: IntComparators
+  taxIdOrder: IntComparators
+  taxIdParent: IntComparators
+  taxIdPhylum: IntComparators
+  taxIdSpecies: IntComparators
+  upstreamDatabase: UpstreamDatabaseWhereClause
+  upstreamDatabaseIdentifier: StrComparators
+  wikipediaId: StrComparators
+}
+
+input TaxonWhereClauseMutations {
+  id: UUIDComparators
+}
+
+scalar UUID
+
+input UUIDComparators {
+  _eq: UUID
+  _gt: UUID
+  _gte: UUID
+  _in: [UUID!]
+  _lt: UUID
+  _lte: UUID
+  _neq: UUID
+  _nin: [UUID!]
+}
+
+type UpdateMetadataReponse {
+  message: String
+  status: String
+}
+
+type UpdateSampleName {
+  message: String
+  status: String
+}
+
+type UpdateSampleNotes {
+  message: String
+  status: String
+}
+
+type UpstreamDatabase implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  id: ID!
+  name: String!
+  ownerUserId: Int!
+  producingRunId: Int
+  taxa(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: TaxonWhereClause = null
+  ): TaxonConnection!
+  taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate
+}
+
+type UpstreamDatabaseAggregate {
+  aggregate: UpstreamDatabaseAggregateFunctions
+}
+
+type UpstreamDatabaseAggregateFunctions {
+  avg: UpstreamDatabaseNumericalColumns
+  count(columns: UpstreamDatabaseCountColumns = null, distinct: Boolean = false): Int
+  max: UpstreamDatabaseMinMaxColumns
+  min: UpstreamDatabaseMinMaxColumns
+  stddev: UpstreamDatabaseNumericalColumns
+  sum: UpstreamDatabaseNumericalColumns
+  variance: UpstreamDatabaseNumericalColumns
+}
+
+enum UpstreamDatabaseCountColumns {
+  collection_id
+  entity_id
+  id
+  name
+  owner_user_id
+  producing_run_id
+  taxa
+}
+
+input UpstreamDatabaseCreateInput {
+  collectionId: Int!
+  name: String!
+}
+
+type UpstreamDatabaseMinMaxColumns {
+  collectionId: Int
+  name: String
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+type UpstreamDatabaseNumericalColumns {
+  collectionId: Int
+  ownerUserId: Int
+  producingRunId: Int
+}
+
+input UpstreamDatabaseUpdateInput {
+  collectionId: Int = null
+  name: String = null
+}
+
+input UpstreamDatabaseWhereClause {
+  collectionId: IntComparators
+  id: UUIDComparators
+  name: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  taxa: TaxonWhereClause
+}
+
+input UpstreamDatabaseWhereClauseMutations {
+  id: UUIDComparators
 }
 
 type User {
@@ -2237,6 +2857,42 @@ type User {
   name: String!
   role: Int!
   segments: String!
+}
+
+type ValidateUserCanDeleteObjects {
+  error: String
+  invalidSampleNames: [String]!
+  validIds: [Int]!
+}
+
+type Workflow implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  defaultVersion: String
+  id: ID!
+  minimumSupportedVersion: String
+  name: String
+  ownerUserId: Int!
+  producingRunId: Int
+  versions(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: WorkflowVersionWhereClause = null
+  ): WorkflowVersionConnection!
+}
+
+input WorkflowCreateInput {
+  collectionId: Int!
+  defaultVersion: String = null
+  minimumSupportedVersion: String = null
+  name: String = null
 }
 
 type WorkflowRun {
@@ -2258,506 +2914,270 @@ type WorkflowRun {
   workflow: String!
 }
 
-type AmrDeprecatedResults {
-  id: Int
-  gene: String
-  allele: String
-  coverage: Float
-  depth: Float
-  pipeline_run_id: Int
-  drug_family: String
-  created_at: String
-  updated_at: String
-  annotation_gene: String
-  genbank_accession: String
-  total_reads: Int
-  rpm: Float
-  dpm: Float
+input WorkflowUpdateInput {
+  collectionId: Int = null
+  defaultVersion: String = null
+  minimumSupportedVersion: String = null
+  name: String = null
 }
 
-type AmrWorkflowResults {
-  metric_amr: query_AmrWorkflowResults_metric_amr
-  amr_hit: [query_AmrWorkflowResults_amr_hit_items]
+type WorkflowVersion implements EntityInterface & Node {
+  """The Globally Unique ID of this object"""
+  _id: GlobalID!
+  collectionId: Int!
+  graphJson: String
+  id: ID!
+  manifest: String
+  ownerUserId: Int!
+  producingRunId: Int
+  runs(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String = null
+    """Returns the items in the list that come before the specified cursor."""
+    before: String = null
+    """Returns the first n items from the list."""
+    first: Int = null
+    """Returns the items in the list that come after the specified cursor."""
+    last: Int = null
+    where: RunWhereClause = null
+  ): RunConnection!
+  workflow(where: WorkflowWhereClause = null): Workflow
 }
 
-type query_AmrWorkflowResults_metric_amr {
-  total_reads: Int
-  qc_percent: Float
+"""A connection to a list of items."""
+type WorkflowVersionConnection {
+  """Contains the nodes in this connection"""
+  edges: [WorkflowVersionEdge!]!
+  """Pagination data for this connection"""
+  pageInfo: PageInfo!
+}
+
+input WorkflowVersionCreateInput {
+  collectionId: Int!
+  graphJson: String = null
+  manifest: String = null
+  workflowId: ID = null
+}
+
+"""An edge in a connection."""
+type WorkflowVersionEdge {
+  """A cursor for use in pagination"""
+  cursor: String!
+  """The item at the end of the edge"""
+  node: WorkflowVersion!
+}
+
+input WorkflowVersionUpdateInput {
+  collectionId: Int = null
+  graphJson: String = null
+  manifest: String = null
+  workflowId: ID = null
+}
+
+input WorkflowVersionWhereClause {
+  collectionId: IntComparators
+  graphJson: StrComparators
+  id: UUIDComparators
+  manifest: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  runs: RunWhereClause
+  workflow: WorkflowWhereClause
+}
+
+input WorkflowVersionWhereClauseMutations {
+  id: UUIDComparators
+}
+
+input WorkflowWhereClause {
+  collectionId: IntComparators
+  defaultVersion: StrComparators
+  id: UUIDComparators
+  minimumSupportedVersion: StrComparators
+  name: StrComparators
+  ownerUserId: IntComparators
+  producingRunId: IntComparators
+  versions: WorkflowVersionWhereClause
+}
+
+input WorkflowWhereClauseMutations {
+  id: UUIDComparators
+}
+
+type ZipLink {
+  error: String
+  url: String
+}
+
+input mutationInput_CreateBulkDownload_input_Input {
+  authenticityToken: String
+  downloadFormat: String
+  downloadType: String
+  workflow: String
+  workflowRunIds: [Int]
+}
+
+input mutationInput_DeleteSamples_input_Input @example(value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+  authenticityToken: String
+  ids: [Int]
+  workflow: String
+}
+
+input mutationInput_KickoffAMRWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+  authenticityToken: String
+  inputs_json: mutationInput_KickoffAMRWorkflow_input_inputs_json_Input
+  workflow: String
+}
+
+input mutationInput_KickoffAMRWorkflow_input_inputs_json_Input {
+  start_from_mngs: Boolean
+}
+
+input mutationInput_KickoffWGSWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+  authenticityToken: String
+  inputs_json: mutationInput_KickoffWGSWorkflow_input_inputs_json_Input
+  workflow: String
+}
+
+input mutationInput_KickoffWGSWorkflow_input_inputs_json_Input {
+  accession_id: String
+  accession_name: String
+  alignment_config_name: String
+  taxon_id: String
+  taxon_name: String
+  technology: String
+}
+
+input mutationInput_UpdateMetadata_input_Input {
+  authenticityToken: String!
+  field: String!
+  value: mutationInput_UpdateMetadata_input_value_Input!
+}
+
+input mutationInput_UpdateMetadata_input_value_Input @oneOf {
+  String: String
+  query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input: query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input
+}
+
+input mutationInput_UpdateSampleNotes_input_Input {
+  authenticityToken: String!
+  value: String!
+}
+
+type mutation_KickoffWGSWorkflow_items {
+  deprecated: Boolean
+  executed_at: String
+  id: String
+  input_error: JSON
+  inputs: mutation_KickoffWGSWorkflow_items_inputs
+  parsed_cached_results: mutation_KickoffWGSWorkflow_items_parsed_cached_results
+  run_finalized: Boolean
+  status: String
+  wdl_version: String
+  workflow: String
+}
+
+type mutation_KickoffWGSWorkflow_items_inputs {
+  accession_id: JSON
+  accession_name: JSON
+  card_version: String
+  taxon_id: JSON
+  taxon_name: JSON
+  technology: String
+  wildcard_version: String
+}
+
+type mutation_KickoffWGSWorkflow_items_parsed_cached_results {
+  quality_metrics: mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics
+}
+
+type mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics {
   adjusted_remaining_reads: Int
   compression_ratio: Float
-  total_ercc_reads: Int
   fraction_subsampled: Float
-  insert_size_mean: Int
-  insert_size_standard_deviation: Float
+  insert_size_mean: JSON
+  insert_size_standard_deviation: JSON
   percent_remaining: Float
-}
-
-type query_AmrWorkflowResults_amr_hit_items {
-  drug_class: String
-  gene: String
-  gene_id: String
-  gene_family: String
-  high_level_drug_class: String
-  mechanism: String
-  model: String
-  contigs: String
-  cutoff: String
-  contig_coverage_breadth: String
-  contig_percent_id: String
-  reads: String
-  rpm: Float
-  read_coverage_breadth: String
-  read_coverage_depth: String
-  dpm: Float
-  read_species: String
-  contig_species: String
-  aro_accession: String
-}
-
-type Background {
-  other_backgrounds: [query_Background_other_backgrounds_items]
-  owned_backgrounds: [JSON]
-}
-
-type query_Background_other_backgrounds_items {
-  id: Int
-  name: String
-  created_at: String
-  updated_at: String
-  description: String
-  public_access: Int
-  ready: Int
-  user_id: Int
-  mass_normalized: Boolean
-}
-
-type BulkDownloadDetails {
-  bulk_download: query_BulkDownloadDetails_bulk_download
-  download_type: query_BulkDownloadDetails_download_type
-}
-
-type query_BulkDownloadDetails_bulk_download {
-  id: Int
-  params_json: String
-  download_type: String
-  status: String
-  error_message: JSON
-  user_id: Int
-  created_at: String
-  updated_at: String
-  progress: Float
-  ecs_task_arn: JSON
-  output_file_size: Int
-  description: JSON
-  deleted_at: JSON
-  analysis_type: String
-  analysis_count: Int
-  num_samples: Int
-  download_name: String
-  file_size: String
-  user_name: String
-  execution_type: String
-  log_url: JSON
-  params: query_BulkDownloadDetails_bulk_download_params
-  pipeline_runs: [JSON]
-  workflow_runs: [JSON]
-  presigned_output_url: String
-}
-
-type query_BulkDownloadDetails_bulk_download_params {
-  background: query_BulkDownloadDetails_bulk_download_params_background
-}
-
-type query_BulkDownloadDetails_bulk_download_params_background {
-  value: Int
-  displayName: String
-}
-
-type query_BulkDownloadDetails_download_type {
-  type: String
-  display_name: String
-  description: String
-  category: String
-  execution_type: String
-  fields: [query_BulkDownloadDetails_download_type_fields_items]
-  file_type_display: String
-  workflows: [String]
-}
-
-type query_BulkDownloadDetails_download_type_fields_items {
-  display_name: String
-  type: String
-}
-
-type ConsensusGenomeOverviewRows {
-  cgOverviewRows: [[String]]!
+  qc_percent: Float
+  total_ercc_reads: Int
+  total_reads: Int
 }
 
 input queryInput_BulkDownloadCGOverview_input_Input {
-  downloadType: String!
-  workflowRunIds: [Int]!
-  workflow: String!
-  includeMetadata: Boolean!
   authenticityToken: String!
-}
-
-type ConsensusGenomeWorkflowResults {
-  metric_consensus_genome: query_ConsensusGenomeWorkflowResults_metric_consensus_genome
-  reference_genome: query_ConsensusGenomeWorkflowResults_reference_genome
-}
-
-type query_ConsensusGenomeWorkflowResults_metric_consensus_genome {
-  ercc_mapped_reads: Int
-  mapped_reads: Int
-  n_actg: Int
-  n_ambiguous: Int
-  n_missing: Int
-  ref_snps: Int
-  total_reads: Int
-  percent_identity: Float
-  gc_percent: Float
-  percent_genome_called: Float
-  reference_genome_length: Int
-  coverage_viz: query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz
-}
-
-type query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz {
-  total_length: Int
-  coverage: [[Float]]
-  coverage_bin_size: Float
-  max_aligned_length: Int
-  coverage_depth: Float
-  coverage_breadth: Float
-}
-
-type query_ConsensusGenomeWorkflowResults_reference_genome {
-  accession_id: String
-  accession_name: String
-  taxon: query_ConsensusGenomeWorkflowResults_reference_genome_taxon
-}
-
-type query_ConsensusGenomeWorkflowResults_reference_genome_taxon {
-  id: String
-  name: String
-}
-
-type query_CoverageVizSummary_items {
-  id: Int
-  pipeline_id: Int
-  name: String
-  num_contigs: Int
-  num_reads: Int
-  score: Int
-  coverage_breadth: JSON
-  coverage_depth: JSON
-}
-
-type query_MetadataFields_items {
-  key: String
-  dataType: String
-  name: String
-  options: JSON
-  group: String
-  host_genome_ids: [Int]
-  description: String
-  is_required: Int
-  examples: query_MetadataFields_items_examples
-  default_for_new_host_genome: Int
-  isBoolean: Boolean
-}
-
-type query_MetadataFields_items_examples {
-  all: [String]
+  downloadType: String!
+  includeMetadata: Boolean!
+  workflow: String!
+  workflowRunIds: [Int]!
 }
 
 input queryInput_MetadataFields_input_Input {
-  sampleIds: [String]!
   authenticityToken: String!
-}
-
-type query_SampleMetadata_metadata_items {
-  id: String
-  key: String
-  raw_value: String
-  string_validated_value: String
-  number_validated_value: String
-  sample_id: Int
-  created_at: String
-  updated_at: String
-  date_validated_value: String
-  location_validated_value: query_SampleMetadata_metadata_items_location_validated_value
-  metadata_field_id: Int
-  location_id: Int
-  base_type: String
-}
-
-union query_SampleMetadata_metadata_items_location_validated_value = query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 | query_SampleMetadata_metadata_items_location_validated_value_oneOf_1
-
-type query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 {
-  name: String
-}
-
-type query_SampleMetadata_metadata_items_location_validated_value_oneOf_1 {
-  id: String
-  name: String
-  geo_level: String
-  country_name: String
-  country_code: String
-  state_name: String
-  subdivision_name: String
-  city_name: String
-  osm_id: Int
-  locationiq_id: JSON
-  lat: JSON
-  lng: JSON
-  created_at: String
-  updated_at: String
-  osm_type: String
-  country_id: Int
-  state_id: Int
-  subdivision_id: Int
-  city_id: String
-  raw_value: String
-  title: String
-  description: String
-  key: String
-  refetch_adjusted_location: Boolean
-}
-
-type query_SampleMetadata_additional_info {
-  name: String
-  editable: Boolean
-  host_genome_name: String
-  host_genome_taxa_category: String
-  upload_date: String
-  project_name: String
-  project_id: Int
-  notes: String
-  ercc_comparison: [query_SampleMetadata_additional_info_ercc_comparison_items]
-  pipeline_run: query_SampleMetadata_additional_info_pipeline_run
-  summary_stats: query_SampleMetadata_additional_info_summary_stats
-}
-
-type query_SampleMetadata_additional_info_ercc_comparison_items {
-  name: String
-  actual: Int
-  expected: JSON
-}
-
-type query_SampleMetadata_additional_info_pipeline_run {
-  id: String
-  sample_id: Int
-  created_at: String
-  updated_at: String
-  job_status: String
-  finalized: Int
-  total_reads: Int
-  adjusted_remaining_reads: Int
-  unmapped_reads: Int
-  subsample: Int
-  pipeline_branch: String
-  total_ercc_reads: Int
-  fraction_subsampled: Float
-  pipeline_version: String
-  pipeline_commit: String
-  truncated: JSON
-  results_finalized: Int
-  alignment_config_id: Int
-  alert_sent: Int
-  dag_vars: JSON
-  assembled: Int
-  max_input_fragments: Int
-  error_message: JSON
-  known_user_error: JSON
-  pipeline_execution_strategy: String
-  sfn_execution_arn: String
-  use_taxon_whitelist: Boolean
-  wdl_version: String
-  s3_output_prefix: String
-  executed_at: String
-  time_to_finalized: Int
-  time_to_results_finalized: Int
-  qc_percent: Float
-  compression_ratio: Float
-  deprecated: Boolean
-  technology: String
-  guppy_basecaller_setting: JSON
-  total_bases: JSON
-  unmapped_bases: JSON
-  fraction_subsampled_bases: JSON
-  truncated_bases: JSON
-  deleted_at: JSON
-  mapped_reads: JSON
-  version: query_SampleMetadata_additional_info_pipeline_run_version
-  host_subtracted: String
-}
-
-type query_SampleMetadata_additional_info_pipeline_run_version {
-  pipeline: String
-  alignment_db: String
-}
-
-type query_SampleMetadata_additional_info_summary_stats {
-  adjusted_remaining_reads: Int
-  compression_ratio: Float
-  qc_percent: Float
-  percent_remaining: Float
-  unmapped_reads: Int
-  insert_size_mean: JSON
-  insert_size_standard_deviation: JSON
-  last_processed_at: String
-  reads_after_bowtie2_ercc_filtered: JSON
-  reads_after_fastp: Int
-  reads_after_bowtie2_host_filtered: Int
-  reads_after_hisat2_host_filtered: Int
-  reads_after_czid_dedup: Int
+  sampleIds: [String]!
 }
 
 input queryInput_SampleMetadata_input_Input @example(value: "{\\"pipelineVersion\\":\\"8.0\\"}") {
   pipelineVersion: String
 }
 
-type MngsWorkflowResults {
-  metric_mngs: query_MngsWorkflowResults_metric_mngs
-  taxon_hit_results: query_MngsWorkflowResults_taxon_hit_results
-  _: query_MngsWorkflowResults__
-}
-
-type query_MngsWorkflowResults_metric_mngs {
-  assembled: Int
-  adjusted_remaining_reads: Int
-  total_ercc_reads: Int
-  num_reads: Int
-  num_reads_after_subsampling: Int
-  _: query_MngsWorkflowResults_metric_mngs__
-}
-
-type query_MngsWorkflowResults_metric_mngs__ {
-  has_byteranges: Boolean
-}
-
-type query_MngsWorkflowResults_taxon_hit_results {
-  taxon_hits: [query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items]
-}
-
-type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items {
-  count_type: String
-  count: Int
-  base_count: Int
-  rpm: Float
-  bpm: Float
-  alignment_length: Float
-  percent_identity: Int
-  e_value: Float
-  tax_id: Int
-  _: query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__
-}
-
-type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__ {
-  bg_mean: Float
-  bg_stdev: Float
-  bg_mean_mass_normalized: Float
-  bg_stdev_mass_normalized: Float
-  z_score: Float
-  max_z_score: Float
-  agg_score: Float
-}
-
-type query_MngsWorkflowResults__ {
-  lineage: [query_MngsWorkflowResults___lineage_items]
-}
-
-type query_MngsWorkflowResults___lineage_items {
-  tax_id: String
-  name: String
-  rank: String
-}
-
-type query_Pathogens_items {
-  tax_id: JSON
-}
-
-type PersistedBackground {
-  background_id: Int
-}
-
-type PipelineData {
-  stages: [query_PipelineData_stages_items]
-  edges: [query_PipelineData_edges_items]
-  status: String
-}
-
-type query_PipelineData_stages_items {
-  name: String
-  steps: [query_PipelineData_stages_items_steps_items]
-  jobStatus: String
-}
-
-type query_PipelineData_stages_items_steps_items {
-  name: String
-  description: String
-  inputVariables: [query_PipelineData_stages_items_steps_items_inputVariables_items]
-  outputFiles: [query_PipelineData_stages_items_steps_items_outputFiles_items]
-  inputEdges: [Int]
-  outputEdges: [Int]
-  status: String
-  startTime: JSON
-  endTime: JSON
-  resources: [JSON]
-}
-
-type query_PipelineData_stages_items_steps_items_inputVariables_items {
-  name: String
-  type: String
-}
-
-type query_PipelineData_stages_items_steps_items_outputFiles_items {
-  displayName: String
-  url: JSON
-}
-
-type query_PipelineData_edges_items {
-  to: query_PipelineData_edges_items_to
-  from: query_PipelineData_edges_items_from
-  files: [query_PipelineData_edges_items_files_items]
-  isIntraStage: Boolean
-}
-
-type query_PipelineData_edges_items_to {
-  stageIndex: Int
-  stepIndex: Int
-}
-
-type query_PipelineData_edges_items_from {
-  stageIndex: Int
-  stepIndex: Int
-}
-
-type query_PipelineData_edges_items_files_items {
-  displayName: String
-  url: JSON
-}
-
-type query_samples_items {
-  id: String
-  railsSampleId: Int
-  required: JSON
+input queryInput_ValidateUserCanDeleteObjects_input_Input @example(value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+  authenticityToken: String
+  selectedIds: [Int]
+  workflow: String
 }
 
 input queryInput_samples_input_Input {
-  where: queryInput_samples_input_where_Input
   orderBy: queryInput_samples_input_orderBy_Input
   sequencingReadsInput: queryInput_samples_input_sequencingReadsInput_Input
   todoRemove: queryInput_samples_input_todoRemove_Input
+  where: queryInput_samples_input_where_Input
+}
+
+input queryInput_samples_input_orderBy_Input {
+  dir: String
+  key: String
+}
+
+input queryInput_samples_input_sequencingReadsInput_Input {
+  where: queryInput_samples_input_sequencingReadsInput_where_Input
+}
+
+input queryInput_samples_input_sequencingReadsInput_where_Input {
+  consensusGenomes: JSON
+}
+
+input queryInput_samples_input_todoRemove_Input {
+  domain: String
+  limit: Int
+  listAllIds: Boolean
+  offset: Int
+  projectId: String
+  taxaLevels: [String]
+  taxons: [Int]
+  time: [String]
+  visibility: String
+  workflow: String
 }
 
 input queryInput_samples_input_where_Input {
+  collectionLocation: queryInput_samples_input_where_collectionLocation_Input
+  hostTaxon: queryInput_samples_input_where_hostTaxon_Input
   id: queryInput_samples_input_where_id_Input
   name: queryInput_samples_input_where_name_Input
-  collectionLocation: queryInput_samples_input_where_collectionLocation_Input
   sampleType: queryInput_samples_input_where_sampleType_Input
-  hostTaxon: queryInput_samples_input_where_hostTaxon_Input
   sequencingReads: queryInput_samples_input_where_sequencingReads_Input
+}
+
+input queryInput_samples_input_where_collectionLocation_Input {
+  _in: [String]
+}
+
+input queryInput_samples_input_where_hostTaxon_Input {
+  upstreamDatabaseIdentifier: queryInput_samples_input_where_hostTaxon_upstreamDatabaseIdentifier_Input
+}
+
+input queryInput_samples_input_where_hostTaxon_upstreamDatabaseIdentifier_Input {
+  _in: [String]
 }
 
 input queryInput_samples_input_where_id_Input {
@@ -2768,19 +3188,7 @@ input queryInput_samples_input_where_name_Input {
   _like: String
 }
 
-input queryInput_samples_input_where_collectionLocation_Input {
-  _in: [String]
-}
-
 input queryInput_samples_input_where_sampleType_Input {
-  _in: [String]
-}
-
-input queryInput_samples_input_where_hostTaxon_Input {
-  upstreamDatabaseIdentifier: queryInput_samples_input_where_hostTaxon_upstreamDatabaseIdentifier_Input
-}
-
-input queryInput_samples_input_where_hostTaxon_upstreamDatabaseIdentifier_Input {
   _in: [String]
 }
 
@@ -2805,181 +3213,11 @@ input queryInput_samples_input_where_sequencingReads_consensusGenomes_taxon_prod
   _in: [Int]
 }
 
-input queryInput_samples_input_orderBy_Input {
-  key: String
-  dir: String
-}
-
-input queryInput_samples_input_sequencingReadsInput_Input {
-  where: queryInput_samples_input_sequencingReadsInput_where_Input
-}
-
-input queryInput_samples_input_sequencingReadsInput_where_Input {
-  consensusGenomes: JSON
-}
-
-input queryInput_samples_input_todoRemove_Input {
-  domain: String
-  visibility: String
-  time: [String]
-  taxaLevels: [String]
-  taxons: [Int]
-  offset: Int
-  limit: Int
-  workflow: String
-  projectId: String
-  listAllIds: Boolean
-}
-
-type query_Taxons_items {
-  tax_id: JSON
-  tax_id_genus: JSON
-  common_name: JSON
-  name: JSON
-  is_phage: JSON
-  level: JSON
-  _: query_Taxons_items__
-}
-
-type query_Taxons_items__ {
-  category: JSON
-}
-
-type TaxonDist {
-  merged_NT_NR: query_TaxonDist_merged_NT_NR
-  NR: query_TaxonDist_NR
-  NT: query_TaxonDist_NT
-}
-
-type query_TaxonDist_merged_NT_NR {
-  tax_level: Int
-  mean: Float
-  stdev: Float
-  rpm_list: [Float]
-}
-
-type query_TaxonDist_NR {
-  tax_level: Int
-  mean: Float
-  stdev: Float
-  rpm_list: [Float]
-}
-
-type query_TaxonDist_NT {
-  tax_level: Int
-  mean: Float
-  stdev: Float
-  rpm_list: [Float]
-}
-
-type query_UserBlastAnnotations_items {
-  tax_id: JSON
-  annotation: JSON
-}
-
-type ValidateUserCanDeleteObjects {
-  validIds: [Int]!
-  invalidSampleNames: [String]!
-  error: String
-}
-
-input queryInput_ValidateUserCanDeleteObjects_input_Input @example(value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
-  selectedIds: [Int]
-  workflow: String
-  authenticityToken: String
-}
-
-type query_workflowRuns_items {
-  id: String!
-  ownerUserId: Int!
-  startedAt: String
-  status: String
-  workflowVersion: query_workflowRuns_items_workflowVersion
-  entityInputs: query_workflowRuns_items_entityInputs!
-}
-
-type query_workflowRuns_items_workflowVersion {
-  version: String
-  workflow: query_workflowRuns_items_workflowVersion_workflow
-}
-
-type query_workflowRuns_items_workflowVersion_workflow {
-  name: String
-}
-
-type query_workflowRuns_items_entityInputs {
-  edges: [query_workflowRuns_items_entityInputs_edges_items]!
-}
-
-type query_workflowRuns_items_entityInputs_edges_items {
-  node: query_workflowRuns_items_entityInputs_edges_items_node!
-}
-
-type query_workflowRuns_items_entityInputs_edges_items_node {
-  inputEntityId: String
-  entityType: String
-}
-
 input queryInput_workflowRuns_input_Input {
-  todoRemove: queryInput_workflowRuns_input_todoRemove_Input
-  orderBy: queryInput_workflowRuns_input_orderBy_Input
-  where: queryInput_workflowRuns_input_where_Input
   entityInputsInput: queryInput_workflowRuns_input_entityInputsInput_Input
-}
-
-input queryInput_workflowRuns_input_todoRemove_Input {
-  domain: String
-  projectId: String
-  search: String
-  host: [Int]
-  locationV2: [String]
-  taxon: [Int]
-  taxonLevels: [String]
-  time: [String]
-  tissue: [String]
-  visibility: String
-  workflow: String
-  authenticityToken: String
-}
-
-input queryInput_workflowRuns_input_orderBy_Input {
-  startedAt: String
-}
-
-input queryInput_workflowRuns_input_where_Input {
-  id: queryInput_workflowRuns_input_where_id_Input
-  ownerUserId: queryInput_workflowRuns_input_where_ownerUserId_Input
-  startedAt: queryInput_workflowRuns_input_where_startedAt_Input
-  collectionId: queryInput_workflowRuns_input_where_collectionId_Input
-  workflowVersion: queryInput_workflowRuns_input_where_workflowVersion_Input
-}
-
-input queryInput_workflowRuns_input_where_id_Input {
-  _in: [String]
-}
-
-input queryInput_workflowRuns_input_where_ownerUserId_Input {
-  _eq: Int
-}
-
-input queryInput_workflowRuns_input_where_startedAt_Input {
-  _gte: String
-}
-
-input queryInput_workflowRuns_input_where_collectionId_Input {
-  _in: [Int]
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_Input {
-  workflow: queryInput_workflowRuns_input_where_workflowVersion_workflow_Input
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_workflow_Input {
-  name: queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input {
-  _in: [String]
+  orderBy: queryInput_workflowRuns_input_orderBy_Input
+  todoRemove: queryInput_workflowRuns_input_todoRemove_Input
+  where: queryInput_workflowRuns_input_where_Input
 }
 
 input queryInput_workflowRuns_input_entityInputsInput_Input {
@@ -2994,168 +3232,568 @@ input queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input {
   _eq: String
 }
 
-type ZipLink {
-  url: String
-  error: String
+input queryInput_workflowRuns_input_orderBy_Input {
+  startedAt: String
 }
 
-input mutationInput_CreateBulkDownload_input_Input {
-  downloadType: String
-  workflowRunIds: [Int]
-  workflow: String
-  downloadFormat: String
+input queryInput_workflowRuns_input_todoRemove_Input {
   authenticityToken: String
-}
-
-type DeleteSamples {
-  deleted_workflow_ids: [Int]
-  error: String
-}
-
-input mutationInput_DeleteSamples_input_Input @example(value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
-  ids: [Int]
+  domain: String
+  host: [Int]
+  locationV2: [String]
+  projectId: String
+  search: String
+  taxon: [Int]
+  taxonLevels: [String]
+  time: [String]
+  tissue: [String]
+  visibility: String
   workflow: String
-  authenticityToken: String
 }
 
-type UpdateSampleNotes {
-  status: String
-  message: String
+input queryInput_workflowRuns_input_where_Input {
+  collectionId: queryInput_workflowRuns_input_where_collectionId_Input
+  id: queryInput_workflowRuns_input_where_id_Input
+  ownerUserId: queryInput_workflowRuns_input_where_ownerUserId_Input
+  startedAt: queryInput_workflowRuns_input_where_startedAt_Input
+  workflowVersion: queryInput_workflowRuns_input_where_workflowVersion_Input
 }
 
-input mutationInput_UpdateSampleNotes_input_Input {
-  value: String!
-  authenticityToken: String!
+input queryInput_workflowRuns_input_where_collectionId_Input {
+  _in: [Int]
 }
 
-type UpdateSampleName {
-  status: String
-  message: String
+input queryInput_workflowRuns_input_where_id_Input {
+  _in: [String]
 }
 
-type mutation_KickoffWGSWorkflow_items {
-  id: String
-  status: String
-  workflow: String
-  wdl_version: String
-  executed_at: String
-  deprecated: Boolean
-  input_error: JSON
-  inputs: mutation_KickoffWGSWorkflow_items_inputs
-  parsed_cached_results: mutation_KickoffWGSWorkflow_items_parsed_cached_results
-  run_finalized: Boolean
+input queryInput_workflowRuns_input_where_ownerUserId_Input {
+  _eq: Int
 }
 
-type mutation_KickoffWGSWorkflow_items_inputs {
-  accession_id: JSON
-  accession_name: JSON
-  taxon_id: JSON
-  taxon_name: JSON
-  technology: String
-  card_version: String
-  wildcard_version: String
+input queryInput_workflowRuns_input_where_startedAt_Input {
+  _gte: String
 }
 
-type mutation_KickoffWGSWorkflow_items_parsed_cached_results {
-  quality_metrics: mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics
+input queryInput_workflowRuns_input_where_workflowVersion_Input {
+  workflow: queryInput_workflowRuns_input_where_workflowVersion_workflow_Input
 }
 
-type mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics {
-  total_reads: Int
-  qc_percent: Float
+input queryInput_workflowRuns_input_where_workflowVersion_workflow_Input {
+  name: queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input
+}
+
+input queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input {
+  _in: [String]
+}
+
+type query_AmrWorkflowResults_amr_hit_items {
+  aro_accession: String
+  contig_coverage_breadth: String
+  contig_percent_id: String
+  contig_species: String
+  contigs: String
+  cutoff: String
+  dpm: Float
+  drug_class: String
+  gene: String
+  gene_family: String
+  gene_id: String
+  high_level_drug_class: String
+  mechanism: String
+  model: String
+  read_coverage_breadth: String
+  read_coverage_depth: String
+  read_species: String
+  reads: String
+  rpm: Float
+}
+
+type query_AmrWorkflowResults_metric_amr {
   adjusted_remaining_reads: Int
   compression_ratio: Float
-  total_ercc_reads: Int
   fraction_subsampled: Float
-  insert_size_mean: JSON
-  insert_size_standard_deviation: JSON
+  insert_size_mean: Int
+  insert_size_standard_deviation: Float
   percent_remaining: Float
+  qc_percent: Float
+  total_ercc_reads: Int
+  total_reads: Int
 }
 
-input mutationInput_KickoffWGSWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
-  inputs_json: mutationInput_KickoffWGSWorkflow_input_inputs_json_Input
-  workflow: String
-  authenticityToken: String
+type query_Background_other_backgrounds_items {
+  created_at: String
+  description: String
+  id: Int
+  mass_normalized: Boolean
+  name: String
+  public_access: Int
+  ready: Int
+  updated_at: String
+  user_id: Int
 }
 
-input mutationInput_KickoffWGSWorkflow_input_inputs_json_Input {
+type query_BulkDownloadDetails_bulk_download {
+  analysis_count: Int
+  analysis_type: String
+  created_at: String
+  deleted_at: JSON
+  description: JSON
+  download_name: String
+  download_type: String
+  ecs_task_arn: JSON
+  error_message: JSON
+  execution_type: String
+  file_size: String
+  id: Int
+  log_url: JSON
+  num_samples: Int
+  output_file_size: Int
+  params: query_BulkDownloadDetails_bulk_download_params
+  params_json: String
+  pipeline_runs: [JSON]
+  presigned_output_url: String
+  progress: Float
+  status: String
+  updated_at: String
+  user_id: Int
+  user_name: String
+  workflow_runs: [JSON]
+}
+
+type query_BulkDownloadDetails_bulk_download_params {
+  background: query_BulkDownloadDetails_bulk_download_params_background
+}
+
+type query_BulkDownloadDetails_bulk_download_params_background {
+  displayName: String
+  value: Int
+}
+
+type query_BulkDownloadDetails_download_type {
+  category: String
+  description: String
+  display_name: String
+  execution_type: String
+  fields: [query_BulkDownloadDetails_download_type_fields_items]
+  file_type_display: String
+  type: String
+  workflows: [String]
+}
+
+type query_BulkDownloadDetails_download_type_fields_items {
+  display_name: String
+  type: String
+}
+
+type query_ConsensusGenomeWorkflowResults_metric_consensus_genome {
+  coverage_viz: query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz
+  ercc_mapped_reads: Int
+  gc_percent: Float
+  mapped_reads: Int
+  n_actg: Int
+  n_ambiguous: Int
+  n_missing: Int
+  percent_genome_called: Float
+  percent_identity: Float
+  ref_snps: Int
+  reference_genome_length: Int
+  total_reads: Int
+}
+
+type query_ConsensusGenomeWorkflowResults_metric_consensus_genome_coverage_viz {
+  coverage: [[Float]]
+  coverage_bin_size: Float
+  coverage_breadth: Float
+  coverage_depth: Float
+  max_aligned_length: Int
+  total_length: Int
+}
+
+type query_ConsensusGenomeWorkflowResults_reference_genome {
   accession_id: String
   accession_name: String
-  taxon_id: String
-  taxon_name: String
-  alignment_config_name: String
-  technology: String
+  taxon: query_ConsensusGenomeWorkflowResults_reference_genome_taxon
 }
 
-input mutationInput_KickoffAMRWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
-  inputs_json: mutationInput_KickoffAMRWorkflow_input_inputs_json_Input
-  workflow: String
-  authenticityToken: String
+type query_ConsensusGenomeWorkflowResults_reference_genome_taxon {
+  id: String
+  name: String
 }
 
-input mutationInput_KickoffAMRWorkflow_input_inputs_json_Input {
-  start_from_mngs: Boolean
+type query_CoverageVizSummary_items {
+  coverage_breadth: JSON
+  coverage_depth: JSON
+  id: Int
+  name: String
+  num_contigs: Int
+  num_reads: Int
+  pipeline_id: Int
+  score: Int
 }
 
-type UpdateMetadataReponse {
+type query_MetadataFields_items {
+  dataType: String
+  default_for_new_host_genome: Int
+  description: String
+  examples: query_MetadataFields_items_examples
+  group: String
+  host_genome_ids: [Int]
+  isBoolean: Boolean
+  is_required: Int
+  key: String
+  name: String
+  options: JSON
+}
+
+type query_MetadataFields_items_examples {
+  all: [String]
+}
+
+type query_MngsWorkflowResults__ {
+  lineage: [query_MngsWorkflowResults___lineage_items]
+}
+
+type query_MngsWorkflowResults___lineage_items {
+  name: String
+  rank: String
+  tax_id: String
+}
+
+type query_MngsWorkflowResults_metric_mngs {
+  _: query_MngsWorkflowResults_metric_mngs__
+  adjusted_remaining_reads: Int
+  assembled: Int
+  num_reads: Int
+  num_reads_after_subsampling: Int
+  total_ercc_reads: Int
+}
+
+type query_MngsWorkflowResults_metric_mngs__ {
+  has_byteranges: Boolean
+}
+
+type query_MngsWorkflowResults_taxon_hit_results {
+  taxon_hits: [query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items]
+}
+
+type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items {
+  _: query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__
+  alignment_length: Float
+  base_count: Int
+  bpm: Float
+  count: Int
+  count_type: String
+  e_value: Float
+  percent_identity: Int
+  rpm: Float
+  tax_id: Int
+}
+
+type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__ {
+  agg_score: Float
+  bg_mean: Float
+  bg_mean_mass_normalized: Float
+  bg_stdev: Float
+  bg_stdev_mass_normalized: Float
+  max_z_score: Float
+  z_score: Float
+}
+
+type query_Pathogens_items {
+  tax_id: JSON
+}
+
+type query_PipelineData_edges_items {
+  files: [query_PipelineData_edges_items_files_items]
+  from: query_PipelineData_edges_items_from
+  isIntraStage: Boolean
+  to: query_PipelineData_edges_items_to
+}
+
+type query_PipelineData_edges_items_files_items {
+  displayName: String
+  url: JSON
+}
+
+type query_PipelineData_edges_items_from {
+  stageIndex: Int
+  stepIndex: Int
+}
+
+type query_PipelineData_edges_items_to {
+  stageIndex: Int
+  stepIndex: Int
+}
+
+type query_PipelineData_stages_items {
+  jobStatus: String
+  name: String
+  steps: [query_PipelineData_stages_items_steps_items]
+}
+
+type query_PipelineData_stages_items_steps_items {
+  description: String
+  endTime: JSON
+  inputEdges: [Int]
+  inputVariables: [query_PipelineData_stages_items_steps_items_inputVariables_items]
+  name: String
+  outputEdges: [Int]
+  outputFiles: [query_PipelineData_stages_items_steps_items_outputFiles_items]
+  resources: [JSON]
+  startTime: JSON
   status: String
-  message: String
 }
 
-input mutationInput_UpdateMetadata_input_Input {
-  field: String!
-  value: mutationInput_UpdateMetadata_input_value_Input!
-  authenticityToken: String!
+type query_PipelineData_stages_items_steps_items_inputVariables_items {
+  name: String
+  type: String
 }
 
-input mutationInput_UpdateMetadata_input_value_Input @oneOf {
-  String: String
-  query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input: query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input
+type query_PipelineData_stages_items_steps_items_outputFiles_items {
+  displayName: String
+  url: JSON
+}
+
+type query_SampleMetadata_additional_info {
+  editable: Boolean
+  ercc_comparison: [query_SampleMetadata_additional_info_ercc_comparison_items]
+  host_genome_name: String
+  host_genome_taxa_category: String
+  name: String
+  notes: String
+  pipeline_run: query_SampleMetadata_additional_info_pipeline_run
+  project_id: Int
+  project_name: String
+  summary_stats: query_SampleMetadata_additional_info_summary_stats
+  upload_date: String
+}
+
+type query_SampleMetadata_additional_info_ercc_comparison_items {
+  actual: Int
+  expected: JSON
+  name: String
+}
+
+type query_SampleMetadata_additional_info_pipeline_run {
+  adjusted_remaining_reads: Int
+  alert_sent: Int
+  alignment_config_id: Int
+  assembled: Int
+  compression_ratio: Float
+  created_at: String
+  dag_vars: JSON
+  deleted_at: JSON
+  deprecated: Boolean
+  error_message: JSON
+  executed_at: String
+  finalized: Int
+  fraction_subsampled: Float
+  fraction_subsampled_bases: JSON
+  guppy_basecaller_setting: JSON
+  host_subtracted: String
+  id: String
+  job_status: String
+  known_user_error: JSON
+  mapped_reads: JSON
+  max_input_fragments: Int
+  pipeline_branch: String
+  pipeline_commit: String
+  pipeline_execution_strategy: String
+  pipeline_version: String
+  qc_percent: Float
+  results_finalized: Int
+  s3_output_prefix: String
+  sample_id: Int
+  sfn_execution_arn: String
+  subsample: Int
+  technology: String
+  time_to_finalized: Int
+  time_to_results_finalized: Int
+  total_bases: JSON
+  total_ercc_reads: Int
+  total_reads: Int
+  truncated: JSON
+  truncated_bases: JSON
+  unmapped_bases: JSON
+  unmapped_reads: Int
+  updated_at: String
+  use_taxon_whitelist: Boolean
+  version: query_SampleMetadata_additional_info_pipeline_run_version
+  wdl_version: String
+}
+
+type query_SampleMetadata_additional_info_pipeline_run_version {
+  alignment_db: String
+  pipeline: String
+}
+
+type query_SampleMetadata_additional_info_summary_stats {
+  adjusted_remaining_reads: Int
+  compression_ratio: Float
+  insert_size_mean: JSON
+  insert_size_standard_deviation: JSON
+  last_processed_at: String
+  percent_remaining: Float
+  qc_percent: Float
+  reads_after_bowtie2_ercc_filtered: JSON
+  reads_after_bowtie2_host_filtered: Int
+  reads_after_czid_dedup: Int
+  reads_after_fastp: Int
+  reads_after_hisat2_host_filtered: Int
+  unmapped_reads: Int
+}
+
+type query_SampleMetadata_metadata_items {
+  base_type: String
+  created_at: String
+  date_validated_value: String
+  id: String
+  key: String
+  location_id: Int
+  location_validated_value: query_SampleMetadata_metadata_items_location_validated_value
+  metadata_field_id: Int
+  number_validated_value: String
+  raw_value: String
+  sample_id: Int
+  string_validated_value: String
+  updated_at: String
+}
+
+union query_SampleMetadata_metadata_items_location_validated_value = query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 | query_SampleMetadata_metadata_items_location_validated_value_oneOf_1
+
+type query_SampleMetadata_metadata_items_location_validated_value_oneOf_0 {
+  name: String
+}
+
+type query_SampleMetadata_metadata_items_location_validated_value_oneOf_1 {
+  city_id: String
+  city_name: String
+  country_code: String
+  country_id: Int
+  country_name: String
+  created_at: String
+  description: String
+  geo_level: String
+  id: String
+  key: String
+  lat: JSON
+  lng: JSON
+  locationiq_id: JSON
+  name: String
+  osm_id: Int
+  osm_type: String
+  raw_value: String
+  refetch_adjusted_location: Boolean
+  state_id: Int
+  state_name: String
+  subdivision_id: Int
+  subdivision_name: String
+  title: String
+  updated_at: String
 }
 
 input query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input {
-  id: String
-  name: String
-  geo_level: String
-  country_name: String
-  country_code: String
-  state_name: String
-  subdivision_name: String
+  city_id: String
   city_name: String
-  osm_id: Int
-  locationiq_id: JSON
+  country_code: String
+  country_id: Int
+  country_name: String
+  created_at: String
+  description: String
+  geo_level: String
+  id: String
+  key: String
   lat: JSON
   lng: JSON
-  created_at: String
-  updated_at: String
+  locationiq_id: JSON
+  name: String
+  osm_id: Int
   osm_type: String
-  country_id: Int
-  state_id: Int
-  subdivision_id: Int
-  city_id: String
   raw_value: String
-  title: String
-  description: String
-  key: String
   refetch_adjusted_location: Boolean
+  state_id: Int
+  state_name: String
+  subdivision_id: Int
+  subdivision_name: String
+  title: String
+  updated_at: String
 }
 
-scalar ObjMap
-
-enum HTTPMethod {
-  GET
-  HEAD
-  POST
-  PUT
-  DELETE
-  CONNECT
-  OPTIONS
-  TRACE
-  PATCH
+type query_TaxonDist_NR {
+  mean: Float
+  rpm_list: [Float]
+  stdev: Float
+  tax_level: Int
 }
 
-type GraphQLFederationVersion {
+type query_TaxonDist_NT {
+  mean: Float
+  rpm_list: [Float]
+  stdev: Float
+  tax_level: Int
+}
+
+type query_TaxonDist_merged_NT_NR {
+  mean: Float
+  rpm_list: [Float]
+  stdev: Float
+  tax_level: Int
+}
+
+type query_Taxons_items {
+  _: query_Taxons_items__
+  common_name: JSON
+  is_phage: JSON
+  level: JSON
+  name: JSON
+  tax_id: JSON
+  tax_id_genus: JSON
+}
+
+type query_Taxons_items__ {
+  category: JSON
+}
+
+type query_UserBlastAnnotations_items {
+  annotation: JSON
+  tax_id: JSON
+}
+
+type query_samples_items {
+  id: String
+  railsSampleId: Int
+  required: JSON
+}
+
+type query_workflowRuns_items {
+  entityInputs: query_workflowRuns_items_entityInputs!
+  id: String!
+  ownerUserId: Int!
+  startedAt: String
+  status: String
+  workflowVersion: query_workflowRuns_items_workflowVersion
+}
+
+type query_workflowRuns_items_entityInputs {
+  edges: [query_workflowRuns_items_entityInputs_edges_items]!
+}
+
+type query_workflowRuns_items_entityInputs_edges_items {
+  node: query_workflowRuns_items_entityInputs_edges_items_node!
+}
+
+type query_workflowRuns_items_entityInputs_edges_items_node {
+  entityType: String
+  inputEntityId: String
+}
+
+type query_workflowRuns_items_workflowVersion {
   version: String
-  gitCommit: String
+  workflow: query_workflowRuns_items_workflowVersion_workflow
+}
+
+type query_workflowRuns_items_workflowVersion_workflow {
+  name: String
 }"
 `;

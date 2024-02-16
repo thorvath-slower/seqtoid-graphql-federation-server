@@ -10,6 +10,8 @@ services:
     restart: always
     environment:
       API_URL: http://web:3001
+      NEXTGEN_ENTITIES_API_URL: http://web:8008
+      NEXTGEN_WORKFLOWS_API_URL: http://web:8042
       LEGACY_API_URL: http://web:3001
       ALLOWED_CORS_ORIGINS: "http://web:3001,http://localhost:3000"
       NEXTGEN_ENTITIES_URL: "http://entities.czidnet:8008"
