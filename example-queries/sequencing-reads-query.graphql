@@ -1,0 +1,33 @@
+query TestQuery {
+    sequencingReads(input: {
+        where: {
+            id: {
+            _in: ["abc", "def"]
+            }
+        }
+        todoRemove: {
+            search: "abc"
+        }
+    }) {
+    id
+    sample {
+        metadatas {
+        edges {
+            node {
+            fieldName
+            value
+            }
+        }
+        }
+    }
+    consensusGenomes {
+        edges {
+        node {
+            taxon {
+            name
+            }
+        }
+        }
+    }
+    }
+}

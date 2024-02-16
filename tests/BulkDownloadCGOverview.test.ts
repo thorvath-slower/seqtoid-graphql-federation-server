@@ -1,5 +1,5 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getBulkDownloadCGOverviewExampleQuery, getBulkDownloadCGOverviewResponse } from "./utils/ExampleQueryFiles";
+import { getExampleQuery, getSampleResponse } from "./utils/ExampleQueryFiles";
 import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
@@ -17,23 +17,26 @@ describe.only("BulkDownloadCGOverview Query", () => {
     const mesh$ = await getMeshInstance();
     // Load BulkDownloadCGOverview example query
     ({ execute } = mesh$);
-    query = getBulkDownloadCGOverviewExampleQuery();
+    query = getExampleQuery("bulk-download-cg-overview-query");
   });
 
   describe("BulkDownloadCGOverview successful response", () => {
-    const bulkDownloadCGOverviewResponse = JSON.parse(getBulkDownloadCGOverviewResponse());
+    const bulkDownloadCGOverviewResponse = getSampleResponse("cgOverview");
 
     it("should give correct response", async () => {
-      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(() => bulkDownloadCGOverviewResponse);
+      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(
+        () => bulkDownloadCGOverviewResponse
+      );
       const result = await execute(query, {
         authenticityToken: "authtoken1234",
-        downloadType: "consensus_genome_overview", 
+        downloadType: "consensus_genome_overview",
         includeMetadata: false,
-        workflow: "consensus_genome", 
-        workflowRunIds: [1991, 2007]
+        workflow: "consensus_genome",
+        workflowRunIds: [1991, 2007],
       });
-      expect(result.data.BulkDownloadCGOverview.cgOverviewRows).toStrictEqual(bulkDownloadCGOverviewResponse.cg_overview_rows);
+      expect(result.data.BulkDownloadCGOverview.cgOverviewRows).toStrictEqual(
+        bulkDownloadCGOverviewResponse.cg_overview_rows
+      );
     });
   });
-
 });

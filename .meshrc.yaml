@@ -54,6 +54,13 @@ sources:
             responseSchema: ./json-schemas/cgOverview.json
             responseTypeName: ConsensusGenomeOverviewRows
           - type: Query
+            field: consensusGenomes
+            method: GET
+            path: /workflow_runs.json
+            requestSchema: ./json-schemas/consensusGenomesRequest.json
+            responseSchema: ./json-schemas/consensusGenomesResponse.json
+            responseTypeName: consensusGenomes
+          - type: Query
             field: ConsensusGenomeWorkflowResults
             path: /workflow_runs/{args.workflowRunId}/results
             method: GET
@@ -124,6 +131,13 @@ sources:
             requestSchema: ./json-schemas/samplesRequest.json
             responseSchema: ./json-schemas/samplesResponse.json
             responseTypeName: samples
+          - type: Query
+            field: sequencingReads
+            method: GET
+            path: /workflow_runs.json
+            requestSchema: ./json-schemas/sequencingReadsRequest.json
+            responseSchema: ./json-schemas/sequencingReadsResponse.json
+            responseTypeName: sequencingReads
           - type: Query
             field: Taxons
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false

@@ -1,5 +1,5 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getZipLinkExampleQuery } from "./utils/ExampleQueryFiles";
+import { getExampleQuery } from "./utils/ExampleQueryFiles";
 import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
@@ -17,39 +17,39 @@ describe("ZipLink Query", () => {
     const mesh$ = await getMeshInstance();
     // Load ZipLink example query
     ({ execute } = mesh$);
-    query = getZipLinkExampleQuery();
+    query = getExampleQuery("zip-link-query");
   });
 
   describe("ZipLink with url", () => {
     const zipLinkWorkflowRunId = "mockZipLinkId";
-    const zipLinkUrl = "zip_link_url"
+    const zipLinkUrl = "zip_link_url";
 
     it("should give correct response", async () => {
-      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => (
-        {
-          status: 200,
-          url: zipLinkUrl,
-        }
-      ));
-      const result = await execute(query, { workflowRunId: zipLinkWorkflowRunId });
+      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => ({
+        status: 200,
+        url: zipLinkUrl,
+      }));
+      const result = await execute(query, {
+        workflowRunId: zipLinkWorkflowRunId,
+      });
       expect(result.data.ZipLink.url).toBe(zipLinkUrl);
     });
   });
 
   describe("ZipLink with error", () => {
     const errorZipLinkWorkflowRunId = "mockErrorZipLinkId";
-    const zipLinkError = "zip_link_error"
+    const zipLinkError = "zip_link_error";
 
     it("should give correct response", async () => {
-      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => (
-        {
-          status: 500,
-          url: null,
-          statusText: zipLinkError
-        }
-      ));
+      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => ({
+        status: 500,
+        url: null,
+        statusText: zipLinkError,
+      }));
 
-      const result = await execute(query, { workflowRunId: errorZipLinkWorkflowRunId });
+      const result = await execute(query, {
+        workflowRunId: errorZipLinkWorkflowRunId,
+      });
       expect(result.data.ZipLink.error).toBe(zipLinkError);
     });
   });

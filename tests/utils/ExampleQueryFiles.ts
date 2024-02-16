@@ -1,45 +1,30 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from "fs";
 import { join } from "path";
 
-const exampleQueriesDir = "../../example-queries";
-
-const getZipLinkExampleQueryPath = () : string => {
-  return join(__dirname, `${exampleQueriesDir}/zip-link-query.graphql`);
-};
-
-export const getZipLinkExampleQuery = () : string => {
-  return readFileSync(getZipLinkExampleQueryPath(), { encoding: "utf8" });
+/**
+ * @param graphqlFile file name (excludes .graphql file extension)
+ * @returns example query as a string
+ */
+export function getExampleQuery(graphqlFile: string): string {
+  return readFileSync(
+    join(__dirname, `../../example-queries/${graphqlFile}.graphql`),
+    {
+      encoding: "utf8",
+    }
+  );
 }
 
-
-const getBulkDownloadCGOverviewExampleQueryPath = () : string => {
-  return join(__dirname, `${exampleQueriesDir}/bulk-download-cg-overview-query.graphql`);
-};
-
-export const getBulkDownloadCGOverviewExampleQuery = () : string => {
-  return readFileSync(getBulkDownloadCGOverviewExampleQueryPath(), { encoding: "utf8" });
+/**
+ * @param responseFile file name (excludes .json file extension)
+ * @returns JSON.parse()d value from the response file
+ */
+export function getSampleResponse(responseFile: string): any {
+  return JSON.parse(
+    readFileSync(
+      join(__dirname, `../../sample-responses/${responseFile}.json`),
+      {
+        encoding: "utf8",
+      }
+    )
+  );
 }
-
-const getBulkDownloadCGOverviewResponsePath = () : string => {
-  return join(__dirname, "../../sample-responses/cgOverview.json");
-}
-
-export const getBulkDownloadCGOverviewResponse = () : string => {
-  return readFileSync(getBulkDownloadCGOverviewResponsePath(), { encoding: "utf8" });
-} 
-
-const getCreateBulkDownloadExampleMutationPath = () : string => {
-  return join(__dirname, `${exampleQueriesDir}/create-bulk-download-query.graphql`);
-}
-
-export const getCreateBulkDownloadExampleMutation = () : string => {
-  return readFileSync(getCreateBulkDownloadExampleMutationPath(), { encoding: "utf8" });
-}
-
-const getCreateBulkDownloadResponsePath = () : string => {
-  return join(__dirname, "../../sample-responses/bulkDownload.json");
-}
-
-export const getCreateBulkDownloadResponse = () : string => {
-  return readFileSync(getCreateBulkDownloadResponsePath(), { encoding: "utf8" });
-} 

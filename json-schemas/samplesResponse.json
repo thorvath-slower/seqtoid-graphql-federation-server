@@ -8,8 +8,8 @@
             },
             "railsSampleId": {
                 "type": "integer"
-            },
-            "required": ["id"]
-        }
+            }
+        },
+        "required": ["id"]
     }
 }

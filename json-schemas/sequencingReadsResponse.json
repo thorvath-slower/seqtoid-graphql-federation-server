@@ -1,0 +1,190 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "nucleicAcid": {
+                "type": "string"
+            },
+            "protocol": {
+                "type": "string"
+            },
+            "medakaModel": {
+                "type": "string"
+            },
+            "technology": {
+                "type": "string"
+            },
+            "taxon": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": ["name"]
+            },
+            "sample": {
+                "type": "object",
+                "properties": {
+                    "railsSampleId": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "notes": {
+                        "type": "string"
+                    },
+                    "collectionLocation": {
+                        "type": "string"
+                    },
+                    "sampleType": {
+                        "type": "string"
+                    },
+                    "waterControl": {
+                        "type": "boolean"
+                    },
+                    "hostOrganism": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["name"]
+                    },
+                    "collection": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "public": {
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "ownerUser": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "metadatas": {
+                        "type": "object",
+                        "properties": {
+                            "edges": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "node": {
+                                            "type": "object",
+                                            "properties": {
+                                                "fieldName": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": ["fieldName", "value"]
+                                        }
+                                    },
+                                    "required": ["node"]
+                                }
+                            }
+                        },
+                        "required": ["edges"]
+                    }
+                },
+                "required": ["name", "collectionLocation", "sampleType", "metadatas"]
+            },
+            "consensusGenomes": {
+                "type": "object",
+                "properties": {
+                    "edges": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "node": {
+                                    "type": "object",
+                                    "properties": {
+                                        "producingRunId": {
+                                            "type": "string"
+                                        },
+                                        "taxon": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": ["name"]
+                                        },
+                                        "referenceGenome": {
+                                            "type": "object",
+                                            "properties": {
+                                                "accessionId": {
+                                                    "type": "string"
+                                                },
+                                                "accessionName": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "metric": {
+                                            "type": "object",
+                                            "properties": {
+                                                "coverageDepth": {
+                                                    "type": "number"
+                                                },
+                                                "totalReads": {
+                                                    "type": "integer"
+                                                },
+                                                "gcPercent": {
+                                                    "type": "number"
+                                                },
+                                                "refSnps": {
+                                                    "type": "integer"
+                                                },
+                                                "percentIdentity": {
+                                                    "type": "number"
+                                                },
+                                                "nActg": {
+                                                    "type": "integer"
+                                                },
+                                                "percentGenomeCalled": {
+                                                    "type": "number"
+                                                },
+                                                "nMissing": {
+                                                    "type": "integer"
+                                                },
+                                                "nAmbiguous": {
+                                                    "type": "integer"
+                                                },
+                                                "referenceGenomeLength": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": ["node"]
+                        }
+                    }
+                },
+                "required": ["edges"]
+            }
+        },
+        "required": ["id", "nucleicAcid", "technology", "consensusGenomes"]
+    }
+}

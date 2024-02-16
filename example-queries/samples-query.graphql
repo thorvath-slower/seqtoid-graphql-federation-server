@@ -1,0 +1,11 @@
+query TestQuery {
+    samples(input: {
+        where: {
+            name: {
+            _like: "abc",
+            }
+        }
+    }) {
+        id
+    }
+}

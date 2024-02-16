@@ -1,5 +1,5 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getZipLinkExampleQuery } from "./utils/ExampleQueryFiles";
+import { getExampleQuery } from "./utils/ExampleQueryFiles";
 import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
@@ -20,21 +20,6 @@ describe("workflowRuns query:", () => {
   });
 
   it("Returns input sample", async () => {
-    const query = `
-        query TestQuery($unused: String) {
-            workflowRuns(input: {}) {
-                id
-                entityInputs {
-                    edges {
-                        node {
-                            entityType
-                            inputEntityId
-                        }
-                    }
-                }
-            }
-        }
-    `;
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       workflow_runs: [
         {
@@ -56,7 +41,10 @@ describe("workflowRuns query:", () => {
       ],
     }));
 
-    const result = await execute(query, {});
+    const result = await execute(
+      getExampleQuery("workflow-runs-query-empty"),
+      {}
+    );
 
     expect(httpUtils.get).toHaveBeenCalledWith(
       "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
@@ -97,30 +85,14 @@ describe("workflowRuns query:", () => {
   });
 
   it("Called with order by", async () => {
-    const query = `
-        query TestQuery($unused: String) {
-            workflowRuns(input: {
-                orderBy: {
-                    startedAt: "ASC"
-                }
-            }) {
-                id
-                entityInputs {
-                    edges {
-                        node {
-                            fieldName
-                            inputEntityId
-                        }
-                    }
-                }
-            }
-        }
-    `;
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       workflow_runs: [],
     }));
 
-    const result = await execute(query, {});
+    const result = await execute(
+      getExampleQuery("workflow-runs-query-order-by"),
+      {}
+    );
 
     expect(httpUtils.get).toHaveBeenCalledWith(
       "/workflow_runs.json?&mode=basic&orderBy=createdAt&orderDir=ASC&limit=10000000&offset=0&listAllIds=false",
@@ -131,26 +103,8 @@ describe("workflowRuns query:", () => {
   });
 
   describe("validConsensusGenomes query", () => {
-    const query = `
-      query ValidConsensusGenomeWorkflowRunsQuery(
-        $workflowRunIds: [String]
-        $authenticityToken: String!
-      ) {
-        workflowRuns(
-          input: {
-            where: { id: { _in: $workflowRunIds } }
-            todoRemove: { authenticityToken: $authenticityToken }
-          }
-        ) {
-          id
-          ownerUserId
-          status
-        }
-      }
-    `;
-
     it("should call the correct rails endpoint", async () => {
-      await execute(query, {
+      await execute(getExampleQuery("workflow-runs-query-id-list"), {
         authenticityToken: "authtoken1234",
         workflowRunIds: ["1997", "2007"],
       });
@@ -161,7 +115,7 @@ describe("workflowRuns query:", () => {
           workflowRunIds: [1997, 2007],
         },
         expect.anything(),
-        expect.anything(),
+        expect.anything()
       );
     });
   });

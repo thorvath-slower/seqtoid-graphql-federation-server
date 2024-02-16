@@ -1,0 +1,29 @@
+query TestQuery {
+    consensusGenomes(input: {
+        where: {
+            producingRunId: {
+            _in: ["abc", "def"]
+            }
+        }
+        todoRemove: {
+            search: "abc"
+        }
+    }) {
+        producingRunId
+        taxon {
+            name
+        }
+        sequencingRead {
+            sample {
+                metadatas {
+                    edges {
+                        node {
+                            fieldName
+                            value
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

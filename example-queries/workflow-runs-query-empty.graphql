@@ -1,0 +1,13 @@
+query WorkflowRunsQuery {
+    workflowRuns(input: {}) {
+        id
+        entityInputs {
+            edges {
+                node {
+                    entityType
+                    inputEntityId
+                }
+            }
+        }
+    }
+}

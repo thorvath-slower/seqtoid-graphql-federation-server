@@ -1,0 +1,137 @@
+{
+    "type": "object",
+    "properties": {
+        "where": {
+            "type": "object",
+            "properties": {
+                "producingRunId": {
+                    "type": "object",
+                    "properties": {
+                        "_in": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "orderBy": {
+            "type": "object",
+            "properties": {
+                "accession": {
+                    "type": "object",
+                    "properties": {
+                        "accessionId": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "coverageDepth": {
+                            "type": "string"
+                        },
+                        "totalReads": {
+                            "type": "string"
+                        },
+                        "gcPercent": {
+                            "type": "string"
+                        },
+                        "refSnps": {
+                            "type": "string"
+                        },
+                        "percentIdentity": {
+                            "type": "string"
+                        },
+                        "nActg": {
+                            "type": "string"
+                        },
+                        "percentGenomeCalled": {
+                            "type": "string"
+                        },
+                        "nMissing": {
+                            "type": "string"
+                        },
+                        "nAmbiguous": {
+                            "type": "string"
+                        },
+                        "referenceGenomeLength": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "todoRemove": {
+            "type": "object",
+            "properties": {
+                "domain": {
+                    "type": "string"
+                },
+                "workflow": {
+                    "type": "string"
+                },
+                "projectId": {
+                    "type": "string"
+                },
+                "visibility": {
+                    "type": "string"
+                },
+                "search": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "host": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "taxaLevels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "taxons": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "locationV2": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tissue": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "orderBy": {
+                    "type": "string"
+                },
+                "orderDir": {
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
