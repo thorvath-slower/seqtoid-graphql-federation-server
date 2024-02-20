@@ -6,7 +6,7 @@
     "start": "mesh start",
     "build": "mesh build",
     "dev": "mesh dev",
-    "test": "mesh build && jest"
+    "test": "mesh build && jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
-import { formatUrlParams } from "../utils/httpUtils";
+import { formatUrlParams } from "../utils/paramsUtils";
 
-describe("HttpUtils:", () => {
+describe("ParamsUtils:", () => {
   describe("formatUrlParams:", () => {
     it("Returns empty string", () => {
       expect(
@@ -29,6 +29,15 @@ describe("HttpUtils:", () => {
           param2: [],
         })
       ).toBe("?&param1[]=123&param1[]=456");
+    });
+
+    it("Handles Spaces in strings", () => {
+      expect(
+        formatUrlParams({
+          param1: 123,
+          param2: "456 789",
+        })
+      ).toBe("?&param1=123&param2=456+789");
     });
   });
 });

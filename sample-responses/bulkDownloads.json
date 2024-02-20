@@ -1,0 +1,60 @@
+[
+  {
+    "id": 12715,
+    "status": "SUCCEEDED",
+    "startedAt": "2024-02-15T11:52:57.000-08:00",
+    "ownerUserId": 412,
+    "analysisCount": 3,
+    "entityInputFileType": "short-read-mngs",
+    "sampleNames": [
+      "longnamebabe",
+      "How about this",
+      "n6_n27_v6_23e"
+    ],
+    "rawInputsJson": {
+      "description": "Computed metrics (e.g. total reads, rPM) and metadata for each taxon identified in the sample",
+      "downloadType": "sample_taxon_report",
+      "downloadDisplayName": "Sample Taxon Reports",
+      "fileFormat": ".csv"
+    },
+    "file": {
+      "downloadLink": {
+        "url": "http://url.com"      
+      },
+      "size": 57197
+    },
+    "toDelete": {
+      "user_name": "Paula Duncan",
+      "log_url": null,
+      "totalSamples": 3,
+      "progress": 0.87
+    }
+  },
+  {
+    "id": 12714,
+    "status": "FAILED",
+    "startedAt": "2024-02-15T11:47:10.000-08:00",
+    "ownerUserId": 412,
+    "analysisCount": 0,
+    "entityInputFileType": "amr",
+    "sampleNames": null,
+    "rawInputsJson": {
+      "description": "Primary metrics (e.g. coverage, depth) for all AMR genes in all selected samples, combined into a single file.",
+      "downloadType": "amr_combined_results_bulk_download",
+      "downloadDisplayName": "Combined AMR Results",
+      "fileFormat": ".csv"
+    },
+    "file": {
+      "downloadLink": {
+        "url": null
+      },
+      "size": null
+    },
+    "toDelete": {
+      "user_name": "Paula Duncan",
+      "log_url": null,
+      "totalSamples": null,
+      "progress": 1.0
+    }
+  }
+]

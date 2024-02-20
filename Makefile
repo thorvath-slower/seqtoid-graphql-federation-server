@@ -8,7 +8,7 @@ build: ## Build docker images
 
 .PHONY: test
 test: ## Run tests
-	docker compose run --rm gql npm test
+	docker compose run --rm gql npm test 
 
 .PHONY: local-init
 local-init: ## Build & start the service

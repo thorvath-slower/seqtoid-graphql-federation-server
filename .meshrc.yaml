@@ -39,13 +39,15 @@ sources:
             responseSchema: ./json-schemas/snapshotBackground.json
             responseTypeName: Background
           - type: Query
-            field: BulkDownloadDetails
-            path: /bulk_downloads/{args.bulkDownloadId}
+            field: bulkDownloads
+            path: /bulk_downloads?searchBy=${searchBy}&n=${limit}
             method: GET
-            responseSchema: ./json-schemas/bulkDownloadDetails.json
-            responseTypeName: BulkDownloadDetails
-            headers:
-              Cookie: "{context.headers['cookie']}"
+            requestSample: {
+                searchBy: "string to search",
+                limit: 10
+              }            
+            responseSchema: ./json-schemas/bulkDownloads.json
+            responseTypeName: BulkDownloads
           - type: Query
             field: BulkDownloadCGOverview
             path: /bulk_downloads

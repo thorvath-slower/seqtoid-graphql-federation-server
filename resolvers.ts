@@ -8,7 +8,6 @@ import {
 } from "./.mesh";
 import {
   get,
-  formatUrlParams,
   postWithCSRF,
   getFullResponse,
 } from "./utils/httpUtils";
@@ -16,6 +15,9 @@ import {
   formatTaxonHits,
   formatTaxonLineage,
 } from "./utils/mngsWorkflowResultsUtils";
+import {
+  formatUrlParams
+} from "./utils/paramsUtils";
 
 /**
  * Arbitrary very large number used temporarily during Rails read phase to force Rails not to
@@ -49,6 +51,98 @@ export const resolvers: Resolvers = {
           is_mass_normalized: item.mass_normalized,
         };
       }, []);
+    },
+    bulkDownloads: async (root, args, context, info) => {
+      const statusDictionary = {
+        "success":"SUCCEEDED",
+        "error": "FAILED",
+        "waiting": "PENDING",
+        "running": "INPROGRESS",
+        //fyi: in NextGen there is also a status of STARTED
+      }
+      const urlParams = formatUrlParams({
+        searchBy: args?.input?.searchBy,
+        n: args?.input?.limit
+      })
+      const getEntityInputInfo = (entities) => {
+        return entities.map((entity) => {
+          return {
+            id: entity?.id,
+            name: entity?.sample_name,
+          }
+        })
+      };
+      const res = await get(`/bulk_downloads.json${urlParams}`, args, context);
+      const mappedRes = res.map(async (bulkDownload) => {
+        let url: string | null = null;
+        let entityInputs: {id: string, name: string}[] = [];
+        let sampleNames: Set<string> | null = null;
+        let totalSamples: number | null = null;
+        let description: string;
+        let file_type_display: string;
+        const details = await get(`/bulk_downloads/${bulkDownload?.id}.json`, args, context);
+        if (bulkDownload.status === "success"){
+          url = details?.bulk_download?.presigned_output_url;
+          entityInputs = [...getEntityInputInfo(details?.bulk_download?.workflow_runs), ...getEntityInputInfo(details?.bulk_download?.pipeline_runs)];
+          sampleNames = new Set(entityInputs.map((entityInput) => entityInput.name));
+          totalSamples = details?.bulk_download?.params?.sample_ids?.value?.length;
+        }
+        description = details?.download_type?.description;
+        file_type_display = details?.download_type?.file_type_display;
+
+        const { 
+          id, 
+          status, 
+          user_id, 
+          download_type,
+          created_at, 
+          download_name, 
+          output_file_size,
+          user_name, 
+          log_url,
+          analysis_type,
+          progress // --> to be discussed on Feb 16th, 2024
+        } = bulkDownload;
+
+          // In Next Gen we will have an array with all of the entity input 
+          // filtered through the nodes entity query to get the relevant info
+          // If there are 22 Consensus Genome Files coming from 20 Samples, there will be 42 items in the array.
+          // We will get `sampleNames` by checking __typename to see if the entity is a sample,
+          // The amount of other items left in the array should be a the `analysisCount` and the analysis type will come from the file.entity.type
+          // Some work will have to be done in the resolver here to surface the right information to the front end from NextGen
+          return {
+            id, // in NextGen this will be the workflowRun id because that is the only place that has info about failed and in progress bulk download workflows
+            startedAt: created_at,
+            status: statusDictionary[status],
+            rawInputsJson: {
+              downloadType:  download_type,
+              downloadDisplayName: download_name,
+              description: description,
+              fileFormat: file_type_display
+            },
+            ownerUserId: user_id,
+            file: {
+              size: output_file_size, 
+              downloadLink: {
+                url: url,
+              }, 
+            },
+            sampleNames,
+            analysisCount: entityInputs.length,
+            entityInputFileType: analysis_type,
+            entityInputs,
+            toDelete: {
+              progress, // --> to be discussed on Feb 16th, 2024
+              user_name, // will need to get from a new Rails endpoint from the FE
+              log_url, // used in admin only, we will deprecate log_url and use something like executionId
+              totalSamples 
+              // dedupping by name isn't entirely reliable 
+              // we will use this as the accurate number of samples until we switch to NextGen 
+              // (then it can be the amount of Sample entitys in entityInputs on the workflowRun)
+            }
+          }
+        });
+      return mappedRes;
     },
     BulkDownloadCGOverview: async (root, args, context, info) => {
       if (!args?.input) {

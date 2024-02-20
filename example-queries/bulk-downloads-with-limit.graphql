@@ -1,0 +1,36 @@
+query BulkDownloadsWithLimitQuery{
+        bulkDownloads(
+          input: {
+            searchBy: "Suzette McCanny", 
+            limit: 10
+          }
+        ) 
+        {
+          id
+          status
+          startedAt
+          ownerUserId
+          analysisCount
+          entityInputFileType
+          sampleNames
+          rawInputsJson {
+            description
+            downloadType
+            downloadDisplayName
+            fileFormat
+          }
+          file {
+            downloadLink {
+              url
+            }
+            size
+          }
+          toDelete{
+            user_name
+            log_url
+            totalSamples
+            progress
+          }
+        }
+      }
+      
