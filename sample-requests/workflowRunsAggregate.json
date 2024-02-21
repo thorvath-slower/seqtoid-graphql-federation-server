@@ -1,0 +1,50 @@
+{
+  "where": {
+    "id": {
+      "_in": {
+        "items": [
+          "1234"
+        ]
+      }
+    }
+  },
+  "todoRemove": {
+    "projectId": "1056",
+    "domain": "my_data",
+    "host": [
+      1,
+      11
+    ],
+    "locationV2": [
+      "California, USA"
+    ],
+    "taxonThresholds": [
+      {
+        "metric": "rpm",
+        "count_type": "NT",
+        "operator": ">=",
+        "value": "1"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "Hit"
+      }
+    ],
+    "tissue": [
+      "CSF"
+    ],
+    "visibility": "public",
+    "time": [
+      "20240205",
+      "20240213"
+    ],
+    "taxaLevels": [
+      "species"
+    ],
+    "taxon": [
+      244366
+    ],
+    "search": "abc"
+  }
+}

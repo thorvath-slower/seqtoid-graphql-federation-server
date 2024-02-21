@@ -75,6 +75,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
   workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
+  workflowRunsAggregate(input: queryInput_workflowRunsAggregate_input_Input): [query_workflowRunsAggregate_items] @httpOperation(path: "/projects.json", httpMethod: GET)
   ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   GraphQLFederationVersion: GraphQLFederationVersion
 }
@@ -3314,6 +3315,52 @@ input queryInput_workflowRuns_input_entityInputsInput_where_Input {
 
 input queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input {
   _eq: String
+}
+
+type query_workflowRunsAggregate_items {
+  collectionId: String!
+  mngsRunsCount: Int!
+  cgRunsCount: Int!
+  amrRunsCount: Int!
+}
+
+input queryInput_workflowRunsAggregate_input_Input {
+  where: queryInput_workflowRunsAggregate_input_where_Input
+  todoRemove: queryInput_workflowRunsAggregate_input_todoRemove_Input
+}
+
+input queryInput_workflowRunsAggregate_input_where_Input {
+  id: queryInput_workflowRunsAggregate_input_where_id_Input
+}
+
+input queryInput_workflowRunsAggregate_input_where_id_Input {
+  _in: [String]
+}
+
+input queryInput_workflowRunsAggregate_input_todoRemove_Input {
+  projectId: String
+  domain: String
+  host: [Int]
+  locationV2: [String]
+  taxonThresholds: [queryInput_workflowRunsAggregate_input_todoRemove_taxonThresholds_items_Input]
+  annotations: [queryInput_workflowRunsAggregate_input_todoRemove_annotations_items_Input]
+  tissue: [String]
+  visibility: String
+  time: [String]
+  taxaLevels: [String]
+  taxon: [Int]
+  search: String
+}
+
+input queryInput_workflowRunsAggregate_input_todoRemove_taxonThresholds_items_Input {
+  metric: String
+  count_type: String
+  operator: String
+  value: String
+}
+
+input queryInput_workflowRunsAggregate_input_todoRemove_annotations_items_Input {
+  name: String
 }
 
 type ZipLink {

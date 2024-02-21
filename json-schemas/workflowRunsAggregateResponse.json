@@ -1,0 +1,26 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "collectionId": {
+                "type": "string"
+            },
+            "mngsRunsCount": {
+                "type": "integer"
+            },
+            "cgRunsCount": {
+                "type": "integer"
+            },
+            "amrRunsCount": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "collectionId",
+            "mngsRunsCount",
+            "cgRunsCount",
+            "amrRunsCount"
+        ]
+    }
+}

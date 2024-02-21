@@ -1,0 +1,23 @@
+query workflowRunsAggregateQuery {
+  workflowRunsAggregate(
+    input: {
+      where: {
+        id: {
+          _in: ["1", "2", "3"]
+        } 
+      },
+      todoRemove: { 
+        domain: "my_data",
+        offset: 0,
+        visibility: "public",
+        search: "abc",
+        time: ["20240214", "20240222"]
+      }
+    }
+  ) {
+    collectionId
+    amrRunsCount
+    cgRunsCount
+    mngsRunsCount
+  }
+}
