@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [2.11.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.10.0...v2.11.0) (2024-02-21)
+
+
+### Features
+
+* Add entities to sources ([#96](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/96)) ([2fa964c](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/2fa964ca4ba338f933ae001885f33709a9577919))
+* Bulk Download List Endpoints ([#107](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/107)) ([1e45857](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/1e458578445096115591c35d726e3794c6efe352))
+* CZID-9342 split workflowRuns endpoint based on ids field ([#101](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/101)) ([a2d3a31](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/a2d3a31ff9ec4d7487474741520cd8a0dce463fd))
+* Feature Flag based routing ([#44](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/44)) ([f7c9999](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f7c999941b8a6f087508bcd73a19ebddc975b8fe))
+* Federate sequencingReads and consensusGenomes ([#102](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/102)) ([0239be8](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/0239be8108d128ef183e3a5752c42b660a2120fc))
+* federate WorkflowsAggregate endpoint ([#108](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/108)) ([9001540](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/9001540400c35d63220809dc8e81021b3d4eb445))
+
+
+### Bug Fixes
+
+* Revert "feat: Feature Flag based routing" ([#109](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/109)) ([c9bede2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c9bede224fb23d4e26f18f027bf832d224a1918f))
+
 ## [2.10.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.9.0...v2.10.0) (2024-02-12)
 
 
