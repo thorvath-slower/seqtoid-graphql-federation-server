@@ -724,7 +724,7 @@ export const resolvers: Resolvers = {
           context
         );
         return workflowRuns.map((run) => ({
-          id: run.id,
+          id: run.id.toString(),
           ownerUserId: run.owner_user_id,
           status: run.status,
         }));
