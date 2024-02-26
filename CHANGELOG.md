@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.11.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.11.0...v2.11.1) (2024-02-23)
+
+
+### Bug Fixes
+
+* return id as a string ([#115](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/115)) ([0ffa0b2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/0ffa0b2d6023927af6fac5e1eba4a6820d00e76a))
+
 ## [2.11.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.10.0...v2.11.0) (2024-02-21)
 
 
