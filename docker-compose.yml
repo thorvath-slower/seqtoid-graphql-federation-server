@@ -19,6 +19,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules # Use node_modules built in container, not from the mounted source dir
+    command: ["npm", "run", "dev"]
     networks:
       czidnet:
         aliases:
