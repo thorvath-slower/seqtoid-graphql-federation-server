@@ -3368,7 +3368,7 @@ type ZipLink {
 
 input mutationInput_CreateBulkDownload_input_Input {
   downloadType: String
-  workflowRunIds: [Int]
+  workflowRunIds: [String]
   workflow: String
   downloadFormat: String
   authenticityToken: String

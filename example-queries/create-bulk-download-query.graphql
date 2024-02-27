@@ -1,5 +1,5 @@
 mutation BulkDownloadModalMutation(
-    $workflowRunIds: [Int]
+    $workflowRunIds: [String]
     $downloadFormat: String!
     $downloadType: String!
     $workflow: String!
