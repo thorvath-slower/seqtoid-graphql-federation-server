@@ -27,12 +27,10 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   ): [Node!]!
   files(where: FileWhereClause = null): [File!]!
   samples(input: queryInput_samples_input_Input): [query_samples_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
-  sequencingReads(input: queryInput_sequencingReads_input_Input): [query_sequencingReads_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
   genomicRanges(where: GenomicRangeWhereClause = null): [GenomicRange!]!
   referenceGenomes(where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
   sequenceAlignmentIndices(where: SequenceAlignmentIndexWhereClause = null): [SequenceAlignmentIndex!]!
   metadatas(where: MetadatumWhereClause = null): [Metadatum!]!
-  consensusGenomes(input: queryInput_consensusGenomes_input_Input): [query_consensusGenomes_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
   metricsConsensusGenomes(where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
   taxa(where: TaxonWhereClause = null): [Taxon!]!
   upstreamDatabases(where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
@@ -62,6 +60,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
   bulkDownloads(input: queryInput_bulkDownloads_input_Input): [query_bulkDownloads_items] @httpOperation(path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
   BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(path: "/bulk_downloads", httpMethod: POST)
+  consensusGenomes(input: queryInput_consensusGenomes_input_Input): [query_consensusGenomes_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
   ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
   CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
   MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
@@ -70,6 +69,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   Pathogens(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   PersistedBackground(projectId: String): PersistedBackground @httpOperation(path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
   PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  sequencingReads(input: queryInput_sequencingReads_input_Input): [query_sequencingReads_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
   Taxons(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
   UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
@@ -2395,7 +2395,7 @@ type query_consensusGenomes_items {
   producingRunId: String
   taxon: query_consensusGenomes_items_taxon
   referenceGenome: query_consensusGenomes_items_referenceGenome
-  metric: query_consensusGenomes_items_metric
+  metrics: query_consensusGenomes_items_metrics
   sequencingRead: query_consensusGenomes_items_sequencingRead
 }
 
@@ -2408,7 +2408,7 @@ type query_consensusGenomes_items_referenceGenome {
   accessionName: String
 }
 
-type query_consensusGenomes_items_metric {
+type query_consensusGenomes_items_metrics {
   coverageDepth: Float
   totalReads: Int
   gcPercent: Float
@@ -2441,9 +2441,11 @@ type query_consensusGenomes_items_sequencingRead_sample {
   collectionLocation: String!
   sampleType: String!
   waterControl: Boolean
+  uploadError: String
   hostOrganism: query_consensusGenomes_items_sequencingRead_sample_hostOrganism
   collection: query_consensusGenomes_items_sequencingRead_sample_collection
-  ownerUser: query_consensusGenomes_items_sequencingRead_sample_ownerUser
+  ownerUserId: Float
+  ownerUserName: String
   metadatas: query_consensusGenomes_items_sequencingRead_sample_metadatas!
 }
 
@@ -2454,10 +2456,6 @@ type query_consensusGenomes_items_sequencingRead_sample_hostOrganism {
 type query_consensusGenomes_items_sequencingRead_sample_collection {
   name: String
   public: Boolean
-}
-
-type query_consensusGenomes_items_sequencingRead_sample_ownerUser {
-  name: String
 }
 
 type query_consensusGenomes_items_sequencingRead_sample_metadatas {
@@ -2474,6 +2472,8 @@ type query_consensusGenomes_items_sequencingRead_sample_metadatas_edges_items_no
 }
 
 input queryInput_consensusGenomes_input_Input {
+  limit: Int
+  offset: Int
   where: queryInput_consensusGenomes_input_where_Input
   orderBy: queryInput_consensusGenomes_input_orderBy_Input
   todoRemove: queryInput_consensusGenomes_input_todoRemove_Input
@@ -2523,8 +2523,6 @@ input queryInput_consensusGenomes_input_todoRemove_Input {
   tissue: [String]
   orderBy: String
   orderDir: String
-  offset: Int
-  limit: Int
 }
 
 type ConsensusGenomeWorkflowResults {
@@ -3003,9 +3001,11 @@ type query_sequencingReads_items_sample {
   collectionLocation: String!
   sampleType: String!
   waterControl: Boolean
+  uploadError: String
   hostOrganism: query_sequencingReads_items_sample_hostOrganism
   collection: query_sequencingReads_items_sample_collection
-  ownerUser: query_sequencingReads_items_sample_ownerUser
+  ownerUserId: Float
+  ownerUserName: String
   metadatas: query_sequencingReads_items_sample_metadatas!
 }
 
@@ -3016,10 +3016,6 @@ type query_sequencingReads_items_sample_hostOrganism {
 type query_sequencingReads_items_sample_collection {
   name: String
   public: Boolean
-}
-
-type query_sequencingReads_items_sample_ownerUser {
-  name: String
 }
 
 type query_sequencingReads_items_sample_metadatas {
@@ -3047,7 +3043,7 @@ type query_sequencingReads_items_consensusGenomes_edges_items_node {
   producingRunId: String
   taxon: query_sequencingReads_items_consensusGenomes_edges_items_node_taxon
   referenceGenome: query_sequencingReads_items_consensusGenomes_edges_items_node_referenceGenome
-  metric: query_sequencingReads_items_consensusGenomes_edges_items_node_metric
+  metrics: query_sequencingReads_items_consensusGenomes_edges_items_node_metrics
 }
 
 type query_sequencingReads_items_consensusGenomes_edges_items_node_taxon {
@@ -3059,7 +3055,7 @@ type query_sequencingReads_items_consensusGenomes_edges_items_node_referenceGeno
   accessionName: String
 }
 
-type query_sequencingReads_items_consensusGenomes_edges_items_node_metric {
+type query_sequencingReads_items_consensusGenomes_edges_items_node_metrics {
   coverageDepth: Float
   totalReads: Int
   gcPercent: Float
@@ -3073,6 +3069,8 @@ type query_sequencingReads_items_consensusGenomes_edges_items_node_metric {
 }
 
 input queryInput_sequencingReads_input_Input {
+  limit: Int
+  offset: Int
   where: queryInput_sequencingReads_input_where_Input
   orderBy: queryInput_sequencingReads_input_orderBy_Input
   consensusGenomesInput: queryInput_sequencingReads_input_consensusGenomesInput_Input
@@ -3140,8 +3138,6 @@ input queryInput_sequencingReads_input_todoRemove_Input {
   tissue: [String]
   orderBy: String
   orderDir: String
-  offset: Int
-  limit: Int
 }
 
 type query_Taxons_items {
@@ -3252,6 +3248,8 @@ input queryInput_workflowRuns_input_todoRemove_Input {
   tissue: [String]
   visibility: String
   workflow: String
+  orderBy: String
+  orderDir: String
   authenticityToken: String
 }
 

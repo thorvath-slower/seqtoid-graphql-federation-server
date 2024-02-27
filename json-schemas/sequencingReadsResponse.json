@@ -48,6 +48,9 @@
                     "waterControl": {
                         "type": "boolean"
                     },
+                    "uploadError": {
+                        "type": "string"
+                    },
                     "hostOrganism": {
                         "type": "object",
                         "properties": {
@@ -68,13 +71,11 @@
                             }
                         }
                     },
-                    "ownerUser": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            }
-                        }
+                    "ownerUserId": {
+                        "type": "number"
+                    },
+                    "ownerUserName": {
+                        "type": "string"
                     },
                     "metadatas": {
                         "type": "object",
@@ -140,7 +141,7 @@
                                                 }
                                             }
                                         },
-                                        "metric": {
+                                        "metrics": {
                                             "type": "object",
                                             "properties": {
                                                 "coverageDepth": {

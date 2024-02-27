@@ -947,12 +947,10 @@ type Query {
   ): [Node!]!
   files(where: FileWhereClause = null): [File!]!
   samples(where: SampleWhereClause = null): [Sample!]!
-  sequencingReads(where: SequencingReadWhereClause = null): [SequencingRead!]!
   genomicRanges(where: GenomicRangeWhereClause = null): [GenomicRange!]!
   referenceGenomes(where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
   sequenceAlignmentIndices(where: SequenceAlignmentIndexWhereClause = null): [SequenceAlignmentIndex!]!
   metadatas(where: MetadatumWhereClause = null): [Metadatum!]!
-  consensusGenomes(where: ConsensusGenomeWhereClause = null): [ConsensusGenome!]!
   metricsConsensusGenomes(where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
   taxa(where: TaxonWhereClause = null): [Taxon!]!
   upstreamDatabases(where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!

@@ -26,7 +26,7 @@ describe("sequencingReads query:", () => {
     const response = await execute(query, {});
 
     expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=with_sample_info&search=abc&listAllIds=false",
+      "/workflow_runs.json?&mode=with_sample_info&search=abc&limit=50&offset=100&listAllIds=false",
       expect.anything(),
       expect.anything()
     );
@@ -61,8 +61,6 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    console.log(JSON.stringify(result));
-
     expect(result.data.sequencingReads).toHaveLength(2);
     expect(result.data.sequencingReads[0]).toEqual(
       expect.objectContaining({
@@ -70,11 +68,11 @@ describe("sequencingReads query:", () => {
         consensusGenomes: {
           edges: [
             {
-              node: {
+              node: expect.objectContaining({
                 taxon: {
                   name: "Taxon1",
                 },
-              },
+              }),
             },
           ],
         },
@@ -86,11 +84,11 @@ describe("sequencingReads query:", () => {
         consensusGenomes: {
           edges: [
             {
-              node: {
+              node: expect.objectContaining({
                 taxon: {
                   name: "Taxon2",
                 },
-              },
+              }),
             },
           ],
         },
@@ -149,6 +147,133 @@ describe("sequencingReads query:", () => {
 
     expect(result.data.sequencingReads[0].sample.metadatas.edges).toHaveLength(
       0
+    );
+  });
+
+  it("Only returns taxon object if name exists", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [{}],
+    }));
+
+    const result = await execute(query, {});
+
+    expect(result.data.sequencingReads[0].taxon).toBeNull();
+  });
+
+  it("Does not return null for required location field", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [
+        {
+          sample: {},
+        },
+      ],
+    }));
+
+    const result = await execute(query, {});
+
+    expect(result.data.sequencingReads[0].sample.collectionLocation).toBe("");
+  });
+
+  it("Converts water control to boolean", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [
+        {
+          sample: {
+            metadata: {
+              water_control: "Yes",
+            },
+          },
+        },
+      ],
+    }));
+
+    const result = await execute(query, {});
+
+    expect(result.data.sequencingReads[0].sample.waterControl).toBe(true);
+  });
+
+  it("Returns unique sequencing reads", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [
+        {
+          id: "a",
+          sample: {
+            info: {
+              id: "123",
+            },
+          },
+          inputs: {
+            taxon_name: "Taxon1",
+          },
+        },
+        {
+          id: "b",
+          sample: {
+            info: {
+              id: "123",
+            },
+          },
+          inputs: {
+            taxon_name: "Taxon2",
+          },
+        },
+        {
+          id: "c",
+          sample: {
+            info: {
+              id: "456",
+            },
+          },
+          inputs: {
+            taxon_name: "Taxon3",
+          },
+        },
+        {
+          id: "d",
+          sample: {
+            info: {
+              id: "123",
+            },
+          },
+          inputs: {
+            taxon_name: "Taxon1",
+          },
+        },
+      ],
+    }));
+
+    const sequencingReads = (await execute(query, {})).data.sequencingReads;
+
+    expect(sequencingReads.length).toBe(2);
+
+    expect(sequencingReads[0].id).toBe("123");
+    expect(sequencingReads[0].consensusGenomes.edges.length).toBe(3);
+    expect(
+      sequencingReads[0].consensusGenomes.edges[0].node.producingRunId
+    ).toBe("a");
+    expect(sequencingReads[0].consensusGenomes.edges[0].node.taxon.name).toBe(
+      "Taxon1"
+    );
+    expect(
+      sequencingReads[0].consensusGenomes.edges[1].node.producingRunId
+    ).toBe("b");
+    expect(sequencingReads[0].consensusGenomes.edges[1].node.taxon.name).toBe(
+      "Taxon2"
+    );
+    expect(
+      sequencingReads[0].consensusGenomes.edges[2].node.producingRunId
+    ).toBe("d");
+    expect(sequencingReads[0].consensusGenomes.edges[2].node.taxon.name).toBe(
+      "Taxon1"
+    );
+
+    expect(sequencingReads[1].id).toBe("456");
+    expect(sequencingReads[1].consensusGenomes.edges.length).toBe(1);
+    expect(
+      sequencingReads[1].consensusGenomes.edges[0].node.producingRunId
+    ).toBe("c");
+    expect(sequencingReads[1].consensusGenomes.edges[0].node.taxon.name).toBe(
+      "Taxon3"
     );
   });
 });

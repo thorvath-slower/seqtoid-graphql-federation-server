@@ -1,6 +1,12 @@
 {
     "type": "object",
     "properties": {
+        "limit": {
+            "type": "integer"
+        },
+        "offset": {
+            "type": "integer"
+        },
         "where": {
             "type": "object",
             "properties": {
@@ -153,12 +159,6 @@
                 },
                 "orderDir": {
                     "type": "string"
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "limit": {
-                    "type": "integer"
                 }
             }
         }

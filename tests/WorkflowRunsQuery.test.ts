@@ -19,7 +19,7 @@ describe("workflowRuns query:", () => {
     ({ execute } = mesh$);
   });
 
-  it("Returns input sample", async () => {
+  it("Returns input sequencing read", async () => {
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       workflow_runs: [
         {
@@ -59,7 +59,7 @@ describe("workflowRuns query:", () => {
           edges: [
             {
               node: {
-                entityType: "Sample",
+                entityType: "SequencingRead",
                 inputEntityId: "2",
               },
             },
@@ -74,7 +74,7 @@ describe("workflowRuns query:", () => {
           edges: [
             {
               node: {
-                entityType: "Sample",
+                entityType: "SequencingRead",
                 inputEntityId: "4",
               },
             },
@@ -94,8 +94,9 @@ describe("workflowRuns query:", () => {
       {}
     );
 
+    // TODO: Add support for NextGen orderBy field.
     expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=basic&orderBy=createdAt&orderDir=ASC&limit=10000000&offset=0&listAllIds=false",
+      "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
       expect.anything(),
       expect.anything()
     );

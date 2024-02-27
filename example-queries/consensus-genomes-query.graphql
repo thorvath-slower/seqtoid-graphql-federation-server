@@ -2,7 +2,7 @@ query TestQuery {
     consensusGenomes(input: {
         where: {
             producingRunId: {
-            _in: ["abc", "def"]
+                _in: ["abc", "def"]
             }
         }
         todoRemove: {

@@ -55,6 +55,12 @@
                 "workflow": {
                     "type": "string"
                 },
+                "orderBy": {
+                    "type": "string"
+                },
+                "orderDir": {
+                    "type": "string"
+                },
                 "authenticityToken": {
                     "type": "string"
                 }
