@@ -1,5 +1,5 @@
 query TestQuery {
-    sequencingReads(input: {
+    fedSequencingReads(input: {
         limit: 50
         offset: 100
         where: {

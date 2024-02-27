@@ -1,5 +1,5 @@
 query TestQuery {
-    samples(input: {
+    fedSamples(input: {
         where: {
             name: {
             _like: "abc",

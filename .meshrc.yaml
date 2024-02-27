@@ -127,19 +127,19 @@ sources:
             headers:
               Cookie: "{context.headers['cookie']}"
           - type: Query
-            field: samples
+            field: fedSamples
             method: GET
             path: /workflow_runs.json
             requestSchema: ./json-schemas/samplesRequest.json
             responseSchema: ./json-schemas/samplesResponse.json
-            responseTypeName: samples
+            responseTypeName: fedSamples
           - type: Query
-            field: sequencingReads
+            field: fedSequencingReads
             method: GET
             path: /workflow_runs.json
             requestSchema: ./json-schemas/sequencingReadsRequest.json
             responseSchema: ./json-schemas/sequencingReadsResponse.json
-            responseTypeName: sequencingReads
+            responseTypeName: fedSequencingReads
           - type: Query
             field: Taxons
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
@@ -174,12 +174,12 @@ sources:
             requestSchema: ./json-schemas/workflowRunsRequest.json
             responseSchema: ./json-schemas/workflowRunsResponse.json
           - type: Query
-            field: workflowRunsAggregate
+            field: fedWorkflowRunsAggregate
             path: /projects.json
             method: GET
             requestSchema: ./json-schemas/workflowRunsAggregateRequest.json
             responseSchema: ./json-schemas/workflowRunsAggregateResponse.json
-            responseTypeName: workflowRunsAggregate
+            responseTypeName: fedWorkflowRunsAggregate
           - type: Query
             field: ZipLink
             path: /workflow_runs/{args.workflowRunId}/zip_link.json

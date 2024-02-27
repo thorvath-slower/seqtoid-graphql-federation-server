@@ -30,7 +30,7 @@ describe("sequencingReads query:", () => {
       expect.anything(),
       expect.anything()
     );
-    expect(response.data.sequencingReads).toHaveLength(0);
+    expect(response.data.fedSequencingReads).toHaveLength(0);
   });
 
   it("Returns nested fields", async () => {
@@ -61,8 +61,8 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.sequencingReads).toHaveLength(2);
-    expect(result.data.sequencingReads[0]).toEqual(
+    expect(result.data.fedSequencingReads).toHaveLength(2);
+    expect(result.data.fedSequencingReads[0]).toEqual(
       expect.objectContaining({
         id: "123",
         consensusGenomes: {
@@ -78,7 +78,7 @@ describe("sequencingReads query:", () => {
         },
       })
     );
-    expect(result.data.sequencingReads[1]).toEqual(
+    expect(result.data.fedSequencingReads[1]).toEqual(
       expect.objectContaining({
         id: "456",
         consensusGenomes: {
@@ -121,7 +121,7 @@ describe("sequencingReads query:", () => {
     const result = await execute(query, {});
 
     const metadataFields =
-      result.data.sequencingReads[0].sample.metadatas.edges.map(
+      result.data.fedSequencingReads[0].sample.metadatas.edges.map(
         (edge) => edge.node.fieldName
       );
     expect(metadataFields).toHaveLength(3);
@@ -145,9 +145,9 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.sequencingReads[0].sample.metadatas.edges).toHaveLength(
-      0
-    );
+    expect(
+      result.data.fedSequencingReads[0].sample.metadatas.edges
+    ).toHaveLength(0);
   });
 
   it("Only returns taxon object if name exists", async () => {
@@ -157,7 +157,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.sequencingReads[0].taxon).toBeNull();
+    expect(result.data.fedSequencingReads[0].taxon).toBeNull();
   });
 
   it("Does not return null for required location field", async () => {
@@ -171,7 +171,51 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.sequencingReads[0].sample.collectionLocation).toBe("");
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
+      ""
+    );
+  });
+
+  it("Returns string location field", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [
+        {
+          sample: {
+            metadata: {
+              collection_location_v2: "Redwood City",
+            },
+          },
+        },
+      ],
+    }));
+
+    const result = await execute(query, {});
+
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
+      "Redwood City"
+    );
+  });
+
+  it("Returns object name for location field", async () => {
+    (httpUtils.get as jest.Mock).mockImplementation(() => ({
+      workflow_runs: [
+        {
+          sample: {
+            metadata: {
+              collection_location_v2: {
+                name: "Redwood City",
+              },
+            },
+          },
+        },
+      ],
+    }));
+
+    const result = await execute(query, {});
+
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
+      "Redwood City"
+    );
   });
 
   it("Converts water control to boolean", async () => {
@@ -189,7 +233,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.sequencingReads[0].sample.waterControl).toBe(true);
+    expect(result.data.fedSequencingReads[0].sample.waterControl).toBe(true);
   });
 
   it("Returns unique sequencing reads", async () => {
@@ -242,7 +286,7 @@ describe("sequencingReads query:", () => {
       ],
     }));
 
-    const sequencingReads = (await execute(query, {})).data.sequencingReads;
+    const sequencingReads = (await execute(query, {})).data.fedSequencingReads;
 
     expect(sequencingReads.length).toBe(2);
 

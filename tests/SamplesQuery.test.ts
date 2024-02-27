@@ -31,7 +31,7 @@ describe("samples query:", () => {
       expect.anything(),
       expect.anything()
     );
-    expect(response.data.samples).toHaveLength(0);
+    expect(response.data.fedSamples).toHaveLength(0);
   });
 
   it("Returns IDs", async () => {
@@ -48,7 +48,7 @@ describe("samples query:", () => {
 
     const result = await execute(query, {});
 
-    const samples = result.data.samples;
+    const samples = result.data.fedSamples;
     expect(samples).toHaveLength(2);
     expect(samples[0].id).toEqual("123");
     expect(samples[1].id).toEqual("456");

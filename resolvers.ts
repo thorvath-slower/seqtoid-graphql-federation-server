@@ -2,9 +2,9 @@
 import {
   Resolvers,
   query_consensusGenomes_items,
-  query_samples_items,
-  query_sequencingReads_items,
-  query_workflowRunsAggregate_items,
+  query_fedSamples_items,
+  query_fedSequencingReads_items,
+  query_fedWorkflowRunsAggregate_items,
   query_workflowRuns_items,
 } from "./.mesh";
 import { get, postWithCSRF, getFullResponse } from "./utils/httpUtils";
@@ -269,7 +269,10 @@ export const resolvers: Resolvers = {
               name: sampleInfo?.name ?? "",
               notes: sampleInfo?.sample_notes,
               uploadError: sampleInfo?.result_status_description,
-              collectionLocation: sampleMetadata?.collection_location_v2 ?? "",
+              collectionLocation:
+                typeof sampleMetadata?.collection_location_v2 === "string"
+                  ? sampleMetadata.collection_location_v2
+                  : sampleMetadata?.collection_location_v2?.name ?? "",
               sampleType: sampleMetadata?.sample_type ?? "",
               waterControl: sampleMetadata?.water_control === "Yes",
               hostOrganism:
@@ -468,7 +471,7 @@ export const resolvers: Resolvers = {
       return pathogens;
     },
     /** Returns just the sample IDs (and old Rails IDs) to determine which IDs pass the filters. */
-    samples: async (root, args, context) => {
+    fedSamples: async (root, args, context) => {
       const input = args.input;
 
       // The comments in the formatUrlParams() call correspond to the line in the current
@@ -511,14 +514,14 @@ export const resolvers: Resolvers = {
         return [];
       }
 
-      return workflow_runs.map((run): query_samples_items => {
+      return workflow_runs.map((run): query_fedSamples_items => {
         return {
           id: run.sample?.info?.id?.toString(),
           railsSampleId: run.sample?.info?.id?.toString(),
         };
       });
     },
-    sequencingReads: async (root, args, context) => {
+    fedSequencingReads: async (root, args, context) => {
       const input = args.input;
 
       // The comments in the formatUrlParams() call correspond to the line in the current
@@ -561,7 +564,7 @@ export const resolvers: Resolvers = {
         return [];
       }
 
-      const result: query_sequencingReads_items[] = [];
+      const result: query_fedSequencingReads_items[] = [];
 
       for (const run of workflow_runs) {
         const inputs = run.inputs;
@@ -620,7 +623,10 @@ export const resolvers: Resolvers = {
               name: sampleInfo?.name ?? "",
               notes: sampleInfo?.sample_notes,
               uploadError: sampleInfo?.result_status_description,
-              collectionLocation: sampleMetadata?.collection_location_v2 ?? "",
+              collectionLocation:
+                typeof sampleMetadata?.collection_location_v2 === "string"
+                  ? sampleMetadata.collection_location_v2
+                  : sampleMetadata?.collection_location_v2?.name ?? "",
               sampleType: sampleMetadata?.sample_type ?? "",
               waterControl: sampleMetadata?.water_control === "Yes",
               hostOrganism:
@@ -818,7 +824,7 @@ export const resolvers: Resolvers = {
         })
       );
     },
-    workflowRunsAggregate: async (root, args, context, info) => {
+    fedWorkflowRunsAggregate: async (root, args, context, info) => {
       const input = args.input;
 
       const { projects } = await get(
@@ -847,7 +853,7 @@ export const resolvers: Resolvers = {
       if (!projects?.length) {
         return [];
       }
-      return projects.map((project): query_workflowRunsAggregate_items => {
+      return projects.map((project): query_fedWorkflowRunsAggregate_items => {
         return {
           collectionId: project.id.toString(),
           mngsRunsCount: project.sample_counts.mngs_runs_count,

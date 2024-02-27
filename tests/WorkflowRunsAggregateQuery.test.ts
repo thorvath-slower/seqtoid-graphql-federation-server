@@ -25,9 +25,9 @@ describe("workflows aggregate query:", () => {
           sample_counts: {
             cg_runs_count: 1,
             amr_runs_count: 2,
-            mngs_runs_count: 3
-          }
-        }
+            mngs_runs_count: 3,
+          },
+        },
       ],
     }));
 
@@ -40,10 +40,10 @@ describe("workflows aggregate query:", () => {
       expect.anything()
     );
 
-    expect(response.data.workflowRunsAggregate).toHaveLength(1);
-    expect(response.data.workflowRunsAggregate[0].collectionId).toBe("1");
-    expect(response.data.workflowRunsAggregate[0].amrRunsCount).toBe(2);
-    expect(response.data.workflowRunsAggregate[0].cgRunsCount).toBe(1);
-    expect(response.data.workflowRunsAggregate[0].mngsRunsCount).toBe(3);
+    expect(response.data.fedWorkflowRunsAggregate).toHaveLength(1);
+    expect(response.data.fedWorkflowRunsAggregate[0].collectionId).toBe("1");
+    expect(response.data.fedWorkflowRunsAggregate[0].amrRunsCount).toBe(2);
+    expect(response.data.fedWorkflowRunsAggregate[0].cgRunsCount).toBe(1);
+    expect(response.data.fedWorkflowRunsAggregate[0].mngsRunsCount).toBe(3);
   });
 });
