@@ -183,6 +183,12 @@ sources:
             requestSchema: ./json-schemas/workflowRunsRequest.json
             responseSchema: ./json-schemas/workflowRunsResponse.json
           - type: Query
+            field: fedWorkflowRuns
+            path: /workflow_runs.json
+            method: POST
+            requestSchema: ./json-schemas/workflowRunsRequest.json
+            responseSchema: ./json-schemas/workflowRunsResponse.json
+          - type: Query
             field: fedWorkflowRunsAggregate
             path: /projects.json
             method: GET

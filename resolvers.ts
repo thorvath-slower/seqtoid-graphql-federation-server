@@ -744,7 +744,93 @@ export const resolvers: Resolvers = {
       });
       return annotations;
     },
+    /**
+     * @deprecated TODO: Delete this after fedWorkflowRuns() is in prod.
+     *
+     * This is a copy/paste of fedWorkflowRuns() which will contain all the actual resolver logic
+     * from here on. This is still around because the FE is still querying this field.
+     */
     workflowRuns: async (root, args, context) => {
+      const input = args.input;
+
+      // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
+      // This endpoint only provides id, ownerUserId, and status.
+      if (input?.where?.id?._in && typeof input?.where?.id?._in === "object") {
+        const body = {
+          authenticity_token: input?.todoRemove?.authenticityToken,
+          workflowRunIds: input.where.id._in.map((id) => id && parseInt(id)),
+        };
+        const { workflowRuns } = await postWithCSRF(
+          `/workflow_runs/valid_consensus_genome_workflow_runs`,
+          body,
+          args,
+          context
+        );
+        return workflowRuns.map((run) => ({
+          id: run.id.toString(),
+          ownerUserId: run.owner_user_id,
+          status: run.status,
+        }));
+      }
+
+      // TODO(bchu): Remove all the non-Workflows fields after moving and integrating them into the
+      // Entities call.
+      const { workflow_runs } = await get(
+        "/workflow_runs.json" +
+          formatUrlParams({
+            mode: "basic",
+            domain: input?.todoRemove?.domain,
+            projectId: input?.todoRemove?.projectId,
+            search: input?.todoRemove?.search,
+            // TODO: Cover sorting by time, version, or creation source (though Rails doesn't
+            // actually support the latter 2).
+            orderBy: input?.todoRemove?.orderBy,
+            orderDir: input?.todoRemove?.orderDir,
+            host: input?.todoRemove?.host,
+            locationV2: input?.todoRemove?.locationV2,
+            taxon: input?.todoRemove?.taxon,
+            taxaLevels: input?.todoRemove?.taxonLevels,
+            time: input?.todoRemove?.time,
+            tissue: input?.todoRemove?.tissue,
+            visibility: input?.todoRemove?.visibility,
+            workflow: input?.todoRemove?.workflow,
+            limit: TEN_MILLION,
+            offset: 0,
+            listAllIds: false,
+          }),
+        args,
+        context
+      );
+      if (!workflow_runs?.length) {
+        return [];
+      }
+
+      return workflow_runs.map(
+        (run): query_workflowRuns_items => ({
+          id: run.id?.toString(),
+          ownerUserId: run.runner?.id?.toString(),
+          startedAt: run.created_at,
+          status: run.status,
+          workflowVersion: {
+            version: run.wdl_version,
+            workflow: {
+              name: run.inputs?.creation_source,
+            },
+          },
+          entityInputs: {
+            edges: [
+              {
+                node: {
+                  entityType: "SequencingRead",
+                  inputEntityId: run.sample?.info?.id?.toString(),
+                },
+              },
+            ],
+          },
+        })
+      );
+    },
+    fedWorkflowRuns: async (root, args, context) => {
       const input = args.input;
 
       // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
