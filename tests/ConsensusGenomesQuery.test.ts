@@ -11,7 +11,7 @@ beforeEach(() => {
 
 const query = getExampleQuery("consensus-genomes-query");
 
-describe("consensusGenomes query:", () => {
+describe("fedConsensusGenomes query:", () => {
   let execute: ExecuteMeshFn;
 
   beforeEach(async () => {
@@ -30,7 +30,7 @@ describe("consensusGenomes query:", () => {
       expect.anything(),
       expect.anything()
     );
-    expect(response.data.consensusGenomes).toHaveLength(0);
+    expect(response.data.fedConsensusGenomes).toHaveLength(0);
   });
 
   it("Returns nested fields", async () => {
@@ -53,8 +53,8 @@ describe("consensusGenomes query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.consensusGenomes).toHaveLength(2);
-    expect(result.data.consensusGenomes[0]).toEqual(
+    expect(result.data.fedConsensusGenomes).toHaveLength(2);
+    expect(result.data.fedConsensusGenomes[0]).toEqual(
       expect.objectContaining({
         producingRunId: "123",
         taxon: {
@@ -62,7 +62,7 @@ describe("consensusGenomes query:", () => {
         },
       })
     );
-    expect(result.data.consensusGenomes[1]).toEqual(
+    expect(result.data.fedConsensusGenomes[1]).toEqual(
       expect.objectContaining({
         producingRunId: "456",
         taxon: {
@@ -91,7 +91,7 @@ describe("consensusGenomes query:", () => {
     const result = await execute(query, {});
 
     const metadataFields =
-      result.data.consensusGenomes[0].sequencingRead.sample.metadatas.edges.map(
+      result.data.fedConsensusGenomes[0].sequencingRead.sample.metadatas.edges.map(
         (edge) => edge.node.fieldName
       );
     expect(metadataFields).toHaveLength(3);
@@ -112,7 +112,7 @@ describe("consensusGenomes query:", () => {
     const result = await execute(query, {});
 
     expect(
-      result.data.consensusGenomes[0].sequencingRead.sample.metadatas.edges
+      result.data.fedConsensusGenomes[0].sequencingRead.sample.metadatas.edges
     ).toHaveLength(0);
   });
 });

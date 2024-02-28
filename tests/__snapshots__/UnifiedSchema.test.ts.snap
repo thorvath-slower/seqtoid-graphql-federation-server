@@ -40,7 +40,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   accessions(where: AccessionWhereClause = null, orderBy: [AccessionOrderByClause!] = []): [Accession!]!
   hostOrganisms(where: HostOrganismWhereClause = null, orderBy: [HostOrganismOrderByClause!] = []): [HostOrganism!]!
   metadatas(where: MetadatumWhereClause = null, orderBy: [MetadatumOrderByClause!] = []): [Metadatum!]!
-  consensusGenomes(input: queryInput_consensusGenomes_input_Input): [query_consensusGenomes_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
+  consensusGenomes(where: ConsensusGenomeWhereClause = null, orderBy: [ConsensusGenomeOrderByClause!] = []): [ConsensusGenome!]!
   metricsConsensusGenomes(where: MetricConsensusGenomeWhereClause = null, orderBy: [MetricConsensusGenomeOrderByClause!] = []): [MetricConsensusGenome!]!
   taxa(where: TaxonWhereClause = null, orderBy: [TaxonOrderByClause!] = []): [Taxon!]!
   upstreamDatabases(where: UpstreamDatabaseWhereClause = null, orderBy: [UpstreamDatabaseOrderByClause!] = []): [UpstreamDatabase!]!
@@ -73,6 +73,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
   Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
   BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(path: "/bulk_downloads", httpMethod: POST)
+  fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
   ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
   CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
   MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
@@ -3605,24 +3606,24 @@ input queryInput_BulkDownloadCGOverview_input_Input {
   authenticityToken: String!
 }
 
-type query_consensusGenomes_items {
+type query_fedConsensusGenomes_items {
   producingRunId: String
-  taxon: query_consensusGenomes_items_taxon
-  referenceGenome: query_consensusGenomes_items_referenceGenome
-  metrics: query_consensusGenomes_items_metrics
-  sequencingRead: query_consensusGenomes_items_sequencingRead
+  taxon: query_fedConsensusGenomes_items_taxon
+  referenceGenome: query_fedConsensusGenomes_items_referenceGenome
+  metrics: query_fedConsensusGenomes_items_metrics
+  sequencingRead: query_fedConsensusGenomes_items_sequencingRead
 }
 
-type query_consensusGenomes_items_taxon {
+type query_fedConsensusGenomes_items_taxon {
   name: String!
 }
 
-type query_consensusGenomes_items_referenceGenome {
+type query_fedConsensusGenomes_items_referenceGenome {
   accessionId: String
   accessionName: String
 }
 
-type query_consensusGenomes_items_metrics {
+type query_fedConsensusGenomes_items_metrics {
   coverageDepth: Float
   totalReads: Int
   gcPercent: Float
@@ -3635,20 +3636,20 @@ type query_consensusGenomes_items_metrics {
   referenceGenomeLength: Float
 }
 
-type query_consensusGenomes_items_sequencingRead {
+type query_fedConsensusGenomes_items_sequencingRead {
   nucleicAcid: String!
   protocol: String
   medakaModel: String
   technology: String!
-  taxon: query_consensusGenomes_items_sequencingRead_taxon
-  sample: query_consensusGenomes_items_sequencingRead_sample
+  taxon: query_fedConsensusGenomes_items_sequencingRead_taxon
+  sample: query_fedConsensusGenomes_items_sequencingRead_sample
 }
 
-type query_consensusGenomes_items_sequencingRead_taxon {
+type query_fedConsensusGenomes_items_sequencingRead_taxon {
   name: String!
 }
 
-type query_consensusGenomes_items_sequencingRead_sample {
+type query_fedConsensusGenomes_items_sequencingRead_sample {
   railsSampleId: Int
   name: String!
   notes: String
@@ -3656,61 +3657,61 @@ type query_consensusGenomes_items_sequencingRead_sample {
   sampleType: String!
   waterControl: Boolean
   uploadError: String
-  hostOrganism: query_consensusGenomes_items_sequencingRead_sample_hostOrganism
-  collection: query_consensusGenomes_items_sequencingRead_sample_collection
+  hostOrganism: query_fedConsensusGenomes_items_sequencingRead_sample_hostOrganism
+  collection: query_fedConsensusGenomes_items_sequencingRead_sample_collection
   ownerUserId: Float
   ownerUserName: String
-  metadatas: query_consensusGenomes_items_sequencingRead_sample_metadatas!
+  metadatas: query_fedConsensusGenomes_items_sequencingRead_sample_metadatas!
 }
 
-type query_consensusGenomes_items_sequencingRead_sample_hostOrganism {
+type query_fedConsensusGenomes_items_sequencingRead_sample_hostOrganism {
   name: String
 }
 
-type query_consensusGenomes_items_sequencingRead_sample_collection {
+type query_fedConsensusGenomes_items_sequencingRead_sample_collection {
   name: String
   public: Boolean
 }
 
-type query_consensusGenomes_items_sequencingRead_sample_metadatas {
-  edges: [query_consensusGenomes_items_sequencingRead_sample_metadatas_edges_items]!
+type query_fedConsensusGenomes_items_sequencingRead_sample_metadatas {
+  edges: [query_fedConsensusGenomes_items_sequencingRead_sample_metadatas_edges_items]!
 }
 
-type query_consensusGenomes_items_sequencingRead_sample_metadatas_edges_items {
-  node: query_consensusGenomes_items_sequencingRead_sample_metadatas_edges_items_node!
+type query_fedConsensusGenomes_items_sequencingRead_sample_metadatas_edges_items {
+  node: query_fedConsensusGenomes_items_sequencingRead_sample_metadatas_edges_items_node!
 }
 
-type query_consensusGenomes_items_sequencingRead_sample_metadatas_edges_items_node {
+type query_fedConsensusGenomes_items_sequencingRead_sample_metadatas_edges_items_node {
   fieldName: String!
   value: String!
 }
 
-input queryInput_consensusGenomes_input_Input {
+input queryInput_fedConsensusGenomes_input_Input {
   limit: Int
   offset: Int
-  where: queryInput_consensusGenomes_input_where_Input
-  orderBy: queryInput_consensusGenomes_input_orderBy_Input
-  todoRemove: queryInput_consensusGenomes_input_todoRemove_Input
+  where: queryInput_fedConsensusGenomes_input_where_Input
+  orderBy: queryInput_fedConsensusGenomes_input_orderBy_Input
+  todoRemove: queryInput_fedConsensusGenomes_input_todoRemove_Input
 }
 
-input queryInput_consensusGenomes_input_where_Input {
-  producingRunId: queryInput_consensusGenomes_input_where_producingRunId_Input
+input queryInput_fedConsensusGenomes_input_where_Input {
+  producingRunId: queryInput_fedConsensusGenomes_input_where_producingRunId_Input
 }
 
-input queryInput_consensusGenomes_input_where_producingRunId_Input {
+input queryInput_fedConsensusGenomes_input_where_producingRunId_Input {
   _in: [String]
 }
 
-input queryInput_consensusGenomes_input_orderBy_Input {
-  accession: queryInput_consensusGenomes_input_orderBy_accession_Input
-  metrics: queryInput_consensusGenomes_input_orderBy_metrics_Input
+input queryInput_fedConsensusGenomes_input_orderBy_Input {
+  accession: queryInput_fedConsensusGenomes_input_orderBy_accession_Input
+  metrics: queryInput_fedConsensusGenomes_input_orderBy_metrics_Input
 }
 
-input queryInput_consensusGenomes_input_orderBy_accession_Input {
+input queryInput_fedConsensusGenomes_input_orderBy_accession_Input {
   accessionId: String
 }
 
-input queryInput_consensusGenomes_input_orderBy_metrics_Input {
+input queryInput_fedConsensusGenomes_input_orderBy_metrics_Input {
   coverageDepth: String
   totalReads: String
   gcPercent: String
@@ -3723,7 +3724,7 @@ input queryInput_consensusGenomes_input_orderBy_metrics_Input {
   referenceGenomeLength: String
 }
 
-input queryInput_consensusGenomes_input_todoRemove_Input {
+input queryInput_fedConsensusGenomes_input_todoRemove_Input {
   domain: String
   workflow: String
   projectId: String

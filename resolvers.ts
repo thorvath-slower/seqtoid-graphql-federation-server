@@ -1,7 +1,7 @@
 // resolvers.ts
 import {
   Resolvers,
-  query_consensusGenomes_items,
+  query_fedConsensusGenomes_items,
   query_fedSamples_items,
   query_fedSequencingReads_items,
   query_fedWorkflowRunsAggregate_items,
@@ -183,7 +183,7 @@ export const resolvers: Resolvers = {
         throw new Error(res.error);
       }
     },
-    consensusGenomes: async (root, args, context) => {
+    fedConsensusGenomes: async (root, args, context) => {
       const input = args.input;
 
       // The comments in the formatUrlParams() call correspond to the line in the current
@@ -226,7 +226,7 @@ export const resolvers: Resolvers = {
         return [];
       }
 
-      return workflow_runs.map((run): query_consensusGenomes_items => {
+      return workflow_runs.map((run): query_fedConsensusGenomes_items => {
         const inputs = run.inputs;
         const qualityMetrics = run.cached_results?.quality_metrics;
         const sample = run.sample;

@@ -65,12 +65,12 @@ sources:
             responseSchema: ./json-schemas/cgOverview.json
             responseTypeName: ConsensusGenomeOverviewRows
           - type: Query
-            field: consensusGenomes
+            field: fedConsensusGenomes
             method: GET
             path: /workflow_runs.json
             requestSchema: ./json-schemas/consensusGenomesRequest.json
             responseSchema: ./json-schemas/consensusGenomesResponse.json
-            responseTypeName: consensusGenomes
+            responseTypeName: fedConsensusGenomes
           - type: Query
             field: ConsensusGenomeWorkflowResults
             path: /workflow_runs/{args.workflowRunId}/results
