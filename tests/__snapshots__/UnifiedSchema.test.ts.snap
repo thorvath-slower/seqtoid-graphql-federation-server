@@ -8,15 +8,15 @@ exports[`CZ ID graphQL federation generated schema should generate a valid schem
 
 directive @oneOf on OBJECT | INTERFACE | INPUT_OBJECT
 
-directive @example(value: ObjMap) repeatable on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM | SCALAR
+directive @example(subgraph: String, value: ObjMap) repeatable on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM | SCALAR
 
-directive @resolveRoot on FIELD_DEFINITION
+directive @resolveRoot(subgraph: String) on FIELD_DEFINITION
 
-directive @globalOptions(sourceName: String, endpoint: String, operationHeaders: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
+directive @httpOperation(subgraph: String, path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap, jsonApiFields: Boolean) on FIELD_DEFINITION
 
-directive @httpOperation(path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap) on FIELD_DEFINITION
+directive @transport(subgraph: String, kind: String, location: String, headers: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
 
-type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") {
+type Query {
   appConfig(id: ID!): AppConfig
   pathogenList(version: String): PathogenList!
   project(id: Int!): Project!
@@ -45,7 +45,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   taxa(where: TaxonWhereClause = null, orderBy: [TaxonOrderByClause!] = []): [Taxon!]!
   upstreamDatabases(where: UpstreamDatabaseWhereClause = null, orderBy: [UpstreamDatabaseOrderByClause!] = []): [UpstreamDatabase!]!
   indexFiles(where: IndexFileWhereClause = null, orderBy: [IndexFileOrderByClause!] = []): [IndexFile!]!
-  bulkDownloads(input: queryInput_bulkDownloads_input_Input): [query_bulkDownloads_items] @httpOperation(path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
+  bulkDownloads(input: queryInput_bulkDownloads_input_Input): [query_bulkDownloads_items] @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
   samplesAggregate(where: SampleWhereClause = null): SampleAggregate!
   sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
   genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
@@ -59,7 +59,7 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   upstreamDatabasesAggregate(where: UpstreamDatabaseWhereClause = null): UpstreamDatabaseAggregate!
   indexFilesAggregate(where: IndexFileWhereClause = null): IndexFileAggregate!
   bulkDownloadsAggregate(where: BulkDownloadWhereClause = null): BulkDownloadAggregate!
-  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
+  tempWorkflowRuns(where: WorkflowRunWhereClause = null, orderBy: [WorkflowRunOrderByClause!] = []): [WorkflowRun!]!
   workflows(where: WorkflowWhereClause = null, orderBy: [WorkflowOrderByClause!] = []): [Workflow!]!
   workflowRunSteps(where: WorkflowRunStepWhereClause = null, orderBy: [WorkflowRunStepOrderByClause!] = []): [WorkflowRunStep!]!
   workflowRunEntityInputs(where: WorkflowRunEntityInputWhereClause = null, orderBy: [WorkflowRunEntityInputOrderByClause!] = []): [WorkflowRunEntityInput!]!
@@ -69,28 +69,29 @@ type Query @globalOptions(sourceName: "CZIDREST", endpoint: "http://web:3001/") 
   workflowRunStepsAggregate(where: WorkflowRunStepWhereClause = null): WorkflowRunStepAggregate!
   workflowRunEntityInputsAggregate(where: WorkflowRunEntityInputWhereClause = null): WorkflowRunEntityInputAggregate!
   workflowVersionsAggregate(where: WorkflowVersionWhereClause = null): WorkflowVersionAggregate!
-  AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
-  Background(snapshotLinkId: String): Background @httpOperation(path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
-  BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(path: "/bulk_downloads", httpMethod: POST)
-  fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
-  ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
-  CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
-  MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  SampleMetadata(snapshotLinkId: String, sampleId: String, input: queryInput_SampleMetadata_input_Input): SampleMetadata @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
-  MngsWorkflowResults(snapshotLinkId: String, sampleId: String, workflowVersionId: String, _backgroundId: String): MngsWorkflowResults @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
-  Pathogens(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  PersistedBackground(projectId: String): PersistedBackground @httpOperation(path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  fedSamples(input: queryInput_fedSamples_input_Input): [query_fedSamples_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
-  fedSequencingReads(input: queryInput_fedSequencingReads_input_Input): [query_fedSequencingReads_items] @httpOperation(path: "/workflow_runs.json", httpMethod: GET)
-  Taxons(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
-  fedWorkflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(path: "/workflow_runs.json", httpMethod: POST)
-  fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): [query_fedWorkflowRunsAggregate_items] @httpOperation(path: "/projects.json", httpMethod: GET)
-  ZipLink(workflowRunId: String): ZipLink @httpOperation(path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
+  AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  Background(snapshotLinkId: String): Background @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
+  BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads", httpMethod: POST)
+  fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
+  ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
+  CoverageVizSummary(snapshotLinkId: String, sampleId: String): [query_CoverageVizSummary_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
+  MetadataFields(snapshotLinkId: String, input: queryInput_MetadataFields_input_Input): [query_MetadataFields_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  SampleMetadata(snapshotLinkId: String, sampleId: String, input: queryInput_SampleMetadata_input_Input): SampleMetadata @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
+  MngsWorkflowResults(snapshotLinkId: String, sampleId: String, workflowVersionId: String, _backgroundId: String): MngsWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
+  Pathogens(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  PersistedBackground(projectId: String): PersistedBackground @httpOperation(subgraph: "CZIDREST", path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  fedSamples(input: queryInput_fedSamples_input_Input): [query_fedSamples_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
+  fedSequencingReads(input: queryInput_fedSequencingReads_input_Input): [query_fedSequencingReads_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
+  Taxons(snapshotLinkId: String, sampleId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(subgraph: "CZIDREST", path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
+  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
+  ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(subgraph: "CZIDREST", path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
+  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
+  fedWorkflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
+  fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): [query_fedWorkflowRunsAggregate_items] @httpOperation(subgraph: "CZIDREST", path: "/projects.json", httpMethod: GET)
+  ZipLink(workflowRunId: String): ZipLink @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   GraphQLFederationVersion: GraphQLFederationVersion
 }
 
@@ -151,13 +152,13 @@ type Mutation {
   deleteWorkflowVersion(where: WorkflowVersionWhereClauseMutations!): [WorkflowVersion!]!
   runWorkflowVersion(input: RunWorkflowVersionInput!): WorkflowRun!
   runWorkflowRun(workflowRunId: ID!): WorkflowRun!
-  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(path: "/bulk_download", httpMethod: POST)
-  DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(path: "/samples/bulk_delete", httpMethod: POST)
-  UpdateSampleNotes(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleNotes @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  UpdateSampleName(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleName @httpOperation(path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  KickoffWGSWorkflow(sampleId: String, input: mutationInput_KickoffWGSWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  KickoffAMRWorkflow(sampleId: String, input: mutationInput_KickoffAMRWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  UpdateMetadata(sampleId: String, input: mutationInput_UpdateMetadata_input_Input): UpdateMetadataReponse @httpOperation(path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
+  DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(subgraph: "CZIDREST", path: "/samples/bulk_delete", httpMethod: POST)
+  UpdateSampleNotes(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleNotes @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateSampleName(sampleId: String, input: mutationInput_UpdateSampleNotes_input_Input): UpdateSampleName @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  KickoffWGSWorkflow(sampleId: String, input: mutationInput_KickoffWGSWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  KickoffAMRWorkflow(sampleId: String, input: mutationInput_KickoffAMRWorkflow_input_Input): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
+  UpdateMetadata(sampleId: String, input: mutationInput_UpdateMetadata_input_Input): UpdateMetadataReponse @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
 }
 
 type AlignmentConfig {
@@ -2291,6 +2292,7 @@ input SequencingReadOrderByClause {
 input SequencingReadUpdateInput {
   clearlabsExport: Boolean = null
   medakaModel: String = null
+  primerFileId: ID = null
 }
 
 input SequencingReadWhereClause {
@@ -3590,7 +3592,7 @@ type query_bulkDownloads_items_toDelete {
   progress: JSON
 }
 
-input queryInput_bulkDownloads_input_Input @example(value: "{\\"searchBy\\":\\"string to search\\",\\"limit\\":10}") {
+input queryInput_bulkDownloads_input_Input @example(subgraph: "CZIDREST", value: "{\\"searchBy\\":\\"string to search\\",\\"limit\\":10}") {
   searchBy: String
   limit: Int
 }
@@ -3953,7 +3955,7 @@ type query_SampleMetadata_additional_info_summary_stats {
   reads_after_czid_dedup: Int
 }
 
-input queryInput_SampleMetadata_input_Input @example(value: "{\\"pipelineVersion\\":\\"8.0\\"}") {
+input queryInput_SampleMetadata_input_Input @example(subgraph: "CZIDREST", value: "{\\"pipelineVersion\\":\\"8.0\\"}") {
   pipelineVersion: String
 }
 
@@ -4408,7 +4410,7 @@ type ValidateUserCanDeleteObjects {
   error: String
 }
 
-input queryInput_ValidateUserCanDeleteObjects_input_Input @example(value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+input queryInput_ValidateUserCanDeleteObjects_input_Input @example(subgraph: "CZIDREST", value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
   selectedIds: [Int]
   workflow: String
   authenticityToken: String
@@ -4595,7 +4597,7 @@ type DeleteSamples {
   error: String
 }
 
-input mutationInput_DeleteSamples_input_Input @example(value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+input mutationInput_DeleteSamples_input_Input @example(subgraph: "CZIDREST", value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
   ids: [Int]
   workflow: String
   authenticityToken: String
@@ -4655,7 +4657,7 @@ type mutation_KickoffWGSWorkflow_items_parsed_cached_results_quality_metrics {
   percent_remaining: Float
 }
 
-input mutationInput_KickoffWGSWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+input mutationInput_KickoffWGSWorkflow_input_Input @example(subgraph: "CZIDREST", value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
   inputs_json: mutationInput_KickoffWGSWorkflow_input_inputs_json_Input
   workflow: String
   authenticityToken: String
@@ -4670,7 +4672,7 @@ input mutationInput_KickoffWGSWorkflow_input_inputs_json_Input {
   technology: String
 }
 
-input mutationInput_KickoffAMRWorkflow_input_Input @example(value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
+input mutationInput_KickoffAMRWorkflow_input_Input @example(subgraph: "CZIDREST", value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
   inputs_json: mutationInput_KickoffAMRWorkflow_input_inputs_json_Input
   workflow: String
   authenticityToken: String
@@ -4691,7 +4693,7 @@ input mutationInput_UpdateMetadata_input_Input {
   authenticityToken: String!
 }
 
-input mutationInput_UpdateMetadata_input_value_Input @oneOf {
+input mutationInput_UpdateMetadata_input_value_Input @oneOf(subgraph: "CZIDREST") {
   String: String
   query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input: query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input
 }
