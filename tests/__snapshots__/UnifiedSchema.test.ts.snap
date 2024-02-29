@@ -3963,7 +3963,7 @@ input queryInput_SampleMetadata_input_Input @example(subgraph: "CZIDREST", value
 type MngsWorkflowResults {
   metric_mngs: query_MngsWorkflowResults_metric_mngs
   taxon_hit_results: query_MngsWorkflowResults_taxon_hit_results
-  _: query_MngsWorkflowResults__
+  fed_lineage: [query_MngsWorkflowResults_fed_lineage_items]
 }
 
 type query_MngsWorkflowResults_metric_mngs {
@@ -3972,11 +3972,7 @@ type query_MngsWorkflowResults_metric_mngs {
   total_ercc_reads: Int
   num_reads: Int
   num_reads_after_subsampling: Int
-  _: query_MngsWorkflowResults_metric_mngs__
-}
-
-type query_MngsWorkflowResults_metric_mngs__ {
-  has_byteranges: Boolean
+  fed_has_byteranges: Boolean
 }
 
 type query_MngsWorkflowResults_taxon_hit_results {
@@ -3993,24 +3989,16 @@ type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items {
   percent_identity: Int
   e_value: Float
   tax_id: Int
-  _: query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__
+  fed_bg_mean: Float
+  fed_bg_stdev: Float
+  fed_bg_mean_mass_normalized: Float
+  fed_bg_stdev_mass_normalized: Float
+  fed_z_score: Float
+  fed_max_z_score: Float
+  fed_agg_score: Float
 }
 
-type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items__ {
-  bg_mean: Float
-  bg_stdev: Float
-  bg_mean_mass_normalized: Float
-  bg_stdev_mass_normalized: Float
-  z_score: Float
-  max_z_score: Float
-  agg_score: Float
-}
-
-type query_MngsWorkflowResults__ {
-  lineage: [query_MngsWorkflowResults___lineage_items]
-}
-
-type query_MngsWorkflowResults___lineage_items {
+type query_MngsWorkflowResults_fed_lineage_items {
   tax_id: String
   name: String
   rank: String
@@ -4366,11 +4354,7 @@ type query_Taxons_items {
   name: JSON
   is_phage: JSON
   level: JSON
-  _: query_Taxons_items__
-}
-
-type query_Taxons_items__ {
-  category: JSON
+  fed_category: JSON
 }
 
 type TaxonDist {

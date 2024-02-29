@@ -19,13 +19,8 @@
                 "num_reads_after_subsampling": {
                     "type": "integer"
                 },
-                "_": {
-                    "type": "object",
-                    "properties": {
-                        "has_byteranges": {
-                            "type": "boolean"
-                        }
-                    }
+                "fed_has_byteranges": {
+                    "type": "boolean"
                 }
             }
         },
@@ -64,55 +59,45 @@
                             "tax_id": {
                                 "type": "integer"
                             },
-                            "_": {
-                                "type": "object",
-                                "properties": {
-                                    "bg_mean": {
-                                        "type": "number"
-                                    },
-                                    "bg_stdev": {
-                                        "type": "number"
-                                    },
-                                    "bg_mean_mass_normalized": {
-                                        "type": "number"
-                                    },
-                                    "bg_stdev_mass_normalized": {
-                                        "type": "number"
-                                    },
-                                    "z_score": {
-                                        "type": "number"
-                                    },
-                                    "max_z_score": {
-                                        "type": "number"
-                                    },
-                                    "agg_score": {
-                                        "type": "number"
-                                    }
-                                }
+                            "fed_bg_mean": {
+                                "type": "number"
+                            },
+                            "fed_bg_stdev": {
+                                "type": "number"
+                            },
+                            "fed_bg_mean_mass_normalized": {
+                                "type": "number"
+                            },
+                            "fed_bg_stdev_mass_normalized": {
+                                "type": "number"
+                            },
+                            "fed_z_score": {
+                                "type": "number"
+                            },
+                            "fed_max_z_score": {
+                                "type": "number"
+                            },
+                            "fed_agg_score": {
+                                "type": "number"
                             }
                         }
                     }
                 }
             }
         },
-        "_": {
-            "type": "object",
-            "properties": {
-                "lineage": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "tax_id": {
-                                "type": "string"
-                            },
-                            "name": {
-                                "type": "string"
-                            },
-                            "rank": {
-                                "type": "string"
-                            }
-                        }
+        "fed_lineage": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "tax_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "rank": {
+                        "type": "string"
                     }
                 }
             }

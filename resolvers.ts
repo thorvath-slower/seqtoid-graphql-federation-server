@@ -423,17 +423,13 @@ export const resolvers: Resolvers = {
           total_ercc_reads: pipelineRun?.total_ercc_reads,
           num_reads: metadata?.preSubsamplingCount,
           num_reads_after_subsampling: metadata?.postSubsamplingCount,
-          _: {
-            has_byteranges: metadata?.hasByteRanges,
-          },
+          fed_has_byteranges: metadata?.hasByteRanges,
         },
         taxon_hit_results: {
           taxon_hits: taxonHits,
         },
-        _: {
-          // Computed by PipelineReportService
-          lineage: taxonLineage,
-        },
+        // Computed by PipelineReportService
+        fed_lineage: taxonLineage,
       };
     },
     Pathogens: async (root, args, context, info) => {
@@ -701,10 +697,8 @@ export const resolvers: Resolvers = {
           name: taxInfo?.name,
           is_phage: taxInfo?.is_phage,
           level: speciesCounts.hasOwnProperty(taxId) ? "species" : "genus",
-          _: {
-            // Computed from TaxonLineage::CATEGORIES
-            category: taxInfo?.category,
-          },
+          // Computed from TaxonLineage::CATEGORIES
+          fed_category: taxInfo?.category,
         });
       });
       return taxons;

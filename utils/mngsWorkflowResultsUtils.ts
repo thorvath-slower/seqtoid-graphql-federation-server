@@ -11,15 +11,13 @@ const formatNtNrCounts = (taxId: string, taxInfo: any, countType: string) => {
         aligment_length: hit.alignment_length,
         percent_identity: hit.percent_identity,
         e_value: hit.e_value,
-        _: {
-          bg_mean: hit.bg_mean,
-          bg_stdev: hit.bg_stdev,
-          bg_mean_mass_normalized: hit.bg_mean_mass_normalized,
-          bg_stdev_mass_normalized: hit.bg_stdev_mass_normalized,
-          bg_zscore: hit.bg_zscore,
-          max_z_score: taxInfo.max_z_score,
-          agg_score: taxInfo.agg_score,
-        }
+        fed_bg_mean: hit.bg_mean,
+        fed_bg_stdev: hit.bg_stdev,
+        fed_bg_mean_mass_normalized: hit.bg_mean_mass_normalized,
+        fed_bg_stdev_mass_normalized: hit.bg_stdev_mass_normalized,
+        fed_bg_zscore: hit.bg_zscore,
+        fed_max_z_score: taxInfo.max_z_score,
+        fed_agg_score: taxInfo.agg_score,
     }
 }
 
