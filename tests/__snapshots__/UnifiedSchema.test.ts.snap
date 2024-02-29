@@ -526,6 +526,7 @@ type WorkflowRun implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   id: ID!
+  railsWorkflowRunId: Int
   startedAt: DateTime
   endedAt: DateTime
   executionId: String
@@ -1187,6 +1188,7 @@ type HostOrganism implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   id: ID!
+  railsHostGenomeId: Int
   name: String!
   version: String!
   category: HostOrganismCategory!
@@ -1259,6 +1261,7 @@ input HostOrganismCategoryEnumComparators {
 }
 
 enum HostOrganismCountColumns {
+  railsHostGenomeId
   name
   version
   category
@@ -1274,6 +1277,7 @@ enum HostOrganismCountColumns {
 }
 
 input HostOrganismCreateInput {
+  railsHostGenomeId: Int = null
   name: String!
   version: String!
   category: HostOrganismCategory!
@@ -1283,6 +1287,7 @@ input HostOrganismCreateInput {
 }
 
 type HostOrganismGroupByOptions {
+  railsHostGenomeId: Int
   name: String
   version: String
   category: HostOrganismCategory
@@ -1296,6 +1301,7 @@ type HostOrganismGroupByOptions {
 }
 
 type HostOrganismMinMaxColumns {
+  railsHostGenomeId: Int
   name: String
   version: String
   ownerUserId: Int
@@ -1305,11 +1311,13 @@ type HostOrganismMinMaxColumns {
 }
 
 type HostOrganismNumericalColumns {
+  railsHostGenomeId: Int
   ownerUserId: Int
   collectionId: Int
 }
 
 input HostOrganismOrderByClause {
+  railsHostGenomeId: orderBy
   name: orderBy
   version: orderBy
   category: orderBy
@@ -1330,6 +1338,7 @@ input HostOrganismUpdateInput {
 }
 
 input HostOrganismWhereClause {
+  railsHostGenomeId: IntComparators
   name: StrComparators
   version: StrComparators
   category: HostOrganismCategoryEnumComparators
@@ -1675,7 +1684,7 @@ type MetricConsensusGenome implements EntityInterface & Node {
   coverageBreadth: Float
   coverageBinSize: Float
   coverageTotalLength: Int
-  coverageViz: [[Int!]!]
+  coverageViz: [[Float!]!]
   producingRunId: ID
   ownerUserId: Int!
   collectionId: Int!
@@ -1739,7 +1748,7 @@ input MetricConsensusGenomeCreateInput {
   coverageBreadth: Float = null
   coverageBinSize: Float = null
   coverageTotalLength: Int = null
-  coverageViz: [[Int!]!] = null
+  coverageViz: [[Float!]!] = null
   producingRunId: ID = null
   collectionId: Int!
 }
@@ -1760,7 +1769,7 @@ type MetricConsensusGenomeGroupByOptions {
   coverageBreadth: Float
   coverageBinSize: Float
   coverageTotalLength: Int
-  coverageViz: [[Int!]!]
+  coverageViz: [[Float!]!]
   id: UUID
   producingRunId: UUID
   ownerUserId: Int
@@ -2440,7 +2449,6 @@ enum TaxonCountColumns {
   upstreamDatabaseIdentifier
   level
   taxParent
-  taxSubspecies
   taxSpecies
   taxGenus
   taxFamily
@@ -2469,7 +2477,6 @@ input TaxonCreateInput {
   upstreamDatabaseIdentifier: String!
   level: TaxonLevel!
   taxParentId: ID = null
-  taxSubspeciesId: ID = null
   taxSpeciesId: ID = null
   taxGenusId: ID = null
   taxFamilyId: ID = null
@@ -2500,7 +2507,6 @@ type TaxonGroupByOptions {
   upstreamDatabaseIdentifier: String
   level: TaxonLevel
   taxParent: TaxonGroupByOptions
-  taxSubspecies: TaxonGroupByOptions
   taxSpecies: TaxonGroupByOptions
   taxGenus: TaxonGroupByOptions
   taxFamily: TaxonGroupByOptions
@@ -2568,7 +2574,6 @@ input TaxonOrderByClause {
   upstreamDatabaseIdentifier: orderBy
   level: orderBy
   taxParent: orderBy
-  taxSubspecies: orderBy
   taxSpecies: orderBy
   taxGenus: orderBy
   taxFamily: orderBy
@@ -2592,7 +2597,6 @@ input TaxonUpdateInput {
   isPhage: Boolean = null
   level: TaxonLevel = null
   taxParentId: ID = null
-  taxSubspeciesId: ID = null
   taxSpeciesId: ID = null
   taxGenusId: ID = null
   taxFamilyId: ID = null
@@ -2798,6 +2802,7 @@ input RunWorkflowVersionInput {
   workflowVersionId: ID!
   entityInputs: [EntityInputType!]
   rawInputJson: String
+  railsWorkflowRunId: Int = null
 }
 
 type Workflow implements EntityInterface & Node {
@@ -2921,6 +2926,7 @@ type WorkflowRunConnection {
 }
 
 enum WorkflowRunCountColumns {
+  railsWorkflowRunId
   startedAt
   endedAt
   executionId
@@ -3067,6 +3073,7 @@ input WorkflowRunEntityInputWhereClauseMutations {
 }
 
 type WorkflowRunGroupByOptions {
+  railsWorkflowRunId: Int
   startedAt: DateTime
   endedAt: DateTime
   executionId: String
@@ -3084,6 +3091,7 @@ type WorkflowRunGroupByOptions {
 }
 
 type WorkflowRunMinMaxColumns {
+  railsWorkflowRunId: Int
   startedAt: DateTime
   endedAt: DateTime
   executionId: String
@@ -3097,11 +3105,13 @@ type WorkflowRunMinMaxColumns {
 }
 
 type WorkflowRunNumericalColumns {
+  railsWorkflowRunId: Int
   ownerUserId: Int
   collectionId: Int
 }
 
 input WorkflowRunOrderByClause {
+  railsWorkflowRunId: orderBy
   startedAt: orderBy
   endedAt: orderBy
   executionId: orderBy
@@ -3293,6 +3303,7 @@ input WorkflowRunUpdateInput {
 }
 
 input WorkflowRunWhereClause {
+  railsWorkflowRunId: IntComparators
   startedAt: DatetimeComparators
   endedAt: DatetimeComparators
   executionId: StrComparators
