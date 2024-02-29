@@ -1,6 +1,7 @@
 FROM node:18.16.0
 
 WORKDIR /usr/src/app
+ENV UWS_HTTP_MAX_HEADERS_SIZE=24576
 
 ADD package*.json ./
 
