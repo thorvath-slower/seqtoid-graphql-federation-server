@@ -45,7 +45,7 @@ type Query {
   taxa(where: TaxonWhereClause = null, orderBy: [TaxonOrderByClause!] = []): [Taxon!]!
   upstreamDatabases(where: UpstreamDatabaseWhereClause = null, orderBy: [UpstreamDatabaseOrderByClause!] = []): [UpstreamDatabase!]!
   indexFiles(where: IndexFileWhereClause = null, orderBy: [IndexFileOrderByClause!] = []): [IndexFile!]!
-  bulkDownloads(input: queryInput_bulkDownloads_input_Input): [query_bulkDownloads_items] @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
+  bulkDownloads(where: BulkDownloadWhereClause = null, orderBy: [BulkDownloadOrderByClause!] = []): [BulkDownload!]!
   samplesAggregate(where: SampleWhereClause = null): SampleAggregate!
   sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
   genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
@@ -72,6 +72,7 @@ type Query {
   AmrDeprecatedResults(sampleId: String): AmrDeprecatedResults @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/amr.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
   AmrWorkflowResults(workflowRunId: String): AmrWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
   Background(snapshotLinkId: String): Background @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
+  fedBulkDownloads(input: queryInput_fedBulkDownloads_input_Input): [query_fedBulkDownloads_items] @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
   BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads", httpMethod: POST)
   fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
   ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
@@ -3550,49 +3551,49 @@ type query_Background_other_backgrounds_items {
   mass_normalized: Boolean
 }
 
-type query_bulkDownloads_items {
+type query_fedBulkDownloads_items {
   id: String
   status: String
   startedAt: String
-  rawInputsJson: query_bulkDownloads_items_rawInputsJson
+  rawInputsJson: query_fedBulkDownloads_items_rawInputsJson
   ownerUserId: String
-  file: query_bulkDownloads_items_file
+  file: query_fedBulkDownloads_items_file
   sampleNames: [JSON]
   analysisCount: Int
   entityInputFileType: String
-  entityInputs: [query_bulkDownloads_items_entityInputs_items]
-  toDelete: query_bulkDownloads_items_toDelete
+  entityInputs: [query_fedBulkDownloads_items_entityInputs_items]
+  toDelete: query_fedBulkDownloads_items_toDelete
 }
 
-type query_bulkDownloads_items_rawInputsJson {
+type query_fedBulkDownloads_items_rawInputsJson {
   description: String
   downloadType: String
   downloadDisplayName: String
   fileFormat: String
 }
 
-type query_bulkDownloads_items_file {
+type query_fedBulkDownloads_items_file {
   size: Int
-  downloadLink: query_bulkDownloads_items_file_downloadLink
+  downloadLink: query_fedBulkDownloads_items_file_downloadLink
 }
 
-type query_bulkDownloads_items_file_downloadLink {
+type query_fedBulkDownloads_items_file_downloadLink {
   url: String
 }
 
-type query_bulkDownloads_items_entityInputs_items {
+type query_fedBulkDownloads_items_entityInputs_items {
   id: String
   name: String
 }
 
-type query_bulkDownloads_items_toDelete {
+type query_fedBulkDownloads_items_toDelete {
   user_name: String
   log_url: String
   totalSamples: Int
   progress: JSON
 }
 
-input queryInput_bulkDownloads_input_Input @example(subgraph: "CZIDREST", value: "{\\"searchBy\\":\\"string to search\\",\\"limit\\":10}") {
+input queryInput_fedBulkDownloads_input_Input @example(subgraph: "CZIDREST", value: "{\\"searchBy\\":\\"string to search\\",\\"limit\\":10}") {
   searchBy: String
   limit: Int
 }

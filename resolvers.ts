@@ -47,7 +47,7 @@ export const resolvers: Resolvers = {
         };
       }, []);
     },
-    bulkDownloads: async (root, args, context, info) => {
+    fedBulkDownloads: async (root, args, context, info) => {
       const statusDictionary = {
         success: "SUCCEEDED",
         error: "FAILED",

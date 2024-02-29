@@ -1,5 +1,5 @@
 query BulkDownloadsWithLimitQuery{
-        bulkDownloads(
+        fedBulkDownloads(
           input: {
             searchBy: "Suzette McCanny", 
             limit: 10

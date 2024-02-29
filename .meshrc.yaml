@@ -58,7 +58,7 @@ sources:
             responseSchema: ./json-schemas/snapshotBackground.json
             responseTypeName: Background
           - type: Query
-            field: bulkDownloads
+            field: fedBulkDownloads
             path: /bulk_downloads?searchBy=${searchBy}&n=${limit}
             method: GET
             requestSample: {
@@ -66,7 +66,7 @@ sources:
                 limit: 10
               }            
             responseSchema: ./json-schemas/bulkDownloads.json
-            responseTypeName: BulkDownloads
+            responseTypeName: fedBulkDownloads
           - type: Query
             field: BulkDownloadCGOverview
             path: /bulk_downloads

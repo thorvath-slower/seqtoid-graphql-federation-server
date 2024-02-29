@@ -1,5 +1,5 @@
 query BulkDownloadsWithNoLimit {
-  bulkDownloads {
+  fedBulkDownloads {
       id
       status
       startedAt

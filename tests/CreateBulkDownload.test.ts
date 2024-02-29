@@ -21,7 +21,7 @@ describe.only("CreateBulkDownload Query", () => {
   });
 
   describe("CreateBulkDownload successful response", () => {
-    const createBulkDownloadResponse = getSampleResponse("bulkDownload");
+    const createBulkDownloadResponse = getSampleResponse("fedBulkDownload");
     it("should give correct response", async () => {
       (httpUtils.postWithCSRF as jest.Mock).mockImplementation(
         () => createBulkDownloadResponse

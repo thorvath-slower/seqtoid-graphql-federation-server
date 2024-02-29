@@ -8,6 +8,7 @@ build: ## Build docker images
 
 .PHONY: update-schema
 update-schema: ## Update schema
+	rm tests/__snapshots__/UnifiedSchema.test.ts.snap
 	docker compose run gql npm test -- tests/UnifiedSchema.test.ts -u
 
 .PHONY: test
