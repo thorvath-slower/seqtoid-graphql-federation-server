@@ -90,7 +90,7 @@ type Query {
   UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(subgraph: "CZIDREST", path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
   workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
-  fedWorkflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
+  fedWorkflowRuns(input: queryInput_fedWorkflowRuns_input_Input): [query_fedWorkflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
   fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): [query_fedWorkflowRunsAggregate_items] @httpOperation(subgraph: "CZIDREST", path: "/projects.json", httpMethod: GET)
   ZipLink(workflowRunId: String): ZipLink @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   GraphQLFederationVersion: GraphQLFederationVersion
@@ -4526,6 +4526,123 @@ input queryInput_workflowRuns_input_entityInputsInput_where_Input {
 }
 
 input queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input {
+  _eq: String
+}
+
+type query_fedWorkflowRuns_items {
+  id: String!
+  ownerUserId: Int!
+  startedAt: String
+  status: String
+  workflowVersion: query_fedWorkflowRuns_items_workflowVersion
+  entityInputs: query_fedWorkflowRuns_items_entityInputs!
+}
+
+type query_fedWorkflowRuns_items_workflowVersion {
+  version: String
+  workflow: query_fedWorkflowRuns_items_workflowVersion_workflow
+}
+
+type query_fedWorkflowRuns_items_workflowVersion_workflow {
+  name: String
+}
+
+type query_fedWorkflowRuns_items_entityInputs {
+  edges: [query_fedWorkflowRuns_items_entityInputs_edges_items]!
+}
+
+type query_fedWorkflowRuns_items_entityInputs_edges_items {
+  node: query_fedWorkflowRuns_items_entityInputs_edges_items_node!
+}
+
+type query_fedWorkflowRuns_items_entityInputs_edges_items_node {
+  inputEntityId: String
+  entityType: String
+}
+
+input queryInput_fedWorkflowRuns_input_Input {
+  todoRemove: queryInput_fedWorkflowRuns_input_todoRemove_Input
+  orderBy: queryInput_fedWorkflowRuns_input_orderBy_Input
+  where: queryInput_fedWorkflowRuns_input_where_Input
+  entityInputsInput: queryInput_fedWorkflowRuns_input_entityInputsInput_Input
+}
+
+input queryInput_fedWorkflowRuns_input_todoRemove_Input {
+  domain: String
+  projectId: String
+  search: String
+  host: [Int]
+  locationV2: [String]
+  taxon: [Int]
+  taxonLevels: [String]
+  time: [String]
+  tissue: [String]
+  visibility: String
+  workflow: String
+  orderBy: String
+  orderDir: String
+  authenticityToken: String
+}
+
+input queryInput_fedWorkflowRuns_input_orderBy_Input {
+  startedAt: String
+  workflowVersion: queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_Input
+}
+
+input queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_Input {
+  version: String
+  workflow: queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_workflow_Input
+}
+
+input queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_workflow_Input {
+  name: String
+}
+
+input queryInput_fedWorkflowRuns_input_where_Input {
+  id: queryInput_fedWorkflowRuns_input_where_id_Input
+  ownerUserId: queryInput_fedWorkflowRuns_input_where_ownerUserId_Input
+  startedAt: queryInput_fedWorkflowRuns_input_where_startedAt_Input
+  collectionId: queryInput_fedWorkflowRuns_input_where_collectionId_Input
+  workflowVersion: queryInput_fedWorkflowRuns_input_where_workflowVersion_Input
+}
+
+input queryInput_fedWorkflowRuns_input_where_id_Input {
+  _in: [String]
+}
+
+input queryInput_fedWorkflowRuns_input_where_ownerUserId_Input {
+  _eq: Int
+}
+
+input queryInput_fedWorkflowRuns_input_where_startedAt_Input {
+  _gte: String
+}
+
+input queryInput_fedWorkflowRuns_input_where_collectionId_Input {
+  _in: [Int]
+}
+
+input queryInput_fedWorkflowRuns_input_where_workflowVersion_Input {
+  workflow: queryInput_fedWorkflowRuns_input_where_workflowVersion_workflow_Input
+}
+
+input queryInput_fedWorkflowRuns_input_where_workflowVersion_workflow_Input {
+  name: queryInput_fedWorkflowRuns_input_where_workflowVersion_workflow_name_Input
+}
+
+input queryInput_fedWorkflowRuns_input_where_workflowVersion_workflow_name_Input {
+  _in: [String]
+}
+
+input queryInput_fedWorkflowRuns_input_entityInputsInput_Input {
+  where: queryInput_fedWorkflowRuns_input_entityInputsInput_where_Input
+}
+
+input queryInput_fedWorkflowRuns_input_entityInputsInput_where_Input {
+  fieldName: queryInput_fedWorkflowRuns_input_entityInputsInput_where_fieldName_Input
+}
+
+input queryInput_fedWorkflowRuns_input_entityInputsInput_where_fieldName_Input {
   _eq: String
 }
 
