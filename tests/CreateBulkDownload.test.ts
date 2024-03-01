@@ -31,7 +31,7 @@ describe.only("CreateBulkDownload Query", () => {
         downloadType: "consensus_genome_intermediate_output_files",
         downloadFormat: "Separate Files",
         workflow: "consensus_genome",
-        workflowRunIds: ["1991", "2007"],
+        workflowRunIds: [1991, 2007],
       });
       expect(result.data.CreateBulkDownload).toStrictEqual(
         createBulkDownloadResponse
