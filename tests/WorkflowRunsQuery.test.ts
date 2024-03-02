@@ -41,16 +41,13 @@ describe("workflowRuns query:", () => {
       ],
     }));
 
-    const result = await execute(
-      getExampleQuery("workflow-runs-query-empty"),
-      {}
-    );
+    const result = await execute(getExampleQuery("workflow-runs-query-empty"), {});
 
-    expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
-      expect.anything(),
-      expect.anything()
-    );
+    expect(httpUtils.get).toHaveBeenCalledWith({
+      url: "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
+      args: expect.anything(),
+      context: expect.anything(),
+    });
     expect(result.data.workflowRuns).toHaveLength(2);
     expect(result.data.workflowRuns[0]).toEqual(
       expect.objectContaining({
@@ -65,7 +62,7 @@ describe("workflowRuns query:", () => {
             },
           ],
         },
-      })
+      }),
     );
     expect(result.data.workflowRuns[1]).toEqual(
       expect.objectContaining({
@@ -80,7 +77,7 @@ describe("workflowRuns query:", () => {
             },
           ],
         },
-      })
+      }),
     );
   });
 
@@ -89,17 +86,14 @@ describe("workflowRuns query:", () => {
       workflow_runs: [],
     }));
 
-    const result = await execute(
-      getExampleQuery("workflow-runs-query-order-by"),
-      {}
-    );
+    const result = await execute(getExampleQuery("workflow-runs-query-order-by"), {});
 
     // TODO: Add support for NextGen orderBy field.
-    expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
-      expect.anything(),
-      expect.anything()
-    );
+    expect(httpUtils.get).toHaveBeenCalledWith({
+      url: "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
+      args: expect.anything(),
+      context: expect.anything(),
+    });
     expect(result.data.workflowRuns).toHaveLength(0);
   });
 
@@ -109,15 +103,15 @@ describe("workflowRuns query:", () => {
         authenticityToken: "authtoken1234",
         workflowRunIds: ["1997", "2007"],
       });
-      expect(httpUtils.postWithCSRF).toHaveBeenCalledWith(
-        "/workflow_runs/valid_consensus_genome_workflow_runs",
-        {
+      expect(httpUtils.postWithCSRF).toHaveBeenCalledWith({
+        url: "/workflow_runs/valid_consensus_genome_workflow_runs",
+        body: {
           authenticity_token: "authtoken1234",
           workflowRunIds: [1997, 2007],
         },
-        expect.anything(),
-        expect.anything()
-      );
+        context: expect.anything(),
+        args: expect.anything(),
+      });
     });
   });
 });

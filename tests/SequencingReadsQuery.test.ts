@@ -25,11 +25,11 @@ describe("sequencingReads query:", () => {
     }));
     const response = await execute(query, {});
 
-    expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=with_sample_info&search=abc&limit=50&offset=100&listAllIds=false",
-      expect.anything(),
-      expect.anything()
-    );
+    expect(httpUtils.get).toHaveBeenCalledWith({
+      url: "/workflow_runs.json?&mode=with_sample_info&search=abc&limit=50&offset=100&listAllIds=false",
+      args: expect.anything(),
+      context: expect.anything(),
+    });
     expect(response.data.fedSequencingReads).toHaveLength(0);
   });
 
@@ -76,7 +76,7 @@ describe("sequencingReads query:", () => {
             },
           ],
         },
-      })
+      }),
     );
     expect(result.data.fedSequencingReads[1]).toEqual(
       expect.objectContaining({
@@ -92,7 +92,7 @@ describe("sequencingReads query:", () => {
             },
           ],
         },
-      })
+      }),
     );
   });
 
@@ -120,10 +120,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    const metadataFields =
-      result.data.fedSequencingReads[0].sample.metadatas.edges.map(
-        (edge) => edge.node.fieldName
-      );
+    const metadataFields = result.data.fedSequencingReads[0].sample.metadatas.edges.map(edge => edge.node.fieldName);
     expect(metadataFields).toHaveLength(3);
     expect(metadataFields[0]).toEqual("key1");
     expect(metadataFields[1]).toEqual("key2");
@@ -145,9 +142,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(
-      result.data.fedSequencingReads[0].sample.metadatas.edges
-    ).toHaveLength(0);
+    expect(result.data.fedSequencingReads[0].sample.metadatas.edges).toHaveLength(0);
   });
 
   it("Only returns taxon object if name exists", async () => {
@@ -171,9 +166,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
-      ""
-    );
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe("");
   });
 
   it("Returns string location field", async () => {
@@ -191,9 +184,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
-      "Redwood City"
-    );
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe("Redwood City");
   });
 
   it("Returns object name for location field", async () => {
@@ -213,9 +204,7 @@ describe("sequencingReads query:", () => {
 
     const result = await execute(query, {});
 
-    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe(
-      "Redwood City"
-    );
+    expect(result.data.fedSequencingReads[0].sample.collectionLocation).toBe("Redwood City");
   });
 
   it("Converts water control to boolean", async () => {
@@ -292,32 +281,16 @@ describe("sequencingReads query:", () => {
 
     expect(sequencingReads[0].id).toBe("123");
     expect(sequencingReads[0].consensusGenomes.edges.length).toBe(3);
-    expect(
-      sequencingReads[0].consensusGenomes.edges[0].node.producingRunId
-    ).toBe("a");
-    expect(sequencingReads[0].consensusGenomes.edges[0].node.taxon.name).toBe(
-      "Taxon1"
-    );
-    expect(
-      sequencingReads[0].consensusGenomes.edges[1].node.producingRunId
-    ).toBe("b");
-    expect(sequencingReads[0].consensusGenomes.edges[1].node.taxon.name).toBe(
-      "Taxon2"
-    );
-    expect(
-      sequencingReads[0].consensusGenomes.edges[2].node.producingRunId
-    ).toBe("d");
-    expect(sequencingReads[0].consensusGenomes.edges[2].node.taxon.name).toBe(
-      "Taxon1"
-    );
+    expect(sequencingReads[0].consensusGenomes.edges[0].node.producingRunId).toBe("a");
+    expect(sequencingReads[0].consensusGenomes.edges[0].node.taxon.name).toBe("Taxon1");
+    expect(sequencingReads[0].consensusGenomes.edges[1].node.producingRunId).toBe("b");
+    expect(sequencingReads[0].consensusGenomes.edges[1].node.taxon.name).toBe("Taxon2");
+    expect(sequencingReads[0].consensusGenomes.edges[2].node.producingRunId).toBe("d");
+    expect(sequencingReads[0].consensusGenomes.edges[2].node.taxon.name).toBe("Taxon1");
 
     expect(sequencingReads[1].id).toBe("456");
     expect(sequencingReads[1].consensusGenomes.edges.length).toBe(1);
-    expect(
-      sequencingReads[1].consensusGenomes.edges[0].node.producingRunId
-    ).toBe("c");
-    expect(sequencingReads[1].consensusGenomes.edges[0].node.taxon.name).toBe(
-      "Taxon3"
-    );
+    expect(sequencingReads[1].consensusGenomes.edges[0].node.producingRunId).toBe("c");
+    expect(sequencingReads[1].consensusGenomes.edges[0].node.taxon.name).toBe("Taxon3");
   });
 });

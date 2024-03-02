@@ -6,7 +6,7 @@ import * as httpUtils from "../utils/httpUtils";
 jest.mock("../utils/httpUtils");
 
 beforeEach(() => {
-  (httpUtils.getFullResponse as jest.Mock).mockClear();
+  (httpUtils.get as jest.Mock).mockClear();
 });
 
 describe("ZipLink Query", () => {
@@ -25,7 +25,7 @@ describe("ZipLink Query", () => {
     const zipLinkUrl = "zip_link_url";
 
     it("should give correct response", async () => {
-      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => ({
+      (httpUtils.get as jest.Mock).mockImplementation(() => ({
         status: 200,
         url: zipLinkUrl,
       }));
@@ -41,7 +41,7 @@ describe("ZipLink Query", () => {
     const zipLinkError = "zip_link_error";
 
     it("should give correct response", async () => {
-      (httpUtils.getFullResponse as jest.Mock).mockImplementation(() => ({
+      (httpUtils.get as jest.Mock).mockImplementation(() => ({
         status: 500,
         url: null,
         statusText: zipLinkError,

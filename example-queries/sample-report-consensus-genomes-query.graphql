@@ -1,0 +1,53 @@
+query ConsensusGenomeReportQuery($workflowRunId: String) {
+  fedConsensusGenomes(input: { where: { id: { _eq: $workflowRunId } } }) {
+    ...ConsensusGenomeMetricsTableFragment
+    ...ConsensusGenomeCoverageViewFragment
+    ...ConsensusGenomeHistogramFragment
+  }
+}
+
+fragment ConsensusGenomeCoverageViewFragment on query_fedConsensusGenomes_items {
+  accession {
+    accessionId
+  }
+  taxon {
+    commonName
+    id
+  }
+  metrics {
+    coverageBreadth
+    coverageDepth
+    coverageTotalLength
+  }
+}
+
+fragment ConsensusGenomeHistogramFragment on query_fedConsensusGenomes_items {
+  accession {
+    accessionId
+    accessionName
+  }
+  taxon {
+    commonName
+  }
+  metrics {
+    coverageViz
+    coverageBinSize
+    coverageTotalLength
+  }
+}
+
+fragment ConsensusGenomeMetricsTableFragment on query_fedConsensusGenomes_items {
+  taxon {
+    commonName
+  }
+  metrics {
+    mappedReads
+    nActg
+    nAmbiguous
+    nMissing
+    refSnps
+    percentIdentity
+    gcPercent
+    percentGenomeCalled
+  }
+}

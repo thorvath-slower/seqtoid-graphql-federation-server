@@ -61,10 +61,7 @@ sources:
             field: fedBulkDownloads
             path: /bulk_downloads?searchBy=${searchBy}&n=${limit}
             method: GET
-            requestSample: {
-                searchBy: "string to search",
-                limit: 10
-              }            
+            requestSample: { searchBy: "string to search", limit: 10 }
             responseSchema: ./json-schemas/bulkDownloads.json
             responseTypeName: fedBulkDownloads
           - type: Query
@@ -106,9 +103,7 @@ sources:
             field: SampleMetadata
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata
             method: GET
-            requestSample: {
-                pipelineVersion: "8.0"
-              }
+            requestSample: { pipelineVersion: "8.0" }
             responseSchema: ./json-schemas/sampleMetadata.json
             responseTypeName: SampleMetadata
           - type: Query
@@ -183,7 +178,8 @@ sources:
             field: ValidateUserCanDeleteObjects
             path: /samples/validate_user_can_delete_objects.json
             method: POST
-            requestSample: {"selectedIds":[28114,28151],"workflow":"short-read-mngs","authenticityToken":"token"}
+            requestSample:
+              { "selectedIds": [28114, 28151], "workflow": "short-read-mngs", "authenticityToken": "token" }
             responseSchema: ./json-schemas/validateUsersCanDeleteObjects.json
             responseTypeName: ValidateUserCanDeleteObjects
           - type: Query
@@ -223,12 +219,7 @@ sources:
             field: DeleteSamples
             path: /samples/bulk_delete
             method: POST
-            requestSample:
-              {
-                "ids": [1],
-                "workflow": "short-read-mngs",
-                "authenticityToken": "token",
-              }
+            requestSample: { "ids": [1], "workflow": "short-read-mngs", "authenticityToken": "token" }
             responseSchema: ./json-schemas/deleteSamples.json
             responseTypeName: DeleteSamples
           - type: Mutation
@@ -276,11 +267,7 @@ sources:
             path: /samples/{args.sampleId}/kickoff_workflow
             method: POST
             requestSample:
-              {
-                "inputs_json": { "start_from_mngs": true },
-                "workflow": "amr",
-                "authenticityToken": "token",
-              }
+              { "inputs_json": { "start_from_mngs": true }, "workflow": "amr", "authenticityToken": "token" }
             responseSchema: ./json-schemas/kickoffWorkflow.json
             responseTypeName: KickoffAMRWorkflow
             headers:
@@ -310,7 +297,7 @@ additionalResolvers:
   - ./resolvers.ts
 plugins:
   - csrfPrevention:
-      requestHeaders: ['x-graphql-yoga-csrf']
+      requestHeaders: ["x-graphql-yoga-csrf"]
 serve:
   port: 4444
   endpoint: "/graphqlfed"

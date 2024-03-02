@@ -26,11 +26,11 @@ describe("samples query:", () => {
 
     const response = await execute(query, {});
 
-    expect(httpUtils.get).toHaveBeenCalledWith(
-      "/workflow_runs.json?&mode=basic&search=abc",
-      expect.anything(),
-      expect.anything()
-    );
+    expect(httpUtils.get).toHaveBeenCalledWith({
+      url: "/workflow_runs.json?&mode=basic&search=abc",
+      args: expect.anything(),
+      context: expect.anything(),
+    });
     expect(response.data.fedSamples).toHaveLength(0);
   });
 
