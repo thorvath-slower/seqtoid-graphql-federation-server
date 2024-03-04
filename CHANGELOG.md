@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [2.12.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.11.1...v2.12.0) (2024-03-04)
+
+
+### Features
+
+* Add fed prefix to a few fields ([#123](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/123)) ([832210f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/832210fa1320261aba9ea4903e1bc51b160e12b7))
+* Create Connection between Fed Server and Next Gen  ([#137](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/137)) ([b98dd14](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b98dd1486c808e3b65c810769619a7f8204d11b3))
+* Re-enable nextgen sources & update schemas ([#120](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/120)) ([0304aa4](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/0304aa4ffef7cb1d88dd3cdc1da9ec7699d0a690))
+* schema edits for workflows, fedWorkflows, BulkDownloadModal and fedConsensusGenomes ([#142](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/142)) ([f89e183](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f89e18380059bb971b3be6b23d6cd0f95d582c3f))
+* Update paginated endpoints with limit/offset ([#112](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/112)) ([ae755ed](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ae755ed673fa1a423b0f59f06f59a1ab738c41af))
+* Use nodemon to auto restart mesh after files change. ([#124](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/124)) ([312dcef](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/312dcef29778e1c0d835cdfb9ff171bc4ed19e53))
+
+
+### Bug Fixes
+
+* Revert "fix: return id as a string" ([#140](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/140)) ([e8da29b](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e8da29b3f0fc0ce42ced2fec1d632cbdf9ed8096))
+* Revert "fix: update mutation to expect a string and tests" ([#139](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/139)) ([8c532ee](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/8c532eee47581dbfd9b8f67ef2a8adcd92a8bf23))
+* switch "_" objects to prefixed fields ([#125](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/125)) ([f7911df](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f7911df4438c12fedbee5b9a78e15fa90a9a436e))
+* update mutation to expect a string and tests ([#121](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/121)) ([c72561f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c72561fecc33b9e54c54580e47f7483361444829))
+* update to fedConsensusGenomes ([#127](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/127)) ([af20c6c](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/af20c6c43e34b7b3d84e0e783ca2617c64ac2e45))
+
 ## [2.11.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.11.0...v2.11.1) (2024-02-23)
 
 
