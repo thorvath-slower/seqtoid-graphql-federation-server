@@ -2,7 +2,7 @@ query ValidConsensusGenomeWorkflowRunsQuery(
     $workflowRunIds: [String]
     $authenticityToken: String!
     ) {
-    workflowRuns(
+    fedWorkflowRuns(
         input: {
         where: { id: { _in: $workflowRunIds } }
         todoRemove: { authenticityToken: $authenticityToken }

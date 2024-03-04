@@ -5,10 +5,13 @@ import {
   query_fedSamples_items,
   query_fedSequencingReads_items,
   query_fedWorkflowRunsAggregate_items,
-  query_workflowRuns_items,
+  query_fedWorkflowRuns_items,
 } from "./.mesh";
 import { get, postWithCSRF, shouldReadFromNextGen } from "./utils/httpUtils";
-import { formatTaxonHits, formatTaxonLineage } from "./utils/mngsWorkflowResultsUtils";
+import {
+  formatTaxonHits,
+  formatTaxonLineage,
+} from "./utils/mngsWorkflowResultsUtils";
 import { formatUrlParams } from "./utils/paramsUtils";
 
 /**
@@ -64,7 +67,11 @@ export const resolvers: Resolvers = {
           };
         });
       };
-      const res = await get({ url: `/bulk_downloads.json${urlParams}`, args, context });
+      const res = await get({
+        url: `/bulk_downloads.json${urlParams}`,
+        args,
+        context,
+      });
       const mappedRes = res.map(async bulkDownload => {
         let url: string | null = null;
         let entityInputs: { id: string; name: string }[] = [];
@@ -83,8 +90,11 @@ export const resolvers: Resolvers = {
             ...getEntityInputInfo(details?.bulk_download?.workflow_runs),
             ...getEntityInputInfo(details?.bulk_download?.pipeline_runs),
           ];
-          sampleNames = new Set(entityInputs.map(entityInput => entityInput.name));
-          totalSamples = details?.bulk_download?.params?.sample_ids?.value?.length;
+          sampleNames = new Set(
+            entityInputs.map(entityInput => entityInput.name),
+          );
+          totalSamples =
+            details?.bulk_download?.params?.sample_ids?.value?.length;
         }
         description = details?.download_type?.description;
         file_type_display = details?.download_type?.file_type_display;
@@ -147,17 +157,27 @@ export const resolvers: Resolvers = {
       if (!args?.input) {
         throw new Error("No input provided");
       }
-      const { downloadType, workflow, includeMetadata, workflowRunIds, workflowRunIdsStrings } = args?.input;
+      const {
+        downloadType,
+        workflow,
+        includeMetadata,
+        workflowRunIds,
+        workflowRunIdsStrings,
+      } = args?.input;
 
       //array of strings to array of numbers
-      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id => parseInt(id));
+      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id =>
+        parseInt(id),
+      );
       const body = {
         download_type: downloadType,
         workflow: workflow,
         params: {
           include_metadata: { value: includeMetadata },
           sample_ids: {
-            value: workflowRunIdsNumbers ? workflowRunIdsNumbers : workflowRunIds,
+            value: workflowRunIdsNumbers
+              ? workflowRunIdsNumbers
+              : workflowRunIds,
           },
           workflow: {
             value: workflow,
@@ -197,7 +217,8 @@ export const resolvers: Resolvers = {
           context,
         });
         const { coverage_viz, quality_metrics, taxon_info } = data;
-        const { accession_id, accession_name, taxon_id, taxon_name } = taxon_info || {};
+        const { accession_id, accession_name, taxon_id, taxon_name } =
+          taxon_info || {};
         const ret = [
           {
             metrics: {
@@ -346,7 +367,8 @@ export const resolvers: Resolvers = {
         args,
         context,
       });
-      const { accession_id, accession_name, taxon_id, taxon_name } = taxon_info || {};
+      const { accession_id, accession_name, taxon_id, taxon_name } =
+        taxon_info || {};
       return {
         metric_consensus_genome: {
           ...quality_metrics,
@@ -405,19 +427,22 @@ export const resolvers: Resolvers = {
           return item;
         });
         if (res?.additional_info?.pipeline_run?.id) {
-          res.additional_info.pipeline_run.id = res.additional_info.pipeline_run.id.toString();
+          res.additional_info.pipeline_run.id =
+            res.additional_info.pipeline_run.id.toString();
         }
         // location_validated_value is a union type, so we need to add __typename to the object
         metadata.map(field => {
           if (typeof field.location_validated_value === "object") {
             field.location_validated_value = {
-              __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1",
+              __typename:
+                "query_SampleMetadata_metadata_items_location_validated_value_oneOf_1",
               ...field.location_validated_value,
               id: field.location_validated_value.id.toString(),
             };
           } else if (typeof field.location_validated_value === "string") {
             field.location_validated_value = {
-              __typename: "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0",
+              __typename:
+                "query_SampleMetadata_metadata_items_location_validated_value_oneOf_0",
               name: field.location_validated_value,
             };
           } else {
@@ -431,7 +456,11 @@ export const resolvers: Resolvers = {
       }
     },
     MngsWorkflowResults: async (root, args, context, info) => {
-      const data = await get({ url: `/samples/${args.sampleId}.json`, args, context });
+      const data = await get({
+        url: `/samples/${args.sampleId}.json`,
+        args,
+        context,
+      });
       const pipelineRun = data?.pipeline_runs?.[0] || {};
 
       const urlParams = formatUrlParams({
@@ -440,8 +469,19 @@ export const resolvers: Resolvers = {
         background: args._backgroundId,
         merge_nt_nr: false,
       });
-      const { _all_tax_ids, metadata, counts, lineage, _sortedGenus, _highlightedTaxIds } =
-        (await get({ url: `/samples/${args.sampleId}/report_v2` + urlParams, args, context })) || {};
+      const {
+        _all_tax_ids,
+        metadata,
+        counts,
+        lineage,
+        _sortedGenus,
+        _highlightedTaxIds,
+      } =
+        (await get({
+          url: `/samples/${args.sampleId}/report_v2` + urlParams,
+          args,
+          context,
+        })) || {};
       const taxonHits = formatTaxonHits(counts);
       const taxonLineage = formatTaxonLineage(lineage);
       return {
@@ -466,8 +506,19 @@ export const resolvers: Resolvers = {
         pipelineVersion: args.workflowVersionId,
         merge_nt_nr: false,
       });
-      const { _all_tax_ids, _metadata, counts, _lineage, _sortedGenus, _highlightedTaxIds } =
-        (await get({ url: `/samples/${args.sampleId}/report_v2` + urlParams, args, context })) || {};
+      const {
+        _all_tax_ids,
+        _metadata,
+        counts,
+        _lineage,
+        _sortedGenus,
+        _highlightedTaxIds,
+      } =
+        (await get({
+          url: `/samples/${args.sampleId}/report_v2` + urlParams,
+          args,
+          context,
+        })) || {};
       const speciesCounts = counts?.["1"] || {};
       const genusCounts = counts?.["2"] || {};
       const taxonCounts = Object.entries({ ...speciesCounts, ...genusCounts });
@@ -618,9 +669,13 @@ export const resolvers: Resolvers = {
           },
         };
 
-        const existingSequencingRead = result.find(sequencingRead => sequencingRead.id === id);
+        const existingSequencingRead = result.find(
+          sequencingRead => sequencingRead.id === id,
+        );
         if (existingSequencingRead !== undefined) {
-          existingSequencingRead.consensusGenomes.edges.push(consensusGenomeEdge);
+          existingSequencingRead.consensusGenomes.edges.push(
+            consensusGenomeEdge,
+          );
         } else {
           result.push({
             id,
@@ -672,7 +727,12 @@ export const resolvers: Resolvers = {
         selectedIds: args?.input?.selectedIds,
         workflow: args?.input?.workflow,
       };
-      const res = await postWithCSRF({ url: `/samples/validate_user_can_delete_objects.json`, body, args, context });
+      const res = await postWithCSRF({
+        url: `/samples/validate_user_can_delete_objects.json`,
+        body,
+        args,
+        context,
+      });
       return res;
     },
     Taxons: async (root, args, context, info) => {
@@ -681,8 +741,19 @@ export const resolvers: Resolvers = {
         pipelineVersion: args.workflowVersionId,
         merge_nt_nr: false,
       });
-      const { all_tax_ids, _metadata, counts, lineage, _sortedGenus, _highlightedTaxIds } =
-        (await get({ url: `/samples/${args.sampleId}/report_v2` + urlParams, args, context })) || {};
+      const {
+        all_tax_ids,
+        _metadata,
+        counts,
+        lineage,
+        _sortedGenus,
+        _highlightedTaxIds,
+      } =
+        (await get({
+          url: `/samples/${args.sampleId}/report_v2` + urlParams,
+          args,
+          context,
+        })) || {};
       const speciesCounts = counts?.["1"] || {};
       const genusCounts = counts?.["2"] || {};
       const taxonCounts = Object.entries({ ...speciesCounts, ...genusCounts });
@@ -708,7 +779,14 @@ export const resolvers: Resolvers = {
         pipelineVersion: args.workflowVersionId,
         merge_nt_nr: false,
       });
-      const { _all_tax_ids, _metadata, counts, _lineage, _sortedGenus, _highlightedTaxIds } =
+      const {
+        _all_tax_ids,
+        _metadata,
+        counts,
+        _lineage,
+        _sortedGenus,
+        _highlightedTaxIds,
+      } =
         (await get({
           url: `/samples/${args.sampleId}/report_v2` + urlParams,
           args,
@@ -729,93 +807,6 @@ export const resolvers: Resolvers = {
         }
       });
       return annotations;
-    },
-    /**
-     * @deprecated TODO: Delete this after fedWorkflowRuns() is in prod.
-     *
-     * This is a copy/paste of fedWorkflowRuns() which will contain all the actual resolver logic
-     * from here on. This is still around because the FE is still querying this field.
-     */
-    workflowRuns: async (root, args, context) => {
-      const input = args.input;
-
-      // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
-      // This endpoint only provides id, ownerUserId, and status.
-      if (input?.where?.id?._in && typeof input?.where?.id?._in === "object") {
-        const body = {
-          authenticity_token: input?.todoRemove?.authenticityToken,
-          workflowRunIds: input.where.id._in.map(id => id && parseInt(id)),
-        };
-        const { workflowRuns } = await postWithCSRF({
-          url: `/workflow_runs/valid_consensus_genome_workflow_runs`,
-          body,
-          args,
-          context,
-        });
-        return workflowRuns.map(run => ({
-          id: run.id.toString(),
-          ownerUserId: run.owner_user_id,
-          status: run.status,
-        }));
-      }
-
-      // TODO(bchu): Remove all the non-Workflows fields after moving and integrating them into the
-      // Entities call.
-      const { workflow_runs } = await get({
-        url:
-          "/workflow_runs.json" +
-          formatUrlParams({
-            mode: "basic",
-            domain: input?.todoRemove?.domain,
-            projectId: input?.todoRemove?.projectId,
-            search: input?.todoRemove?.search,
-            // TODO: Cover sorting by time, version, or creation source (though Rails doesn't
-            // actually support the latter 2).
-            orderBy: input?.todoRemove?.orderBy,
-            orderDir: input?.todoRemove?.orderDir,
-            host: input?.todoRemove?.host,
-            locationV2: input?.todoRemove?.locationV2,
-            taxon: input?.todoRemove?.taxon,
-            taxaLevels: input?.todoRemove?.taxonLevels,
-            time: input?.todoRemove?.time,
-            tissue: input?.todoRemove?.tissue,
-            visibility: input?.todoRemove?.visibility,
-            workflow: input?.todoRemove?.workflow,
-            limit: TEN_MILLION,
-            offset: 0,
-            listAllIds: false,
-          }),
-        args,
-        context,
-      });
-      if (!workflow_runs?.length) {
-        return [];
-      }
-
-      return workflow_runs.map(
-        (run): query_workflowRuns_items => ({
-          id: run.id?.toString(),
-          ownerUserId: run.runner?.id?.toString(),
-          startedAt: run.created_at,
-          status: run.status,
-          workflowVersion: {
-            version: run.wdl_version,
-            workflow: {
-              name: run.inputs?.creation_source,
-            },
-          },
-          entityInputs: {
-            edges: [
-              {
-                node: {
-                  entityType: "SequencingRead",
-                  inputEntityId: run.sample?.info?.id?.toString(),
-                },
-              },
-            ],
-          },
-        }),
-      );
     },
     fedWorkflowRuns: async (root, args, context) => {
       const input = args.input;
@@ -874,7 +865,7 @@ export const resolvers: Resolvers = {
       }
 
       return workflow_runs.map(
-        (run): query_workflowRuns_items => ({
+        (run): query_fedWorkflowRuns_items => ({
           id: run.id?.toString(),
           ownerUserId: run.runner?.id?.toString(),
           startedAt: run.created_at,
@@ -977,7 +968,8 @@ export const resolvers: Resolvers = {
       if (!args?.input) {
         throw new Error("No input provided");
       }
-      const { downloadType, workflow, downloadFormat, workflowRunIds } = args?.input;
+      const { downloadType, workflow, downloadFormat, workflowRunIds } =
+        args?.input;
       const body = {
         download_type: downloadType,
         workflow: workflow,
@@ -994,7 +986,12 @@ export const resolvers: Resolvers = {
         },
         workflow_run_ids: workflowRunIds,
       };
-      const res = await postWithCSRF({ url: `/bulk_downloads`, body, args, context });
+      const res = await postWithCSRF({
+        url: `/bulk_downloads`,
+        body,
+        args,
+        context,
+      });
       return res;
     },
     DeleteSamples: async (root, args, context, info) => {
@@ -1002,7 +999,12 @@ export const resolvers: Resolvers = {
         selectedIds: args?.input?.ids,
         workflow: args?.input?.workflow,
       };
-      const { deletedIds, error } = await postWithCSRF({ url: `/samples/bulk_delete`, body, args, context });
+      const { deletedIds, error } = await postWithCSRF({
+        url: `/samples/bulk_delete`,
+        body,
+        args,
+        context,
+      });
       return {
         deleted_workflow_ids: deletedIds,
         error: error,
@@ -1013,7 +1015,12 @@ export const resolvers: Resolvers = {
         workflow: args?.input?.workflow,
         inputs_json: args?.input?.inputs_json,
       };
-      const res = await postWithCSRF({ url: `/samples/${args.sampleId}/kickoff_workflow`, body, args, context });
+      const res = await postWithCSRF({
+        url: `/samples/${args.sampleId}/kickoff_workflow`,
+        body,
+        args,
+        context,
+      });
       try {
         const formattedRes = res.map(item => {
           item.id = item.id.toString();
@@ -1029,7 +1036,12 @@ export const resolvers: Resolvers = {
         workflow: args?.input?.workflow,
         inputs_json: args?.input?.inputs_json,
       };
-      const res = await postWithCSRF({ url: `/samples/${args.sampleId}/kickoff_workflow`, body, args, context });
+      const res = await postWithCSRF({
+        url: `/samples/${args.sampleId}/kickoff_workflow`,
+        body,
+        args,
+        context,
+      });
       return res;
     },
     UpdateMetadata: async (root, args, context, info) => {
@@ -1037,7 +1049,8 @@ export const resolvers: Resolvers = {
         field: args?.input?.field,
         value: args?.input?.value.String
           ? args.input.value.String
-          : args?.input?.value.query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input,
+          : args?.input?.value
+              .query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input,
       };
       const res = await postWithCSRF({
         url: `/samples/${args.sampleId}/save_metadata_v2`,
@@ -1076,7 +1089,9 @@ export const resolvers: Resolvers = {
   },
 };
 
-function getMetadataEdges(sampleMetadata: any): Array<{ node: { fieldName: string; value: string } }> {
+function getMetadataEdges(
+  sampleMetadata: any,
+): Array<{ node: { fieldName: string; value: string } }> {
   return sampleMetadata != null
     ? Object.entries(sampleMetadata)
         .filter(

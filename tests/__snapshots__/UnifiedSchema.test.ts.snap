@@ -1765,7 +1765,6 @@ type Query {
   sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
   taxa(orderBy: [TaxonOrderByClause!] = [], where: TaxonWhereClause = null): [Taxon!]!
   taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate!
-  tempWorkflowRuns(orderBy: [WorkflowRunOrderByClause!] = [], where: WorkflowRunWhereClause = null): [WorkflowRun!]!
   upstreamDatabases(orderBy: [UpstreamDatabaseOrderByClause!] = [], where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
   upstreamDatabasesAggregate(where: UpstreamDatabaseWhereClause = null): UpstreamDatabaseAggregate!
   user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
@@ -1773,7 +1772,7 @@ type Query {
   workflowRunEntityInputsAggregate(where: WorkflowRunEntityInputWhereClause = null): WorkflowRunEntityInputAggregate!
   workflowRunSteps(orderBy: [WorkflowRunStepOrderByClause!] = [], where: WorkflowRunStepWhereClause = null): [WorkflowRunStep!]!
   workflowRunStepsAggregate(where: WorkflowRunStepWhereClause = null): WorkflowRunStepAggregate!
-  workflowRuns(input: queryInput_workflowRuns_input_Input): [query_workflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
+  workflowRuns(orderBy: [WorkflowRunOrderByClause!] = [], where: WorkflowRunWhereClause = null): [WorkflowRun!]!
   workflowRunsAggregate(where: WorkflowRunWhereClause = null): WorkflowRunAggregate!
   workflowVersions(orderBy: [WorkflowVersionOrderByClause!] = [], where: WorkflowVersionWhereClause = null): [WorkflowVersion!]!
   workflowVersionsAggregate(where: WorkflowVersionWhereClause = null): WorkflowVersionAggregate!
@@ -4085,92 +4084,6 @@ input queryInput_fedWorkflowRuns_input_where_workflowVersion_workflow_name_Input
   _in: [String]
 }
 
-input queryInput_workflowRuns_input_Input {
-  entityInputsInput: queryInput_workflowRuns_input_entityInputsInput_Input
-  orderBy: queryInput_workflowRuns_input_orderBy_Input
-  todoRemove: queryInput_workflowRuns_input_todoRemove_Input
-  where: queryInput_workflowRuns_input_where_Input
-}
-
-input queryInput_workflowRuns_input_entityInputsInput_Input {
-  where: queryInput_workflowRuns_input_entityInputsInput_where_Input
-}
-
-input queryInput_workflowRuns_input_entityInputsInput_where_Input {
-  fieldName: queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input
-}
-
-input queryInput_workflowRuns_input_entityInputsInput_where_fieldName_Input {
-  _eq: String
-}
-
-input queryInput_workflowRuns_input_orderBy_Input {
-  startedAt: String
-  workflowVersion: queryInput_workflowRuns_input_orderBy_workflowVersion_Input
-}
-
-input queryInput_workflowRuns_input_orderBy_workflowVersion_Input {
-  version: String
-  workflow: queryInput_workflowRuns_input_orderBy_workflowVersion_workflow_Input
-}
-
-input queryInput_workflowRuns_input_orderBy_workflowVersion_workflow_Input {
-  name: String
-}
-
-input queryInput_workflowRuns_input_todoRemove_Input {
-  authenticityToken: String
-  domain: String
-  host: [Int]
-  locationV2: [String]
-  orderBy: String
-  orderDir: String
-  projectId: String
-  search: String
-  taxon: [Int]
-  taxonLevels: [String]
-  time: [String]
-  tissue: [String]
-  visibility: String
-  workflow: String
-}
-
-input queryInput_workflowRuns_input_where_Input {
-  collectionId: queryInput_workflowRuns_input_where_collectionId_Input
-  id: queryInput_workflowRuns_input_where_id_Input
-  ownerUserId: queryInput_workflowRuns_input_where_ownerUserId_Input
-  startedAt: queryInput_workflowRuns_input_where_startedAt_Input
-  workflowVersion: queryInput_workflowRuns_input_where_workflowVersion_Input
-}
-
-input queryInput_workflowRuns_input_where_collectionId_Input {
-  _in: [Int]
-}
-
-input queryInput_workflowRuns_input_where_id_Input {
-  _in: [String]
-}
-
-input queryInput_workflowRuns_input_where_ownerUserId_Input {
-  _eq: Int
-}
-
-input queryInput_workflowRuns_input_where_startedAt_Input {
-  _gte: String
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_Input {
-  workflow: queryInput_workflowRuns_input_where_workflowVersion_workflow_Input
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_workflow_Input {
-  name: queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input
-}
-
-input queryInput_workflowRuns_input_where_workflowVersion_workflow_name_Input {
-  _in: [String]
-}
-
 type query_AmrWorkflowResults_amr_hit_items {
   aro_accession: String
   contig_coverage_breadth: String
@@ -4839,37 +4752,6 @@ type query_fedWorkflowRuns_items_workflowVersion {
 }
 
 type query_fedWorkflowRuns_items_workflowVersion_workflow {
-  name: String
-}
-
-type query_workflowRuns_items {
-  entityInputs: query_workflowRuns_items_entityInputs!
-  id: String!
-  ownerUserId: Int!
-  startedAt: String
-  status: String
-  workflowVersion: query_workflowRuns_items_workflowVersion
-}
-
-type query_workflowRuns_items_entityInputs {
-  edges: [query_workflowRuns_items_entityInputs_edges_items]!
-}
-
-type query_workflowRuns_items_entityInputs_edges_items {
-  node: query_workflowRuns_items_entityInputs_edges_items_node!
-}
-
-type query_workflowRuns_items_entityInputs_edges_items_node {
-  entityType: String
-  inputEntityId: String
-}
-
-type query_workflowRuns_items_workflowVersion {
-  version: String
-  workflow: query_workflowRuns_items_workflowVersion_workflow
-}
-
-type query_workflowRuns_items_workflowVersion_workflow {
   name: String
 }"
 `;

@@ -1,5 +1,5 @@
 query WorkflowRunsQuery {
-    workflowRuns(input: {}) {
+    fedWorkflowRuns(input: {}) {
         id
         entityInputs {
             edges {

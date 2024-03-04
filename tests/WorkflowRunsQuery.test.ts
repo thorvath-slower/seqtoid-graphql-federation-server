@@ -41,15 +41,18 @@ describe("workflowRuns query:", () => {
       ],
     }));
 
-    const result = await execute(getExampleQuery("workflow-runs-query-empty"), {});
+    const result = await execute(
+      getExampleQuery("workflow-runs-query-empty"),
+      {},
+    );
 
     expect(httpUtils.get).toHaveBeenCalledWith({
       url: "/workflow_runs.json?&mode=basic&limit=10000000&offset=0&listAllIds=false",
       args: expect.anything(),
       context: expect.anything(),
     });
-    expect(result.data.workflowRuns).toHaveLength(2);
-    expect(result.data.workflowRuns[0]).toEqual(
+    expect(result.data.fedWorkflowRuns).toHaveLength(2);
+    expect(result.data.fedWorkflowRuns[0]).toEqual(
       expect.objectContaining({
         id: "1",
         entityInputs: {
@@ -64,7 +67,7 @@ describe("workflowRuns query:", () => {
         },
       }),
     );
-    expect(result.data.workflowRuns[1]).toEqual(
+    expect(result.data.fedWorkflowRuns[1]).toEqual(
       expect.objectContaining({
         id: "3",
         entityInputs: {
@@ -86,7 +89,10 @@ describe("workflowRuns query:", () => {
       workflow_runs: [],
     }));
 
-    const result = await execute(getExampleQuery("workflow-runs-query-order-by"), {});
+    const result = await execute(
+      getExampleQuery("workflow-runs-query-order-by"),
+      {},
+    );
 
     // TODO: Add support for NextGen orderBy field.
     expect(httpUtils.get).toHaveBeenCalledWith({
@@ -94,7 +100,7 @@ describe("workflowRuns query:", () => {
       args: expect.anything(),
       context: expect.anything(),
     });
-    expect(result.data.workflowRuns).toHaveLength(0);
+    expect(result.data.fedWorkflowRuns).toHaveLength(0);
   });
 
   describe("validConsensusGenomes query", () => {

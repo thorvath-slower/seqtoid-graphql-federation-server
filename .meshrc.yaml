@@ -22,16 +22,6 @@ sources:
         operationHeaders:
           Cookie: "{context.headers['authorization']}"
           Authorization: "{context.headers.authorization}"
-    transforms:
-      - rename:
-          mode: wrap
-          renames:
-            - from:
-                type: Query
-                field: workflowRuns
-              to:
-                type: Query
-                field: tempWorkflowRuns
   - name: CZIDREST
     handler:
       jsonSchema:
@@ -182,13 +172,6 @@ sources:
               { "selectedIds": [28114, 28151], "workflow": "short-read-mngs", "authenticityToken": "token" }
             responseSchema: ./json-schemas/validateUsersCanDeleteObjects.json
             responseTypeName: ValidateUserCanDeleteObjects
-          - type: Query
-            field: workflowRuns
-            path: /workflow_runs.json
-            method: POST
-            requestSchema: ./json-schemas/workflowRunsRequest.json
-            responseSchema: ./json-schemas/workflowRunsResponse.json
-            responseTypeName: workflowRuns
           - type: Query
             field: fedWorkflowRuns
             path: /workflow_runs.json
