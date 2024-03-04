@@ -1,17 +1,19 @@
 mutation BulkDownloadModalMutation(
-    $workflowRunIds: [Int]
-    $downloadFormat: String!
-    $downloadType: String!
-    $workflow: String!
-    $authenticityToken: String!
-  ) {
-    CreateBulkDownload(
-      input: {
-        workflowRunIds: $workflowRunIds,
-        downloadFormat: $downloadFormat, 
-        downloadType: $downloadType, 
-        workflow: $workflow, 
-        authenticityToken: $authenticityToken,
-      }
-    )
-  }
+  $workflowRunIds: [Int]
+  $workflowRunIdsStrings: [String]
+  $downloadFormat: String!
+  $downloadType: String!
+  $workflow: String!
+  $authenticityToken: String!
+) {
+  CreateBulkDownload(
+    input: {
+      workflowRunIds: $workflowRunIds
+      workflowRunIdsStrings: $workflowRunIdsStrings
+      downloadFormat: $downloadFormat
+      downloadType: $downloadType
+      workflow: $workflow
+      authenticityToken: $authenticityToken
+    }
+  )
+}

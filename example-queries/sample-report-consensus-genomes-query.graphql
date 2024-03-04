@@ -1,5 +1,5 @@
 query ConsensusGenomeReportQuery($workflowRunId: String) {
-  fedConsensusGenomes(input: { where: { id: { _eq: $workflowRunId } } }) {
+  fedConsensusGenomes(input: { where: { producingRunId: { _eq: $workflowRunId } } }) {
     ...ConsensusGenomeMetricsTableFragment
     ...ConsensusGenomeCoverageViewFragment
     ...ConsensusGenomeHistogramFragment

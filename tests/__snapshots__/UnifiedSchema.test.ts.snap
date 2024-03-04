@@ -3594,6 +3594,7 @@ input mutationInput_CreateBulkDownload_input_Input {
   downloadType: String
   workflow: String
   workflowRunIds: [Int]
+  workflowRunIdsStrings: [String]
 }
 
 input mutationInput_DeleteSamples_input_Input @example(subgraph: "CZIDREST", value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
@@ -3697,6 +3698,7 @@ input queryInput_BulkDownloadCGOverview_input_Input {
   includeMetadata: Boolean!
   workflow: String!
   workflowRunIds: [Int]!
+  workflowRunIdsStrings: [JSON]
 }
 
 input queryInput_MetadataFields_input_Input {
@@ -3766,15 +3768,11 @@ input queryInput_fedConsensusGenomes_input_todoRemove_Input {
 }
 
 input queryInput_fedConsensusGenomes_input_where_Input {
-  id: queryInput_fedConsensusGenomes_input_where_id_Input
   producingRunId: queryInput_fedConsensusGenomes_input_where_producingRunId_Input
 }
 
-input queryInput_fedConsensusGenomes_input_where_id_Input {
-  _eq: String
-}
-
 input queryInput_fedConsensusGenomes_input_where_producingRunId_Input {
+  _eq: String
   _in: [String]
 }
 

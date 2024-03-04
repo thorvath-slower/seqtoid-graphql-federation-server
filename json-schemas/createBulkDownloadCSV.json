@@ -10,6 +10,12 @@
                 "type": "integer"
             }
         },
+        "workflowRunIdsStrings": {
+            "type": "array",
+            "items": {
+                "type": "strings"
+            }
+        },
         "workflow": {
             "type": "string"
         },

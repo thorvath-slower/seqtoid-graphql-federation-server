@@ -24,18 +24,17 @@ describe.only("BulkDownloadCGOverview Query", () => {
     const bulkDownloadCGOverviewResponse = getSampleResponse("cgOverview");
 
     it("should give correct response", async () => {
-      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(
-        () => bulkDownloadCGOverviewResponse
-      );
+      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(() => bulkDownloadCGOverviewResponse);
       const result = await execute(query, {
         authenticityToken: "authtoken1234",
         downloadType: "consensus_genome_overview",
         includeMetadata: false,
         workflow: "consensus_genome",
         workflowRunIds: [1991, 2007],
+        workflowRunIdsStrings: ["1991", "2007"],
       });
       expect(result.data.BulkDownloadCGOverview.cgOverviewRows).toStrictEqual(
-        bulkDownloadCGOverviewResponse.cg_overview_rows
+        bulkDownloadCGOverviewResponse.cg_overview_rows,
       );
     });
   });

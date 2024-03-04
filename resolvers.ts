@@ -147,14 +147,17 @@ export const resolvers: Resolvers = {
       if (!args?.input) {
         throw new Error("No input provided");
       }
-      const { downloadType, workflow, includeMetadata, workflowRunIds } = args?.input;
+      const { downloadType, workflow, includeMetadata, workflowRunIds, workflowRunIdsStrings } = args?.input;
+
+      //array of strings to array of numbers
+      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id => parseInt(id));
       const body = {
         download_type: downloadType,
         workflow: workflow,
         params: {
           include_metadata: { value: includeMetadata },
           sample_ids: {
-            value: workflowRunIds,
+            value: workflowRunIdsNumbers ? workflowRunIdsNumbers : workflowRunIds,
           },
           workflow: {
             value: workflow,
@@ -184,10 +187,10 @@ export const resolvers: Resolvers = {
       }
       // Next Gen Not Enabled
       const input = args.input;
-      if (input?.where?.id?._eq) {
+      if (input?.where?.producingRunId?._eq) {
         // if there is an _eq in the response than it is a call for a single workflow run result
         // and the rails call will be like this:
-        const workflowRunId = input?.where?.id?._eq;
+        const workflowRunId = input?.where?.producingRunId?._eq;
         const data = await get({
           url: `/workflow_runs/${workflowRunId}/results`,
           args,
@@ -831,7 +834,7 @@ export const resolvers: Resolvers = {
           context,
         });
         return workflowRuns.map(run => ({
-          id: run.id,
+          id: run.id.toString(),
           ownerUserId: run.owner_user_id,
           status: run.status,
         }));
