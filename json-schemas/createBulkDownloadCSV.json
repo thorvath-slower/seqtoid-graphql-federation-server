@@ -13,7 +13,7 @@
         "workflowRunIdsStrings": {
             "type": "array",
             "items": {
-                "type": "strings"
+                "type": "string"
             }
         },
         "workflow": {
@@ -26,5 +26,5 @@
             "type": "string"
         }
     },
-    "required": ["downloadType", "workflowRunIds", "workflow", "includeMetadata", "authenticityToken"]
+    "required": ["downloadType", "workflow", "includeMetadata", "authenticityToken"]
 }

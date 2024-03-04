@@ -3696,8 +3696,8 @@ input queryInput_BulkDownloadCGOverview_input_Input {
   downloadType: String!
   includeMetadata: Boolean!
   workflow: String!
-  workflowRunIds: [Int]!
-  workflowRunIdsStrings: [JSON]
+  workflowRunIds: [Int]
+  workflowRunIdsStrings: [String]
 }
 
 input queryInput_MetadataFields_input_Input {
