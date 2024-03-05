@@ -2,18 +2,17 @@
 help: ## display help for this makefile
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: build 
+.PHONY: build
 build: ## Build docker images
 	docker compose build
 
-.PHONY: update-schema
-update-schema: ## Update schema
-	rm tests/__snapshots__/UnifiedSchema.test.ts.snap
+.PHONY: update-schema-snapshot
+update-schema-snapshot: ## Update test schema snapshot
 	docker compose run gql npm test -- tests/UnifiedSchema.test.ts -u
 
 .PHONY: test
 test: ## Run tests
-	docker compose run --rm gql npm test 
+	docker compose run --rm gql npm test
 
 .PHONY: local-init
 local-init: ## Build & start the service

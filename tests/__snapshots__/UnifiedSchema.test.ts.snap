@@ -585,6 +585,7 @@ input EntityWhereClause {
 type File {
   compressionType: Int
   contents: String
+  createdAt: DateTime!
   downloadLink(expiration: Int! = 3600): SignedURL
   entity(where: EntityWhereClause = null): Entity
   entityFieldName: String!
@@ -596,6 +597,8 @@ type File {
   protocol: FileAccessProtocol!
   size: Int
   status: FileStatus!
+  updatedAt: DateTime
+  uploadError: String
 }
 
 enum FileAccessProtocol {
@@ -1174,6 +1177,11 @@ The \`JSON\` scalar type represents JSON values as specified by [ECMA-404](http:
 """
 scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
+input LimitOffsetClause {
+  limit: Int
+  offset: Int
+}
+
 type Metadatum implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
@@ -1720,12 +1728,12 @@ type Query {
   UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(subgraph: "CZIDREST", path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
   ZipLink(workflowRunId: String): ZipLink @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
-  accessions(orderBy: [AccessionOrderByClause!] = [], where: AccessionWhereClause = null): [Accession!]!
+  accessions(limitOffset: LimitOffsetClause = null, orderBy: [AccessionOrderByClause!] = [], where: AccessionWhereClause = null): [Accession!]!
   accessionsAggregate(where: AccessionWhereClause = null): AccessionAggregate!
   appConfig(id: ID!): AppConfig
-  bulkDownloads(orderBy: [BulkDownloadOrderByClause!] = [], where: BulkDownloadWhereClause = null): [BulkDownload!]!
+  bulkDownloads(limitOffset: LimitOffsetClause = null, orderBy: [BulkDownloadOrderByClause!] = [], where: BulkDownloadWhereClause = null): [BulkDownload!]!
   bulkDownloadsAggregate(where: BulkDownloadWhereClause = null): BulkDownloadAggregate!
-  consensusGenomes(orderBy: [ConsensusGenomeOrderByClause!] = [], where: ConsensusGenomeWhereClause = null): [ConsensusGenome!]!
+  consensusGenomes(limitOffset: LimitOffsetClause = null, orderBy: [ConsensusGenomeOrderByClause!] = [], where: ConsensusGenomeWhereClause = null): [ConsensusGenome!]!
   consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate!
   fedBulkDownloads(input: queryInput_fedBulkDownloads_input_Input): [query_fedBulkDownloads_items] @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
   fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
@@ -1734,15 +1742,15 @@ type Query {
   fedWorkflowRuns(input: queryInput_fedWorkflowRuns_input_Input): [query_fedWorkflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
   fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): [query_fedWorkflowRunsAggregate_items] @httpOperation(subgraph: "CZIDREST", path: "/projects.json", httpMethod: GET)
   files(where: FileWhereClause = null): [File!]!
-  genomicRanges(orderBy: [GenomicRangeOrderByClause!] = [], where: GenomicRangeWhereClause = null): [GenomicRange!]!
+  genomicRanges(limitOffset: LimitOffsetClause = null, orderBy: [GenomicRangeOrderByClause!] = [], where: GenomicRangeWhereClause = null): [GenomicRange!]!
   genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
-  hostOrganisms(orderBy: [HostOrganismOrderByClause!] = [], where: HostOrganismWhereClause = null): [HostOrganism!]!
+  hostOrganisms(limitOffset: LimitOffsetClause = null, orderBy: [HostOrganismOrderByClause!] = [], where: HostOrganismWhereClause = null): [HostOrganism!]!
   hostOrganismsAggregate(where: HostOrganismWhereClause = null): HostOrganismAggregate!
-  indexFiles(orderBy: [IndexFileOrderByClause!] = [], where: IndexFileWhereClause = null): [IndexFile!]!
+  indexFiles(limitOffset: LimitOffsetClause = null, orderBy: [IndexFileOrderByClause!] = [], where: IndexFileWhereClause = null): [IndexFile!]!
   indexFilesAggregate(where: IndexFileWhereClause = null): IndexFileAggregate!
-  metadatas(orderBy: [MetadatumOrderByClause!] = [], where: MetadatumWhereClause = null): [Metadatum!]!
+  metadatas(limitOffset: LimitOffsetClause = null, orderBy: [MetadatumOrderByClause!] = [], where: MetadatumWhereClause = null): [Metadatum!]!
   metadatasAggregate(where: MetadatumWhereClause = null): MetadatumAggregate!
-  metricsConsensusGenomes(orderBy: [MetricConsensusGenomeOrderByClause!] = [], where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
+  metricsConsensusGenomes(limitOffset: LimitOffsetClause = null, orderBy: [MetricConsensusGenomeOrderByClause!] = [], where: MetricConsensusGenomeWhereClause = null): [MetricConsensusGenome!]!
   metricsConsensusGenomesAggregate(where: MetricConsensusGenomeWhereClause = null): MetricConsensusGenomeAggregate!
   node(
     """The ID of the object."""
@@ -1754,29 +1762,29 @@ type Query {
   ): [Node!]!
   pathogenList(version: String): PathogenList!
   project(id: Int!): Project!
-  referenceGenomes(orderBy: [ReferenceGenomeOrderByClause!] = [], where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
+  referenceGenomes(limitOffset: LimitOffsetClause = null, orderBy: [ReferenceGenomeOrderByClause!] = [], where: ReferenceGenomeWhereClause = null): [ReferenceGenome!]!
   referenceGenomesAggregate(where: ReferenceGenomeWhereClause = null): ReferenceGenomeAggregate!
   sample(sampleId: Int!): Sample!
   sampleReadsStats(sampleIds: [String!]!): SampleReadsStatsList!
-  samples(orderBy: [SampleOrderByClause!] = [], where: SampleWhereClause = null): [Sample!]!
+  samples(limitOffset: LimitOffsetClause = null, orderBy: [SampleOrderByClause!] = [], where: SampleWhereClause = null): [Sample!]!
   samplesAggregate(where: SampleWhereClause = null): SampleAggregate!
   samplesList(annotations: [Annotation!], basic: Boolean, domain: String, hostIds: [Int!], limit: Int, listAllIds: Boolean, location: String, locationV2: [String!], offset: Int, orderBy: String, orderDir: String, projectId: Int, requestedSampleIds: [Int!], sampleIds: [Int!], searchString: String, taxIds: [Int!], taxLevels: [String!], thresholdFilterInfo: String, time: [String!], tissue: [String!], visibility: [String!], workflow: String): SampleList!
-  sequencingReads(orderBy: [SequencingReadOrderByClause!] = [], where: SequencingReadWhereClause = null): [SequencingRead!]!
+  sequencingReads(limitOffset: LimitOffsetClause = null, orderBy: [SequencingReadOrderByClause!] = [], where: SequencingReadWhereClause = null): [SequencingRead!]!
   sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate!
-  taxa(orderBy: [TaxonOrderByClause!] = [], where: TaxonWhereClause = null): [Taxon!]!
+  taxa(limitOffset: LimitOffsetClause = null, orderBy: [TaxonOrderByClause!] = [], where: TaxonWhereClause = null): [Taxon!]!
   taxaAggregate(where: TaxonWhereClause = null): TaxonAggregate!
-  upstreamDatabases(orderBy: [UpstreamDatabaseOrderByClause!] = [], where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
+  upstreamDatabases(limitOffset: LimitOffsetClause = null, orderBy: [UpstreamDatabaseOrderByClause!] = [], where: UpstreamDatabaseWhereClause = null): [UpstreamDatabase!]!
   upstreamDatabasesAggregate(where: UpstreamDatabaseWhereClause = null): UpstreamDatabaseAggregate!
   user(archetypes: String!, email: String!, institution: String!, name: String!, role: Int!, segments: String!): User!
-  workflowRunEntityInputs(orderBy: [WorkflowRunEntityInputOrderByClause!] = [], where: WorkflowRunEntityInputWhereClause = null): [WorkflowRunEntityInput!]!
+  workflowRunEntityInputs(limitOffset: LimitOffsetClause = null, orderBy: [WorkflowRunEntityInputOrderByClause!] = [], where: WorkflowRunEntityInputWhereClause = null): [WorkflowRunEntityInput!]!
   workflowRunEntityInputsAggregate(where: WorkflowRunEntityInputWhereClause = null): WorkflowRunEntityInputAggregate!
-  workflowRunSteps(orderBy: [WorkflowRunStepOrderByClause!] = [], where: WorkflowRunStepWhereClause = null): [WorkflowRunStep!]!
+  workflowRunSteps(limitOffset: LimitOffsetClause = null, orderBy: [WorkflowRunStepOrderByClause!] = [], where: WorkflowRunStepWhereClause = null): [WorkflowRunStep!]!
   workflowRunStepsAggregate(where: WorkflowRunStepWhereClause = null): WorkflowRunStepAggregate!
-  workflowRuns(orderBy: [WorkflowRunOrderByClause!] = [], where: WorkflowRunWhereClause = null): [WorkflowRun!]!
+  workflowRuns(limitOffset: LimitOffsetClause = null, orderBy: [WorkflowRunOrderByClause!] = [], where: WorkflowRunWhereClause = null): [WorkflowRun!]!
   workflowRunsAggregate(where: WorkflowRunWhereClause = null): WorkflowRunAggregate!
-  workflowVersions(orderBy: [WorkflowVersionOrderByClause!] = [], where: WorkflowVersionWhereClause = null): [WorkflowVersion!]!
+  workflowVersions(limitOffset: LimitOffsetClause = null, orderBy: [WorkflowVersionOrderByClause!] = [], where: WorkflowVersionWhereClause = null): [WorkflowVersion!]!
   workflowVersionsAggregate(where: WorkflowVersionWhereClause = null): WorkflowVersionAggregate!
-  workflows(orderBy: [WorkflowOrderByClause!] = [], where: WorkflowWhereClause = null): [Workflow!]!
+  workflows(limitOffset: LimitOffsetClause = null, orderBy: [WorkflowOrderByClause!] = [], where: WorkflowWhereClause = null): [Workflow!]!
   workflowsAggregate(where: WorkflowWhereClause = null): WorkflowAggregate!
 }
 
