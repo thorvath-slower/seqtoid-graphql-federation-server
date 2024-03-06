@@ -176,8 +176,8 @@ sources:
             field: fedWorkflowRuns
             path: /workflow_runs.json
             method: POST
-            requestSchema: ./json-schemas/fedWorkflowRunsRequest.json
-            responseSchema: ./json-schemas/fedWorkflowRunsResponse.json
+            requestSchema: ./json-schemas/workflowRunsRequest.json
+            responseSchema: ./json-schemas/workflowRunsResponse.json
             responseTypeName: fedWorkflowRuns
           - type: Query
             field: fedWorkflowRunsAggregate

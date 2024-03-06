@@ -3898,8 +3898,10 @@ input queryInput_fedSamples_input_where_sequencingReads_taxon_name_Input {
 input queryInput_fedSequencingReads_input_Input {
   consensusGenomesInput: queryInput_fedSequencingReads_input_consensusGenomesInput_Input
   limit: Int
+  limitOffset: queryInput_fedSequencingReads_input_limitOffset_Input
   offset: Int
   orderBy: queryInput_fedSequencingReads_input_orderBy_Input
+  orderByArray: [queryInput_fedSequencingReads_input_orderByArray_items_Input]
   todoRemove: queryInput_fedSequencingReads_input_todoRemove_Input
   where: queryInput_fedSequencingReads_input_where_Input
 }
@@ -3914,6 +3916,38 @@ input queryInput_fedSequencingReads_input_consensusGenomesInput_where_Input {
 
 input queryInput_fedSequencingReads_input_consensusGenomesInput_where_producingRunId_Input {
   _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_limitOffset_Input {
+  limit: Int
+  offset: Int
+}
+
+input queryInput_fedSequencingReads_input_orderByArray_items_Input {
+  medakaModel: String
+  nucleicAcid: String
+  protocol: String
+  sample: queryInput_fedSequencingReads_input_orderByArray_items_sample_Input
+  technology: String
+}
+
+input queryInput_fedSequencingReads_input_orderByArray_items_sample_Input {
+  collectionLocation: String
+  hostOrganism: queryInput_fedSequencingReads_input_orderByArray_items_sample_hostOrganism_Input
+  metadata: queryInput_fedSequencingReads_input_orderByArray_items_sample_metadata_Input
+  name: String
+  notes: String
+  sampleType: String
+  waterControl: String
+}
+
+input queryInput_fedSequencingReads_input_orderByArray_items_sample_hostOrganism_Input {
+  name: String
+}
+
+input queryInput_fedSequencingReads_input_orderByArray_items_sample_metadata_Input {
+  dir: String
+  fieldName: String
 }
 
 input queryInput_fedSequencingReads_input_orderBy_Input {
@@ -4009,6 +4043,7 @@ input queryInput_fedWorkflowRunsAggregate_input_where_id_Input {
 input queryInput_fedWorkflowRuns_input_Input {
   entityInputsInput: queryInput_fedWorkflowRuns_input_entityInputsInput_Input
   orderBy: queryInput_fedWorkflowRuns_input_orderBy_Input
+  orderByArray: [queryInput_fedWorkflowRuns_input_orderByArray_items_Input]
   todoRemove: queryInput_fedWorkflowRuns_input_todoRemove_Input
   where: queryInput_fedWorkflowRuns_input_where_Input
 }
@@ -4025,18 +4060,17 @@ input queryInput_fedWorkflowRuns_input_entityInputsInput_where_fieldName_Input {
   _eq: String
 }
 
+input queryInput_fedWorkflowRuns_input_orderByArray_items_Input {
+  startedAt: String
+  workflowVersion: queryInput_fedWorkflowRuns_input_orderByArray_items_workflowVersion_Input
+}
+
+input queryInput_fedWorkflowRuns_input_orderByArray_items_workflowVersion_Input {
+  version: String
+}
+
 input queryInput_fedWorkflowRuns_input_orderBy_Input {
   startedAt: String
-  workflowVersion: queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_Input
-}
-
-input queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_Input {
-  version: String
-  workflow: queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_workflow_Input
-}
-
-input queryInput_fedWorkflowRuns_input_orderBy_workflowVersion_workflow_Input {
-  name: String
 }
 
 input queryInput_fedWorkflowRuns_input_todoRemove_Input {
@@ -4542,14 +4576,13 @@ type query_fedConsensusGenomes_items {
   accession: query_fedConsensusGenomes_items_accession
   metrics: query_fedConsensusGenomes_items_metrics
   producingRunId: String
-  referenceGenome: query_fedConsensusGenomes_items_referenceGenome
   sequencingRead: query_fedConsensusGenomes_items_sequencingRead
   taxon: query_fedConsensusGenomes_items_taxon
 }
 
 type query_fedConsensusGenomes_items_accession {
-  accessionId: String
-  accessionName: String
+  accessionId: String!
+  accessionName: String!
 }
 
 type query_fedConsensusGenomes_items_metrics {
@@ -4568,11 +4601,6 @@ type query_fedConsensusGenomes_items_metrics {
   refSnps: Int
   referenceGenomeLength: Float
   totalReads: Int
-}
-
-type query_fedConsensusGenomes_items_referenceGenome {
-  accessionId: String
-  accessionName: String
 }
 
 type query_fedConsensusGenomes_items_sequencingRead {
@@ -4656,10 +4684,16 @@ type query_fedSequencingReads_items_consensusGenomes_edges_items {
 }
 
 type query_fedSequencingReads_items_consensusGenomes_edges_items_node {
+  accession: query_fedSequencingReads_items_consensusGenomes_edges_items_node_accession
   metrics: query_fedSequencingReads_items_consensusGenomes_edges_items_node_metrics
   producingRunId: String
   referenceGenome: query_fedSequencingReads_items_consensusGenomes_edges_items_node_referenceGenome
   taxon: query_fedSequencingReads_items_consensusGenomes_edges_items_node_taxon
+}
+
+type query_fedSequencingReads_items_consensusGenomes_edges_items_node_accession {
+  accessionId: String!
+  accessionName: String!
 }
 
 type query_fedSequencingReads_items_consensusGenomes_edges_items_node_metrics {
@@ -4736,6 +4770,7 @@ type query_fedWorkflowRuns_items {
   entityInputs: query_fedWorkflowRuns_items_entityInputs!
   id: String!
   ownerUserId: Int!
+  rawInputsJson: String
   startedAt: String
   status: String
   workflowVersion: query_fedWorkflowRuns_items_workflowVersion

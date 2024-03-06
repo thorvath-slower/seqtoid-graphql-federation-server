@@ -24,7 +24,13 @@ export const get = async ({
         console.error("You must pass a service type to call next gen");
         throw new Error("You must pass a service type to call next gen");
       } else {
-        return fetchFromNextGen({ args, context, serviceType, fullResponse, customQuery });
+        return fetchFromNextGen({
+          args,
+          context,
+          serviceType,
+          fullResponse,
+          customQuery,
+        });
       }
     } else {
       if (!url) {
@@ -92,17 +98,25 @@ export const fetchFromNextGen = async ({
   serviceType,
   fullResponse,
   customQuery,
+  customVariables,
 }: {
   args;
   context;
   serviceType: "workflows" | "entities";
   fullResponse?: boolean;
   customQuery?: string;
+  customVariables?: object;
 }) => {
   try {
     const enrichedToken = await getEnrichedToken(context);
-    const baseUrl = serviceType === "workflows" ? process.env.NEXTGEN_WORKFLOWS_URL : process.env.NEXTGEN_ENTITIES_URL;
-    const formattedQuery = customQuery ? customQuery : formatFedQueryForNextGen(context.params.query);
+    const baseUrl =
+      serviceType === "workflows"
+        ? process.env.NEXTGEN_WORKFLOWS_URL
+        : process.env.NEXTGEN_ENTITIES_URL;
+    const formattedQuery = customQuery
+      ? customQuery
+      : formatFedQueryForNextGen(context.params.query);
+    console.log(formattedQuery);
     const response = await fetch(`${baseUrl}/graphql`, {
       method: "POST",
       headers: {
@@ -113,7 +127,7 @@ export const fetchFromNextGen = async ({
       },
       body: JSON.stringify({
         query: formattedQuery,
-        variables: context.params.variables,
+        variables: customVariables ?? context.params.variables,
       }),
     });
     if (fullResponse === true) {

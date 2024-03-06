@@ -71,19 +71,22 @@
             "properties": {
                 "startedAt": {
                     "type": "string"
-                },
-                "workflowVersion": {
-                    "type": "object",
-                    "properties": {
-                        "version": {
-                            "type": "string"
-                        },
-                        "workflow": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string"
-                                }
+                }
+            }
+        },
+        "orderByArray": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "startedAt": {
+                        "type": "string"
+                    },
+                    "workflowVersion": {
+                        "type": "object",
+                        "properties": {
+                            "version": {
+                                "type": "string"
                             }
                         }
                     }

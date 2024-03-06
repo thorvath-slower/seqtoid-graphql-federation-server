@@ -7,6 +7,17 @@
         "offset": {
             "type": "integer"
         },
+        "limitOffset": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                }
+            }
+        },
         "where": {
             "type": "object",
             "properties": {
@@ -72,6 +83,65 @@
                                 },
                                 "dir": {
                                     "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "orderByArray": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "protocol": {
+                        "type": "string"
+                    },
+                    "technology": {
+                        "type": "string"
+                    },
+                    "medakaModel": {
+                        "type": "string"
+                    },
+                    "nucleicAcid": {
+                        "type": "string"
+                    },
+                    "sample": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "notes": {
+                                "type": "string"
+                            },
+                            "sampleType": {
+                                "type": "string"
+                            },
+                            "waterControl": {
+                                "type": "string"
+                            },
+                            "collectionLocation": {
+                                "type": "string"
+                            },
+                            "hostOrganism": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "metadata": {
+                                "type": "object",
+                                "properties": {
+                                    "fieldName": {
+                                        "type": "string"
+                                    },
+                                    "dir": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }

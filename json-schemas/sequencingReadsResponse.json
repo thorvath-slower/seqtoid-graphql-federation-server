@@ -141,6 +141,18 @@
                                                 }
                                             }
                                         },
+                                        "accession": {
+                                            "type": "object",
+                                            "properties": {
+                                                "accessionId": {
+                                                    "type": "string"
+                                                },
+                                                "accessionName": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": ["accessionId", "accessionName"]
+                                        },
                                         "metrics": {
                                             "type": "object",
                                             "properties": {

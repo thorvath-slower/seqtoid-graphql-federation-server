@@ -21,17 +21,6 @@
                 },
                 "required": ["name"]
             },
-            "referenceGenome": {
-                "type": "object",
-                "properties": {
-                    "accessionId": {
-                        "type": "string"
-                    },
-                    "accessionName": {
-                        "type": "string"
-                    }
-                }
-            },
             "accession": {
                 "type": "object",
                 "properties": {
@@ -41,7 +30,8 @@
                     "accessionName": {
                         "type": "string"
                     }
-                }
+                },
+                "required": ["accessionId", "accessionName"]
             },
             "metrics": {
                 "type": "object",

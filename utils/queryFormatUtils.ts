@@ -21,8 +21,15 @@ export const formatFedQueryForNextGen = (query: string): string => {
   const firstCurlyBracket = query.indexOf("{");
   const secondCurlyBracket = query.indexOf("{", firstCurlyBracket + 1);
   const fedIndex = query.indexOf("fed");
-  if (fedIndex !== -1 && fedIndex < secondCurlyBracket && fedIndex > firstCurlyBracket) {
-    const splitOnFirstFed = [query.substring(0, fedIndex + 4), query.substring(fedIndex + 4)];
+  if (
+    fedIndex !== -1 &&
+    fedIndex < secondCurlyBracket &&
+    fedIndex > firstCurlyBracket
+  ) {
+    const splitOnFirstFed = [
+      query.substring(0, fedIndex + 4),
+      query.substring(fedIndex + 4),
+    ];
     const splitQueryOnFed = splitOnFirstFed[0].split("fed");
     const firstLetterLowerCase = splitQueryOnFed[1][0].toLowerCase();
     splitQueryOnFed[1] = splitQueryOnFed[1].slice(1);
@@ -40,4 +47,65 @@ export const formatFedQueryForNextGen = (query: string): string => {
     .replace(/query_fedConsensusGenomes_items/g, "ConsensusGenome");
 
   return finishedQuery;
+};
+
+export const convertWorkflowRunsQuery = (query: string): string => {
+  return (
+    query
+      // Replace Fed variables.
+      .replace(
+        /query [\s\S]*?{/,
+        "query ($where: WorkflowRunWhereClause, $orderBy: [WorkflowRunOrderByClause!]) {",
+      )
+      // Remove fed prefix.
+      .replace("fedWorkflowRuns", "workflowRuns")
+      // Replace Fed arguments.
+      .replace("input: $input", "where: $where, orderBy: $orderBy")
+      // TODO: Make FE do this.
+      // Add entityInputs filter (Mesh can't expose nested argument types?).
+      .replace(
+        "entityInputs",
+        'entityInputs(where: { entityType: { _eq: "SequencingRead" } })',
+      )
+  );
+};
+
+export const convertSequencingReadsQuery = (query: string): string => {
+  let nextGenQuery = query
+    // Replace Fed variables.
+    .replace(
+      /query [\s\S]*?{/,
+      `query ($where: SequencingReadWhereClause, 
+              $orderBy: [SequencingReadOrderByClause!], 
+              $limitOffset: LimitOffsetClause, 
+              $producingRunIds: [UUID!]) {`,
+    )
+    // Remove fed prefix.
+    .replace("fedSequencingReads", "sequencingReads")
+    // Replace Fed arguments.
+    .replace(
+      "input: $input",
+      "where: $where, orderBy: $orderBy, limitOffset: $limitOffset",
+    )
+    // TODO: Make FE do this.
+    // Add consensusGenomes filter (Mesh can't expose nested argument types?).
+    .replace(
+      "consensusGenomes",
+      "consensusGenomes(where: { producingRunId: { _in: $producingRunIds } })",
+    );
+
+  for (const unsupportedField of [
+    "nucleicAcid",
+    "notes",
+    "collectionLocation",
+    "sampleType",
+    "waterControl",
+    "uploadError",
+    "ownerUserName",
+    /collection {[\s\S]*?}/,
+  ]) {
+    nextGenQuery = nextGenQuery.replace(unsupportedField, "");
+  }
+
+  return nextGenQuery;
 };
