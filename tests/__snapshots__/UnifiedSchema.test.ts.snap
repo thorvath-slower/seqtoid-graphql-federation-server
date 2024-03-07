@@ -4092,6 +4092,7 @@ input queryInput_fedWorkflowRuns_input_todoRemove_Input {
 
 input queryInput_fedWorkflowRuns_input_where_Input {
   collectionId: queryInput_fedWorkflowRuns_input_where_collectionId_Input
+  deprecatedById: queryInput_fedWorkflowRuns_input_where_deprecatedById_Input
   id: queryInput_fedWorkflowRuns_input_where_id_Input
   ownerUserId: queryInput_fedWorkflowRuns_input_where_ownerUserId_Input
   startedAt: queryInput_fedWorkflowRuns_input_where_startedAt_Input
@@ -4100,6 +4101,10 @@ input queryInput_fedWorkflowRuns_input_where_Input {
 
 input queryInput_fedWorkflowRuns_input_where_collectionId_Input {
   _in: [Int]
+}
+
+input queryInput_fedWorkflowRuns_input_where_deprecatedById_Input {
+  _is_null: Boolean
 }
 
 input queryInput_fedWorkflowRuns_input_where_id_Input {
