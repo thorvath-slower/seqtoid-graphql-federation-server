@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.14.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.13.0...v2.14.0) (2024-03-07)
+
+
+### Features
+
+* update staging env variables urls ([#153](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/153)) ([26afdd7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/26afdd7888752856d13d3fa255cb94dfcde6c23b))
+
 ## [2.13.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.12.0...v2.13.0) (2024-03-06)
 
 
