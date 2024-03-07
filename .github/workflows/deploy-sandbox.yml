@@ -37,6 +37,18 @@ jobs:
           app_config_name: API_URL
           app_config_value: ${{ vars.API_URL}}
           happy_env: sandbox
+      - name: Set CZ ID Entities URL
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: NEXTGEN_ENTITIES_URL
+          app_config_value: ${{ vars.NEXTGEN_ENTITIES_URL}}
+          happy_env: sandbox
+      - name: Set CZ ID Workflows URL
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: NEXTGEN_WORKFLOWS_URL
+          app_config_value: ${{ vars.NEXTGEN_WORKFLOWS_URL}}
+          happy_env: sandbox
       - name: Set allowed CORS origins
         uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
         with:
