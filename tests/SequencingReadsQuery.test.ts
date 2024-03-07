@@ -8,10 +8,13 @@ import { convertSequencingReadsQuery } from "../utils/queryFormatUtils";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
 jest.spyOn(httpUtils, "fetchFromNextGen");
+jest.spyOn(httpUtils, "getFromRails");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
   (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
+  (httpUtils.fetchFromNextGen as jest.Mock).mockClear();
+  (httpUtils.getFromRails as jest.Mock).mockClear();
 });
 
 const query = getExampleQuery("sequencing-reads-query");
@@ -457,5 +460,163 @@ describe("sequencingReads query:", () => {
         }
       }`,
     );
+  });
+
+  it("Joins NextGen and Rails data", async () => {
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          sequencingReads: [
+            {
+              id: "abc",
+              sample: {
+                railsSampleId: 123,
+              },
+              technology: "Technology A",
+              consensusGenomes: {
+                edges: [],
+              },
+            },
+            {
+              id: "def",
+              sample: {
+                railsSampleId: 123,
+              },
+              technology: "Technology B",
+              consensusGenomes: {
+                edges: [],
+              },
+            },
+            {
+              id: "ghi",
+              sample: {
+                railsSampleId: 456,
+              },
+              technology: "Technology C",
+              consensusGenomes: {
+                edges: [],
+              },
+            },
+          ],
+        },
+      }),
+    );
+    (httpUtils.getFromRails as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        samples: [
+          {
+            id: 123,
+            details: {
+              db_sample: {
+                sample_notes: "Note A",
+              },
+              derived_sample_output: {
+                project_name: "Project A",
+              },
+              metadata: {
+                collection_location_v2: "USA",
+                custom1: "Custom value 1",
+              },
+            },
+          },
+          {
+            id: 456,
+            details: {
+              db_sample: {
+                sample_notes: "Note B",
+              },
+              derived_sample_output: {
+                project_name: "Project B",
+              },
+              metadata: {
+                collection_location_v2: "Mexico",
+                custom2: "Custom value 2",
+              },
+            },
+          },
+        ],
+      }),
+    );
+
+    const sequencingReads = (await execute(query, {}, { params: { query } }))
+      .data.fedSequencingReads;
+
+    expect(sequencingReads).toMatchObject([
+      expect.objectContaining({
+        id: "abc",
+        technology: "Technology A",
+        sample: {
+          railsSampleId: 123,
+          collectionLocation: "USA",
+          notes: "Note A",
+          collection: {
+            name: "Project A",
+            public: false,
+          },
+          metadatas: {
+            edges: [
+              {
+                node: {
+                  fieldName: "custom1",
+                  value: "Custom value 1",
+                },
+              },
+            ],
+          },
+          waterControl: false,
+        },
+      }),
+      expect.objectContaining({
+        id: "def",
+        technology: "Technology B",
+        sample: {
+          railsSampleId: 123,
+          collectionLocation: "USA",
+          notes: "Note A",
+          collection: {
+            name: "Project A",
+            public: false,
+          },
+          metadatas: {
+            edges: [
+              {
+                node: {
+                  fieldName: "custom1",
+                  value: "Custom value 1",
+                },
+              },
+            ],
+          },
+          waterControl: false,
+        },
+      }),
+      expect.objectContaining({
+        id: "ghi",
+        technology: "Technology C",
+        sample: {
+          railsSampleId: 456,
+          collectionLocation: "Mexico",
+          notes: "Note B",
+          collection: {
+            name: "Project B",
+            public: false,
+          },
+          metadatas: {
+            edges: [
+              {
+                node: {
+                  fieldName: "custom2",
+                  value: "Custom value 2",
+                },
+              },
+            ],
+          },
+          waterControl: false,
+        },
+      }),
+    ]);
   });
 });

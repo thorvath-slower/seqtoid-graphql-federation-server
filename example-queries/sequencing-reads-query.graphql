@@ -12,12 +12,19 @@ query TestQuery {
         }
     }) {
         id
+        technology
         taxon {
             name
         }
         sample {
+            railsSampleId
             collectionLocation
             waterControl
+            notes
+            collection {
+                name
+                public
+            }
             metadatas {
                 edges {
                     node {
