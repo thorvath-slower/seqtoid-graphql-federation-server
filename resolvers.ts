@@ -492,6 +492,9 @@ export const resolvers: Resolvers = {
         );
         sampleInfo.pipeline_runs = updatedPipelineRuns;
       }
+      if (sampleInfo?.default_pipeline_run_id){
+        sampleInfo.default_pipeline_run_id = sampleInfo.default_pipeline_run_id.toString();
+      }
       if (sampleInfo?.workflow_runs) {
         const updatedWorkflowRuns = sampleInfo?.workflow_runs.map(
           workflowRun => {

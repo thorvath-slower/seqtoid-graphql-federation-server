@@ -2048,7 +2048,7 @@ type SampleEdge {
 type SampleForReport {
   created_at: String
   default_background_id: Int
-  default_pipeline_run_id: Int
+  default_pipeline_run_id: String
   editable: Boolean
   host_genome_id: Int
   id: String
