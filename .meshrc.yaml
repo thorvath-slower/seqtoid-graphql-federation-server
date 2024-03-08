@@ -97,6 +97,12 @@ sources:
             responseSchema: ./json-schemas/sampleMetadata.json
             responseTypeName: SampleMetadata
           - type: Query
+            field: SampleForReport
+            method: GET
+            path: /pub/{args.snapshotLinkId}/samples/{args.railsSampleId}.json
+            responseSchema: ./json-schemas/sampleForReportResponse.json
+            responseTypeName: SampleForReport
+          - type: Query
             field: MngsWorkflowResults
             path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}.json
             method: GET

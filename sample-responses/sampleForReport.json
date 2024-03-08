@@ -1,0 +1,80 @@
+{
+  "name": "name 143",
+  "created_at": "2023-10-17T07:09:23.000-07:00",
+  "updated_at": "2024-01-10T08:43:16.000-08:00",
+  "project_id": 1090,
+  "status": "checked",
+  "host_genome_id": 1,
+  "user_id": 263,
+  "upload_error": "hi",
+  "initial_workflow": "consensus-genome",
+  "project": {
+      "id": 1090,
+      "name": "floo sp92a"
+  },
+  "default_background_id": 93,
+  "default_pipeline_run_id": 11,
+  "editable": true,
+  "pipeline_runs": [
+    {
+        "id": 32723,
+        "pipeline_version": "8.3",
+        "wdl_version": "8.3.0",
+        "created_at": "2023-11-02T15:47:29.000-07:00",
+        "alignment_config_name": "2021-01-22",
+        "assembled": 0,
+        "adjusted_remaining_reads": 138,
+        "total_ercc_reads": 0,
+        "run_finalized": true
+    }
+  ],
+  "workflow_runs": [
+      {
+          "id": 2992,
+          "status": "SUCCEEDED",
+          "workflow": "consensus-genome",
+          "wdl_version": "3.4.18",
+          "executed_at": "2023-10-17T07:10:33.000-07:00",
+          "deprecated": false,
+          "input_error": "hi",
+          "inputs": {
+              "accession_id": "11",
+              "accession_name": "11",
+              "taxon_id":  "11",
+              "taxon_name":  "11",
+              "technology": "Illumina",
+              "ref_fasta": "consensus_TEST_SC2.fa",
+              "primer_bed": "Primer_K.bed",
+              "creation_source": "Viral CG Upload"
+          },
+          "parsed_cached_results": {
+              "coverage_viz": {
+                  "coverage_breadth": 1.0,
+                  "coverage_depth": 2121.9496861678917,
+                  "max_aligned_length": 29793,
+                  "total_length": 29793
+              },
+              "quality_metrics": {
+                  "ercc_mapped_reads": 0,
+                  "mapped_reads": 547079,
+                  "n_actg": 29779,
+                  "n_ambiguous": 1,
+                  "n_missing": 13,
+                  "ref_snps": 0,
+                  "total_reads": 597448,
+                  "percent_identity": 100.0,
+                  "gc_percent": 37.9,
+                  "percent_genome_called": 100.0,
+                  "reference_genome_length": 29790
+              },
+              "taxon_info": {
+                  "accession_id":  "11",
+                  "accession_name":  "11",
+                  "taxon_id":  "11",
+                  "taxon_name":  "11"
+              }
+          },
+          "run_finalized": true
+      }
+  ]
+}

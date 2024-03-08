@@ -1,0 +1,55 @@
+query SampleViewSampleQuery($railsSampleId: String, $snapshotLinkId: String) {
+  SampleForReport(
+    railsSampleId: $railsSampleId
+    snapshotLinkId: $snapshotLinkId
+  ) {
+    id
+    created_at
+    default_background_id
+    default_pipeline_run_id
+    editable
+    host_genome_id
+    initial_workflow
+    name
+    pipeline_runs {
+      adjusted_remaining_reads
+      alignment_config_name
+      assembled
+      created_at
+      id
+      pipeline_version
+      run_finalized
+      total_ercc_reads
+      wdl_version
+    }
+    project {
+      id
+      name
+    }
+    project_id
+    railsSampleId
+    status
+    updated_at
+    upload_error
+    user_id
+    workflow_runs {
+      deprecated
+      executed_at
+      id
+      input_error
+      inputs {
+        accession_id
+        accession_name
+        creation_source
+        ref_fasta
+        taxon_id
+        taxon_name
+        technology
+      }
+      run_finalized
+      status
+      wdl_version
+      workflow
+    }
+  }
+}

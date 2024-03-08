@@ -1,0 +1,151 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+          "type": "string"
+        },
+        "railsSampleId": {
+          "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        },
+        "project_id": {
+            "type": "integer"
+        },
+        "status": {
+            "type": "string"
+        },
+        "host_genome_id": {
+            "type": "integer"
+        },
+        "user_id": {
+            "type": "integer"
+        },
+        "upload_error": {
+            "type": "string"
+        },
+        "initial_workflow": {
+            "type": "string"
+        },
+        "project": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "default_background_id": {
+            "type": "integer"
+        },
+        "default_pipeline_run_id": {
+            "type": "integer"
+        },
+        "editable": {
+            "type": "boolean"
+        },
+        "pipeline_runs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "pipeline_version": {
+                        "type": "string"
+                    },
+                    "wdl_version": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "alignment_config_name": {
+                        "type": "string"
+                    },
+                    "assembled": {
+                        "type": "integer"
+                    },
+                    "adjusted_remaining_reads": {
+                        "type": "integer"
+                    },
+                    "total_ercc_reads": {
+                        "type": "integer"
+                    },
+                    "run_finalized": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "workflow_runs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "workflow": {
+                        "type": "string"
+                    },
+                    "wdl_version": {
+                        "type": "string"
+                    },
+                    "executed_at": {
+                        "type": "string"
+                    },
+                    "deprecated": {
+                        "type": "boolean"
+                    },
+                    "input_error": {
+                        "type": "string"
+                    },
+                    "inputs": {
+                        "type": "object",
+                        "properties": {
+                            "accession_id": {
+                                "type": "string"
+                            },
+                            "accession_name": {
+                                "type": "string"
+                            },
+                            "taxon_id": {
+                                "type": "string"
+                            },
+                            "taxon_name": {
+                                "type": "string"
+                            },
+                            "technology": {
+                                "type": "string"
+                            },
+                            "ref_fasta": {
+                                "type": "string"
+                            },
+                            "creation_source": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "run_finalized": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}
