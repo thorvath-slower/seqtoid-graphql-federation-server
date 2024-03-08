@@ -320,7 +320,7 @@ input BulkDownloadTypeEnumComparators {
   _gt: BulkDownloadType
   _gte: BulkDownloadType
   _in: [BulkDownloadType!]
-  _is_null: BulkDownloadType
+  _is_null: Boolean
   _lt: BulkDownloadType
   _lte: BulkDownloadType
   _neq: BulkDownloadType
@@ -503,7 +503,7 @@ input DatetimeComparators {
   _gt: DateTime
   _gte: DateTime
   _in: [DateTime!]
-  _is_null: DateTime
+  _is_null: Boolean
   _lt: DateTime
   _lte: DateTime
   _neq: DateTime
@@ -626,7 +626,7 @@ input FileStatusEnumComparators {
   _gt: FileStatus
   _gte: FileStatus
   _in: [FileStatus!]
-  _is_null: FileStatus
+  _is_null: Boolean
   _lt: FileStatus
   _lte: FileStatus
   _neq: FileStatus
@@ -657,7 +657,7 @@ input FloatComparators {
   _gt: Float
   _gte: Float
   _in: [Float!]
-  _is_null: Float
+  _is_null: Boolean
   _lt: Float
   _lte: Float
   _neq: Float
@@ -872,7 +872,7 @@ input HostOrganismCategoryEnumComparators {
   _gt: HostOrganismCategory
   _gte: HostOrganismCategory
   _in: [HostOrganismCategory!]
-  _is_null: HostOrganismCategory
+  _is_null: Boolean
   _lt: HostOrganismCategory
   _lte: HostOrganismCategory
   _neq: HostOrganismCategory
@@ -1140,7 +1140,7 @@ input IndexTypesEnumComparators {
   _gt: IndexTypes
   _gte: IndexTypes
   _in: [IndexTypes!]
-  _is_null: IndexTypes
+  _is_null: Boolean
   _lt: IndexTypes
   _lte: IndexTypes
   _neq: IndexTypes
@@ -1165,7 +1165,7 @@ input IntComparators {
   _gt: Int
   _gte: Int
   _in: [Int!]
-  _is_null: Int
+  _is_null: Boolean
   _lt: Int
   _lte: Int
   _neq: Int
@@ -1589,8 +1589,8 @@ type Mutation {
   deleteWorkflowRunStep(where: WorkflowRunStepWhereClauseMutations!): [WorkflowRunStep!]!
   deleteWorkflowVersion(where: WorkflowVersionWhereClauseMutations!): [WorkflowVersion!]!
   markUploadComplete(fileId: ID!): File!
-  runWorkflowRun(workflowRunId: ID!): WorkflowRun!
-  runWorkflowVersion(input: RunWorkflowVersionInput!): WorkflowRun!
+  runWorkflowRun(executionId: String = null, workflowRunId: ID!): WorkflowRun!
+  runWorkflowVersion(executionId: String = null, input: RunWorkflowVersionInput!): WorkflowRun!
   updateAccession(input: AccessionUpdateInput!, where: AccessionWhereClauseMutations!): [Accession!]!
   updateHostOrganism(input: HostOrganismUpdateInput!, where: HostOrganismWhereClauseMutations!): [HostOrganism!]!
   updateIndexFile(input: IndexFileUpdateInput!, where: IndexFileWhereClauseMutations!): [IndexFile!]!
@@ -2199,7 +2199,7 @@ input SequencingProtocolEnumComparators {
   _gt: SequencingProtocol
   _gte: SequencingProtocol
   _in: [SequencingProtocol!]
-  _is_null: SequencingProtocol
+  _is_null: Boolean
   _lt: SequencingProtocol
   _lte: SequencingProtocol
   _neq: SequencingProtocol
@@ -2385,7 +2385,7 @@ input SequencingTechnologyEnumComparators {
   _gt: SequencingTechnology
   _gte: SequencingTechnology
   _in: [SequencingTechnology!]
-  _is_null: SequencingTechnology
+  _is_null: Boolean
   _lt: SequencingTechnology
   _lte: SequencingTechnology
   _neq: SequencingTechnology
@@ -2407,7 +2407,7 @@ input StrComparators {
   _ilike: String
   _in: [String!]
   _iregex: String
-  _is_null: Int
+  _is_null: Boolean
   _like: String
   _lt: String
   _lte: String
@@ -2595,7 +2595,7 @@ input TaxonLevelEnumComparators {
   _gt: TaxonLevel
   _gte: TaxonLevel
   _in: [TaxonLevel!]
-  _is_null: TaxonLevel
+  _is_null: Boolean
   _lt: TaxonLevel
   _lte: TaxonLevel
   _neq: TaxonLevel
@@ -2675,6 +2675,15 @@ input TaxonWhereClause {
   ownerUserId: IntComparators
   producingRunId: UUIDComparators
   sequencingReads: SequencingReadWhereClause
+  taxClassId: UUIDComparators
+  taxFamilyId: UUIDComparators
+  taxGenusId: UUIDComparators
+  taxKingdomId: UUIDComparators
+  taxOrderId: UUIDComparators
+  taxParentId: UUIDComparators
+  taxPhylumId: UUIDComparators
+  taxSpeciesId: UUIDComparators
+  taxSuperkingdomId: UUIDComparators
   updatedAt: DatetimeComparators
   upstreamDatabase: UpstreamDatabaseWhereClause
   upstreamDatabaseIdentifier: StrComparators
@@ -2692,6 +2701,7 @@ input UUIDComparators {
   _gt: UUID
   _gte: UUID
   _in: [UUID!]
+  _is_null: Boolean
   _lt: UUID
   _lte: UUID
   _neq: UUID
@@ -3053,6 +3063,7 @@ enum WorkflowRunCountColumns {
   deprecatedBy
   endedAt
   entityInputs
+  errorMessage
   executionId
   id
   outputsJson
@@ -3199,6 +3210,7 @@ type WorkflowRunGroupByOptions {
   createdAt: DateTime
   deprecatedBy: WorkflowRunGroupByOptions
   endedAt: DateTime
+  errorMessage: String
   executionId: String
   id: UUID
   outputsJson: String
@@ -3216,6 +3228,7 @@ type WorkflowRunMinMaxColumns {
   collectionId: Int
   createdAt: DateTime
   endedAt: DateTime
+  errorMessage: String
   executionId: String
   outputsJson: String
   ownerUserId: Int
@@ -3237,6 +3250,7 @@ input WorkflowRunOrderByClause {
   createdAt: orderBy
   deprecatedBy: orderBy
   endedAt: orderBy
+  errorMessage: orderBy
   executionId: orderBy
   id: orderBy
   outputsJson: orderBy
@@ -3267,7 +3281,7 @@ input WorkflowRunStatusEnumComparators {
   _gt: WorkflowRunStatus
   _gte: WorkflowRunStatus
   _in: [WorkflowRunStatus!]
-  _is_null: WorkflowRunStatus
+  _is_null: Boolean
   _lt: WorkflowRunStatus
   _lte: WorkflowRunStatus
   _neq: WorkflowRunStatus
@@ -3387,7 +3401,7 @@ input WorkflowRunStepStatusEnumComparators {
   _gt: WorkflowRunStepStatus
   _gte: WorkflowRunStepStatus
   _in: [WorkflowRunStepStatus!]
-  _is_null: WorkflowRunStepStatus
+  _is_null: Boolean
   _lt: WorkflowRunStepStatus
   _lte: WorkflowRunStepStatus
   _neq: WorkflowRunStepStatus
@@ -3418,6 +3432,7 @@ input WorkflowRunStepWhereClauseMutations {
 input WorkflowRunUpdateInput {
   deprecatedById: ID = null
   endedAt: DateTime = null
+  errorMessage: String = null
   executionId: String = null
   outputsJson: String = null
   status: WorkflowRunStatus = null
@@ -3427,8 +3442,10 @@ input WorkflowRunUpdateInput {
 input WorkflowRunWhereClause {
   collectionId: IntComparators
   createdAt: DatetimeComparators
+  deprecatedById: UUIDComparators
   endedAt: DatetimeComparators
   entityInputs: WorkflowRunEntityInputWhereClause
+  errorMessage: StrComparators
   executionId: StrComparators
   id: UUIDComparators
   outputsJson: StrComparators
@@ -3458,6 +3475,7 @@ type WorkflowVersion implements EntityInterface & Node {
   _id: GlobalID!
   collectionId: Int!
   createdAt: DateTime!
+  deprecated: Boolean
   graphJson: String
   id: ID!
   manifest: String
@@ -3507,6 +3525,7 @@ type WorkflowVersionConnection {
 enum WorkflowVersionCountColumns {
   collectionId
   createdAt
+  deprecated
   graphJson
   id
   manifest
@@ -3520,6 +3539,7 @@ enum WorkflowVersionCountColumns {
 
 input WorkflowVersionCreateInput {
   collectionId: Int!
+  deprecated: Boolean = null
   graphJson: String = null
   manifest: String = null
   version: String = null
@@ -3538,6 +3558,7 @@ type WorkflowVersionEdge {
 type WorkflowVersionGroupByOptions {
   collectionId: Int
   createdAt: DateTime
+  deprecated: Boolean
   graphJson: String
   id: UUID
   manifest: String
@@ -3567,6 +3588,7 @@ type WorkflowVersionNumericalColumns {
 input WorkflowVersionOrderByClause {
   collectionId: orderBy
   createdAt: orderBy
+  deprecated: orderBy
   graphJson: orderBy
   id: orderBy
   manifest: orderBy
@@ -3580,6 +3602,7 @@ input WorkflowVersionOrderByClause {
 input WorkflowVersionWhereClause {
   collectionId: IntComparators
   createdAt: DatetimeComparators
+  deprecated: BoolComparators
   graphJson: StrComparators
   id: UUIDComparators
   manifest: StrComparators
