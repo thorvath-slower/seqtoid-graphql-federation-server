@@ -3625,9 +3625,10 @@ input mutationInput_CreateBulkDownload_input_Input {
   workflowRunIdsStrings: [String]
 }
 
-input mutationInput_DeleteSamples_input_Input @example(subgraph: "CZIDREST", value: "{\\"ids\\":[1],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+input mutationInput_DeleteSamples_input_Input @example(subgraph: "CZIDREST", value: "{\\"ids\\":[1],\\"idsStrings\\":[\\"1\\"],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
   authenticityToken: String
   ids: [Int]
+  idsStrings: [String]
   workflow: String
 }
 
@@ -3738,9 +3739,10 @@ input queryInput_SampleMetadata_input_Input @example(subgraph: "CZIDREST", value
   pipelineVersion: String
 }
 
-input queryInput_ValidateUserCanDeleteObjects_input_Input @example(subgraph: "CZIDREST", value: "{\\"selectedIds\\":[28114,28151],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
+input queryInput_ValidateUserCanDeleteObjects_input_Input @example(subgraph: "CZIDREST", value: "{\\"selectedIds\\":[28114,28151],\\"selectedIdsStrings\\":[\\"28114\\",\\"28151\\"],\\"workflow\\":\\"short-read-mngs\\",\\"authenticityToken\\":\\"token\\"}") {
   authenticityToken: String
   selectedIds: [Int]
+  selectedIdsStrings: [String]
   workflow: String
 }
 

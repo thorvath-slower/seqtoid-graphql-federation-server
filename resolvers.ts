@@ -9,7 +9,6 @@ import {
 } from "./.mesh";
 import {
   fetchFromNextGen,
-  getFromRails,
   get,
   getFromRails,
   postWithCSRF,
@@ -178,8 +177,8 @@ export const resolvers: Resolvers = {
       } = args?.input;
 
       //array of strings to array of numbers
-      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id =>
-        parseInt(id),
+      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(
+        id => id && parseInt(id),
       );
       const body = {
         download_type: downloadType,
@@ -212,14 +211,13 @@ export const resolvers: Resolvers = {
       }
     },
     fedConsensusGenomes: async (root, args, context) => {
+      /* --------------------- Next Gen ------------------------- */
       const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
         const ret = await get({ args, context, serviceType: "entities" });
         return ret.data.consensusGenomes;
       }
-
-      // CG REPORT:
-      // Next Gen Not Enabled
+      /* --------------------- Rails ------------------------- */
       const input = args.input;
       if (input?.where?.producingRunId?._eq) {
         // if there is an _eq in the response than it is a call for a single workflow run result
@@ -1022,9 +1020,13 @@ export const resolvers: Resolvers = {
       return result;
     },
     ValidateUserCanDeleteObjects: async (root, args, context, info) => {
+      if (!args?.input) {
+        throw new Error("No input provided");
+      }
+      const { selectedIdsStrings, workflow, selectedIds } = args?.input;
       const body = {
-        selectedIds: args?.input?.selectedIds,
-        workflow: args?.input?.workflow,
+        selectedIds: selectedIdsStrings ?? selectedIds,
+        workflow: workflow,
       };
       const res = await postWithCSRF({
         url: `/samples/validate_user_can_delete_objects.json`,
@@ -1245,17 +1247,42 @@ export const resolvers: Resolvers = {
       // TODO (nina): call nextgen in addition to rails to get CG count
     },
     ZipLink: async (root, args, context, info) => {
-      // const nextGenEnabled = await shouldReadFromNextGen(context);
-      // if (nextGenEnabled) {
-      //   const customQuery = `
-      //     query blah bla blah
-      //   `;
-      //   const ret = await get({ args, context, serviceType: "workflows", customQuery });
-      //   return {
-      //     url: null,
-      //     error: null,
-      //   };
-      // }
+      /* --------------------- Next Gen ------------------------- */
+      const nextGenEnabled = await shouldReadFromNextGen(context);
+      if (nextGenEnabled) {
+        const customQuery = `
+          query GetZipLink {
+            consensusGenomes(where: {producingRunId: {_eq: ${args.workflowRunId}}}){
+              intermediateOutputs {
+                downloadLink {
+                  url
+                }
+              }
+            }
+          }
+        `;
+        const ret = await get({
+          args,
+          context,
+          serviceType: "workflows",
+          customQuery,
+        });
+        if (
+          ret.data?.consensusGenomes[0]?.intermediateOutputs[0]?.downloadLink
+            ?.url
+        ) {
+          return {
+            url: ret.data.consensusGenomes[0].intermediateOutputs[0]
+              .downloadLink.url,
+          };
+        } else {
+          return {
+            url: null,
+            error: ret.error,
+          };
+        }
+      }
+      /* --------------------- Rails ------------------------- */
       const res = await get({
         url: `/workflow_runs/${args.workflowRunId}/zip_link.json`,
         args,
@@ -1310,9 +1337,13 @@ export const resolvers: Resolvers = {
       return res;
     },
     DeleteSamples: async (root, args, context, info) => {
+      if (!args?.input) {
+        throw new Error("No input provided");
+      }
+      const { idsStrings, workflow, ids } = args?.input;
       const body = {
-        selectedIds: args?.input?.ids,
-        workflow: args?.input?.workflow,
+        selectedIds: idsStrings ?? ids,
+        workflow: workflow,
       };
       const { deletedIds, error } = await postWithCSRF({
         url: `/samples/bulk_delete`,
