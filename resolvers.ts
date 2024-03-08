@@ -838,14 +838,19 @@ export const resolvers: Resolvers = {
             context,
           })
         ).data.sequencingReads;
+        const railsSampleIds = nextGenSequencingReads
+          .map(sequencingRead => sequencingRead.sample.railsSampleId)
+          .filter(id => id != null);
+        if (railsSampleIds.length === 0) {
+          return [];
+        }
+
         const railsSamples = (
           await getFromRails({
             url:
               "/samples/index_v2.json" +
               formatUrlParams({
-                sampleIds: nextGenSequencingReads.map(
-                  sequencingRead => sequencingRead.sample.railsSampleId,
-                ),
+                sampleIds: railsSampleIds,
                 limit: TEN_MILLION,
                 offset: 0,
                 listAllIds: false,

@@ -619,4 +619,23 @@ describe("sequencingReads query:", () => {
       }),
     ]);
   });
+
+  it("Does not call Rails to do join if no NextGen data returned", async () => {
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          sequencingReads: [],
+        },
+      }),
+    );
+
+    const sequencingReads = (await execute(query, {}, { params: { query } }))
+      .data.fedSequencingReads;
+
+    expect(sequencingReads).toEqual([]);
+    expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
+  });
 });
