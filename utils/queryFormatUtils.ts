@@ -65,7 +65,7 @@ export const convertWorkflowRunsQuery = (query: string): string => {
       // Add entityInputs filter (Mesh can't expose nested argument types?).
       .replace(
         "entityInputs",
-        'entityInputs(where: { entityType: { _eq: "SequencingRead" } })',
+        'entityInputs(where: { entityType: { _eq: "sequencing_read" } })',
       )
   );
 };
