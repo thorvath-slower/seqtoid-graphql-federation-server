@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.15.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.0...v2.15.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* Don't call Rails for the join if there were no sequencing reads returned by NextGen ([#162](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/162)) ([5281fca](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/5281fca487b43a8f1d455a4c69a0bf1ac4c926dd))
+* Sample View header & pipeline version ([#160](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/160)) ([a23593d](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/a23593dbaee669b8bbdd012c0cf89b9f60ab14b8))
+
 ## [2.15.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.14.0...v2.15.0) (2024-03-08)
 
 
