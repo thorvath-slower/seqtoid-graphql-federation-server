@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [2.15.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.14.0...v2.15.0) (2024-03-08)
+
+
+### Features
+
+* Add deprecated filter to federated request ([#151](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/151)) ([57057fc](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/57057fcf1c80807f81fecafa535f8feea195d19b))
+* federate SampleForReport object ([#148](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/148)) ([91f0b1d](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/91f0b1d65974a2b8a6e08adf593166245c53d33f))
+* Join NextGen data with Rails data in resolver ([#152](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/152)) ([9aa47f7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/9aa47f7469cb91d1f11490a2b5a1fceae4d7887a))
+* Update NextGen schema ([#158](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/158)) ([bc23402](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/bc23402e1c84647d5de58a58cd2756a813688ca2))
+* Ziplink NG Connection and Delete to accept strings ([#149](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/149)) ([d3afbb8](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/d3afbb803d849a7fc049493a76fd73d2aead4b14))
+
+
+### Bug Fixes
+
+* Change to underscore entity input format ([#157](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/157)) ([8866b51](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/8866b516e919c354e2224763f8ac78552e850c19))
+
 ## [2.14.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.13.0...v2.14.0) (2024-03-07)
 
 
