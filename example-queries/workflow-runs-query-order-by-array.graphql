@@ -1,0 +1,21 @@
+query TestQuery {
+    fedWorkflowRuns(input: {
+        orderByArray: [{
+            startedAt: "asc"
+        }],
+        todoRemove: {
+            orderBy: "createdAt"
+            orderDir: "ASC"
+        }
+    }) {
+        id
+        entityInputs {
+            edges {
+                node {
+                    fieldName
+                    inputEntityId
+                }
+            }
+        }
+    }
+}

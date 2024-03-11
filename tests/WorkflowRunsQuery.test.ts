@@ -8,11 +8,13 @@ import { convertWorkflowRunsQuery } from "../utils/queryFormatUtils";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "postWithCSRF");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
+jest.spyOn(httpUtils, "fetchFromNextGen");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
   (httpUtils.postWithCSRF as jest.Mock).mockClear();
   (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
+  (httpUtils.fetchFromNextGen as jest.Mock).mockClear();
 });
 
 describe("workflowRuns query:", () => {
@@ -164,6 +166,23 @@ describe("workflowRuns query:", () => {
           }
         }
       }`,
+    );
+  });
+
+  it("Uses orderBy array field for NextGen", async () => {
+    const query = getExampleQuery("workflow-runs-query-order-by-array");
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+
+    await execute(query, {}, { params: { query } });
+
+    expect(httpUtils.fetchFromNextGen as jest.Mock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        customVariables: expect.objectContaining({
+          orderBy: [{ startedAt: "asc" }],
+        }),
+      }),
     );
   });
 
