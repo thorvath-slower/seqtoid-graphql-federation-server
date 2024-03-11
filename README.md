@@ -86,7 +86,7 @@ To perform a release / hot fix, perform the following steps
 1. Create and merge a pull request with the fix to the `main` branch.
 2. Check out the staging (for release fix) or production (for hot fix) release tag.
 3. Cherry-pick the fix PR commit to `main` onto the release tag.
-4. Bump the patch version of the release tag and create a tag.
+4. Bump the patch version of the release tag and create a tag i.e. `git tag v1.1.2`.
 5. Deploy the new tag onto staging (release fix) and/or production.
 6. If this was a hotfix, you will also need to repeat the process to update the staging release version with the fix.
 
