@@ -19,23 +19,19 @@ export const get = async ({
 }) => {
   try {
     const nextGenEnabled = await shouldReadFromNextGen(context);
-    if (nextGenEnabled) {
-      if (!serviceType) {
-        console.error("You must pass a service type to call next gen");
-        throw new Error("You must pass a service type to call next gen");
-      } else {
-        return fetchFromNextGen({
-          args,
-          context,
-          serviceType,
-          fullResponse,
-          customQuery,
-        });
-      }
+    const shouldQueryNextGen = nextGenEnabled && serviceType;
+    if (shouldQueryNextGen) {
+      return fetchFromNextGen({
+        args,
+        context,
+        serviceType,
+        fullResponse,
+        customQuery,
+      });
     } else {
       if (!url) {
-        console.error("You must pass a url to call rails");
-        throw new Error("You must pass a url to call rails");
+        console.error("You must pass a url to call rails. If you meant to call NextGen, set the serviceType.");
+        throw new Error("You must pass a url to call rails. If you meant to call NextGen, set the serviceType.");
       }
       return getFromRails({ url, args, context, fullResponse });
     }
