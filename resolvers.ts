@@ -513,13 +513,8 @@ export const resolvers: Resolvers = {
       const nextGenEnabled = await shouldReadFromNextGen(context);
       /* --------------------- Rails --------------------- */
       if (!nextGenEnabled) {
-        console.log("next gen off Response", {
-          id: `sample-for-query-${args.railsSampleId}`,
-          railsSampleId: args.railsSampleId,
-          ...sampleInfo,
-        });
         return {
-          id: `sample-for-query-${args.railsSampleId}`,
+          id: args?.railsSampleId,
           railsSampleId: args.railsSampleId,
           ...sampleInfo,
         };

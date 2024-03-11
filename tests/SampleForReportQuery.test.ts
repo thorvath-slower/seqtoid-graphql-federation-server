@@ -100,7 +100,7 @@ describe("SampleForReport query:", () => {
     });
     expect(result.data.SampleForReport).toEqual(
       expect.objectContaining({
-        id: "sample-for-query-35611",
+        id: "35611",
         created_at: "2024-02-29T15:09:07.000-08:00",
         default_background_id: 93,
         default_pipeline_run_id: null,
