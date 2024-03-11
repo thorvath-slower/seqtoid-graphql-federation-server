@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.15.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.1...v2.15.2) (2024-03-11)
+
+
+### Bug Fixes
+
+* fix malformed id ([#164](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/164)) ([51988c7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/51988c73f508b784451cba459c584da492259841))
+
 ## [2.15.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.0...v2.15.1) (2024-03-08)
 
 
