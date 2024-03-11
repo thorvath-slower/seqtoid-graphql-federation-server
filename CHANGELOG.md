@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.15.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.2...v2.15.3) (2024-03-11)
+
+
+### Bug Fixes
+
+* return rails data when no nextgen id available ([#167](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/167)) ([b268861](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b268861d93ba4146edad4f3b88ba9bcce92f4e04))
+
 ## [2.15.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.1...v2.15.2) (2024-03-11)
 
 
