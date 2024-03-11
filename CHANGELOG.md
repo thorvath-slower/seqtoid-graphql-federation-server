@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.15.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.3...v2.15.4) (2024-03-11)
+
+
+### Bug Fixes
+
+* Add sample uploader name to joined data from Rails + Use new array orderBy argument for NextGen ([#166](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/166)) ([4914748](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/491474843e87b68a2bc19c3a1e6e0f89deb22b56))
+* Update get conditional logic ([#169](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/169)) ([2a17d09](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/2a17d095780c91035f642981c68f2e380d93f365))
+
 ## [2.15.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.2...v2.15.3) (2024-03-11)
 
 
