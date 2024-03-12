@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [2.16.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.5...v2.16.0) (2024-03-12)
+
+
+### Features
+
+* query aggregates from NextGen and reformat response ([#159](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/159)) ([0f08a5f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/0f08a5f6ee36edec2fc538ca253817da2d9dd1e1))
+
+
+### Bug Fixes
+
+* Tsconfig to allow deployment ([#175](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/175)) ([305bbbd](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/305bbbdf3a2418dd007ecda8677601e9174a9377))
+* Use workflowRun IDs in inner consensusGenomes where, not sequencingRead IDs ([#171](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/171)) ([f858e3f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f858e3ff12bb86adc10a9dbf8437c8e0621f6a5f))
+
 ## [2.15.5](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.4...v2.15.5) (2024-03-12)
 
 
