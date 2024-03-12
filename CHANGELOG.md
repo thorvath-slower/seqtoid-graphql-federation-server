@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.15.5](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.4...v2.15.5) (2024-03-12)
+
+
+### Bug Fixes
+
+* Small Change for new version ([#172](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/172)) ([62adf05](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/62adf050a1200a4cdae6f996937628af40e2f66b))
+
 ## [2.15.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.3...v2.15.4) (2024-03-11)
 
 
