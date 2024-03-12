@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.16.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.1...v2.16.2) (2024-03-12)
+
+
+### Bug Fixes
+
+* Add schema for fedWorkflowRuns for filtering out WorkflowRuns that don't have the correct input entity ([#178](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/178)) ([85d3894](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/85d38945b38c84b3a6974ff1cae6bf1759e11146))
+
 ## [2.16.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.0...v2.16.1) (2024-03-12)
 
 
