@@ -142,6 +142,27 @@
                         }
                     }
                 },
+                "entityInputs": {
+                    "type": "object",
+                    "properties": {
+                        "entityType": {
+                            "type": "object",
+                            "properties": {
+                                "_eq": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "inputEntityId": {
+                            "type": "object",
+                            "properties": {
+                                "_is_null": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                },
                 "workflowVersion": {
                     "type": "object",
                     "properties": {
