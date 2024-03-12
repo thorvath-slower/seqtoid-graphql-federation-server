@@ -130,7 +130,10 @@ describe("workflowRuns query:", () => {
               name
             }
           }
-          entityInputs(where: { entityType: { _eq: "sequencing_read" } }) {
+          entityInputs(where: { 
+            entityType: { _eq: "sequencing_read" },
+            inputEntityId: { _is_null: false } 
+          }) {
             edges {
               node {
                 inputEntityId
