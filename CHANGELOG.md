@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.16.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.0...v2.16.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* Filter out WorkflowRuns with null sequencing_read inputEntityIds ([#176](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/176)) ([deada69](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/deada691c1391f1409f454a88128cadc58c67344))
+
 ## [2.16.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.15.5...v2.16.0) (2024-03-12)
 
 
