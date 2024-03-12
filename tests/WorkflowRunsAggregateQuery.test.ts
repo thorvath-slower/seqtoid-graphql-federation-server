@@ -3,7 +3,9 @@ import { getMeshInstance } from "./utils/MeshInstance";
 
 import * as httpUtils from "../utils/httpUtils";
 import { getExampleQuery } from "./utils/ExampleQueryFiles";
+import { query_fedWorkflowRunsAggregate_aggregate_items } from "../.mesh";
 jest.spyOn(httpUtils, "get");
+jest.spyOn(httpUtils, "shouldReadFromNextGen");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
@@ -18,6 +20,9 @@ describe("workflows aggregate query:", () => {
   });
 
   it("Returns aggregate counts for each workflow", async () => {
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(false),
+    );
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       projects: [
         {
@@ -40,10 +45,16 @@ describe("workflows aggregate query:", () => {
       context: expect.anything(),
     });
 
-    expect(response.data.fedWorkflowRunsAggregate).toHaveLength(1);
-    expect(response.data.fedWorkflowRunsAggregate[0].collectionId).toBe("1");
-    expect(response.data.fedWorkflowRunsAggregate[0].amrRunsCount).toBe(2);
-    expect(response.data.fedWorkflowRunsAggregate[0].cgRunsCount).toBe(1);
-    expect(response.data.fedWorkflowRunsAggregate[0].mngsRunsCount).toBe(3);
+    console.log(response);
+
+    const aggregates: query_fedWorkflowRunsAggregate_aggregate_items[] = response.data.fedWorkflowRunsAggregate.aggregate;
+
+    expect(aggregates).toHaveLength(3);
+    const cgAggregate = aggregates.find(aggregate => aggregate.groupBy?.workflowVersion?.workflow?.name === "consensus-genome");
+    expect(cgAggregate?.count).toBe(1);
+    const amrAggregate = aggregates.find(aggregate => aggregate.groupBy?.workflowVersion?.workflow?.name === "amr");
+    expect(amrAggregate?.count).toBe(2);
+    const mngsAggregate = aggregates.find(aggregate => aggregate.groupBy?.workflowVersion?.workflow?.name === "short-read-mngs");
+    expect(mngsAggregate?.count).toBe(3);
   });
 });

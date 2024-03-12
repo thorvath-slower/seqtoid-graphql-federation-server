@@ -1,8 +1,26 @@
-[
-  {
-    "collectionId": "123",
-    "mngsRunsCount": 0,
-    "cgRunsCount": 5,
-    "amrRunsCount": 0
-  }
-]
+{
+  "aggregate": [
+    {
+      "groupBy": {
+        "collectionId": 1234,
+        "workflowVersion": {
+          "workflow": {
+            "name": "consensus-genome"
+          }
+        }
+      },
+      "count": 2
+    },
+    {
+      "groupBy": {
+        "collectionId": 1234,
+        "workflowVersion": {
+          "workflow": {
+            "name": "amr"
+          }
+        }
+      },
+      "count": 1
+    }
+  ]
+}

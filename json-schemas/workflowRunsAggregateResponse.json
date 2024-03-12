@@ -1,26 +1,51 @@
 {
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "collectionId": {
-                "type": "string"
-            },
-            "mngsRunsCount": {
-                "type": "integer"
-            },
-            "cgRunsCount": {
-                "type": "integer"
-            },
-            "amrRunsCount": {
-                "type": "integer"
+    "type": "object",
+    "properties": {
+        "aggregate": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "groupBy": {
+                        "type": "object",
+                        "properties": {
+                            "collectionId": {
+                                "type": "integer"
+                            },
+                            "workflowVersion": {
+                                "type": "object",
+                                "properties": {
+                                    "workflow": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "workflow"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "collectionId",
+                            "workflowVersion"
+                        ]
+                    },
+                    "count": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "groupBy",
+                    "count"
+                ]
             }
-        },
-        "required": [
-            "collectionId",
-            "mngsRunsCount",
-            "cgRunsCount",
-            "amrRunsCount"
-        ]
+        }
     }
 }

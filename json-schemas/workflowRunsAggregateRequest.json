@@ -14,6 +14,27 @@
                             }
                         }
                     }
+                },
+                "workflowVersion": {
+                    "type": "object",
+                    "properties": {
+                        "workflow": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_in": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },

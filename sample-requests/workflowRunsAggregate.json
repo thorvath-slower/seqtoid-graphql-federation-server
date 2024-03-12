@@ -1,10 +1,20 @@
 {
   "where": {
     "id": {
-      "_in": {
-        "items": [
-          "1234"
-        ]
+      "_in": [
+        "1234"
+      ]
+    },
+    "workflowVersion": {
+      "workflow": {
+        "name": {
+          "_in": [
+            "consensus-genome",
+            "short-read-mngs",
+            "long-read-mngs",
+            "amr"
+          ]
+        }
       }
     }
   },

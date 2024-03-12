@@ -4,20 +4,33 @@ query workflowRunsAggregateQuery {
       where: {
         id: {
           _in: ["1", "2", "3"]
-        } 
-      },
+        }
+        workflowVersion: {
+          workflow: {
+            name: {
+              _in: ["consensus-genome"]
+            }
+          }
+        }
+      }
       todoRemove: { 
         domain: "my_data",
-        offset: 0,
         visibility: "public",
         search: "abc",
         time: ["20240214", "20240222"]
       }
     }
   ) {
-    collectionId
-    amrRunsCount
-    cgRunsCount
-    mngsRunsCount
+    aggregate {
+      groupBy {
+        collectionId
+        workflowVersion {
+          workflow {
+            name
+          }
+        }
+      }
+      count
+    }
   }
 }
