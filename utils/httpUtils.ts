@@ -30,8 +30,8 @@ export const get = async ({
       });
     } else {
       if (!url) {
-        console.error("You must pass a url to call rails. If you meant to call NextGen, set the serviceType.");
-        throw new Error("You must pass a url to call rails. If you meant to call NextGen, set the serviceType.");
+        console.error(`You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`);
+        throw new Error(`You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`);
       }
       return getFromRails({ url, args, context, fullResponse });
     }
