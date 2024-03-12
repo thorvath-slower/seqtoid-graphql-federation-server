@@ -1,0 +1,66 @@
+query DiscoveryViewFCSequencingReadsQuery(
+    $input: queryInput_fedSequencingReads_input_Input
+) {
+    fedSequencingReads(input: $input) {
+        id
+        nucleicAcid
+        protocol
+        medakaModel
+        technology
+        taxon {
+            name
+        }
+        sample {
+            railsSampleId
+            name
+            notes
+            collectionLocation
+            sampleType
+            waterControl
+            uploadError
+            hostOrganism {
+                name
+            }
+            collection {
+                name
+                public
+            }
+            ownerUserId
+            ownerUserName
+            metadatas {
+                edges {
+                    node {
+                        fieldName
+                        value
+                    }
+                }
+            }
+        }
+        consensusGenomes {
+            edges {
+                node {
+                    producingRunId
+                    taxon {
+                        name
+                    }
+                    accession {
+                        accessionId
+                        accessionName
+                    }
+                    metrics {
+                        coverageDepth
+                        totalReads
+                        gcPercent
+                        refSnps
+                        percentIdentity
+                        nActg
+                        percentGenomeCalled
+                        nMissing
+                        nAmbiguous
+                        referenceGenomeLength
+                    }
+                }
+            }
+        }
+    }
+}

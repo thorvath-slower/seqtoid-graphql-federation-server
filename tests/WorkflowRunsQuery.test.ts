@@ -116,34 +116,8 @@ describe("workflowRuns query:", () => {
   });
 
   it("Constructs correct NextGen query", async () => {
-    const query = `
-      query DiscoveryViewFCWorkflowsQuery(
-        $input: queryInput_fedWorkflowRuns_input_Input
-      ) {
-        fedWorkflowRuns(input: $input) {
-          id
-          startedAt
-          status
-          rawInputsJson
-          workflowVersion {
-            version
-            workflow {
-              name
-            }
-          }
-          entityInputs {
-            edges {
-              node {
-                inputEntityId
-                entityType
-              }
-            }
-          }
-        }
-      }`;
-
     assertEqualsNoWhitespace(
-      convertWorkflowRunsQuery(query),
+      convertWorkflowRunsQuery(getExampleQuery("workflow-runs-query-fe")),
       `query ($where: WorkflowRunWhereClause, $orderBy: [WorkflowRunOrderByClause!]) {
         workflowRuns(where: $where, orderBy: $orderBy) {
           id

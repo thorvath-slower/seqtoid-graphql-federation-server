@@ -1,0 +1,7 @@
+query DiscoveryViewFCSequencingReadsQuery(
+    $input: queryInput_fedSequencingReads_input_Input
+) {
+    fedSequencingReads(input: $input) {
+        id
+    }
+}

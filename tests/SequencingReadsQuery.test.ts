@@ -332,77 +332,9 @@ describe("sequencingReads query:", () => {
     );
   });
 
-  it("Constructs correct NextGen query", () => {
-    const query = `
-      query DiscoveryViewFCSequencingReadsQuery(
-        $input: queryInput_fedSequencingReads_input_Input
-      ) {
-        fedSequencingReads(input: $input) {
-          id
-          nucleicAcid
-          protocol
-          medakaModel
-          technology
-          taxon {
-            name
-          }
-          sample {
-            railsSampleId
-            name
-            notes
-            collectionLocation
-            sampleType
-            waterControl
-            uploadError
-            hostOrganism {
-              name
-            }
-            collection {
-              name
-              public
-            }
-            ownerUserId
-            ownerUserName
-            metadatas {
-              edges {
-                node {
-                  fieldName
-                  value
-                }
-              }
-            }
-          }
-          consensusGenomes {
-            edges {
-              node {
-                producingRunId
-                taxon {
-                  name
-                }
-                accession {
-                  accessionId
-                  accessionName
-                }
-                metrics {
-                  coverageDepth
-                  totalReads
-                  gcPercent
-                  refSnps
-                  percentIdentity
-                  nActg
-                  percentGenomeCalled
-                  nMissing
-                  nAmbiguous
-                  referenceGenomeLength
-                }
-              }
-            }
-          }
-        }
-      }`;
-
+  it("Constructs correct NextGen paginated query", () => {
     assertEqualsNoWhitespace(
-      convertSequencingReadsQuery(query),
+      convertSequencingReadsQuery(getExampleQuery("sequencing-reads-query-fe")),
       `query ($where: SequencingReadWhereClause,
               $orderBy: [SequencingReadOrderByClause!],
               $limitOffset: LimitOffsetClause,
@@ -457,6 +389,19 @@ describe("sequencingReads query:", () => {
               }
             }
           }
+        }
+      }`,
+    );
+  });
+
+  it("Constructs correct NextGen IDs query", () => {
+    assertEqualsNoWhitespace(
+      convertSequencingReadsQuery(
+        getExampleQuery("sequencing-reads-query-id-fe"),
+      ),
+      `query ($where: SequencingReadWhereClause) {
+        sequencingReads(where: $where) {
+          id
         }
       }`,
     );
@@ -636,6 +581,35 @@ describe("sequencingReads query:", () => {
       .data.fedSequencingReads;
 
     expect(sequencingReads).toEqual([]);
+    expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
+  });
+
+  it("Does not call Rails to do join if only querying IDs", async () => {
+    const query = getExampleQuery("sequencing-reads-query-id-fe");
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          sequencingReads: [
+            {
+              id: "abc",
+            },
+          ],
+        },
+      }),
+    );
+
+    const sequencingReads = (
+      await execute(
+        query,
+        { input: { where: { id: { _in: ["abc"] } } } },
+        { params: { query } },
+      )
+    ).data.fedSequencingReads;
+
+    expect(sequencingReads).toEqual([{ id: "abc" }]);
     expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
   });
 });
