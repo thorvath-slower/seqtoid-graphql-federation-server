@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.17.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.0...v2.17.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* Ziplink return from NextGen ([#180](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/180)) ([9102025](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/91020253e4419a0bdeb527abcd0575c1f682243c))
+
 ## [2.17.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.2...v2.17.0) (2024-03-13)
 
 
