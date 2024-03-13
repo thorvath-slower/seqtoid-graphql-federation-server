@@ -1327,7 +1327,7 @@ export const resolvers: Resolvers = {
       if (nextGenEnabled) {
         const customQuery = `
           query GetZipLink {
-            consensusGenomes(where: {producingRunId: {_eq: ${args.workflowRunId}}}){
+            consensusGenomes(where: {producingRunId: {_eq: "${args.workflowRunId}"}}){
               intermediateOutputs {
                 downloadLink {
                   url
@@ -1344,11 +1344,11 @@ export const resolvers: Resolvers = {
         });
         console.log("ret - ZipLink", JSON.stringify(ret));
         if (
-          ret.data?.consensusGenomes[0]?.intermediateOutputs?.downloadLink
-            ?.url
+          ret.data?.consensusGenomes[0]?.intermediateOutputs?.downloadLink?.url
         ) {
           return {
-            url: ret.data.consensusGenomes[0].intermediateOutputs.downloadLink.url,
+            url: ret.data.consensusGenomes[0].intermediateOutputs.downloadLink
+              .url,
           };
         } else {
           return {
