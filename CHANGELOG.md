@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.17.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.1...v2.17.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* make sure query param is a string ([#185](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/185)) ([154904f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/154904f5f69383457fa8dca7fc5aebd95a13eb37))
+
 ## [2.17.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.0...v2.17.1) (2024-03-13)
 
 
