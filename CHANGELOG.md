@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.17.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.2...v2.17.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* convert and use workflowRunIdsStrings if passed in ([#187](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/187)) ([60c4f16](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/60c4f16d8cc112abb264da7892089dcdfc582c7a))
+
 ## [2.17.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.1...v2.17.2) (2024-03-13)
 
 
