@@ -1342,13 +1342,13 @@ export const resolvers: Resolvers = {
           serviceType: "workflows",
           customQuery,
         });
+        console.log("ret - ZipLink", JSON.stringify(ret));
         if (
-          ret.data?.consensusGenomes[0]?.intermediateOutputs[0]?.downloadLink
+          ret.data?.consensusGenomes[0]?.intermediateOutputs?.downloadLink
             ?.url
         ) {
           return {
-            url: ret.data.consensusGenomes[0].intermediateOutputs[0]
-              .downloadLink.url,
+            url: ret.data.consensusGenomes[0].intermediateOutputs.downloadLink.url,
           };
         } else {
           return {
