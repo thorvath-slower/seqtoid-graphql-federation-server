@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.17.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.2...v2.17.0) (2024-03-13)
+
+
+### Features
+
+* Log NextGen responses when they error ([#181](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/181)) ([a7b746e](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/a7b746ee04264b05e8a2da08d38855ceb0d78d59))
+
 ## [2.16.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.16.1...v2.16.2) (2024-03-12)
 
 
