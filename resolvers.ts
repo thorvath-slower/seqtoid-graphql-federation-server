@@ -1385,8 +1385,10 @@ export const resolvers: Resolvers = {
       if (!args?.input) {
         throw new Error("No input provided");
       }
-      const { downloadType, workflow, downloadFormat, workflowRunIds } =
+      const { downloadType, workflow, downloadFormat, workflowRunIds, workflowRunIdsStrings } =
         args?.input;
+
+      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id => id && parseInt(id));
       const body = {
         download_type: downloadType,
         workflow: workflow,
@@ -1395,13 +1397,13 @@ export const resolvers: Resolvers = {
             value: downloadFormat,
           },
           sample_ids: {
-            value: workflowRunIds,
+            value: workflowRunIdsNumbers ?? workflowRunIds,
           },
           workflow: {
             value: workflow,
           },
         },
-        workflow_run_ids: workflowRunIds,
+        workflow_run_ids: workflowRunIdsNumbers ?? workflowRunIds,
       };
       const res = await postWithCSRF({
         url: `/bulk_downloads`,
