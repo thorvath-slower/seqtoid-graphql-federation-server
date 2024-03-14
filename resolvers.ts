@@ -849,6 +849,7 @@ export const resolvers: Resolvers = {
             })
           ).data.sequencingReads;
         }
+
         const nextGenResponse = await fetchFromNextGen({
           customQuery: convertSequencingReadsQuery(context.params.query),
           customVariables: {
@@ -871,34 +872,37 @@ export const resolvers: Resolvers = {
             `NextGen sequencingReads query failed: ${JSON.stringify(nextGenResponse)}`,
           );
         }
-
         const railsSampleIds = nextGenSequencingReads
           .map(sequencingRead => sequencingRead.sample.railsSampleId)
           .filter(id => id != null);
         if (railsSampleIds.length === 0) {
           return [];
         }
-        const railsSamples = (
-          await getFromRails({
-            url:
-              "/samples/index_v2.json" +
-              formatUrlParams({
-                sampleIds: railsSampleIds,
-                limit: TEN_MILLION,
-                offset: 0,
-                listAllIds: false,
-              }),
-            args,
-            context,
-          })
-        ).samples;
 
         const railsSamplesById = new Map<number, any>(
-          railsSamples.map(sample => [sample.id, sample]),
+          (
+            await getFromRails({
+              url:
+                "/samples/index_v2.json" +
+                formatUrlParams({
+                  sampleIds: railsSampleIds,
+                  limit: TEN_MILLION,
+                  offset: 0,
+                  listAllIds: false,
+                }),
+              args,
+              context,
+            })
+          ).samples.map(sample => [sample.id, sample]),
         );
+
         for (const nextGenSequencingRead of nextGenSequencingReads) {
           const nextGenSample = nextGenSequencingRead.sample;
           const railsSample = railsSamplesById.get(nextGenSample.railsSampleId);
+          if (railsSample === undefined) {
+            continue;
+          }
+
           const railsMetadata = railsSample.details?.metadata;
           const railsDbSample = railsSample.details?.db_sample;
 
@@ -1385,10 +1389,17 @@ export const resolvers: Resolvers = {
       if (!args?.input) {
         throw new Error("No input provided");
       }
-      const { downloadType, workflow, downloadFormat, workflowRunIds, workflowRunIdsStrings } =
-        args?.input;
+      const {
+        downloadType,
+        workflow,
+        downloadFormat,
+        workflowRunIds,
+        workflowRunIdsStrings,
+      } = args?.input;
 
-      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(id => id && parseInt(id));
+      const workflowRunIdsNumbers = workflowRunIdsStrings?.map(
+        id => id && parseInt(id),
+      );
       const body = {
         download_type: downloadType,
         workflow: workflow,
