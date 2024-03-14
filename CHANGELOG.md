@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.17.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.3...v2.17.4) (2024-03-14)
+
+
+### Bug Fixes
+
+* Ziplink querying wrong service ([#191](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/191)) ([008ccba](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/008ccbaeabcd61b6e0d8cf3a9ce3877f1cadf016))
+
 ## [2.17.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.2...v2.17.3) (2024-03-13)
 
 
