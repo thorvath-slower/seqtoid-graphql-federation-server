@@ -867,7 +867,7 @@ export const resolvers: Resolvers = {
           return [];
         }
 
-        const railsSamplesById = new Map<number, any>(
+        const railsSamplesById = new Map<number, { [key: string]: any }>(
           (
             await getFromRails({
               url:
@@ -884,56 +884,37 @@ export const resolvers: Resolvers = {
           ).samples.map(sample => [sample.id, sample]),
         );
 
-        console.log("bchu1: " + JSON.stringify(railsSamplesById));
         for (const nextGenSequencingRead of nextGenSequencingReads) {
-          console.log("bchu2: " + JSON.stringify(nextGenSequencingReads));
           const nextGenSample = nextGenSequencingRead.sample;
-          console.log("bchu3: " + JSON.stringify(nextGenSample));
           const railsSample = railsSamplesById.get(nextGenSample.railsSampleId);
-          console.log("bchu4: " + JSON.stringify(railsSample));
-          if (railsSample === undefined) {
-            continue;
-          }
 
-          const railsMetadata = railsSample.details?.metadata;
-          console.log("bchu5: " + JSON.stringify(railsMetadata));
-          const railsDbSample = railsSample.details?.db_sample;
-          console.log("bchu6: " + JSON.stringify(railsDbSample));
+          const railsMetadata = railsSample?.details?.metadata;
+          const railsDbSample = railsSample?.details?.db_sample;
 
           nextGenSequencingRead.nucleicAcid =
             railsMetadata?.nucleotide_type ?? "";
-          console.log("bchu7: " + JSON.stringify(nextGenSequencingRead));
           nextGenSample.collectionLocation =
             railsMetadata?.collection_location_v2 ?? "";
-          console.log("bchu8: " + JSON.stringify(nextGenSample));
           nextGenSample.sampleType = railsMetadata?.sample_type ?? "";
-          console.log("bchu9: " + JSON.stringify(nextGenSample));
           nextGenSample.waterControl = railsMetadata?.water_control === "Yes";
-          console.log("bchu10: " + JSON.stringify(nextGenSample));
           nextGenSample.notes = railsDbSample?.sample_notes;
-          console.log("bchu11: " + JSON.stringify(nextGenSample));
           nextGenSample.uploadError = railsDbSample?.upload_error;
-          console.log("bchu12: " + JSON.stringify(nextGenSample));
           nextGenSample.hostOrganism =
             railsDbSample?.host_genome_name != null
               ? {
                   name: railsDbSample.host_genome_name,
                 }
               : null;
-          console.log("bchu13: " + JSON.stringify(nextGenSample));
-          nextGenSample.ownerUserName = railsSample.details?.uploader?.name;
-          console.log("bchu14: " + JSON.stringify(nextGenSample));
+          nextGenSample.ownerUserName = railsSample?.details?.uploader?.name;
           nextGenSample.collection = {
-            name: railsSample.details?.derived_sample_output?.project_name,
-            public: railsSample.public === 1,
+            name: railsSample?.details?.derived_sample_output?.project_name,
+            public: railsSample?.public === 1,
           };
-          console.log("bchu15: " + JSON.stringify(nextGenSample));
           nextGenSample.metadatas = {
             edges: getMetadataEdges(railsMetadata),
           };
-          console.log("bchu16: " + JSON.stringify(nextGenSample));
         }
-        console.log("bchu17: " + JSON.stringify(nextGenSequencingReads));
+
         return nextGenSequencingReads;
       }
 
