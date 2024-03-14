@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.18.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.0...v2.18.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* Fix required fields in sequencingReads not being set when no Rails sample found ([#195](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/195)) ([b437d34](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b437d34dd3067f5f4541000fe726601b2612c924))
+
 ## [2.18.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.4...v2.18.0) (2024-03-14)
 
 
