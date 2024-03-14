@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.18.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.4...v2.18.0) (2024-03-14)
+
+
+### Features
+
+* Add hostOrganism join from Rails ([#193](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/193)) ([7446701](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/7446701db99b52b04b7b23e0407aa9e85f3dd551))
+
 ## [2.17.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.17.3...v2.17.4) (2024-03-14)
 
 
