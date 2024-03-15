@@ -1,6 +1,7 @@
 // resolvers.ts
 import {
   Resolvers,
+  queryInput_fedSequencingReads_input_where_Input,
   query_fedConsensusGenomes_items,
   query_fedSamples_items,
   query_fedSequencingReads_items,
@@ -817,6 +818,7 @@ export const resolvers: Resolvers = {
     },
     fedSequencingReads: async (root, args, context: any) => {
       const input = args.input;
+      const queryingIdsOnly = /{\s*id\s*}/.test(context.params.query);
       if (input == null) {
         throw new Error("fedSequencingReads input is nullish");
       }
@@ -824,18 +826,50 @@ export const resolvers: Resolvers = {
       // NEXT GEN:
       const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
-        if (/{\s*id\s*}/.test(context.params.query)) {
-          return (
+        if (queryingIdsOnly) {
+          let sequencingReads = (
             await fetchFromNextGen({
               customQuery: convertSequencingReadsQuery(context.params.query),
               customVariables: {
-                where: input.where,
+                // Entities Service doesn't support sample metadata yet.
+                where: {
+                  collectionId: input.where?.collectionId,
+                  taxon: input.where?.taxon,
+                  consensusGenomes: input.where?.consensusGenomes,
+                },
               },
               serviceType: "entities",
               args,
               context,
             })
           ).data.sequencingReads;
+          if (input.where?.sample != null && sequencingReads.length > 0) {
+            const filteredSampleIds = new Set(
+              (
+                await getFromRails({
+                  url:
+                    "/samples/index_v2.json" +
+                    formatUrlParams({
+                      sampleIds: sequencingReads.map(
+                        sequencingRead => sequencingRead.sample.railsSampleId,
+                      ),
+                      locationV2: input.where.sample.collectionLocation?._in,
+                      host: input.where.sample.hostOrganism?.name?._in,
+                      tissue: input.where.sample.sampleType?._in,
+                      limit: 0,
+                      offset: 0,
+                      listAllIds: true,
+                    }),
+                  args,
+                  context,
+                })
+              ).all_samples_ids,
+            );
+            sequencingReads = sequencingReads.filter(sequencingRead =>
+              filteredSampleIds.has(sequencingRead.sample.railsSampleId),
+            );
+          }
+          return sequencingReads;
         }
 
         const nextGenResponse = await fetchFromNextGen({
@@ -918,26 +952,17 @@ export const resolvers: Resolvers = {
         return nextGenSequencingReads;
       }
 
-      // The comments in the formatUrlParams() call correspond to the line in the current
-      // codebase's callstack where the params are set, so help ensure we're not missing anything.
-      const { workflow_runs } = await get({
+      // RAILS:
+      const { all_workflow_run_ids, workflow_runs } = await get({
         url:
           "/workflow_runs.json" +
           formatUrlParams({
-            // index.ts
-            // const getWorkflowRuns = ({
             mode: "with_sample_info",
-            //  - DiscoveryDataLayer.ts
-            //    await this._collection.fetchDataCallback({
             domain: input.todoRemove?.domain,
-            //  -- DiscoveryView.tsx
-            //     ...this.getConditions(workflow)
             projectId: input.todoRemove?.projectId,
             search: input.todoRemove?.search,
             orderBy: input.todoRemove?.orderBy,
             orderDir: input.todoRemove?.orderDir,
-            //  --- DiscoveryView.tsx
-            //      filters: {
             host: input.todoRemove?.host,
             locationV2: input.todoRemove?.locationV2,
             taxon: input.todoRemove?.taxons,
@@ -946,15 +971,20 @@ export const resolvers: Resolvers = {
             tissue: input.todoRemove?.tissue,
             visibility: input.todoRemove?.visibility,
             workflow: input.todoRemove?.workflow,
-            //  - DiscoveryDataLayer.ts
-            //    await this._collection.fetchDataCallback({
-            limit: input.limit ?? input.limitOffset?.limit, // TODO: Just use limitOffset.
-            offset: input.offset ?? input.limitOffset?.offset,
-            listAllIds: false,
+            limit: queryingIdsOnly
+              ? 0
+              : input.limit ?? input.limitOffset?.limit, // TODO: Just use limitOffset.
+            offset: queryingIdsOnly
+              ? 0
+              : input.offset ?? input.limitOffset?.offset,
+            listAllIds: queryingIdsOnly,
           }),
         args,
         context,
       });
+      if (queryingIdsOnly) {
+        return all_workflow_run_ids.map(id => ({ id }));
+      }
       if (!workflow_runs?.length) {
         return [];
       }

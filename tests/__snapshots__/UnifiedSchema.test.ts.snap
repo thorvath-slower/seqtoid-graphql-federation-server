@@ -4044,10 +4044,60 @@ input queryInput_fedSequencingReads_input_todoRemove_Input {
 }
 
 input queryInput_fedSequencingReads_input_where_Input {
+  collectionId: queryInput_fedSequencingReads_input_where_collectionId_Input
+  consensusGenomes: queryInput_fedSequencingReads_input_where_consensusGenomes_Input
   id: queryInput_fedSequencingReads_input_where_id_Input
+  sample: queryInput_fedSequencingReads_input_where_sample_Input
+  taxon: queryInput_fedSequencingReads_input_where_taxon_Input
+}
+
+input queryInput_fedSequencingReads_input_where_collectionId_Input {
+  _in: [Int]
+}
+
+input queryInput_fedSequencingReads_input_where_consensusGenomes_Input {
+  taxon: queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_Input
+}
+
+input queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_Input {
+  name: queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_name_Input
+}
+
+input queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_name_Input {
+  _in: [String]
 }
 
 input queryInput_fedSequencingReads_input_where_id_Input {
+  _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_where_sample_Input {
+  collectionLocation: queryInput_fedSequencingReads_input_where_sample_collectionLocation_Input
+  hostOrganism: queryInput_fedSequencingReads_input_where_sample_hostOrganism_Input
+  sampleType: queryInput_fedSequencingReads_input_where_sample_sampleType_Input
+}
+
+input queryInput_fedSequencingReads_input_where_sample_collectionLocation_Input {
+  _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_where_sample_hostOrganism_Input {
+  name: queryInput_fedSequencingReads_input_where_sample_hostOrganism_name_Input
+}
+
+input queryInput_fedSequencingReads_input_where_sample_hostOrganism_name_Input {
+  _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_where_sample_sampleType_Input {
+  _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_where_taxon_Input {
+  name: queryInput_fedSequencingReads_input_where_taxon_name_Input
+}
+
+input queryInput_fedSequencingReads_input_where_taxon_name_Input {
   _in: [String]
 }
 

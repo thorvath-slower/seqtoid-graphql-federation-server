@@ -86,6 +86,16 @@ export const convertSequencingReadsQuery = (query: string): string => {
         )
         // Replace Fed arguments.
         .replace("input: $input", "where: $where")
+        // Add railsSampleId field.
+        .replace(
+          /{\s*id\s*}/,
+          `{
+             id
+             sample {
+               railsSampleId
+             }
+           }`,
+        )
     );
   }
 

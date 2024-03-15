@@ -31,6 +31,97 @@
                             }
                         }
                     }
+                },
+                "collectionId": {
+                    "type": "object",
+                    "properties": {
+                        "_in": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "sample": {
+                    "type": "object",
+                    "properties": {
+                        "collectionLocation": {
+                            "type": "object",
+                            "properties": {
+                                "_in": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "hostOrganism": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_in": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "sampleType": {
+                            "type": "object",
+                            "properties": {
+                                "_in": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "taxon": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "object",
+                            "properties": {
+                                "_in": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "consensusGenomes": {
+                    "type": "object",
+                    "properties": {
+                        "taxon": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_in": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
