@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.18.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.1...v2.18.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* Construct nextgen aggregates query appropriately ([#199](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/199)) ([949e372](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/949e3726d7566816035e1a5309485b0e4422301b))
+
 ## [2.18.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.0...v2.18.1) (2024-03-14)
 
 
