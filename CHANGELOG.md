@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.19.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.2...v2.19.0) (2024-03-15)
+
+
+### Features
+
+* Add support for filtering IDs of SequencingReads ([#197](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/197)) ([d4eaf77](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/d4eaf776b58ad26df0a758ab8b1f7c9b858ac903))
+
 ## [2.18.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.1...v2.18.2) (2024-03-15)
 
 
