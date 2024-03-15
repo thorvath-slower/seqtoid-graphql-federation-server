@@ -1280,22 +1280,22 @@ export const resolvers: Resolvers = {
 
       if (nextGenEnabled) {
         const customQuery = `
-            query nextGenWorkflowsAggregate {
-              workflowRunsAggregate(where: $where) {
-                aggregate {
-                  groupBy {
-                    collectionId
-                    workflowVersion {
-                      workflow {
-                        name
-                      }
+          query nextGenWorkflowsAggregate($where: WorkflowRunWhereClause) {
+            workflowRunsAggregate(where: $where) {
+              aggregate {
+                groupBy {
+                  collectionId
+                  workflowVersion {
+                    workflow {
+                      name
                     }
                   }
-                  count
                 }
+                count
               }
             }
-          `;
+          }
+        `;
         const consensusGenomesAggregateResponse = await fetchFromNextGen({
           args,
           context,
