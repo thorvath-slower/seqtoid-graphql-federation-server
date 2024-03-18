@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.20.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.0...v2.20.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* Fix issues related to Rails calls made by fedSequencingReads when fetching IDs ([#207](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/207)) ([9983ff2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/9983ff2bffbe83651be2408541a2e67cb8988283))
+* Temporarily try seeing if fake paginating the aggregates query would solve the performance problem ([#209](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/209)) ([b6b6d4a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b6b6d4acde82acfc8b33bce46a6115686b54a4d5))
+
 ## [2.20.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.19.1...v2.20.0) (2024-03-18)
 
 
