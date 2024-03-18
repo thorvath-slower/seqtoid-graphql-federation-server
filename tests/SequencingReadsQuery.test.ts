@@ -629,7 +629,22 @@ describe("sequencingReads query:", () => {
     );
     (httpUtils.get as jest.Mock).mockImplementation(() =>
       Promise.resolve({
-        all_workflow_run_ids: [123, 456],
+        workflow_runs: [
+          {
+            sample: {
+              info: {
+                id: 123,
+              },
+            },
+          },
+          {
+            sample: {
+              info: {
+                id: 456,
+              },
+            },
+          },
+        ],
       }),
     );
 
@@ -637,7 +652,7 @@ describe("sequencingReads query:", () => {
       .fedSequencingReads;
 
     expect(httpUtils.fetchFromNextGen as jest.Mock).not.toHaveBeenCalled();
-    expect(sequencingReads).toMatchObject([{ id: 123 }, { id: 456 }]);
+    expect(sequencingReads).toMatchObject([{ id: "123" }, { id: "456" }]);
   });
 
   it("Does not call Rails if ID query has no sample filter", async () => {

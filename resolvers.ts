@@ -867,9 +867,6 @@ export const resolvers: Resolvers = {
                   url:
                     "/samples/index_v2.json" +
                     formatUrlParams({
-                      sampleIds: sequencingReads.map(
-                        sequencingRead => sequencingRead.sample.railsSampleId,
-                      ),
                       locationV2: input.where.sample.collectionLocation?._in,
                       host: input.where.sample.hostOrganism?.name?._in,
                       tissue: input.where.sample.sampleType?._in,
@@ -972,11 +969,11 @@ export const resolvers: Resolvers = {
       }
 
       // RAILS:
-      const { all_workflow_run_ids, workflow_runs } = await get({
+      const { workflow_runs } = await get({
         url:
           "/workflow_runs.json" +
           formatUrlParams({
-            mode: "with_sample_info",
+            mode: queryingIdsOnly ? "basic" : "with_sample_info",
             domain: input.todoRemove?.domain,
             projectId: input.todoRemove?.projectId,
             search: input.todoRemove?.search,
@@ -991,18 +988,23 @@ export const resolvers: Resolvers = {
             visibility: input.todoRemove?.visibility,
             workflow: input.todoRemove?.workflow,
             limit: queryingIdsOnly
-              ? 0
+              ? TEN_MILLION
               : input.limit ?? input.limitOffset?.limit, // TODO: Just use limitOffset.
             offset: queryingIdsOnly
               ? 0
               : input.offset ?? input.limitOffset?.offset,
-            listAllIds: queryingIdsOnly,
+            listAllIds: false,
           }),
         args,
         context,
       });
       if (queryingIdsOnly) {
-        return all_workflow_run_ids.map(id => ({ id }));
+        const uniqueSampleIds = new Set<string>(
+          workflow_runs.map(run => run.sample.info.id.toString()),
+        );
+        return [...uniqueSampleIds].map(sampleId => ({
+          id: sampleId,
+        }));
       }
       if (!workflow_runs?.length) {
         return [];
