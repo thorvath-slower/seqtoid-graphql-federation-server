@@ -827,23 +827,37 @@ export const resolvers: Resolvers = {
       // NEXT GEN:
       const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
+        console.log("bchu: " + queryingIdsOnly);
         if (queryingIdsOnly) {
-          let sequencingReads = (
-            await fetchFromNextGen({
-              customQuery: convertSequencingReadsQuery(context.params.query),
-              customVariables: {
-                // Entities Service doesn't support sample metadata yet.
+          console.log(
+            "bchu: " + convertSequencingReadsQuery(context.params.query),
+          );
+          console.log(
+            "bchu: " +
+              JSON.stringify({
                 where: {
                   collectionId: input.where?.collectionId,
                   taxon: input.where?.taxon,
                   consensusGenomes: input.where?.consensusGenomes,
                 },
+              }),
+          );
+          const nextGenResponse = await fetchFromNextGen({
+            customQuery: convertSequencingReadsQuery(context.params.query),
+            customVariables: {
+              // Entities Service doesn't support sample metadata yet.
+              where: {
+                collectionId: input.where?.collectionId,
+                taxon: input.where?.taxon,
+                consensusGenomes: input.where?.consensusGenomes,
               },
-              serviceType: "entities",
-              args,
-              context,
-            })
-          ).data.sequencingReads;
+            },
+            serviceType: "entities",
+            args,
+            context,
+          });
+          console.log("bchu: " + JSON.stringify(nextGenResponse));
+          let sequencingReads = nextGenResponse.data.sequencingReads;
           if (input.where?.sample != null && sequencingReads.length > 0) {
             const filteredSampleIds = new Set(
               (
@@ -866,10 +880,12 @@ export const resolvers: Resolvers = {
                 })
               ).all_samples_ids,
             );
+            console.log("bchu: " + JSON.stringify(filteredSampleIds));
             sequencingReads = sequencingReads.filter(sequencingRead =>
               filteredSampleIds.has(sequencingRead.sample.railsSampleId),
             );
           }
+          console.log("bchu: " + JSON.stringify(sequencingReads));
           return sequencingReads;
         }
 
