@@ -49,6 +49,17 @@ export const formatFedQueryForNextGen = (query: string): string => {
   return finishedQuery;
 };
 
+export const convertValidateConsensusGenomeQuery = (query: string): string => {
+  return (
+    query
+      // Remove fed prefix.
+      .replace("fedWorkflowRuns", "workflowRuns")
+      // Replace Fed arguments.
+      .replace(/input:.*\n/, "where: $where")
+      
+  )
+};
+
 export const convertWorkflowRunsQuery = (query: string): string => {
   return (
     query

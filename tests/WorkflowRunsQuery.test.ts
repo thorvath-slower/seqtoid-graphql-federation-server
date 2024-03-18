@@ -4,7 +4,7 @@ import { getMeshInstance } from "./utils/MeshInstance";
 import { assertEqualsNoWhitespace } from "./utils/StringUtils";
 
 import * as httpUtils from "../utils/httpUtils";
-import { convertWorkflowRunsQuery } from "../utils/queryFormatUtils";
+import { convertValidateConsensusGenomeQuery, convertWorkflowRunsQuery } from "../utils/queryFormatUtils";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "postWithCSRF");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
@@ -164,7 +164,10 @@ describe("workflowRuns query:", () => {
   });
 
   describe("validConsensusGenomes query", () => {
-    it("should call the correct rails endpoint", async () => {
+    it("should call the correct rails endpoint when shouldReadFromNextGen is false", async () => {
+      (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+        Promise.resolve(false),
+      );
       await execute(getExampleQuery("workflow-runs-query-id-list"), {
         authenticityToken: "authtoken1234",
         workflowRunIds: ["1997", "2007"],

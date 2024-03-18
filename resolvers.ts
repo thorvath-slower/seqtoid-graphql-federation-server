@@ -23,7 +23,9 @@ import {
 import { formatUrlParams } from "./utils/paramsUtils";
 import {
   convertSequencingReadsQuery,
+  convertValidateConsensusGenomeQuery,
   convertWorkflowRunsQuery,
+  formatFedQueryForNextGen,
 } from "./utils/queryFormatUtils";
 import { isRunFinalized, parseRefFasta } from "./utils/responseHelperUtils";
 
@@ -1191,30 +1193,52 @@ export const resolvers: Resolvers = {
       if (input == null) {
         throw new Error("fedWorkflowRuns input is nullish");
       }
+      const nextGenEnabled = await shouldReadFromNextGen(context);
 
-      // CG REPORT:
+      // CG BULK DOWNLOAD MODAL:
       // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
       // This endpoint only provides id, ownerUserId, and status.
       if (input.where?.id?._in && typeof input.where?.id?._in === "object") {
-        const body = {
-          authenticity_token: input.todoRemove?.authenticityToken,
-          workflowRunIds: input.where.id._in.map(id => id && parseInt(id)),
-        };
-        const { workflowRuns } = await postWithCSRF({
-          url: `/workflow_runs/valid_consensus_genome_workflow_runs`,
-          body,
-          args,
-          context,
-        });
-        return workflowRuns.map(run => ({
-          id: run.id.toString(),
-          ownerUserId: run.owner_user_id,
-          status: run.status,
-        }));
+        const workflowRunIds = input.where.id._in;
+        if (nextGenEnabled) {
+          const query = convertValidateConsensusGenomeQuery(
+            context.params.query,
+          );
+          const response = await fetchFromNextGen({
+            customQuery: query,
+            customVariables: {
+              where: input.where,
+            },
+            args,
+            context,
+            serviceType: "workflows",
+          });
+          if (response?.data?.workflowRuns == null) {
+            throw new Error(
+              `NextGen validate workflowRuns query failed: ${JSON.stringify(response)}`,
+            );
+          }
+          return response.data.workflowRuns;
+        } else {
+          const body = {
+            authenticity_token: input.todoRemove?.authenticityToken,
+            workflowRunIds: workflowRunIds.map(id => id && parseInt(id)),
+          };
+          const { workflowRuns } = await postWithCSRF({
+            url: `/workflow_runs/valid_consensus_genome_workflow_runs`,
+            body,
+            args,
+            context,
+          });
+          return workflowRuns.map(run => ({
+            id: run.id.toString(),
+            ownerUserId: run.owner_user_id,
+            status: run.status,
+          }));
+        }
       }
 
       // DISCOVERY VIEW:
-      const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
         const response = await fetchFromNextGen({
           customQuery: convertWorkflowRunsQuery(context.params.query),
