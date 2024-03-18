@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.19.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.19.0...v2.19.1) (2024-03-18)
+
+
+### Bug Fixes
+
+* fedConsensusGenomes: Make name available in rails ([#202](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/202)) ([487ea03](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/487ea035b8eff6a7aba141b832c6c64cde67d406))
+
 ## [2.19.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.18.2...v2.19.0) (2024-03-15)
 
 
