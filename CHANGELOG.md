@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.20.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.19.1...v2.20.0) (2024-03-18)
+
+
+### Features
+
+* Connect validation query to nextgen ([#204](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/204)) ([481c40e](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/481c40e1e805cb92288792e0819189d31f383195))
+
 ## [2.19.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.19.0...v2.19.1) (2024-03-18)
 
 
