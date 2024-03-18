@@ -257,6 +257,7 @@ export const resolvers: Resolvers = {
             taxon: {
               id: taxon_id?.toString(),
               commonName: taxon_name,
+              name: taxon_name,
             },
           },
         ];
