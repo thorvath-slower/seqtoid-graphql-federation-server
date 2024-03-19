@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.21.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.2...v2.21.0) (2024-03-19)
+
+
+### Features
+
+* Add collectionId to where of workflowRunsAggregate so that we can paginate the query ([#213](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/213)) ([405f094](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/405f094290a71aa029c89b0c1bcd80176d3e6e31))
+
 ## [2.20.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.1...v2.20.2) (2024-03-19)
 
 
