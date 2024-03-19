@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.20.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.1...v2.20.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* Remove hack for testing ([#210](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/210)) ([6cc6315](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/6cc6315a40f4bb779fff874e71c76d6744dacef4))
+
 ## [2.20.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.0...v2.20.1) (2024-03-18)
 
 
