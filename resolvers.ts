@@ -829,22 +829,8 @@ export const resolvers: Resolvers = {
       // NEXT GEN:
       const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
-        console.log("bchu: " + queryingIdsOnly);
         if (queryingIdsOnly) {
-          console.log(
-            "bchu: " + convertSequencingReadsQuery(context.params.query),
-          );
-          console.log(
-            "bchu: " +
-              JSON.stringify({
-                where: {
-                  collectionId: input.where?.collectionId,
-                  taxon: input.where?.taxon,
-                  consensusGenomes: input.where?.consensusGenomes,
-                },
-              }),
-          );
-          const nextGenResponse = await fetchFromNextGen({
+          const nextGenPromise = fetchFromNextGen({
             customQuery: convertSequencingReadsQuery(context.params.query),
             customVariables: {
               // Entities Service doesn't support sample metadata yet.
@@ -858,9 +844,7 @@ export const resolvers: Resolvers = {
             args,
             context,
           });
-          console.log("bchu: " + JSON.stringify(nextGenResponse));
-          let sequencingReads = nextGenResponse.data.sequencingReads;
-          if (input.where?.sample != null && sequencingReads.length > 0) {
+          if (input.where?.sample != null) {
             const filteredSampleIds = new Set(
               (
                 await getFromRails({
@@ -879,13 +863,13 @@ export const resolvers: Resolvers = {
                 })
               ).all_samples_ids,
             );
-            console.log("bchu: " + JSON.stringify(filteredSampleIds));
-            sequencingReads = sequencingReads.filter(sequencingRead =>
-              filteredSampleIds.has(sequencingRead.sample.railsSampleId),
+            return (await nextGenPromise).data.sequencingReads.filter(
+              sequencingRead =>
+                filteredSampleIds.has(sequencingRead.sample.railsSampleId),
             );
+          } else {
+            return (await nextGenPromise).data.sequencingReads;
           }
-          console.log("bchu: " + JSON.stringify(sequencingReads));
-          return sequencingReads;
         }
 
         const nextGenResponse = await fetchFromNextGen({
