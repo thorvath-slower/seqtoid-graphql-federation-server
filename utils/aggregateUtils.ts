@@ -25,13 +25,7 @@ export const processWorkflowsAggregateResponse = (
     aggregate: [],
   };
 
-  // TODO(bchu1): Remove this, just for temp testing!
-  let i = 0;
   for (const project of railsProjects) {
-    i++;
-    if (i >= 20) {
-      break;
-    }
     // TODO: enable more workflows coming from next gen
     const nextGenCgCount =
       nextGenProjectAggregates?.find(
