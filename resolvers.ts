@@ -1322,6 +1322,10 @@ export const resolvers: Resolvers = {
     },
     fedWorkflowRunsAggregate: async (root, args, context: any, info) => {
       const input = args.input;
+      const paginatedProjectIds = input?.where?.collectionId?._in?.length
+        ? new Set(input.where.collectionId._in)
+        : undefined;
+
       const { projects } = await get({
         url:
           "/projects.json" +
@@ -1385,7 +1389,11 @@ export const resolvers: Resolvers = {
 
       return processWorkflowsAggregateResponse(
         nextGenProjectAggregates,
-        projects,
+        projects.filter(
+          project =>
+            paginatedProjectIds === undefined ||
+            paginatedProjectIds.has(project.id),
+        ),
         nextGenEnabled,
       );
     },

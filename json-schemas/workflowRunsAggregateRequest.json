@@ -15,6 +15,17 @@
                         }
                     }
                 },
+                "collectionId": {
+                    "type": "object",
+                    "properties": {
+                        "_in": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
                 "workflowVersion": {
                     "type": "object",
                     "properties": {

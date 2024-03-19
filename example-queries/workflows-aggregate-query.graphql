@@ -5,6 +5,9 @@ query workflowRunsAggregateQuery {
         id: {
           _in: ["1", "2", "3"]
         }
+        collectionId: {
+          _in: [2, 3]
+        }
         workflowVersion: {
           workflow: {
             name: {
