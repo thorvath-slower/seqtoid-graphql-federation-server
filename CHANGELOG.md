@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [2.22.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.21.0...v2.22.0) (2024-03-20)
+
+
+### Features
+
+* Add filtering by sampleIds & workflowRunIds on /worklflow_runs for API testing ([#223](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/223)) ([167b5a4](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/167b5a49ca6be1d3563d6a4f7748404e4fd0f495))
+* Add sample name match argument ([#221](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/221)) ([6e2607c](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/6e2607c45d136b11ed64b47c71baa73ca21a7f37))
+* Parallelize the Rails and NexGen join calls for fedSequencingReads ID query ([#216](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/216)) ([6e341d0](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/6e341d0ea3b4b2ef2afcdb662c50e344e5160d76))
+
 ## [2.21.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.20.2...v2.21.0) (2024-03-19)
 
 
