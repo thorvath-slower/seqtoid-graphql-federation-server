@@ -4076,6 +4076,7 @@ input queryInput_fedSequencingReads_input_where_id_Input {
 input queryInput_fedSequencingReads_input_where_sample_Input {
   collectionLocation: queryInput_fedSequencingReads_input_where_sample_collectionLocation_Input
   hostOrganism: queryInput_fedSequencingReads_input_where_sample_hostOrganism_Input
+  name: queryInput_fedSequencingReads_input_where_sample_name_Input
   sampleType: queryInput_fedSequencingReads_input_where_sample_sampleType_Input
 }
 
@@ -4089,6 +4090,10 @@ input queryInput_fedSequencingReads_input_where_sample_hostOrganism_Input {
 
 input queryInput_fedSequencingReads_input_where_sample_hostOrganism_name_Input {
   _in: [String]
+}
+
+input queryInput_fedSequencingReads_input_where_sample_name_Input {
+  _iregex: String
 }
 
 input queryInput_fedSequencingReads_input_where_sample_sampleType_Input {

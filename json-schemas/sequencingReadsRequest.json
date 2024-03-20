@@ -46,6 +46,14 @@
                 "sample": {
                     "type": "object",
                     "properties": {
+                        "name": {
+                            "type": "object",
+                            "properties": {
+                                "_iregex": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "collectionLocation": {
                             "type": "object",
                             "properties": {
