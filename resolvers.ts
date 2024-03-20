@@ -295,10 +295,6 @@ export const resolvers: Resolvers = {
             tissue: input?.todoRemove?.tissue,
             visibility: input?.todoRemove?.visibility,
             workflow: input?.todoRemove?.workflow,
-            // sampleIds and workflowRunIds are only used for API testing, not in the app.
-            workflowRunIds: input?.todoRemove?.workflowRunIds,
-            sampleIds: input?.todoRemove?.sampleIds,
-
             //  - DiscoveryDataLayer.ts
             //    await this._collection.fetchDataCallback({
             limit: input?.limit,
