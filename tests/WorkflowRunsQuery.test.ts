@@ -164,11 +164,19 @@ describe("workflowRuns query:", () => {
   });
 
   describe("validConsensusGenomes query", () => {
+    let execute: ExecuteMeshFn;
+    const query = getExampleQuery("workflow-runs-query-id-list");
+
+    beforeEach(async () => {
+      const mesh$ = await getMeshInstance();
+      ({ execute } = mesh$);
+    });
+
     it("should call the correct rails endpoint when shouldReadFromNextGen is false", async () => {
       (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
         Promise.resolve(false),
       );
-      await execute(getExampleQuery("workflow-runs-query-id-list"), {
+      await execute(query, {
         authenticityToken: "authtoken1234",
         workflowRunIds: ["1997", "2007"],
       });
@@ -182,5 +190,29 @@ describe("workflowRuns query:", () => {
         args: expect.anything(),
       });
     });
+
+    it("should call nextgen when shouldReadFromNextGen is true", async () => {
+  
+      (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+        Promise.resolve(true),
+      );
+      await execute(query, {
+        authenticityToken: "authtoken1234",
+        workflowRunIds: ["1997", "2007"],
+      }, { params: { query } });
+      expect(httpUtils.fetchFromNextGen).toHaveBeenCalledWith(
+        expect.objectContaining({
+          customQuery: expect.stringContaining("workflowRuns"),
+          customVariables: expect.objectContaining({
+            where: expect.objectContaining({
+              id: {
+                _in: ["1997", "2007"],
+              }
+            }),
+          }),
+        }), 
+      );
+    });
+
   });
 });
