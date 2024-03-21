@@ -1,30 +1,28 @@
 query BulkDownloadsWithNoLimit {
   fedBulkDownloads {
+    id
+    status
+    startedAt
+    ownerUserId
+    downloadType
+    url
+    fileSize
+    entityInputFileType
+    entityInputs {
       id
-      status
-      startedAt
-      ownerUserId
-      analysisCount
-      entityInputFileType
-      sampleNames
-      rawInputsJson {
-        description
-        downloadType
-        downloadDisplayName
-        fileFormat
-      }
-      file {
-        downloadLink {
-          url
-        }
-        size
-      }
-      toDelete{
-        user_name
-        log_url
-        totalSamples
-        progress
-      }
+      name
+    }
+    logUrl
+    fileSize
+    errorMessage
+    params {
+      downloadFormat
+      metric
+      background
+      filterBy
+      taxaWithReads
+      includeMetadata
+      fileFormat
     }
   }
-  
+}

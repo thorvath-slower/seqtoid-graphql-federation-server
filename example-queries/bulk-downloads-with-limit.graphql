@@ -1,36 +1,29 @@
-query BulkDownloadsWithLimitQuery{
-        fedBulkDownloads(
-          input: {
-            searchBy: "Suzette McCanny", 
-            limit: 10
-          }
-        ) 
-        {
-          id
-          status
-          startedAt
-          ownerUserId
-          analysisCount
-          entityInputFileType
-          sampleNames
-          rawInputsJson {
-            description
-            downloadType
-            downloadDisplayName
-            fileFormat
-          }
-          file {
-            downloadLink {
-              url
-            }
-            size
-          }
-          toDelete{
-            user_name
-            log_url
-            totalSamples
-            progress
-          }
-        }
-      }
-      
+query BulkDownloadsWithLimitQuery {
+  fedBulkDownloads(input: { searchBy: "Suzette McCanny", limit: 10 })
+  fedBulkDownloads {
+    id
+    status
+    startedAt
+    ownerUserId
+    downloadType
+    url
+    fileSize
+    entityInputFileType
+    entityInputs {
+      id
+      name
+    }
+    logUrl
+    fileSize
+    errorMessage
+    params {
+      downloadFormat
+      metric
+      background
+      filterBy
+      taxaWithReads
+      includeMetadata
+      fileFormat
+    }
+  }
+}

@@ -12,48 +12,26 @@
             "startedAt": {
                 "type": "string"
             },
-            "rawInputsJson": {
-                "type": "object",
-                "properties": {
-                    "description": {
-                        "type": "string"
-                    },
-                    "downloadType": {
-                        "type": "string"
-                    },
-                    "downloadDisplayName": {
-                        "type": "string"
-                    },
-                    "fileFormat": {
-                        "type": "string"
-                    }
-                }
+            "downloadType": {
+                "type": "string"
+            },
+            "fileFormat": {
+                "type": "string"
             },
             "ownerUserId": {
                 "type": "string"
             },
-            "file": {
-                "type": "object",
-                "properties": {
-                    "size": {
-                        "type": "integer"
-                    },
-                    "downloadLink": {
-                        "type": "object",
-                        "properties": {
-                            "url": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
+            "fileSize": {
+                "type": "integer"
             },
-            "sampleNames": {
-                "type": "array",
-                "items": "string"
+            "url": {
+                "type": "string"
             },
             "analysisCount": {
                 "type": "integer"
+            },
+            "errorMessage": {
+                "type": "string"
             },
             "entityInputFileType": {
                 "type": "string"
@@ -72,23 +50,35 @@
                     }
                 }
             },
-            "toDelete": {
+            "params": {
                 "type": "object",
                 "properties": {
-                    "user_name": {
+                    "downloadFormat": {
                         "type": "string"
                     },
-                    "log_url": {
+                    "metric": {
                         "type": "string"
                     },
-                    "totalSamples": {
-                        "type": "integer"
+                    "background": {
+                        "type": "string"
                     },
-                    "progress": {
-                        "type": "float"
+                    "filterBy": {
+                        "type": "string"
+                    },
+                    "taxaWithReads": {
+                        "type": "string"
+                    },
+                    "includeMetadata":{
+                        "type": "string"
+                    },
+                    "fileFormat":{
+                        "type": "string"
                     }
                 }
+            },
+            "logUrl": {
+                "type": "string"
             }
-}
+        }
     }
 }

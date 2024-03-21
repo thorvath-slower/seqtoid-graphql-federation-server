@@ -4873,16 +4873,19 @@ type query_UserBlastAnnotations_items {
 
 type query_fedBulkDownloads_items {
   analysisCount: Int
+  downloadType: String
   entityInputFileType: String
   entityInputs: [query_fedBulkDownloads_items_entityInputs_items]
-  file: query_fedBulkDownloads_items_file
+  errorMessage: String
+  fileFormat: String
+  fileSize: Int
   id: String
+  logUrl: String
   ownerUserId: String
-  rawInputsJson: query_fedBulkDownloads_items_rawInputsJson
-  sampleNames: [JSON]
+  params: query_fedBulkDownloads_items_params
   startedAt: String
   status: String
-  toDelete: query_fedBulkDownloads_items_toDelete
+  url: String
 }
 
 type query_fedBulkDownloads_items_entityInputs_items {
@@ -4890,27 +4893,14 @@ type query_fedBulkDownloads_items_entityInputs_items {
   name: String
 }
 
-type query_fedBulkDownloads_items_file {
-  downloadLink: query_fedBulkDownloads_items_file_downloadLink
-  size: Int
-}
-
-type query_fedBulkDownloads_items_file_downloadLink {
-  url: String
-}
-
-type query_fedBulkDownloads_items_rawInputsJson {
-  description: String
-  downloadDisplayName: String
-  downloadType: String
+type query_fedBulkDownloads_items_params {
+  background: String
+  downloadFormat: String
   fileFormat: String
-}
-
-type query_fedBulkDownloads_items_toDelete {
-  log_url: String
-  progress: JSON
-  totalSamples: Int
-  user_name: String
+  filterBy: String
+  includeMetadata: String
+  metric: String
+  taxaWithReads: String
 }
 
 type query_fedConsensusGenomes_items {
