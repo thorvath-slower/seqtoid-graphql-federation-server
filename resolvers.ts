@@ -184,6 +184,7 @@ export const resolvers: Resolvers = {
       const workflowRunIdsNumbers = workflowRunIdsStrings?.map(
         id => id && parseInt(id),
       );
+
       const body = {
         download_type: downloadType,
         workflow: workflow,
@@ -198,7 +199,9 @@ export const resolvers: Resolvers = {
             value: workflow,
           },
         },
-        workflow_run_ids: workflowRunIds,
+        workflow_run_ids: workflowRunIdsNumbers
+          ? workflowRunIdsNumbers
+          : workflowRunIds,
       };
       const res = await postWithCSRF({
         url: `/bulk_downloads/consensus_genome_overview_data`,
