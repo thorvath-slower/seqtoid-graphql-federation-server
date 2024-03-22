@@ -7,6 +7,7 @@ jest.mock("../utils/httpUtils");
 
 beforeEach(() => {
   (httpUtils.postWithCSRF as jest.Mock).mockClear();
+  (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
 });
 
 describe.only("BulkDownloadCGOverview Query", () => {
@@ -20,11 +21,17 @@ describe.only("BulkDownloadCGOverview Query", () => {
     query = getExampleQuery("bulk-download-cg-overview-query");
   });
 
-  describe("BulkDownloadCGOverview successful response", () => {
+  describe("BulkDownloadCGOverview successful response - next gen OFF", () => {
     const bulkDownloadCGOverviewResponse = getSampleResponse("cgOverview");
 
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+      () => false,
+    );
+
     it("should give correct response", async () => {
-      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(() => bulkDownloadCGOverviewResponse);
+      (httpUtils.postWithCSRF as jest.Mock).mockImplementation(
+        () => bulkDownloadCGOverviewResponse,
+      );
       const result = await execute(query, {
         authenticityToken: "authtoken1234",
         downloadType: "consensus_genome_overview",
@@ -33,9 +40,36 @@ describe.only("BulkDownloadCGOverview Query", () => {
         workflowRunIds: [1991, 2007],
         workflowRunIdsStrings: ["1991", "2007"],
       });
+      console.log("result", result);
       expect(result.data.BulkDownloadCGOverview.cgOverviewRows).toStrictEqual(
         bulkDownloadCGOverviewResponse.cg_overview_rows,
       );
     });
   });
+
+  // describe("BulkDownloadCGOverview successful response - next gen ON", () => {
+  //   const bulkDownloadCGOverviewResponse = getSampleResponse("cgOverview");
+
+  //   (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+  //     () => true,
+  //   );
+
+  //   it("should give correct response", async () => {
+  //     (httpUtils.get as jest.Mock).mockImplementation(
+  //       () => bulkDownloadCGOverviewResponse,
+  //     );
+  //     const result = await execute(query, {
+  //       authenticityToken: "authtoken1234",
+  //       downloadType: "consensus_genome_overview",
+  //       includeMetadata: false,
+  //       workflow: "consensus_genome",
+  //       workflowRunIds: [1991, 2007],
+  //       workflowRunIdsStrings: ["1991", "2007"],
+  //     });
+  //     console.log("result", result);
+  //     expect(result.data.BulkDownloadCGOverview.cgOverviewRows).toStrictEqual(
+  //       bulkDownloadCGOverviewResponse.cg_overview_rows,
+  //     );
+  //   });
+  // });
 });

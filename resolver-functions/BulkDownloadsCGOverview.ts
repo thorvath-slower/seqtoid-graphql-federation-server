@@ -12,11 +12,14 @@ export const BulkDownloadsCGOverviewResolver = async (
   /* --------------------- Next Gen ------------------------- */
   const nextGenEnabled = await shouldReadFromNextGen(context);
   console.log("nextGenEnabled hello", nextGenEnabled);
-  console.log("workflowRunIdsStrings", args?.input?.workflowRunIdsStrings);
+  console.log(
+    "workflowRunIdsStrings",
+    args?.input?.workflowRunIdsStrings?.map(id => `"${id}"`),
+  );
   if (nextGenEnabled) {
     const entitiesQuery = `
       query EntitiesQuery {
-        consensusGenomes(where: {producingRunId: {in: [${args?.input?.workflowRunIdsStrings}]}}) {
+        consensusGenomes(where: {producingRunId: {in: [${args?.input?.workflowRunIdsStrings?.map(id => `"${id}"`)}]}) {
           metrics {
             coverageDepth
             totalReads
