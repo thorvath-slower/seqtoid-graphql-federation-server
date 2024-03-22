@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.23.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.2...v2.23.3) (2024-03-22)
+
+
+### Bug Fixes
+
+* account for deprecated and bulk-download runs in SampleForReport query ([#230](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/230)) ([567a2f2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/567a2f2e36c4e695a712c753be81aff0b7235351))
+* testing cg bulk download overview ([#233](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/233)) ([b16f33a](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/b16f33a1d28cf2a56b4fbe6ed91ca8ed484bf50b))
+
 ## [2.23.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.1...v2.23.2) (2024-03-22)
 
 
