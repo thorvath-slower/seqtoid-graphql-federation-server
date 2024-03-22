@@ -1,6 +1,6 @@
 {
   "name": "czi-graphql-federation",
-  "version": "2.23.3",
+  "version": "2.23.4",
   "description": "",
   "scripts": {
     "start": "mesh start",
