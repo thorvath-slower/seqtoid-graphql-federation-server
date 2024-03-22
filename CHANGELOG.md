@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.23.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.0...v2.23.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* begin testing BulkDownloadCGOverview to nextGen ([#227](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/227)) ([5c2c3a8](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/5c2c3a8842e2951e36474c9aad4e633a3fa8e24d))
+
 ## [2.23.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.22.0...v2.23.0) (2024-03-21)
 
 
