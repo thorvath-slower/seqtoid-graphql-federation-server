@@ -240,7 +240,6 @@ type BulkDownload implements EntityInterface & Node {
   collectionId: Int!
   createdAt: DateTime!
   deletedAt: DateTime
-  downloadDisplayName: String!
   downloadType: BulkDownloadType!
   file(where: FileWhereClause = null): File
   fileId: ID
@@ -269,7 +268,6 @@ enum BulkDownloadCountColumns {
   collectionId
   createdAt
   deletedAt
-  downloadDisplayName
   downloadType
   file
   id
@@ -281,7 +279,6 @@ enum BulkDownloadCountColumns {
 input BulkDownloadCreateInput {
   collectionId: Int!
   deletedAt: DateTime = null
-  downloadDisplayName: String!
   downloadType: BulkDownloadType!
   producingRunId: ID = null
 }
@@ -290,7 +287,6 @@ type BulkDownloadGroupByOptions {
   collectionId: Int
   createdAt: DateTime
   deletedAt: DateTime
-  downloadDisplayName: String
   downloadType: BulkDownloadType
   id: UUID
   ownerUserId: Int
@@ -302,7 +298,6 @@ type BulkDownloadMinMaxColumns {
   collectionId: Int
   createdAt: DateTime
   deletedAt: DateTime
-  downloadDisplayName: String
   ownerUserId: Int
   updatedAt: DateTime
 }
@@ -316,7 +311,6 @@ input BulkDownloadOrderByClause {
   collectionId: orderBy
   createdAt: orderBy
   deletedAt: orderBy
-  downloadDisplayName: orderBy
   downloadType: orderBy
   id: orderBy
   ownerUserId: orderBy
@@ -325,8 +319,8 @@ input BulkDownloadOrderByClause {
 }
 
 enum BulkDownloadType {
-  concatenate
-  zip
+  consensus_genome
+  consensus_genome_intermediate_output_files
 }
 
 input BulkDownloadTypeEnumComparators {
@@ -349,7 +343,6 @@ input BulkDownloadWhereClause {
   collectionId: IntComparators
   createdAt: DatetimeComparators
   deletedAt: DatetimeComparators
-  downloadDisplayName: StrComparators
   downloadType: BulkDownloadTypeEnumComparators
   id: UUIDComparators
   ownerUserId: IntComparators
