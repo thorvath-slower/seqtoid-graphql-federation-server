@@ -11,15 +11,10 @@ export const BulkDownloadsCGOverviewResolver = async (
   }
   /* --------------------- Next Gen ------------------------- */
   const nextGenEnabled = await shouldReadFromNextGen(context);
-  console.log("nextGenEnabled hello", nextGenEnabled);
-  console.log(
-    "workflowRunIdsStrings",
-    args?.input?.workflowRunIdsStrings?.map(id => `"${id}"`),
-  );
   if (nextGenEnabled) {
     const entitiesQuery = `
       query EntitiesQuery {
-        consensusGenomes(where: {producingRunId: {_in: [${args?.input?.workflowRunIdsStrings?.map(id => `"${id}"`)}]}) {
+        consensusGenomes(where: {producingRunId: {_in: [${args?.input?.workflowRunIdsStrings?.map(id => `"${id}"`)}]}}) {
           metrics {
             coverageDepth
             totalReads
@@ -29,6 +24,7 @@ export const BulkDownloadsCGOverviewResolver = async (
             referenceGenomeLength
             gcPercent
             refSnps
+            nActg
             nMissing
             nAmbiguous
           }
@@ -50,8 +46,49 @@ export const BulkDownloadsCGOverviewResolver = async (
       serviceType: "entities",
       customQuery: entitiesQuery,
     });
-    console.log("entitiesResp", entitiesResp);
-    return entitiesResp;
+    const formattedForCSV = {
+      cgOverviewRows: [
+        [
+          "Sample Name",
+          "Reference Accession",
+          "Reference Accession ID",
+          "Reference Length",
+          "% Genome Called",
+          "%id",
+          "GC Content",
+          "ERCC Reads",
+          "Total Reads",
+          "Mapped Reads",
+          "SNPs",
+          "Informative Nucleotides",
+          "Missing Bases",
+          "Ambiguous Bases",
+          "Coverage Depth",
+        ],
+        ...entitiesResp.data.consensusGenomes?.map(cg => [
+          cg.sequencingRead?.sample?.name,
+          cg.referenceGenome?.name,
+          cg.referenceGenome?.id,
+          cg.metrics?.referenceGenomeLength,
+          cg.metrics?.percentGenomeCalled,
+          cg.metrics?.percentIdentity,
+          cg.metrics?.gcPercent,
+          0, //ERCC Reads
+          cg.metrics?.totalReads,
+          cg.metrics?.mappedReads,
+          cg.metrics?.refSnps,
+          cg.metrics?.nActg,
+          cg.metrics?.nMissing,
+          cg.metrics?.nAmbiguous,
+          cg.metrics?.coverageDepth,
+        ]),
+      ],
+    };
+    // TODO: Add Optional Sample Metadata
+    // if (args?.input?.includeMetadata) {
+    //   call rails sample metadata query
+    //}
+    return formattedForCSV;
   }
   const {
     downloadType,
