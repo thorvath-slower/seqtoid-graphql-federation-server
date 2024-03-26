@@ -422,7 +422,7 @@ input ConsensusGenomeCreateInput {
   producingRunId: ID = null
   referenceGenomeId: ID = null
   sequencingReadId: ID!
-  taxonId: ID!
+  taxonId: ID = null
 }
 
 """An edge in a connection."""
