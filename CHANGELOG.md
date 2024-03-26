@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [2.24.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.5...v2.24.0) (2024-03-26)
+
+
+### Features
+
+* update taxon nullable ([#240](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/240)) ([c61d7a9](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c61d7a9c65dad0853f603f3853af35b008082734))
+
+
+### Bug Fixes
+
+* change the type of BulkDownloadCGOverview.params ([#242](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/242)) ([e71af07](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e71af077d66527ee1d5aee526553358791b8004d))
+
 ## [2.23.5](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.4...v2.23.5) (2024-03-25)
 
 
