@@ -51,29 +51,21 @@
                 }
             },
             "params": {
-                "type": "object",
-                "properties": {
-                    "downloadFormat": {
-                        "type": "string"
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "paramType": {
+                            "type": "string"
+                        },
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "value": {
+                            "type": "string"
+                        }
                     },
-                    "metric": {
-                        "type": "string"
-                    },
-                    "background": {
-                        "type": "string"
-                    },
-                    "filterBy": {
-                        "type": "string"
-                    },
-                    "taxaWithReads": {
-                        "type": "string"
-                    },
-                    "includeMetadata":{
-                        "type": "string"
-                    },
-                    "fileFormat":{
-                        "type": "string"
-                    }
+                    "required": ["paramType", "value"]
                 }
             },
             "logUrl": {

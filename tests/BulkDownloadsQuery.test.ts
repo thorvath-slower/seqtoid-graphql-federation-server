@@ -103,15 +103,7 @@ describe("bulkDownloads Query:", () => {
         entityInputs: [{ id: "1156", name: "norg_wtc" }],
         logUrl: null,
         errorMessage: null,
-        params: {
-          downloadFormat: null,
-          metric: null,
-          background: null,
-          filterBy: null,
-          taxaWithReads: null,
-          includeMetadata: null,
-          fileFormat: null,
-        },
+        params: [],
       },
     ];
     expect(result.data.fedBulkDownloads).toStrictEqual(bulkDownloadResponse);
@@ -230,15 +222,7 @@ describe("bulkDownloads Query:", () => {
         ],
         logUrl: null,
         errorMessage: null,
-        params: {
-          downloadFormat: null,
-          metric: null,
-          background: null,
-          filterBy: null,
-          taxaWithReads: null,
-          includeMetadata: null,
-          fileFormat: null,
-        },
+        params: [],
       },
     ];
     expect(result.data.fedBulkDownloads).toStrictEqual(bulkDownloadResponse);

@@ -37,12 +37,21 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
       ...getEntityInputInfo(details?.bulk_download?.workflow_runs),
       ...getEntityInputInfo(details?.bulk_download?.pipeline_runs),
     ];
-    const params = {};
+    const params: {
+      paramType: string;
+      downloadName?: string;
+      value: string;
+    }[] = [];
     Object.entries(details?.bulk_download?.params)
       // remove "workflow" and "sample_ids" from details?.bulk_download?.params
       .filter(param => param[0] !== "workflow" && param[0] !== "sample_ids")
-      .map(param => {
-        params[snakeToCamel(param[0])] = param[1];
+      // make params into an array of objects
+      .map((param: [string, { downloadName?: string; value: string }]) => {
+        const paramItem = {
+          paramType: snakeToCamel(param[0]),
+          ...param[1],
+        };
+        params.push(paramItem);
       });
 
     const {
@@ -75,9 +84,7 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
       entityInputFileType: analysis_type,
       entityInputs,
       errorMessage: error_message,
-      params: {
-        ...params,
-      },
+      params,
       logUrl, // used in admin only, we will deprecate log_url and use something like executionId
     };
   });

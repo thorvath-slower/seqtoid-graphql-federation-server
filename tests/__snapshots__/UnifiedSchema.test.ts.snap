@@ -4875,7 +4875,7 @@ type query_fedBulkDownloads_items {
   id: String
   logUrl: String
   ownerUserId: String
-  params: query_fedBulkDownloads_items_params
+  params: [query_fedBulkDownloads_items_params_items]
   startedAt: String
   status: String
   url: String
@@ -4886,14 +4886,10 @@ type query_fedBulkDownloads_items_entityInputs_items {
   name: String
 }
 
-type query_fedBulkDownloads_items_params {
-  background: String
-  downloadFormat: String
-  fileFormat: String
-  filterBy: String
-  includeMetadata: String
-  metric: String
-  taxaWithReads: String
+type query_fedBulkDownloads_items_params_items {
+  displayName: String
+  paramType: String!
+  value: String!
 }
 
 type query_fedConsensusGenomes_items {
