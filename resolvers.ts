@@ -476,58 +476,101 @@ export const resolvers: Resolvers = {
       // NEXT GEN:
       const nextGenEnabled = await shouldReadFromNextGen(context);
       if (nextGenEnabled) {
+        // NEXT GEN IDS:
         if (queryingIdsOnly) {
           const nextGenPromise = fetchFromNextGen({
             customQuery: convertSequencingReadsQuery(context.params.query),
             customVariables: {
-              // Entities Service doesn't support sample metadata yet.
               where: {
                 collectionId: input.where?.collectionId,
                 taxon: input.where?.taxon,
                 consensusGenomes: input.where?.consensusGenomes,
+                // Entities Service doesn't support sample host + metadata yet.
+                sample:
+                  input.where?.sample?.name != null
+                    ? {
+                        name: input.where.sample.name,
+                      }
+                    : undefined,
               },
+              orderBy:
+                input.orderByArray?.[0]?.protocol != null ||
+                input.orderByArray?.[0]?.technology != null ||
+                input.orderByArray?.[0]?.medakaModel != null ||
+                input.orderByArray?.[0]?.sample?.name != null
+                  ? input.orderByArray
+                  : undefined,
             },
             serviceType: "entities",
             args,
             context,
           });
-          if (input.where?.sample != null) {
-            const filteredSampleIds = new Set(
-              (
-                await getFromRails({
-                  url:
-                    "/samples/index_v2.json" +
-                    formatUrlParams({
-                      locationV2: input.where.sample.collectionLocation?._in,
-                      host: input.where.sample.hostOrganism?.name?._in,
-                      tissue: input.where.sample.sampleType?._in,
-                      limit: 0,
-                      offset: 0,
-                      listAllIds: true,
-                    }),
-                  args,
-                  context,
-                })
-              ).all_samples_ids,
-            );
+
+          const isSortingInRails =
+            input.orderByArray?.[0]?.sample?.metadata != null ||
+            input.orderByArray?.[0]?.sample?.hostOrganism?.name != null;
+          if (
+            !input.where?.sample?.collectionLocation?._in?.length &&
+            !input.where?.sample?.hostOrganism?.name?._in?.length &&
+            !input.where?.sample?.sampleType?._in?.length &&
+            !isSortingInRails
+          ) {
+            // Don't need Rails.
+            return (await nextGenPromise).data.sequencingReads;
+          }
+
+          const railsSampleIds: number[] = (
+            await getFromRails({
+              url:
+                "/samples/index_v2.json" +
+                formatUrlParams({
+                  locationV2: input?.where?.sample?.collectionLocation?._in,
+                  host: input?.where?.sample?.hostOrganism?.name?._in,
+                  tissue: input?.where?.sample?.sampleType?._in,
+                  orderBy: isSortingInRails
+                    ? input.orderByArray?.[0]?.sample?.metadata?.fieldName ??
+                      "host"
+                    : undefined,
+                  orderDir: isSortingInRails
+                    ? (input.orderByArray?.[0]?.sample?.metadata?.dir ??
+                        input.orderByArray?.[0]?.sample?.hostOrganism?.name) ===
+                      "asc_nulls_first"
+                      ? "ASC"
+                      : "DESC"
+                    : undefined,
+                  limit: 0,
+                  offset: 0,
+                  listAllIds: true,
+                }),
+              args,
+              context,
+            })
+          ).all_samples_ids;
+
+          if (isSortingInRails) {
+            const sampleIdsToReads = new Map<number, any>();
+            for (const read of (await nextGenPromise).data.sequencingReads) {
+              if (!sampleIdsToReads.has(read.sample.railsSampleId)) {
+                sampleIdsToReads.set(read.sample.railsSampleId, [read]);
+              } else {
+                sampleIdsToReads.get(read.sample.railsSampleId)?.push(read);
+              }
+            }
+            return railsSampleIds.flatMap(id => sampleIdsToReads.get(id) ?? []);
+          } else {
+            const railsSampleIdsSet = new Set(railsSampleIds);
             return (await nextGenPromise).data.sequencingReads.filter(
               sequencingRead =>
-                filteredSampleIds.has(sequencingRead.sample.railsSampleId),
+                railsSampleIdsSet.has(sequencingRead.sample.railsSampleId),
             );
-          } else {
-            return (await nextGenPromise).data.sequencingReads;
           }
         }
 
+        // NEXT GEN PAGE:
         const nextGenResponse = await fetchFromNextGen({
           customQuery: convertSequencingReadsQuery(context.params.query),
           customVariables: {
             where: input.where,
-            // TODO: Migrate to array orderBy.
-            orderBy:
-              (input.orderBy != null ? [input.orderBy] : undefined) ??
-              input.orderByArray,
-            limitOffset: input.limitOffset,
             producingRunIds:
               input.consensusGenomesInput?.where?.producingRunId?._in,
           },

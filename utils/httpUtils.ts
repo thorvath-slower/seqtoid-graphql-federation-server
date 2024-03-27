@@ -30,8 +30,12 @@ export const get = async ({
       });
     } else {
       if (!url) {
-        console.error(`You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`);
-        throw new Error(`You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`);
+        console.error(
+          `You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`,
+        );
+        throw new Error(
+          `You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`,
+        );
       }
       return getFromRails({ url, args, context, fullResponse });
     }
@@ -88,6 +92,11 @@ export const shouldReadFromNextGen = async context => {
   return false;
 };
 
+/**
+ * Gets an enriched token and then makes a call to NextGen.
+ *
+ * undefined properties in variables will not be sent (due to JSON.stringify() ignoring them).
+ */
 export const fetchFromNextGen = async ({
   args,
   context,

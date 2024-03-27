@@ -571,6 +571,24 @@ describe("sequencingReads query:", () => {
     ]);
   });
 
+  it("Does not call Rails to do join if no NextGen data returned", async () => {
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          sequencingReads: [],
+        },
+      }),
+    );
+
+    const sequencingReads = (await execute(query, {})).data.fedSequencingReads;
+
+    expect(sequencingReads).toEqual([]);
+    expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
+  });
+
   it("Joins NextGen and Rails data for IDs only", async () => {
     const query = getExampleQuery("sequencing-reads-query-id-fe");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
@@ -609,7 +627,9 @@ describe("sequencingReads query:", () => {
     );
 
     const sequencingReads = (
-      await execute(query, { input: { where: { sample: {} } } })
+      await execute(query, {
+        input: { where: { sample: { collectionLocation: { _in: ["USA"] } } } },
+      })
     ).data.fedSequencingReads;
 
     expect(sequencingReads).toMatchObject([
@@ -655,7 +675,7 @@ describe("sequencingReads query:", () => {
     expect(sequencingReads).toMatchObject([{ id: "123" }, { id: "456" }]);
   });
 
-  it("Does not call Rails if ID query has no sample filter", async () => {
+  it("Does not call Rails if ID query doesn't need to", async () => {
     const query = getExampleQuery("sequencing-reads-query-id-fe");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
       Promise.resolve(true),
@@ -704,25 +724,7 @@ describe("sequencingReads query:", () => {
     ]);
   });
 
-  it("Does not call Rails to do join if no NextGen data returned", async () => {
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve(true),
-    );
-    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve({
-        data: {
-          sequencingReads: [],
-        },
-      }),
-    );
-
-    const sequencingReads = (await execute(query, {})).data.fedSequencingReads;
-
-    expect(sequencingReads).toEqual([]);
-    expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
-  });
-
-  it("Does not call Rails to do join if only querying IDs", async () => {
+  it("Sorts using NextGen for ID query", async () => {
     const query = getExampleQuery("sequencing-reads-query-id-fe");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
       Promise.resolve(true),
@@ -732,18 +734,133 @@ describe("sequencingReads query:", () => {
         data: {
           sequencingReads: [
             {
-              id: "abc",
+              id: "a",
+              sample: {
+                railsSampleId: 1,
+              },
+            },
+            {
+              id: "b",
+              sample: {
+                railsSampleId: 2,
+              },
+            },
+            {
+              id: "c",
+              sample: {
+                railsSampleId: 3,
+              },
+            },
+            {
+              id: "d",
+              sample: {
+                railsSampleId: 4,
+              },
             },
           ],
         },
       }),
     );
+    (httpUtils.getFromRails as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        all_samples_ids: [3, 2, 1, 0],
+      }),
+    );
 
     const sequencingReads = (
-      await execute(query, { input: { where: { id: { _in: ["abc"] } } } })
+      await execute(query, {
+        input: {
+          where: {
+            sample: { collectionLocation: { _in: ["USA"] } },
+          },
+          orderByArray: [{ protocol: "asc_nulls_first" }],
+        },
+      })
     ).data.fedSequencingReads;
 
-    expect(sequencingReads).toEqual([{ id: "abc" }]);
-    expect(httpUtils.getFromRails as jest.Mock).not.toHaveBeenCalled();
+    expect(sequencingReads).toMatchObject([
+      {
+        id: "a",
+      },
+      {
+        id: "b",
+      },
+      {
+        id: "c",
+      },
+    ]);
+  });
+
+  it("Sorts using Rails for ID query", async () => {
+    const query = getExampleQuery("sequencing-reads-query-id-fe");
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve(true),
+    );
+    (httpUtils.fetchFromNextGen as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          sequencingReads: [
+            {
+              id: "a",
+              sample: {
+                railsSampleId: 1,
+              },
+            },
+            {
+              id: "b",
+              sample: {
+                railsSampleId: 2,
+              },
+            },
+            {
+              id: "c",
+              sample: {
+                railsSampleId: 2,
+              },
+            },
+            {
+              id: "d",
+              sample: {
+                railsSampleId: 4,
+              },
+            },
+          ],
+        },
+      }),
+    );
+    (httpUtils.getFromRails as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        all_samples_ids: [3, 2, 1],
+      }),
+    );
+
+    const sequencingReads = (
+      await execute(query, {
+        input: {
+          orderByArray: [
+            {
+              sample: {
+                metadata: {
+                  fieldName: "blah",
+                  dir: "asc_nulls_first",
+                },
+              },
+            },
+          ],
+        },
+      })
+    ).data.fedSequencingReads;
+
+    expect(sequencingReads).toMatchObject([
+      {
+        id: "b",
+      },
+      {
+        id: "c",
+      },
+      {
+        id: "a",
+      },
+    ]);
   });
 });
