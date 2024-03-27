@@ -66,6 +66,7 @@ export const postWithCSRF = async ({
       body: JSON.stringify(body),
     });
     checkForLogin(response?.url);
+    console.log(response);
     return await response.json();
   } catch (e) {
     return Promise.reject(e.response ? e.response : e);
