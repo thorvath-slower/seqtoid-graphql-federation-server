@@ -1,0 +1,33 @@
+query workflowRunsAggregateTotalCountQuery {
+  fedWorkflowRunsAggregateTotalCount(
+    input: {
+      where: {
+        collectionId: {
+          _in: [2, 3]
+        }
+        workflowVersion: {
+          workflow: {
+            name: {
+              _in: ["consensus-genome"]
+            }
+          }
+        }
+      }
+      todoRemove: { 
+        domain: "my_data",
+        projectId: "123",
+      }
+    }
+  ) {
+    aggregate {
+      count
+      groupBy {
+        workflowVersion {
+          workflow {
+            name
+          }
+        }
+      }
+    }
+  }
+}

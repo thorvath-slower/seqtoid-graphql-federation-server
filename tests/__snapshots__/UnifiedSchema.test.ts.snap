@@ -1816,6 +1816,7 @@ type Query {
   fedSequencingReads(input: queryInput_fedSequencingReads_input_Input): [query_fedSequencingReads_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
   fedWorkflowRuns(input: queryInput_fedWorkflowRuns_input_Input): [query_fedWorkflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
   fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): fedWorkflowRunsAggregate @httpOperation(subgraph: "CZIDREST", path: "/projects.json", httpMethod: GET)
+  fedWorkflowRunsAggregateTotalCount(input: queryInput_fedWorkflowRunsAggregateTotalCount_input_Input): fedWorkflowRunsAggregateTotalCount @httpOperation(subgraph: "CZIDREST", path: "/samples/stats.json", httpMethod: GET)
   files(where: FileWhereClause = null): [File!]!
   genomicRanges(limitOffset: LimitOffsetClause = null, orderBy: [GenomicRangeOrderByClause!] = [], where: GenomicRangeWhereClause = null): [GenomicRange!]!
   genomicRangesAggregate(where: GenomicRangeWhereClause = null): GenomicRangeAggregate!
@@ -3794,6 +3795,10 @@ type fedWorkflowRunsAggregate {
   aggregate: [query_fedWorkflowRunsAggregate_aggregate_items]
 }
 
+type fedWorkflowRunsAggregateTotalCount {
+  aggregate: [query_fedWorkflowRunsAggregateTotalCount_aggregate_items]
+}
+
 input mutationInput_CreateBulkDownload_input_Input {
   authenticityToken: String
   downloadFormat: String
@@ -4261,6 +4266,37 @@ input queryInput_fedSequencingReads_input_where_taxon_Input {
 }
 
 input queryInput_fedSequencingReads_input_where_taxon_name_Input {
+  _in: [String]
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_Input {
+  todoRemove: queryInput_fedWorkflowRunsAggregateTotalCount_input_todoRemove_Input
+  where: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_Input
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_todoRemove_Input {
+  domain: String
+  projectId: String
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_Input {
+  collectionId: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_collectionId_Input
+  workflowVersion: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_Input
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_collectionId_Input {
+  _in: [Int]
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_Input {
+  workflow: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_workflow_Input
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_workflow_Input {
+  name: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_workflow_name_Input
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_workflow_name_Input {
   _in: [String]
 }
 
@@ -5095,6 +5131,23 @@ type query_fedSequencingReads_items_sample_metadatas_edges_items_node {
 }
 
 type query_fedSequencingReads_items_taxon {
+  name: String!
+}
+
+type query_fedWorkflowRunsAggregateTotalCount_aggregate_items {
+  count: Int!
+  groupBy: query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy!
+}
+
+type query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy {
+  workflowVersion: query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy_workflowVersion!
+}
+
+type query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy_workflowVersion {
+  workflow: query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy_workflowVersion_workflow!
+}
+
+type query_fedWorkflowRunsAggregateTotalCount_aggregate_items_groupBy_workflowVersion_workflow {
   name: String!
 }
 

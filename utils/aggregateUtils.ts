@@ -1,6 +1,6 @@
 import {
   fedWorkflowRunsAggregate,
-  query_fedWorkflowRunsAggregate_aggregate_items,
+  fedWorkflowRunsAggregateTotalCount, query_fedWorkflowRunsAggregateTotalCount_aggregate_items, query_fedWorkflowRunsAggregate_aggregate_items,
 } from "../.mesh";
 
 type RailsProjectAggregate = {
@@ -56,5 +56,37 @@ export const processWorkflowsAggregateResponse = (
     }
   }
 
+  return aggregates;
+}
+
+export const parseWorkflowsAggregateTotalCountsResponse = (
+  nextGenAggregates: query_fedWorkflowRunsAggregateTotalCount_aggregate_items[] | null,
+  railsCountByWorkflow: { [key: string]: number },
+  nextGenEnabled: boolean,
+  nextGenWorkflows: string[],
+): fedWorkflowRunsAggregateTotalCount => {
+  const aggregates: fedWorkflowRunsAggregateTotalCount = {
+    "aggregate": []
+  };
+
+  for (const workflow of Object.keys(railsCountByWorkflow)) {
+    const nextGenCount = nextGenAggregates?.find(
+      aggregate => aggregate?.groupBy?.workflowVersion?.workflow?.name === workflow
+    )?.count || 0;
+    const railsCount = railsCountByWorkflow[workflow] || 0;
+    
+    const isNextGenWorkflow = nextGenWorkflows.includes(workflow);
+    
+    aggregates?.aggregate?.push({
+      "groupBy": {
+        "workflowVersion": {
+          "workflow": {
+            "name": workflow,
+          },
+        },
+      },
+      "count": isNextGenWorkflow && nextGenEnabled ? nextGenCount : railsCount,
+    });
+  }
   return aggregates;
 };

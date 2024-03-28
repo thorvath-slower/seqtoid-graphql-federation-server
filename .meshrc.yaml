@@ -193,6 +193,13 @@ sources:
             responseSchema: ./json-schemas/workflowRunsAggregateResponse.json
             responseTypeName: fedWorkflowRunsAggregate
           - type: Query
+            field: fedWorkflowRunsAggregateTotalCount
+            path: /samples/stats.json
+            method: GET
+            requestSchema: ./json-schemas/fedWorkflowRunsAggregateTotalCountRequest.json
+            responseSchema: ./json-schemas/fedWorkflowRunsAggregateTotalCountResponse.json
+            responseTypeName: fedWorkflowRunsAggregateTotalCount
+          - type: Query
             field: ZipLink
             path: /workflow_runs/{args.workflowRunId}/zip_link.json
             method: GET

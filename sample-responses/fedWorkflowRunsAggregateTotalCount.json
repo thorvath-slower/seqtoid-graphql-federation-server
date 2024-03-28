@@ -1,0 +1,24 @@
+{
+  "aggregate": [
+    {
+      "count": 4569,
+      "groupBy": {
+        "workflowVersion": {
+          "workflow": {
+            "name": "consensus-genome"
+          }
+        }
+      }
+    },
+    {
+      "count": 123,
+      "groupBy": {
+        "workflowVersion": {
+          "workflow": {
+            "name": "amr"
+          }
+        }
+      }
+    }
+  ]
+}

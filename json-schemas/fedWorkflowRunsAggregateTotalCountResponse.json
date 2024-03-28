@@ -1,0 +1,47 @@
+{
+    "type": "object",
+    "properties": {
+        "aggregate": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer"
+                    },
+                    "groupBy": {
+                        "type": "object",
+                        "properties": {
+                            "workflowVersion": {
+                                "type": "object",
+                                "properties": {
+                                    "workflow": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "workflow"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "workflowVersion"
+                        ]
+                    }
+                },
+                "required": [
+                    "count",
+                    "groupBy"
+                ]
+            }
+        }
+    }
+}
