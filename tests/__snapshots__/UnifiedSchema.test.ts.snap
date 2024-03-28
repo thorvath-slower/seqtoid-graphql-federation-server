@@ -4896,6 +4896,7 @@ type query_fedConsensusGenomes_items {
   accession: query_fedConsensusGenomes_items_accession
   metrics: query_fedConsensusGenomes_items_metrics
   producingRunId: String
+  referenceGenome: query_fedConsensusGenomes_items_referenceGenome
   sequencingRead: query_fedConsensusGenomes_items_sequencingRead
   taxon: query_fedConsensusGenomes_items_taxon
 }
@@ -4921,6 +4922,18 @@ type query_fedConsensusGenomes_items_metrics {
   refSnps: Int
   referenceGenomeLength: Float
   totalReads: Int
+}
+
+type query_fedConsensusGenomes_items_referenceGenome {
+  file: query_fedConsensusGenomes_items_referenceGenome_file
+}
+
+type query_fedConsensusGenomes_items_referenceGenome_file {
+  downloadLink: query_fedConsensusGenomes_items_referenceGenome_file_downloadLink
+}
+
+type query_fedConsensusGenomes_items_referenceGenome_file_downloadLink {
+  url: String
 }
 
 type query_fedConsensusGenomes_items_sequencingRead {

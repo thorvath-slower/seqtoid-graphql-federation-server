@@ -194,6 +194,24 @@
                     }
                 },
                 "required": ["nucleicAcid", "technology"]
+            },
+            "referenceGenome": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "object",
+                    "properties": {
+                      "downloadLink": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
             }
         }
     }

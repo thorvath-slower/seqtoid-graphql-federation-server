@@ -75,6 +75,7 @@ export const resolvers: Resolvers = {
         return ret.data.consensusGenomes;
       }
       /* --------------------- Rails ------------------------- */
+      console.log(args.input)
       const input = args.input;
       if (input?.where?.producingRunId?._eq) {
         // if there is an _eq in the response than it is a call for a single workflow run result
@@ -88,6 +89,13 @@ export const resolvers: Resolvers = {
         const { coverage_viz, quality_metrics, taxon_info } = data;
         const { accession_id, accession_name, taxon_id, taxon_name } =
           taxon_info || {};
+
+        const referenceGenomeDownloadUrl = await get({
+          url: `/workflow_runs/${workflowRunId}/cg_report_downloads?downloadType=ref_fasta`,
+          args,
+          context,
+        });
+
         const ret = [
           {
             metrics: {
@@ -114,6 +122,13 @@ export const resolvers: Resolvers = {
               commonName: taxon_name,
               name: taxon_name,
             },
+            referenceGenome: {
+              file: {
+                downloadLink: {
+                  url: referenceGenomeDownloadUrl.url,
+                }
+              }
+            }
           },
         ];
         return ret;
