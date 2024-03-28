@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.27.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.26.1...v2.27.0) (2024-03-28)
+
+
+### Features
+
+* federate querying total count of each workflow ([#189](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/189)) ([93b8c29](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/93b8c2972d8227fa0cb30a5e47ffdb560082d71a))
+
 ## [2.26.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.26.0...v2.26.1) (2024-03-28)
 
 
