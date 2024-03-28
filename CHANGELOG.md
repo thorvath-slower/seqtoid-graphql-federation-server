@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [2.26.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.25.0...v2.26.0) (2024-03-28)
+
+
+### Features
+
+* Add sorting by consensusGenomes field functionality in Fed ([#246](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/246)) ([c87eaa2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c87eaa25dbc0f84aed80bfa54e8527c8dc0ad00c))
+* Allow security token to be passed for nextGen calls ([#218](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/218)) ([bed5cd2](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/bed5cd26daf5a91b9a416fe9d3e14cc8624c9c5f))
+* CZID-9499 Add referenceGenome to fedConsensusGenome ([#260](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/260)) ([409d793](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/409d79391170a5a02ea60bb73d9a3eeed9b900ca))
+
 ## [2.25.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.24.0...v2.25.0) (2024-03-28)
 
 
