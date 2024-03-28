@@ -403,8 +403,8 @@ describe("sequencingReads query:", () => {
       convertSequencingReadsQuery(
         getExampleQuery("sequencing-reads-query-id-fe"),
       ),
-      `query ($where: SequencingReadWhereClause) {
-        sequencingReads(where: $where) {
+      `query ($where: SequencingReadWhereClause, $orderBy: [SequencingReadOrderByClause!]) {
+        sequencingReads(where: $where, orderBy: $orderBy) {
           id
           sample {
             railsSampleId

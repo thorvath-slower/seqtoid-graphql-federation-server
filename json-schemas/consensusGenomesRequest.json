@@ -10,6 +10,17 @@
         "where": {
             "type": "object",
             "properties": {
+                "collectionId": {
+                    "type": "object",
+                    "properties": {
+                        "_in": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
                 "producingRunId": {
                     "type": "object",
                     "properties": {
@@ -27,48 +38,51 @@
             }
         },
         "orderBy": {
-            "type": "object",
-            "properties": {
-                "accession": {
-                    "type": "object",
-                    "properties": {
-                        "accessionId": {
-                            "type": "string"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "accession": {
+                        "type": "object",
+                        "properties": {
+                            "accessionId": {
+                                "type": "string"
+                            }
                         }
-                    }
-                },
-                "metrics": {
-                    "type": "object",
-                    "properties": {
-                        "coverageDepth": {
-                            "type": "string"
-                        },
-                        "totalReads": {
-                            "type": "string"
-                        },
-                        "gcPercent": {
-                            "type": "string"
-                        },
-                        "refSnps": {
-                            "type": "string"
-                        },
-                        "percentIdentity": {
-                            "type": "string"
-                        },
-                        "nActg": {
-                            "type": "string"
-                        },
-                        "percentGenomeCalled": {
-                            "type": "string"
-                        },
-                        "nMissing": {
-                            "type": "string"
-                        },
-                        "nAmbiguous": {
-                            "type": "string"
-                        },
-                        "referenceGenomeLength": {
-                            "type": "string"
+                    },
+                    "metrics": {
+                        "type": "object",
+                        "properties": {
+                            "coverageDepth": {
+                                "type": "string"
+                            },
+                            "totalReads": {
+                                "type": "string"
+                            },
+                            "gcPercent": {
+                                "type": "string"
+                            },
+                            "refSnps": {
+                                "type": "string"
+                            },
+                            "percentIdentity": {
+                                "type": "string"
+                            },
+                            "nActg": {
+                                "type": "string"
+                            },
+                            "percentGenomeCalled": {
+                                "type": "string"
+                            },
+                            "nMissing": {
+                                "type": "string"
+                            },
+                            "nAmbiguous": {
+                                "type": "string"
+                            },
+                            "referenceGenomeLength": {
+                                "type": "string"
+                            }
                         }
                     }
                 }

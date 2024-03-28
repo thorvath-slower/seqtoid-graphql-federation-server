@@ -92,6 +92,9 @@
             "sequencingRead": {
                 "type": "object",
                 "properties": {
+                    "id": {
+                        "type": "string"
+                    },
                     "nucleicAcid": {
                         "type": "string"
                     },
@@ -193,7 +196,7 @@
                         "required": ["name", "collectionLocation", "sampleType", "metadatas"]
                     }
                 },
-                "required": ["nucleicAcid", "technology"]
+                "required": ["id", "nucleicAcid", "technology"]
             },
             "referenceGenome": {
                 "type": "object",

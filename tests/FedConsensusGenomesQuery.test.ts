@@ -21,7 +21,9 @@ describe("fedConsensusGenomes DiscoveryView query:", () => {
   beforeEach(async () => {
     const mesh$ = await getMeshInstance();
     ({ execute } = mesh$);
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() => false);
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+      () => false,
+    );
   });
 
   it("Returns empty list", async () => {
@@ -30,91 +32,11 @@ describe("fedConsensusGenomes DiscoveryView query:", () => {
     }));
     const response = await execute(query, {});
     expect(httpUtils.get).toHaveBeenCalledWith({
-      url: "/workflow_runs.json?&mode=with_sample_info&search=abc&listAllIds=false",
+      url: "/workflow_runs.json?&mode=basic&search=abc&limit=10000000&offset=0&listAllIds=false",
       args: expect.anything(),
       context: expect.anything(),
     });
     expect(response.data.fedConsensusGenomes).toHaveLength(0);
-  });
-
-  it("Returns nested fields", async () => {
-    (httpUtils.get as jest.Mock).mockImplementation(() => ({
-      workflow_runs: [
-        {
-          id: 123,
-          inputs: {
-            taxon_name: "Taxon1",
-          },
-        },
-        {
-          id: 456,
-          inputs: {
-            taxon_name: "Taxon2",
-          },
-        },
-      ],
-    }));
-
-    const result = await execute(query, {});
-
-    expect(result.data.fedConsensusGenomes).toHaveLength(2);
-    expect(result.data.fedConsensusGenomes[0]).toEqual(
-      expect.objectContaining({
-        producingRunId: "123",
-        taxon: {
-          name: "Taxon1",
-        },
-      }),
-    );
-    expect(result.data.fedConsensusGenomes[1]).toEqual(
-      expect.objectContaining({
-        producingRunId: "456",
-        taxon: {
-          name: "Taxon2",
-        },
-      }),
-    );
-  });
-
-  it("Returns metadata", async () => {
-    (httpUtils.get as jest.Mock).mockImplementation(() => ({
-      workflow_runs: [
-        {
-          sample: {
-            metadata: {
-              key1: "value1",
-              nucleotide_type: "DNA",
-              key2: "value2",
-              key3: "value3",
-            },
-          },
-        },
-      ],
-    }));
-
-    const result = await execute(query, {});
-
-    const metadataFields = result.data.fedConsensusGenomes[0].sequencingRead.sample.metadatas.edges.map(
-      edge => edge.node.fieldName,
-    );
-    expect(metadataFields).toHaveLength(3);
-    expect(metadataFields[0]).toEqual("key1");
-    expect(metadataFields[1]).toEqual("key2");
-    expect(metadataFields[2]).toEqual("key3");
-  });
-
-  it("Returns empty metadata", async () => {
-    (httpUtils.get as jest.Mock).mockImplementation(() => ({
-      workflow_runs: [
-        {
-          sample: {},
-        },
-      ],
-    }));
-
-    const result = await execute(query, {});
-
-    expect(result.data.fedConsensusGenomes[0].sequencingRead.sample.metadatas.edges).toHaveLength(0);
   });
 });
 
@@ -158,15 +80,18 @@ describe("fedConsensusGemomes SampleReport query:", () => {
             },
             accession: {
               accessionId: "MN908947.3",
-              accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+              accessionName:
+                "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
             },
           },
         ],
       },
     }));
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() => true);
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+      () => true,
+    );
 
-    const result = await execute(query, {});
+    const result = await execute(query, { workflowRunId: "abc" });
 
     expect(result.data.fedConsensusGenomes).toHaveLength(1);
     expect(result.data.fedConsensusGenomes[0]).toEqual(
@@ -197,13 +122,17 @@ describe("fedConsensusGemomes SampleReport query:", () => {
         },
         accession: {
           accessionId: "MN908947.3",
-          accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+          accessionName:
+            "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
         },
       }),
     );
   });
+
   it("Returns data from rails", async () => {
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() => false);
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+      () => false,
+    );
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       coverage_viz: {
         total_length: 7056,
@@ -233,7 +162,8 @@ describe("fedConsensusGemomes SampleReport query:", () => {
       },
       taxon_info: {
         accession_id: "MG148341.1",
-        accession_name: "Rhinovirus C isolate CO03302015 polyprotein mRNA, complete cds\n",
+        accession_name:
+          "Rhinovirus C isolate CO03302015 polyprotein mRNA, complete cds\n",
         taxon_id: "463676",
         taxon_name: "Rhinovirus C",
       },
@@ -268,7 +198,8 @@ describe("fedConsensusGemomes SampleReport query:", () => {
         },
         accession: {
           accessionId: "MG148341.1",
-          accessionName: "Rhinovirus C isolate CO03302015 polyprotein mRNA, complete cds\n",
+          accessionName:
+            "Rhinovirus C isolate CO03302015 polyprotein mRNA, complete cds\n",
         },
       }),
     );
