@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.26.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.26.0...v2.26.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* Add back query log ([#272](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/272)) ([49e7f30](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/49e7f300d787736432105967800043547c809b87))
+
 ## [2.26.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.25.0...v2.26.0) (2024-03-28)
 
 
