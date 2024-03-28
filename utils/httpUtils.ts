@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import { getEnrichedToken } from "./enrichToken";
 import { formatFedQueryForNextGen } from "./queryFormatUtils";
 
@@ -9,6 +8,7 @@ export const get = async ({
   serviceType,
   fullResponse,
   customQuery,
+  securityToken,
 }: {
   url?: string;
   args: any;
@@ -16,6 +16,7 @@ export const get = async ({
   serviceType?: "workflows" | "entities";
   fullResponse?: boolean;
   customQuery?: string;
+  securityToken?: string;
 }) => {
   try {
     const nextGenEnabled = await shouldReadFromNextGen(context);
@@ -27,6 +28,7 @@ export const get = async ({
         serviceType,
         fullResponse,
         customQuery,
+        securityToken,
       });
     } else {
       if (!url) {
@@ -105,6 +107,7 @@ export const fetchFromNextGen = async ({
   fullResponse,
   customQuery,
   customVariables,
+  securityToken,
 }: {
   args;
   context;
@@ -112,9 +115,10 @@ export const fetchFromNextGen = async ({
   fullResponse?: boolean;
   customQuery?: string;
   customVariables?: object;
+  securityToken?: string;
 }) => {
   try {
-    const enrichedToken = await getEnrichedToken(context);
+    const enrichedToken = securityToken || await getEnrichedToken(context);
     const baseUrl =
       serviceType === "workflows"
         ? process.env.NEXTGEN_WORKFLOWS_URL
@@ -122,8 +126,6 @@ export const fetchFromNextGen = async ({
     const formattedQuery = customQuery
       ? customQuery
       : formatFedQueryForNextGen(context.params.query);
-    console.log(formattedQuery);
-    console.log("%j", customVariables);
     const response = await fetch(`${baseUrl}/graphql`, {
       method: "POST",
       headers: {
@@ -137,6 +139,7 @@ export const fetchFromNextGen = async ({
         variables: customVariables ?? context.params.variables,
       }),
     });
+
     if (fullResponse === true) {
       return response;
     } else {

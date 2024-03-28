@@ -10,12 +10,14 @@
   },
   "nodemonConfig": {
     "exec": "mesh dev",
+    "ext": "cjs, json, ts",
     "watch": [
       ".meshrc.yaml",
       "**/*.ts"
     ],
     "ignore": [
-      "**/tests/**"
+      "**/tests/**",
+      ".mesh/**"
     ],
     "delay": 250
   },
