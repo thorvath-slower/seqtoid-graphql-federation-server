@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [2.25.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.24.0...v2.25.0) (2024-03-28)
+
+
+### Features
+
+* Add includes metadata to BulkDownloadCGOverview ([#250](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/250)) ([c2ade09](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c2ade09b09fb3b4e9f13af3d537762c1ebb6a9d7))
+* Add sorting by SequencingRead fields ([#235](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/235)) ([4bb438d](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/4bb438d5a8598b94bcce4a8ce4797798328f59dd))
+* Enable more detailed logs in sandbox and staging envs ([#261](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/261)) ([4fda2e1](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/4fda2e185d8bbf3f30e1807b4d064dc426ff8a18))
+
 ## [2.24.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.23.5...v2.24.0) (2024-03-26)
 
 
