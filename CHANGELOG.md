@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [2.28.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.27.0...v2.28.0) (2024-03-29)
+
+
+### Features
+
+* Add new input to fedSequencingReads - workflowRunIds and sampleIds ([#283](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/283)) ([3e6ff5e](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/3e6ff5e0f825f6a0a6b919bd9dda48a7d9e667b2))
+
+
+### Reverts
+
+* Enable more detailed logs in sandbox and staging envs" ([#271](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/271)) ([7c12a14](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/7c12a14d46328db0a888c52f21b673988acbbc14))
+
 ## [2.27.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.26.1...v2.27.0) (2024-03-28)
 
 
