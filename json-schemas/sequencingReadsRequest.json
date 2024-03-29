@@ -328,6 +328,18 @@
                 },
                 "orderDir": {
                     "type": "string"
+                },
+                "sampleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "workflowRunIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         }

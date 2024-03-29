@@ -614,6 +614,9 @@ export const resolvers: Resolvers = {
               ? 0
               : input.offset ?? input.limitOffset?.offset,
             listAllIds: false,
+            // workflowRunIds and sampleIds are only used for API testing.
+            workflowRunIds: input?.todoRemove?.workflowRunIds,
+            sampleIds: input?.todoRemove?.sampleIds,
           }),
         args,
         context,
