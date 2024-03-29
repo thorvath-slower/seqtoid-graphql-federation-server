@@ -55,12 +55,6 @@ jobs:
           app_config_name: ALLOWED_CORS_ORIGINS
           app_config_value: ${{ vars.ALLOWED_CORS_ORIGINS}}
           happy_env: sandbox
-      - name: Set DEBUG env var
-        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
-        with:
-          app_config_name: DEBUG
-          app_config_value: "1"
-          happy_env: sandbox
       - name: Update sandbox
         uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
         with:
