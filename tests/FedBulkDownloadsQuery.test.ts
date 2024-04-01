@@ -15,6 +15,7 @@ describe("bulkDownloads Query:", () => {
   beforeEach(async () => {
     const mesh$ = await getMeshInstance();
     ({ execute } = mesh$);
+    (httpUtils.get as jest.Mock).mockClear();
   });
 
   it("should give correct response with NO params & and a failed run", async () => {
@@ -46,49 +47,7 @@ describe("bulkDownloads Query:", () => {
         params: { sample_ids: [1156], workflow: ["amr"] },
       },
     ];
-    const railsResponse2 = {
-      bulk_download: {
-        id: 12714,
-        params_json:
-          '{"sample_ids":{"value":[1156]},"workflow":{"value":"amr"}}',
-        download_type: "amr_combined_results_bulk_download",
-        status: "error",
-        error_message: null,
-        user_id: 412,
-        created_at: "2024-02-15T11:47:10.000-08:00",
-        updated_at: "2024-02-15T11:47:17.000-08:00",
-        progress: null,
-        ecs_task_arn: null,
-        output_file_size: null,
-        description: null,
-        deleted_at: null,
-        analysis_type: "amr",
-        analysis_count: 1,
-        num_samples: 1,
-        download_name: "Combined AMR Results",
-        file_size: null,
-        user_name: "Suzette McCanny",
-        execution_type: "resque",
-        log_url: null,
-        params: { sample_ids: { value: [1156] }, workflow: { value: "amr" } },
-        pipeline_runs: [],
-        workflow_runs: [{ id: 1156, sample_name: "norg_wtc" }],
-        presigned_output_url: null,
-      },
-      download_type: {
-        type: "amr_combined_results_bulk_download",
-        display_name: "Combined AMR Results",
-        file_type_display: ".csv",
-        description:
-          "Primary metrics (e.g. coverage, depth) for all AMR genes in all selected samples, combined into a single file.",
-        category: "reports",
-        execution_type: "resque",
-        workflows: ["amr"],
-      },
-    };
-    (httpUtils.get as jest.Mock)
-      .mockImplementationOnce(() => railsResponse)
-      .mockImplementationOnce(() => railsResponse2);
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => railsResponse);
     const result = await execute(query, {});
     const bulkDownloadResponse = [
       {
@@ -100,7 +59,7 @@ describe("bulkDownloads Query:", () => {
         url: null,
         fileSize: null,
         entityInputFileType: "amr",
-        entityInputs: [{ id: "1156", name: "norg_wtc" }],
+        entityInputs: [],
         logUrl: null,
         errorMessage: null,
         params: [],
@@ -188,14 +147,12 @@ describe("bulkDownloads Query:", () => {
         workflows: ["short-read-mngs"],
       },
     };
-    (httpUtils.get as jest.Mock)
-      .mockImplementationOnce(() => railsResponse)
-      .mockImplementationOnce(() => railsResponse2);
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => railsResponse);
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => railsResponse2);
     const result = await execute(query, {
       limit: 2,
       searchBy: "Suzette McCanny",
     });
-
     const bulkDownloadResponse = [
       {
         id: "12715",

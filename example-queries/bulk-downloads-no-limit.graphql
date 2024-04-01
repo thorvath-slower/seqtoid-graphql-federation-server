@@ -8,6 +8,7 @@ query BulkDownloadsWithNoLimit {
     url
     fileSize
     entityInputFileType
+    anaylsisCount
     entityInputs {
       id
       name
@@ -16,13 +17,9 @@ query BulkDownloadsWithNoLimit {
     fileSize
     errorMessage
     params {
-      downloadFormat
-      metric
-      background
-      filterBy
-      taxaWithReads
-      includeMetadata
-      fileFormat
+      paramType
+      displayName
+      value
     }
   }
 }

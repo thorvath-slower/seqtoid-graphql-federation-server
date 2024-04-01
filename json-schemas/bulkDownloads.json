@@ -64,8 +64,7 @@
                         "value": {
                             "type": "string"
                         }
-                    },
-                    "required": ["paramType", "value"]
+                    }
                 }
             },
             "logUrl": {

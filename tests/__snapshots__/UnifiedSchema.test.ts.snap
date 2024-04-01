@@ -4931,8 +4931,8 @@ type query_fedBulkDownloads_items_entityInputs_items {
 
 type query_fedBulkDownloads_items_params_items {
   displayName: String
-  paramType: String!
-  value: String!
+  paramType: String
+  value: String
 }
 
 type query_fedConsensusGenomes_items {

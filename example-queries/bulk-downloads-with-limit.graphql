@@ -1,6 +1,5 @@
 query BulkDownloadsWithLimitQuery {
-  fedBulkDownloads(input: { searchBy: "Suzette McCanny", limit: 10 })
-  fedBulkDownloads {
+  fedBulkDownloads(input: { searchBy: "Suzette McCanny", limit: 10 }) {
     id
     status
     startedAt
@@ -9,6 +8,7 @@ query BulkDownloadsWithLimitQuery {
     url
     fileSize
     entityInputFileType
+    anaylsisCount
     entityInputs {
       id
       name
@@ -17,13 +17,9 @@ query BulkDownloadsWithLimitQuery {
     fileSize
     errorMessage
     params {
-      downloadFormat
-      metric
-      background
-      filterBy
-      taxaWithReads
-      includeMetadata
-      fileFormat
+      paramType
+      displayName
+      value
     }
   }
 }
