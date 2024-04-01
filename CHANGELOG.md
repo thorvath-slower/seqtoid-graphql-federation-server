@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.28.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.0...v2.28.1) (2024-04-01)
+
+
+### Bug Fixes
+
+* allow for deprecatedById field in aggregate queries ([#282](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/282)) ([20ecb02](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/20ecb0209ee0914368a60d9a47d99013e18a4146))
+* fedBulkDownloads improvements ([#249](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/249)) ([2adf599](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/2adf5997179f0a4d17913e13113a07dd7f13cf13))
+
 ## [2.28.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.27.0...v2.28.0) (2024-03-29)
 
 
