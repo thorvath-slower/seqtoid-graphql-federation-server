@@ -4283,11 +4283,16 @@ input queryInput_fedWorkflowRunsAggregateTotalCount_input_todoRemove_Input {
 
 input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_Input {
   collectionId: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_collectionId_Input
+  deprecatedById: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_deprecatedById_Input
   workflowVersion: queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_Input
 }
 
 input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_collectionId_Input {
   _in: [Int]
+}
+
+input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_deprecatedById_Input {
+  _is_null: Boolean
 }
 
 input queryInput_fedWorkflowRunsAggregateTotalCount_input_where_workflowVersion_Input {
@@ -4335,12 +4340,17 @@ input queryInput_fedWorkflowRunsAggregate_input_todoRemove_taxonThresholds_items
 
 input queryInput_fedWorkflowRunsAggregate_input_where_Input {
   collectionId: queryInput_fedWorkflowRunsAggregate_input_where_collectionId_Input
+  deprecatedById: queryInput_fedWorkflowRunsAggregate_input_where_deprecatedById_Input
   id: queryInput_fedWorkflowRunsAggregate_input_where_id_Input
   workflowVersion: queryInput_fedWorkflowRunsAggregate_input_where_workflowVersion_Input
 }
 
 input queryInput_fedWorkflowRunsAggregate_input_where_collectionId_Input {
   _in: [Int]
+}
+
+input queryInput_fedWorkflowRunsAggregate_input_where_deprecatedById_Input {
+  _is_null: Boolean
 }
 
 input queryInput_fedWorkflowRunsAggregate_input_where_id_Input {

@@ -15,6 +15,9 @@ query workflowRunsAggregateQuery {
             }
           }
         }
+        deprecatedById: {
+          _is_null: true
+        }
       }
       todoRemove: { 
         domain: "my_data",

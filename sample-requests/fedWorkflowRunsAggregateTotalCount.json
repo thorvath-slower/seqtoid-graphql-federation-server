@@ -13,6 +13,9 @@
           ]
         }
       }
+    },
+    "deprecatedById": {
+      "_is_null": true
     }
   },
   "todoRemove": {

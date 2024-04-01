@@ -35,6 +35,14 @@
                             }
                         }
                     }
+                },
+                "deprecatedById": {
+                    "type": "object",
+                    "properties": {
+                        "_is_null": {
+                            "type": "boolean"
+                        }
+                    }
                 }
             }
         },
