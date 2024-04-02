@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.28.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.1...v2.28.2) (2024-04-02)
+
+
+### Bug Fixes
+
+* Use new Bulk Downloads Endpoint ([#294](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/294)) ([89c5574](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/89c5574b65ba43223406dd7c29c7c56247f55bda))
+
 ## [2.28.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.0...v2.28.1) (2024-04-01)
 
 
