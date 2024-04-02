@@ -10,7 +10,7 @@ import {
 } from "./.mesh";
 import { SampleForReportResolver } from "./resolver-functions/SampleForReport";
 import { BulkDownloadsCGOverviewResolver } from "./resolver-functions/BulkDownloadsCGOverview";
-import { fedBulkDowloadsResolver } from "./resolver-functions/fedBulkDownloads";
+import { fedBulkDowloadsResolver } from "./resolver-functions/fedBulkDownloads/fedBulkDownloads";
 import { parseWorkflowsAggregateTotalCountsResponse, processWorkflowsAggregateResponse } from "./utils/aggregateUtils";
 import {
   fetchFromNextGen,
