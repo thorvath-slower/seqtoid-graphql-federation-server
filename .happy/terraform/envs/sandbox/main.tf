@@ -37,7 +37,7 @@ module "stack" {
     gql = merge(local.routing_config[local.service_type], {
       name              = "graphql-federation"
       port              = "4444"
-      memory            = "1500Mi"
+      memory            = "4000Mi"
       cpu               = "1500m"
       health_check_path = "/health"
       // INTERNAL - OIDC protected ALB

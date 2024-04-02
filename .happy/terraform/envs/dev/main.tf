@@ -17,7 +17,7 @@ module "stack" {
       name              = "gql-federation",
       desired_count     = 1,
       port              = 4444,
-      memory            = "1500Mi",
+      memory            = "4000Mi",
       cpu               = "1500m",
       health_check_path = "/health",
       service_type      = "INTERNAL",
