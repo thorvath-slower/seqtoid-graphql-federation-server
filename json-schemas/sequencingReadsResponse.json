@@ -23,6 +23,9 @@
                 "properties": {
                     "name": {
                         "type": "string"
+                    },
+                    "level": {
+                        "type": "string"
                     }
                 },
                 "required": ["name"]
@@ -125,6 +128,9 @@
                                             "type": "object",
                                             "properties": {
                                                 "name": {
+                                                    "type": "string"
+                                                },
+                                                "level": {
                                                     "type": "string"
                                                 }
                                             },
