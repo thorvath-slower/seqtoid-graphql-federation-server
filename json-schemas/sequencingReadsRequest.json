@@ -113,6 +113,17 @@
                 "consensusGenomes": {
                     "type": "object",
                     "properties": {
+                        "producingRunId": {
+                            "type": "object",
+                            "properties": {
+                                "_in": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
                         "taxon": {
                             "type": "object",
                             "properties": {

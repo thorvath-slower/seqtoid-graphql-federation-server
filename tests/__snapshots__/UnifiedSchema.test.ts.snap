@@ -4221,7 +4221,12 @@ input queryInput_fedSequencingReads_input_where_collectionId_Input {
 }
 
 input queryInput_fedSequencingReads_input_where_consensusGenomes_Input {
+  producingRunId: queryInput_fedSequencingReads_input_where_consensusGenomes_producingRunId_Input
   taxon: queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_Input
+}
+
+input queryInput_fedSequencingReads_input_where_consensusGenomes_producingRunId_Input {
+  _in: [String]
 }
 
 input queryInput_fedSequencingReads_input_where_consensusGenomes_taxon_Input {
