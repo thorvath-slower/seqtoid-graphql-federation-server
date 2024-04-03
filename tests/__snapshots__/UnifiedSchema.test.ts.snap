@@ -21,7 +21,7 @@ type Accession implements EntityInterface & Node {
   _id: GlobalID!
   accessionId: String!
   accessionName: String!
-  collectionId: Int!
+  collectionId: Int
   consensusGenomes(
     """Returns the items in the list that come after the specified cursor."""
     after: String = null
@@ -84,7 +84,7 @@ enum AccessionCountColumns {
 input AccessionCreateInput {
   accessionId: String!
   accessionName: String!
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   producingRunId: ID = null
   upstreamDatabaseId: ID!
@@ -237,7 +237,7 @@ input BoolComparators {
 type BulkDownload implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   downloadType: BulkDownloadType!
@@ -277,7 +277,7 @@ enum BulkDownloadCountColumns {
 }
 
 input BulkDownloadCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   downloadType: BulkDownloadType!
   producingRunId: ID = null
@@ -358,7 +358,7 @@ type ConsensusGenome implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   accession(orderBy: [AccessionOrderByClause!] = [], where: AccessionWhereClause = null): Accession
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
@@ -417,7 +417,7 @@ enum ConsensusGenomeCountColumns {
 
 input ConsensusGenomeCreateInput {
   accessionId: ID = null
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   producingRunId: ID = null
   referenceGenomeId: ID = null
@@ -690,7 +690,7 @@ input FloatComparators {
 type GenomicRange implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   file(where: FileWhereClause = null): File
@@ -742,7 +742,7 @@ enum GenomicRangeCountColumns {
 }
 
 input GenomicRangeCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   producingRunId: ID = null
 }
@@ -841,7 +841,7 @@ type HostOrganism implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   category: HostOrganismCategory!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
@@ -933,7 +933,7 @@ enum HostOrganismCountColumns {
 
 input HostOrganismCreateInput {
   category: HostOrganismCategory!
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   isDeuterostome: Boolean!
   name: String!
@@ -1024,7 +1024,7 @@ scalar ISO8601DateTime
 type IndexFile implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   file(where: FileWhereClause = null): File
@@ -1078,7 +1078,7 @@ enum IndexFileCountColumns {
 }
 
 input IndexFileCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   fileId: ID = null
   hostOrganismId: ID = null
@@ -1235,7 +1235,7 @@ input LimitOffsetClause {
 type Metadatum implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   fieldName: String!
@@ -1284,7 +1284,7 @@ enum MetadatumCountColumns {
 }
 
 input MetadatumCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   fieldName: String!
   producingRunId: ID = null
@@ -1366,7 +1366,7 @@ input MetadatumWhereClauseMutations {
 type MetricConsensusGenome implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   consensusGenome(orderBy: [ConsensusGenomeOrderByClause!] = [], where: ConsensusGenomeWhereClause = null): ConsensusGenome
   coverageBinSize: Float
   coverageBreadth: Float
@@ -1433,7 +1433,7 @@ enum MetricConsensusGenomeCountColumns {
 }
 
 input MetricConsensusGenomeCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   consensusGenomeId: ID!
   coverageBinSize: Float = null
   coverageBreadth: Float = null
@@ -1867,7 +1867,7 @@ type Query {
 type ReferenceGenome implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   consensusGenomes(
     """Returns the items in the list that come after the specified cursor."""
     after: String = null
@@ -1921,7 +1921,7 @@ enum ReferenceGenomeCountColumns {
 }
 
 input ReferenceGenomeCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   name: String!
   producingRunId: ID = null
@@ -1997,7 +1997,7 @@ type Sample implements EntityInterface & Node {
   _id: GlobalID!
   alignmentConfigName: String
   basespaceAccessToken: String
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   dagVars: String
   defaultBackgroundId: Int
@@ -2106,7 +2106,7 @@ enum SampleCountColumns {
 }
 
 input SampleCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   hostOrganismId: ID = null
   name: String!
@@ -2301,7 +2301,7 @@ type SequencingRead implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   clearlabsExport: Boolean!
-  collectionId: Int!
+  collectionId: Int
   consensusGenomes(
     """Returns the items in the list that come after the specified cursor."""
     after: String = null
@@ -2378,7 +2378,7 @@ enum SequencingReadCountColumns {
 
 input SequencingReadCreateInput {
   clearlabsExport: Boolean!
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   medakaModel: String = null
   primerFileId: ID = null
@@ -2522,7 +2522,7 @@ input StrComparators {
 type Taxon implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   commonName: String
   consensusGenomes(
     """Returns the items in the list that come after the specified cursor."""
@@ -2618,7 +2618,7 @@ enum TaxonCountColumns {
 }
 
 input TaxonCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   commonName: String = null
   deletedAt: DateTime = null
   description: String = null
@@ -2846,7 +2846,7 @@ type UpstreamDatabase implements EntityInterface & Node {
     where: AccessionWhereClause = null
   ): AccessionConnection!
   accessionsAggregate(where: AccessionWhereClause = null): AccessionAggregate
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
@@ -2912,7 +2912,7 @@ enum UpstreamDatabaseCountColumns {
 }
 
 input UpstreamDatabaseCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   name: String!
   producingRunId: ID = null
