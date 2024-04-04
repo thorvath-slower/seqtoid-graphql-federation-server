@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.29.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.0...v2.29.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* Handle object type in collection_location_v2 ([#304](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/304)) ([4e4a74f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/4e4a74f9004a16f1fe502081c526bf5b6b94b76a))
+
 ## [2.29.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.2...v2.29.0) (2024-04-04)
 
 
