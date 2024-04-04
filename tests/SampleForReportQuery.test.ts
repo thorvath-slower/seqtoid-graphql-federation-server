@@ -131,7 +131,7 @@ describe("SampleForReport query:", () => {
                 "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
               creation_source: "SARS-CoV-2 Upload",
               ref_fasta: null,
-              taxon_id: 2697049,
+              taxon_id: "2697049",
               taxon_name: "Severe acute respiratory syndrome coronavirus 2",
               technology: "Illumina",
             },

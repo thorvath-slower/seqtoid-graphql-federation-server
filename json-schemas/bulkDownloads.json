@@ -19,7 +19,7 @@
                 "type": "string"
             },
             "ownerUserId": {
-                "type": "string"
+                "type": "integer"
             },
             "fileSize": {
                 "type": "integer"

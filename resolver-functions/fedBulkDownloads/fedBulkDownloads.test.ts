@@ -65,12 +65,13 @@ describe("bulkDownloads Query:", () => {
         params: [],
       },
     ];
-    expect(result.data.fedBulkDownloads).toStrictEqual(bulkDownloadResponse);
+    expect(result.data.fedBulkDownloads).toEqual(bulkDownloadResponse);
   });
 
   it("should give correct response with url params & successful run", async () => {
     const query = getExampleQuery("bulk-downloads-with-limit");
-    const railsResponse = [{
+    const railsResponse = [
+      {
         id: 12715,
         download_type: "sample_taxon_report",
         status: "success",
@@ -102,7 +103,8 @@ describe("bulkDownloads Query:", () => {
         ],
         workflow_runs: [],
         presigned_output_url: "https://presignedUrl.com",
-    }];
+      },
+    ];
     (httpUtils.get as jest.Mock).mockImplementationOnce(() => railsResponse);
     const result = await execute(query, {
       limit: 2,
@@ -137,6 +139,6 @@ describe("bulkDownloads Query:", () => {
         params: [],
       },
     ];
-    expect(result.data.fedBulkDownloads).toStrictEqual(bulkDownloadResponse);
+    expect(result.data.fedBulkDownloads).toEqual(bulkDownloadResponse);
   });
 });

@@ -4932,7 +4932,7 @@ type query_fedBulkDownloads_items {
   fileSize: Int
   id: String
   logUrl: String
-  ownerUserId: String
+  ownerUserId: Int
   params: [query_fedBulkDownloads_items_params_items]
   startedAt: String
   status: String
