@@ -3,7 +3,7 @@ name: Deploy to sandbox env
 on:
   push:
     branches:
-       - sandbox
+      - sandbox
   workflow_dispatch:
 
 jobs:

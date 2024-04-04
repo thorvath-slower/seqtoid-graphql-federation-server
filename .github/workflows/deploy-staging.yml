@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag version to deploy to staging (defaults to latest)'
+        description: "Release tag version to deploy to staging (defaults to latest)"
         required: false
         type: string
 
@@ -34,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: '${{ needs.get-release-tag.outputs.release_tag }}'
+          ref: "${{ needs.get-release-tag.outputs.release_tag }}"
       - name: Assume happy-api deployment role
         uses: aws-actions/configure-aws-credentials@v4
         with:

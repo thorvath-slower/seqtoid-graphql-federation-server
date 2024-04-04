@@ -55,6 +55,7 @@ describe("bulkDownloads Query:", () => {
         status: "FAILED",
         startedAt: "2024-02-15T11:47:10.000-08:00",
         ownerUserId: 412,
+        analysisCount: 1,
         downloadType: "amr_combined_results_bulk_download",
         url: null,
         fileSize: null,

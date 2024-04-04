@@ -15,5 +15,7 @@ mutation BulkDownloadModalMutation(
       workflow: $workflow
       authenticityToken: $authenticityToken
     }
-  )
+  ) {
+    id
+  }
 }

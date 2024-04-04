@@ -8,7 +8,7 @@ query BulkDownloadsWithNoLimit {
     url
     fileSize
     entityInputFileType
-    anaylsisCount
+    analysisCount
     entityInputs {
       id
       name
