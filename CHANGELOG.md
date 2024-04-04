@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [2.29.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.2...v2.29.0) (2024-04-04)
+
+
+### Features
+
+* Add producingRunId to request schema of sequencingReads ([#291](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/291)) ([cad49fd](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/cad49fd32177a7d4cbe48030b485cefe2731167f))
+* Connect Bulk Downloads to NextGen (both Create Bulk Download and Bulk Download list) ([#298](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/298)) ([ea206b7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ea206b7418ddce045d6eef01772a6ab0adf41491))
+
+
+### Bug Fixes
+
+* Add taxon level to fedSequencingReads ([#297](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/297)) ([fd29480](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/fd29480621a949906e47a696e3fb2454d0083895))
+* increase memory in prod ([#277](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/277)) ([76fe22e](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/76fe22e11ba47719990c9831d340216fa9f35de6))
+* Update collectionId in entity schema to be nullable ([#302](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/302)) ([f7466e3](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/f7466e33b0b11fba95185122ab911e4a86556d21))
+* Upgrade @graphql-mesh/cli ([#299](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/299)) ([940b02d](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/940b02d6187603be29709320f29a20dffee8df67))
+
 ## [2.28.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.28.1...v2.28.2) (2024-04-02)
 
 
