@@ -484,7 +484,7 @@ describe("sequencingReads query:", () => {
                 project_name: "Project B",
               },
               metadata: {
-                collection_location_v2: "Mexico",
+                collection_location_v2: { name: "Mexico" },
                 custom2: "Custom value 2",
               },
             },

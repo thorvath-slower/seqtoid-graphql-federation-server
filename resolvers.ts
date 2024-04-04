@@ -562,13 +562,18 @@ export const resolvers: Resolvers = {
           const nextGenSample = nextGenSequencingRead.sample;
           const railsSample = railsSamplesById.get(nextGenSample.railsSampleId);
 
-          const railsMetadata = railsSample?.details?.metadata;
+          const railsMetadata:
+            | { [key: string]: string | { name: string } }
+            | null
+            | undefined = railsSample?.details?.metadata;
           const railsDbSample = railsSample?.details?.db_sample;
 
           nextGenSequencingRead.nucleicAcid =
             railsMetadata?.nucleotide_type ?? "";
           nextGenSample.collectionLocation =
-            railsMetadata?.collection_location_v2 ?? "";
+            typeof railsMetadata?.collection_location_v2 === "string"
+              ? railsMetadata.collection_location_v2
+              : railsMetadata?.collection_location_v2?.name ?? "";
           nextGenSample.sampleType = railsMetadata?.sample_type ?? "";
           nextGenSample.waterControl = railsMetadata?.water_control === "Yes";
           nextGenSample.notes = railsDbSample?.sample_notes;
