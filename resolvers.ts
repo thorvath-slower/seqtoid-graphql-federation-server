@@ -749,7 +749,10 @@ export const resolvers: Resolvers = {
         args,
         context,
       });
-      return res;
+      return {
+        validIds: res.validIds.map((id: number) => id.toString()),
+        ...res,
+      }
     },
     Taxons: async (root, args, context, info) => {
       const urlParams = formatUrlParams({

@@ -567,7 +567,7 @@ type DbSample {
 }
 
 type DeleteSamples {
-  deleted_workflow_ids: [Int]
+  deleted_workflow_ids: [String]
   error: String
 }
 
@@ -2991,7 +2991,7 @@ type User {
 type ValidateUserCanDeleteObjects {
   error: String
   invalidSampleNames: [String]!
-  validIds: [Int]!
+  validIds: [String]!
 }
 
 type Workflow implements EntityInterface & Node {

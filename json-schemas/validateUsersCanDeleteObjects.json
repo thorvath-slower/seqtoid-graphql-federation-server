@@ -4,7 +4,7 @@
         "validIds": {
             "type": "array",
             "items": {
-                "type": "integer"
+                "type": "string"
             }
         },
         "invalidSampleNames": {
