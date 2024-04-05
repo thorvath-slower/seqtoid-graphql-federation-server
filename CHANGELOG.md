@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.29.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.1...v2.29.2) (2024-04-05)
+
+
+### Bug Fixes
+
+* bulk delete id types ([#307](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/307)) ([216b2d8](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/216b2d88a01dcbd39078d0f80389f689befa3d68))
+* make taxon info optional in response ([#306](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/306)) ([98bb588](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/98bb5880ebac42477a30cb4ede9b35d5706b2982))
+
 ## [2.29.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.0...v2.29.1) (2024-04-04)
 
 
