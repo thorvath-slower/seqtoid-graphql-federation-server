@@ -103,6 +103,8 @@ export const resolvers: Resolvers = {
           context,
         });
 
+        const accession = accession_id && accession_name ? { accessionId: accession_id, accessionName: accession_name } : null;
+        const taxon = taxon_id && taxon_name ? { id: taxon_id.toString(), name: taxon_name, commonName: taxon_name } : null;
         const ret = [
           {
             metrics: {
@@ -120,15 +122,8 @@ export const resolvers: Resolvers = {
               nActg: quality_metrics?.n_actg,
               mappedReads: quality_metrics?.mapped_reads,
             },
-            accession: {
-              accessionId: accession_id,
-              accessionName: accession_name,
-            },
-            taxon: {
-              id: taxon_id?.toString(),
-              commonName: taxon_name,
-              name: taxon_name,
-            },
+            accession: accession,
+            taxon: taxon,
             referenceGenome: {
               file: {
                 downloadLink: {
