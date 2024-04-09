@@ -1985,7 +1985,7 @@ input ReferenceGenomeWhereClauseMutations {
 }
 
 input RunWorkflowVersionInput {
-  collectionId: Int!
+  collectionId: Int = null
   entityInputs: [EntityInputType!]
   railsWorkflowRunId: Int = null
   rawInputJson: String
@@ -2997,7 +2997,7 @@ type ValidateUserCanDeleteObjects {
 type Workflow implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   defaultVersion: String
   deletedAt: DateTime
@@ -3050,7 +3050,7 @@ enum WorkflowCountColumns {
 }
 
 input WorkflowCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   defaultVersion: String = null
   deletedAt: DateTime = null
   minimumSupportedVersion: String = null
@@ -3101,7 +3101,7 @@ type WorkflowRun implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
   cachedResults: String
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   deprecated: Boolean!
@@ -3212,7 +3212,7 @@ type WorkflowRunEdge {
 type WorkflowRunEntityInput implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   entityType: String
@@ -3261,7 +3261,7 @@ enum WorkflowRunEntityInputCountColumns {
 }
 
 input WorkflowRunEntityInputCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   entityType: String = null
   fieldName: String = null
@@ -3424,7 +3424,7 @@ input WorkflowRunStatusEnumComparators {
 type WorkflowRunStep implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   endedAt: DateTime
@@ -3473,7 +3473,7 @@ enum WorkflowRunStepCountColumns {
 }
 
 input WorkflowRunStepCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   endedAt: DateTime = null
   status: WorkflowRunStepStatus = null
@@ -3617,7 +3617,7 @@ input WorkflowUpdateInput {
 type WorkflowVersion implements EntityInterface & Node {
   """The Globally Unique ID of this object"""
   _id: GlobalID!
-  collectionId: Int!
+  collectionId: Int
   createdAt: DateTime!
   deletedAt: DateTime
   deprecated: Boolean
@@ -3684,7 +3684,7 @@ enum WorkflowVersionCountColumns {
 }
 
 input WorkflowVersionCreateInput {
-  collectionId: Int!
+  collectionId: Int = null
   deletedAt: DateTime = null
   deprecated: Boolean = null
   graphJson: String = null
