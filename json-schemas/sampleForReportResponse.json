@@ -2,10 +2,10 @@
     "type": "object",
     "properties": {
         "id": {
-          "type": "string"
+            "type": "string"
         },
         "railsSampleId": {
-          "type": "string"
+            "type": "string"
         },
         "name": {
             "type": "string"
@@ -143,9 +143,30 @@
                     },
                     "run_finalized": {
                         "type": "boolean"
+                    },
+                    "rails_workflow_run_id": {
+                        "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "id",
+                    "executed_at",
+                    "inputs",
+                    "run_finalized"
+                ]
             }
         }
-    }
+    },
+    "required": [
+        "id",
+        "name",
+        "created_at",
+        "updated_at",
+        "project_id",
+        "status",
+        "user_id",
+        "initial_workflow",
+        "project",
+        "editable"
+    ]
 }

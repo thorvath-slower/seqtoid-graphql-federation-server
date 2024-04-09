@@ -168,15 +168,6 @@ describe("SampleForReport query:", () => {
                             producingRunId:
                               "018df720-fbd6-77f9-9b4a-1ca468d5207f",
                             referenceGenome: null,
-                            accession: {
-                              accessionId: "MN908947.3",
-                              accessionName:
-                                "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
-                            },
-                            taxon: {
-                              id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
-                              name: "Severe acute respiratory syndrome coronavirus 2",
-                            },
                             sequencingRead: { technology: "Illumina" },
                           },
                         },
@@ -211,6 +202,22 @@ describe("SampleForReport query:", () => {
               id: "018df6ca-d3c0-7edd-a243-4127e06eb1d1",
               workflow: { name: "consensus-genome" },
             },
+            entityInputs: {
+              edges: [
+                {
+                  node: {
+                    inputEntityId: "018ded47-34ac-7f3a-9dff-a43e5036393a",
+                    entityType: "taxon"
+                  },
+                },
+                {
+                  node: {
+                    inputEntityId: "def",
+                    entityType: "accession"
+                  }
+                }
+              ]
+            },
             createdAt: "2024-02-29T23:09:10.470257+00:00",
             endedAt: null,
             rawInputsJson:
@@ -218,6 +225,25 @@ describe("SampleForReport query:", () => {
           },
         ],
       },
+    }));
+
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        taxa: [
+          {
+            id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
+            name: "Severe acute respiratory syndrome coronavirus 2",
+            upstreamDatabaseIdentifier: "2697049",
+          }
+        ],
+        accessions: [
+          {
+            id: "def",
+            accessionId: "MN908947.3",
+            accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+          }
+        ],
+      }
     }));
 
     const result = await execute(query, {
@@ -258,12 +284,154 @@ describe("SampleForReport query:", () => {
                 "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
               creation_source: "SARS-CoV-2 Upload",
               ref_fasta: null,
-              taxon_id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
+              taxon_id: "2697049",
               taxon_name: "Severe acute respiratory syndrome coronavirus 2",
               technology: "Illumina",
             },
             run_finalized: true,
             status: "SUCCEEDED",
+            wdl_version: "3.5.0",
+            workflow: "consensus-genome",
+          },
+        ],
+      }),
+    );
+  });
+
+  it("Responds with data from NextGen -- unfinished workflow run", async () => {
+    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(
+      () => true,
+    );
+    // entitiesQuery response
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        samples: [
+          {
+            id: "018df720-f584-79df-b1b2-8cd87dba3a18",
+            sequencingReads: {
+              edges: [
+                {
+                  node: {
+                    consensusGenomes: {
+                      edges: [],
+                    },
+                    sample: {
+                      hostOrganism: {
+                        id: "018df6c3-150d-76f6-bb43-e957145253d3",
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    }));
+    // workflowRunQuery response
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        workflowRuns: [
+          {
+            id: "018df720-fbd6-77f9-9b4a-1ca468d5207f",
+            _id: "V29ya2Zsb3dSdW46MDE4ZGY3MjAtZmJkNi03N2Y5LTliNGEtMWNhNDY4ZDUyMDdm",
+            railsWorkflowRunId: 7126,
+            status: "RUNNING",
+            ownerUserId: 345,
+            errorMessage: null,
+            workflowVersion: {
+              version: "3.5.0",
+              id: "018df6ca-d3c0-7edd-a243-4127e06eb1d1",
+              workflow: { name: "consensus-genome" },
+            },
+            entityInputs: {
+              edges: [
+                {
+                  node: {
+                    inputEntityId: "018ded47-34ac-7f3a-9dff-a43e5036393a",
+                    entityType: "taxon"
+                  },
+                },
+                {
+                  node: {
+                    inputEntityId: "def",
+                    entityType: "accession"
+                  }
+                }
+              ]
+            },
+            createdAt: "2024-02-29T23:09:10.470257+00:00",
+            endedAt: null,
+            rawInputsJson:
+              '{"ncbi_index_version": "2021-01-22", "sars_cov_2": true, "creation_source": "SARS-CoV-2 Upload"}',
+          },
+        ],
+      },
+    }));
+
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
+        taxa: [
+          {
+            id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
+            name: "Severe acute respiratory syndrome coronavirus 2",
+            upstreamDatabaseIdentifier: "2697049",
+          }
+        ],
+        accessions: [
+          {
+            id: "def",
+            accessionId: "MN908947.3",
+            accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+          }
+        ],
+      }
+    }));
+
+    const result = await execute(query, {
+      railsSampleId: "35611",
+      snapshotLinkId: "",
+    });
+
+    expect(result.data.SampleForReport).toEqual(
+      expect.objectContaining({
+        id: "35611",
+        created_at: "2024-02-29T15:09:07.000-08:00",
+        default_background_id: 93,
+        default_pipeline_run_id: null,
+        editable: true,
+        host_genome_id: 1,
+        initial_workflow: "consensus-genome",
+        name: "sample_sars-cov-2_paired_2",
+        pipeline_runs: [],
+        project: {
+          id: "1247",
+          name: "ryan-new-project",
+        },
+        project_id: 1247,
+        railsSampleId: "35611",
+        status: "checked",
+        updated_at: "2024-02-29T15:09:11.000-08:00",
+        upload_error: null,
+        user_id: 345,
+        workflow_runs: [
+          {
+            deprecated: null,
+            executed_at: "2024-02-29T23:09:10.470257+00:00",
+            id: "018df720-fbd6-77f9-9b4a-1ca468d5207f",
+            input_error: null,
+            inputs: {
+              accession_id: "MN908947.3",
+              accession_name:
+                "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+              creation_source: "SARS-CoV-2 Upload",
+              ref_fasta: null,
+              taxon_id: "2697049",
+              taxon_name: "Severe acute respiratory syndrome coronavirus 2",
+              technology: null,
+            },
+            run_finalized: false,
+            status: "RUNNING",
             wdl_version: "3.5.0",
             workflow: "consensus-genome",
           },

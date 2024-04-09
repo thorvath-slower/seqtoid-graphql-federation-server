@@ -2132,22 +2132,22 @@ type SampleEdge {
 }
 
 type SampleForReport {
-  created_at: String
+  created_at: String!
   default_background_id: Int
   default_pipeline_run_id: String
-  editable: Boolean
+  editable: Boolean!
   host_genome_id: Int
-  id: String
-  initial_workflow: String
-  name: String
+  id: String!
+  initial_workflow: String!
+  name: String!
   pipeline_runs: [query_SampleForReport_pipeline_runs_items]
-  project: query_SampleForReport_project
-  project_id: Int
+  project: query_SampleForReport_project!
+  project_id: Int!
   railsSampleId: String
-  status: String
-  updated_at: String
+  status: String!
+  updated_at: String!
   upload_error: String
-  user_id: Int
+  user_id: Int!
   workflow_runs: [query_SampleForReport_workflow_runs_items]
 }
 
@@ -4701,11 +4701,12 @@ type query_SampleForReport_project {
 
 type query_SampleForReport_workflow_runs_items {
   deprecated: Boolean
-  executed_at: String
-  id: String
+  executed_at: String!
+  id: String!
   input_error: String
-  inputs: query_SampleForReport_workflow_runs_items_inputs
-  run_finalized: Boolean
+  inputs: query_SampleForReport_workflow_runs_items_inputs!
+  rails_workflow_run_id: String
+  run_finalized: Boolean!
   status: String
   wdl_version: String
   workflow: String
