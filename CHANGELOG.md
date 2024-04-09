@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.29.3](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.2...v2.29.3) (2024-04-09)
+
+
+### Bug Fixes
+
+* query taxa and accessions for info in sample report ([#310](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/310)) ([ff2ffde](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ff2ffded080f2cd4751e00f064b5a7ccfa3dc784))
+* Update collectionId in workflow schema to be nullable ([#311](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/311)) ([302c702](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/302c7021f38593d33ab56088593fd0d79f1725e5))
+
 ## [2.29.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.1...v2.29.2) (2024-04-05)
 
 
