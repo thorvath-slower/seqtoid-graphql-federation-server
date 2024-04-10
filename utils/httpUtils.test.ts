@@ -10,9 +10,9 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const { get, fetchFromNextGen} = httpUtils;
+const { get, fetchFromNextGen } = httpUtils;
 
-describe('get', () => {
+describe("get", () => {
   let fetchFromNextGenSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -29,9 +29,11 @@ describe('get', () => {
     });
 
     describe("when security token is provided", () => {
-      it('calls fetchFromNextGen with security token', async () => {
+      it("calls fetchFromNextGen with security token", async () => {
         fetchFromNextGenSpy = jest.spyOn(httpUtils, "fetchFromNextGen");
-        fetchFromNextGenSpy.mockImplementation(() => Promise.resolve({ mockField: "mockValue" }));
+        fetchFromNextGenSpy.mockImplementation(() =>
+          Promise.resolve({ mockField: "mockValue" }),
+        );
         const args = {};
         const serviceType = "entities";
         const securityToken = "mockSecurityToken";
@@ -53,9 +55,9 @@ describe('get', () => {
   });
 });
 
-describe('fetchFromNextGen', () => {
-  describe('when security token is provided', () => {
-    it('calls nextGen with provided security token ', async () => {
+describe("fetchFromNextGen", () => {
+  describe("when security token is provided", () => {
+    it("calls nextGen with provided security token ", async () => {
       const mockFetch = jest.fn().mockResolvedValue({
         json: jest.fn().mockResolvedValue({ mockField: "mockValue" }),
       });
@@ -64,9 +66,6 @@ describe('fetchFromNextGen', () => {
       const args = {};
       const context = getContext();
       const securityToken = "mockSecurityToken";
-
-      const url = "https://example.com";
-      process.env.NEXTGEN_ENTITIES_URL = url;
 
       await fetchFromNextGen({
         args,
@@ -79,25 +78,22 @@ describe('fetchFromNextGen', () => {
         `${process.env.NEXTGEN_ENTITIES_URL}/graphql`,
         expect.objectContaining({
           headers: expect.objectContaining({
-          Authorization: `Bearer ${securityToken}`,
+            Authorization: `Bearer ${securityToken}`,
           }),
         }),
       );
     });
   });
 
-  describe('when no security token is provided', () => {
-    it('calls Rails to get a token', async () => {
+  describe("when no security token is provided", () => {
+    it("calls Rails to get a token", async () => {
       const mockFetch = jest.fn().mockResolvedValueOnce({
         json: jest.fn().mockResolvedValue({ mockField: "mockValue" }),
       });
-      global.fetch = mockFetch
+      global.fetch = mockFetch;
 
       const args = {};
       const context = getContext();
-
-      const url = "https://example.com";
-      process.env.NEXTGEN_ENTITIES_URL = url;
 
       await fetchFromNextGen({
         args,
@@ -107,5 +103,25 @@ describe('fetchFromNextGen', () => {
 
       expect(getEnrichedToken).toHaveBeenCalled();
     });
+  });
+
+  it("throws when NextGen returns errors", async () => {
+    const mockFetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue({
+        errors: [{ message: "Mock error message" }, { message: "Another one" }],
+      }),
+    });
+    global.fetch = mockFetch;
+
+    expect(async () => {
+      await fetchFromNextGen({
+        args: {},
+        context: getContext(),
+        serviceType: "entities",
+        securityToken: "mockSecurityToken",
+      });
+    }).rejects.toThrow(
+      "2 error(s) from NextGen: 1. Mock error message 2. Another one",
+    );
   });
 });
