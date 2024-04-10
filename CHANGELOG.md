@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.29.5](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.4...v2.29.5) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix workflows query syntax and conditionally fire taxon/accession queries in sample report ([#314](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/314)) ([e4c0cab](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e4c0cab3db364c4c0f119caaeb4c5df0e933af76))
+
 ## [2.29.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.3...v2.29.4) (2024-04-10)
 
 
