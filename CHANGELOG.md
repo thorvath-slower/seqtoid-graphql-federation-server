@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.29.6](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.5...v2.29.6) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix taxon/accession queries ([#317](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/317)) ([969c3d7](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/969c3d70b93466c0879fd354cf192a1c619477d6))
+
 ## [2.29.5](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.4...v2.29.5) (2024-04-10)
 
 
