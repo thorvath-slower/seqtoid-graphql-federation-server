@@ -236,6 +236,10 @@ describe("SampleForReport query:", () => {
             upstreamDatabaseIdentifier: "2697049",
           }
         ],
+      }
+    }));
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
         accessions: [
           {
             id: "def",
@@ -378,6 +382,10 @@ describe("SampleForReport query:", () => {
             upstreamDatabaseIdentifier: "2697049",
           }
         ],
+      }
+    }));
+    (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
+      data: {
         accessions: [
           {
             id: "def",

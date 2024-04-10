@@ -141,11 +141,11 @@ export const SampleForReportResolver = async (root, args, context)=> {
               name
             }
           }
-          entityInputs(where: entityType { _in: ["taxon", "accession"] }) {
+          entityInputs(where: {entityType: {_in: ["taxon", "accession"]}}) {
             edges {
               node {
-                inputEntityId
                 entityType
+                inputEntityId
               }
             }
           }
@@ -167,7 +167,7 @@ export const SampleForReportResolver = async (root, args, context)=> {
   const workflowsWorkflowRuns: NextGenWorkflowsTypes.WorkflowRun[] = workflowsResp?.data?.workflowRuns || [];
 
   // Fetch taxon info from entities based on workflow run inputs
-  const taxonEntityIds : { taxon: string[], accession: string [] } = {
+  const taxonEntityIds : { taxon: string[], accession: string[] } = {
     taxon: [],
     accession: [],
   };
@@ -181,29 +181,47 @@ export const SampleForReportResolver = async (root, args, context)=> {
     );
   });
 
-  const taxaQuery = `
-    query TaxaQuery {
-      taxa(where: {id: {_in: ${taxonEntityIds["taxon"]}}}) {
-        id
-        name
-        upstreamDatabaseIdentifier
+  let taxonInfo: NextGenEntitiesTypes.Taxon[] = [];
+  if (taxonEntityIds["taxon"].length > 0) {
+    const taxaQuery = `
+      query TaxaQuery {
+        taxa(where: {id: {_in: ${taxonEntityIds["taxon"]}}}) {
+          id
+          name
+          upstreamDatabaseIdentifier
+        }
       }
-      accessions(where: {id: {_in: ${taxonEntityIds["accession"]}}}) {
-        id
-        accessionId
-        accessionName
-      }
-    }
-  `;
+    `;
 
-  const taxaResp = await get({
-    args,
-    context,
-    serviceType: "entities",
-    customQuery: taxaQuery,
-  });
-  const taxonInfo: NextGenEntitiesTypes.Taxon[] = taxaResp?.data?.taxa || [];
-  const accessionInfo: NextGenEntitiesTypes.Accession[] = taxaResp?.data?.accessions || [];
+    const taxaResp = await get({
+      args,
+      context,
+      serviceType: "entities",
+      customQuery: taxaQuery,
+    });
+    taxonInfo = taxaResp?.data?.taxa || [];
+  }
+
+  let accessionInfo: NextGenEntitiesTypes.Accession[] = [];
+  if (taxonEntityIds["accession"].length > 0) {
+    const accessionQuery = `
+      query AccessionQuery {
+        accessions(where: {id: {_in: ${taxonEntityIds["accession"]}}}) {
+          id
+          accessionId
+          accessionName
+        }
+      }
+    `;
+
+    const accessionResp = await get({
+      args,
+      context,
+      serviceType: "entities",
+      customQuery: accessionQuery,
+    });
+    accessionInfo = accessionResp?.data?.accessions || [];
+  }
 
   const nextGenWorkflowRuns: query_SampleForReport_workflow_runs_items[] = workflowsWorkflowRuns.map(workflowRun => {
     const consensusGenome = consensusGenomes.find(consensusGenome => {
