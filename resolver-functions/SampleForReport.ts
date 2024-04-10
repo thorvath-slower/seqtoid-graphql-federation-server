@@ -185,7 +185,7 @@ export const SampleForReportResolver = async (root, args, context)=> {
   if (taxonEntityIds["taxon"].length > 0) {
     const taxaQuery = `
       query TaxaQuery {
-        taxa(where: {id: {_in: ${taxonEntityIds["taxon"]}}}) {
+        taxa(where: {id: {_in: [${taxonEntityIds["taxon"].map(id => `"${id}"`)}]}}) {
           id
           name
           upstreamDatabaseIdentifier
@@ -206,7 +206,7 @@ export const SampleForReportResolver = async (root, args, context)=> {
   if (taxonEntityIds["accession"].length > 0) {
     const accessionQuery = `
       query AccessionQuery {
-        accessions(where: {id: {_in: ${taxonEntityIds["accession"]}}}) {
+        accessions(where: {id: {_in: [${taxonEntityIds["accession"].map(id => `"${id}"`)}]}}) {
           id
           accessionId
           accessionName
