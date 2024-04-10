@@ -68,7 +68,6 @@ export const postWithCSRF = async ({
       body: JSON.stringify(body),
     });
     checkForLogin(response?.url);
-    console.log(response);
     return await response.json();
   } catch (e) {
     return Promise.reject(e.response ? e.response : e);
@@ -118,7 +117,7 @@ export const fetchFromNextGen = async ({
   securityToken?: string;
 }) => {
   try {
-    const enrichedToken = securityToken || await getEnrichedToken(context);
+    const enrichedToken = securityToken || (await getEnrichedToken(context));
     const baseUrl =
       serviceType === "workflows"
         ? process.env.NEXTGEN_WORKFLOWS_URL
@@ -126,8 +125,8 @@ export const fetchFromNextGen = async ({
     const formattedQuery = customQuery
       ? customQuery
       : formatFedQueryForNextGen(context.params.query);
-    console.log("fetchFromNextGen")
-    console.log({formattedQuery});
+    console.log("fetchFromNextGen");
+    console.log({ formattedQuery });
     console.log("%j", customVariables);
     const response = await fetch(`${baseUrl}/graphql`, {
       method: "POST",

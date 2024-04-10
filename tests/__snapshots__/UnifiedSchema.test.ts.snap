@@ -4930,7 +4930,7 @@ type query_fedBulkDownloads_items {
   entityInputs: [query_fedBulkDownloads_items_entityInputs_items]
   errorMessage: String
   fileFormat: String
-  fileSize: Int
+  fileSize: Float
   id: String
   logUrl: String
   ownerUserId: Int

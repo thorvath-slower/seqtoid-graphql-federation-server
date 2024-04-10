@@ -19,14 +19,20 @@ interface BulkDownloadFromRails {
   analysis_type: string;
   analysis_count: number;
   log_url: string;
-  params: { [x: string]: Param };
+  params: {
+    [x: string]: {
+      paramType: string;
+      displayName?: string;
+      value: unknown;
+    };
+  };
   pipeline_runs: { id: number; sample_name: string }[];
   workflow_runs: { id: number; sample_name: string }[];
   presigned_output_url: string | null;
 }
 interface Param {
   paramType: string;
-  downloadName?: string;
+  displayName?: string;
   value: string;
 }
 enum NextGenStatuses {
@@ -69,12 +75,27 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
           // remove "workflow" and "sample_ids" from details?.bulk_download?.params
           // which leaves only the params that are shown in the sidebar of
           // the bulk download list page ie. download_format, metrics, etc.
-          .filter(param => param[0] !== "workflow" && param[0] !== "sample_ids")
+          // also remove any params that have values that are null
+          .filter(
+            param =>
+              param[0] !== "workflow" &&
+              param[0] !== "sample_ids" &&
+              param[1]?.value != undefined,
+          )
           // make params into an array of objects
-          .map((param: [string, { downloadName?: string; value: string }]) => {
+          .forEach(param => {
+            // if the param value is an empty array, we do not need to present the information in the sidebar
+            if (Array.isArray(param[1].value) && param[1].value.length === 0) {
+              return;
+            }
+
             const paramItem = {
-              paramType: snakeToCamel(param[0]),
               ...param[1],
+              value:
+                typeof param[1].value === "string"
+                  ? param[1].value
+                  : JSON.stringify(param[1].value),
+              paramType: snakeToCamel(param[0]),
             };
             params.push(paramItem);
           });
@@ -195,7 +216,6 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
         ?.filter(wr => wr)
         .map(workflowRun => {
           const file = bulkDownloads[workflowRun.id]?.file;
-          console.log("file", file);
           const {
             createdAt,
             rawInputsJson,
@@ -214,14 +234,17 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
             status,
             downloadType: bulk_download_type,
             ownerUserId,
-            fileSize: file?.size,
+            fileSize:
+              file?.size && !isNaN(parseInt(file?.size))
+                ? parseInt(file.size)
+                : null,
             url: file?.downloadLink?.url,
             analysisCount: entityInputs?.edges?.length,
-            entityInputFileType: toKebabCase(inputs[0].node.entityType),
+            entityInputFileType: toKebabCase(inputs[0]?.node?.entityType),
             entityInputs: inputs.map(edge => {
               return {
-                id: edge.node.inputEntityId,
-                name: consensusGenomes[edge.node.inputEntityId]?.sequencingRead
+                id: edge.node?.inputEntityId,
+                name: consensusGenomes[edge.node?.inputEntityId]?.sequencingRead
                   ?.sample?.name,
               };
             }),
@@ -235,7 +258,7 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
             logUrl: null,
           };
         });
-      return nextGenBulkDownloads;
+      return nextGenBulkDownloads ?? [];
     }
     return [];
   };

@@ -110,7 +110,7 @@ export const SampleForReportResolver = async (root, args, context)=> {
   const samples: NextGenEntitiesTypes.Sample[] = entitiesResp?.data?.samples || [];
   const nextGenSampleId = samples[0]?.id;
   if (!nextGenSampleId) {
-    console.log(
+    console.error(
       `No NextGenSampleId found for railsSampleId: ${args.railsSampleId}`,
     );
     return {
