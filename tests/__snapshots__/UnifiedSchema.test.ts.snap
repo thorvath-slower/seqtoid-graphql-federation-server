@@ -1611,7 +1611,7 @@ type MultipartUploadResponse {
 }
 
 type Mutation {
-  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
+  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): fedCreateBulkDownload @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
   DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(subgraph: "CZIDREST", path: "/samples/bulk_delete", httpMethod: POST)
   KickoffAMRWorkflow(input: mutationInput_KickoffAMRWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   KickoffWGSWorkflow(input: mutationInput_KickoffWGSWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
@@ -3789,6 +3789,10 @@ input WorkflowWhereClauseMutations {
 type ZipLink {
   error: String
   url: String
+}
+
+type fedCreateBulkDownload {
+  id: String!
 }
 
 type fedWorkflowRunsAggregate {

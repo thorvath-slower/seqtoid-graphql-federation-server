@@ -23,6 +23,7 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
     id => id && parseInt(id),
   );
   const nextGenEnabled = await shouldReadFromNextGen(context);
+
   /* --------------------- Rails --------------------- */
   if (!nextGenEnabled) {
     const body = {
@@ -41,14 +42,20 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
       },
       workflow_run_ids: workflowRunIdsNumbers ?? workflowRunIds,
     };
-    const res = await postWithCSRF({
+    const railsResponse = await postWithCSRF({
       url: `/bulk_downloads`,
       body,
       args,
       context,
     });
-    return res;
+    if (railsResponse.error != null) {
+      throw new Error(railsResponse.error);
+    }
+    return {
+      id: railsResponse.id.toString(),
+    };
   }
+
   /* --------------------- Next Gen --------------------- */
   // get the default bulk download workflow version id from the workflow service
   if (!workflowRunIdsStrings || workflowRunIdsStrings.length === 0) {
@@ -124,11 +131,12 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
         }
       }
     `;
-  const res = await fetchFromNextGen({
-    args,
-    context,
-    serviceType: "workflows",
-    customQuery: runBulkDownload,
-  });
-  return res;
+  return (
+    await fetchFromNextGen({
+      args,
+      context,
+      serviceType: "workflows",
+      customQuery: runBulkDownload,
+    })
+  ).data.runWorkflowVersion;
 };

@@ -67,7 +67,11 @@ export const postWithCSRF = async ({
       body: JSON.stringify(body),
     });
     checkForLogin(response?.url);
-    return await response.json();
+    const responseJson = await response.json();
+    console.log(
+      `Rails POST to ${url} response: ${JSON.stringify(responseJson)}`,
+    );
+    return responseJson;
   } catch (e) {
     handleFetchError(e);
   }

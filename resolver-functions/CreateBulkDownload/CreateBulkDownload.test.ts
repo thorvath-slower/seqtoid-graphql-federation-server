@@ -51,9 +51,9 @@ describe.only("CreateBulkDownload Query", () => {
         workflowRunIds: [1991, 2007],
         workflowRunIdsStrings: ["1991", "2007"],
       });
-      expect(result.data.CreateBulkDownload).toStrictEqual(
-        createBulkDownloadResponse,
-      );
+      expect(result.data.CreateBulkDownload).toEqual({
+        id: "448",
+      });
     });
   });
 
@@ -115,12 +115,8 @@ describe.only("CreateBulkDownload Query", () => {
         workflowRunIds: [1991, 2007],
         workflowRunIdsStrings: ["1991", "2007"],
       });
-      expect(result.data.CreateBulkDownload).toStrictEqual({
-        data: {
-          runWorkflowVersion: {
-            id: "018e9f6b-5c95-7a0d-933f-c5ab489799f6",
-          },
-        },
+      expect(result.data.CreateBulkDownload).toEqual({
+        id: "018e9f6b-5c95-7a0d-933f-c5ab489799f6",
       });
     });
   });
