@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [2.30.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.6...v2.30.0) (2024-04-11)
+
+
+### Features
+
+* Upgrade Mesh again to enable error logging ([#303](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/303)) ([3fb5996](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/3fb5996665cece97bf358d021da02b6c482e2943))
+
+
+### Bug Fixes
+
+* Make response schema for CreateBulkDownload consistent between flag on/off ([#319](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/319)) ([2c7663f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/2c7663fff841c679ec735b486f4f5a3d3c1ff2b2))
+
 ## [2.29.6](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.5...v2.29.6) (2024-04-10)
 
 
