@@ -1,0 +1,77 @@
+name: Reusable Deploy
+
+on:
+  workflow_call:
+    inputs: 
+      environment: 
+        required: true
+        type: string
+      api_url:
+        required: true
+        type: string
+      nextgen_entities_url:
+        required: true
+        type: string
+      nextgen_workflows_url:
+        required: true
+        type: string
+      allowed_cors_origin:
+        required: true
+        type: string
+      stack_name: 
+        required: true
+        type: string
+    secrets:
+      AWS_ROLE_TO_ASSUME:
+        required: true
+      TFE_TOKEN:
+        required: true
+      
+
+jobs:
+  deploy:
+    runs-on: [ARM64, self-hosted, Linux]
+    environment: ${{ inputs.environment }}
+    strategy: 
+      matrix: 
+        app_configs: 
+          - name: API_URL
+            value: ${{ inputs.api_url }}
+          - name: NEXTGEN_ENTITIES_URL
+            value: ${{ inputs.nextgen_entities_url }}
+          - name: NEXTGEN_WORKFLOWS_URL
+            value: ${{ inputs.nextgen_workflows_url }}
+          - name: ALLOWED_CORS_ORIGINS
+            value: ${{ inputs.allowed_cors_origin }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Assume happy-api deployment role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 1200
+          role-session-name: CzidGraphQLFederationUpdate
+      - name: Install happy
+        uses: chanzuckerberg/github-actions/.github/actions/install-happy@main
+      - name: Set env variables
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: ${{ matrix.app_configs.name }}
+          app_config_value: ${{ matrix.app_configs.value }}
+          happy_env: ${{ inputs.environment }}
+      - name: Update stack
+        uses: chanzuckerberg/github-actions/.github/actions/deploy-happy-stack@v1.26.0
+        with:
+          tfe-token: ${{ secrets.TFE_TOKEN }}
+          env: ${{ inputs.environment }}
+          create-tag: true
+          stack-name: ${{ inputs.stack_name }}
+          version-lock-file: .happy/version.lock
