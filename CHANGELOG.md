@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.30.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.0...v2.30.1) (2024-04-12)
+
+
+### Bug Fixes
+
+* update schema for artic_v3 wetlab protocol ([#322](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/322)) ([e34da61](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e34da6132ef7fc813f723ff7dce690edc9173c01))
+
 ## [2.30.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.29.6...v2.30.0) (2024-04-11)
 
 
