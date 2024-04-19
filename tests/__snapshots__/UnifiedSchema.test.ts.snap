@@ -2559,6 +2559,15 @@ type Taxon implements EntityInterface & Node {
     where: SequencingReadWhereClause = null
   ): SequencingReadConnection!
   sequencingReadsAggregate(where: SequencingReadWhereClause = null): SequencingReadAggregate
+  taxClassId: ID
+  taxFamilyId: ID
+  taxGenusId: ID
+  taxKingdomId: ID
+  taxOrderId: ID
+  taxParentId: ID
+  taxPhylumId: ID
+  taxSpeciesId: ID
+  taxSuperkingdomId: ID
   updatedAt: DateTime
   upstreamDatabase(orderBy: [UpstreamDatabaseOrderByClause!] = [], where: UpstreamDatabaseWhereClause = null): UpstreamDatabase
   upstreamDatabaseIdentifier: String!
@@ -3105,6 +3114,7 @@ type WorkflowRun implements EntityInterface & Node {
   createdAt: DateTime!
   deletedAt: DateTime
   deprecated: Boolean!
+  deprecatedById: ID
   endedAt: DateTime
   entityInputs(
     """Returns the items in the list that come after the specified cursor."""
@@ -3119,6 +3129,7 @@ type WorkflowRun implements EntityInterface & Node {
     where: WorkflowRunEntityInputWhereClause = null
   ): WorkflowRunEntityInputConnection!
   entityInputsAggregate(where: WorkflowRunEntityInputWhereClause = null): WorkflowRunEntityInputAggregate
+  errorLabel: String
   errorMessage: String
   executedAt: ISO8601DateTime
   executionId: String
@@ -3186,6 +3197,7 @@ enum WorkflowRunCountColumns {
   deprecatedBy
   endedAt
   entityInputs
+  errorLabel
   errorMessage
   executionId
   id
@@ -3341,6 +3353,7 @@ type WorkflowRunGroupByOptions {
   deletedAt: DateTime
   deprecatedBy: WorkflowRunGroupByOptions
   endedAt: DateTime
+  errorLabel: String
   errorMessage: String
   executionId: String
   id: UUID
@@ -3360,6 +3373,7 @@ type WorkflowRunMinMaxColumns {
   createdAt: DateTime
   deletedAt: DateTime
   endedAt: DateTime
+  errorLabel: String
   errorMessage: String
   executionId: String
   outputsJson: String
@@ -3383,6 +3397,7 @@ input WorkflowRunOrderByClause {
   deletedAt: orderBy
   deprecatedBy: orderBy
   endedAt: orderBy
+  errorLabel: orderBy
   errorMessage: orderBy
   executionId: orderBy
   id: orderBy
@@ -3574,6 +3589,7 @@ input WorkflowRunUpdateInput {
   deletedAt: DateTime = null
   deprecatedById: ID = null
   endedAt: DateTime = null
+  errorLabel: String = null
   errorMessage: String = null
   executionId: String = null
   outputsJson: String = null
@@ -3588,6 +3604,7 @@ input WorkflowRunWhereClause {
   deprecatedById: UUIDComparators
   endedAt: DatetimeComparators
   entityInputs: WorkflowRunEntityInputWhereClause
+  errorLabel: StrComparators
   errorMessage: StrComparators
   executionId: StrComparators
   id: UUIDComparators
