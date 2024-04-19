@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.30.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.1...v2.30.2) (2024-04-19)
+
+
+### Bug Fixes
+
+* Update NextGen schema with new errorLabel field and pass it through SampleForReport ([#325](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/325)) ([ddfe8d5](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/ddfe8d5ff126f88a23afdc402f4c8516f61f54a6))
+* Update schema ([#326](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/326)) ([a510e29](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/a510e29658ace8a98a2815ac55dc0f72ec7ffd3b))
+
 ## [2.30.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.0...v2.30.1) (2024-04-12)
 
 
