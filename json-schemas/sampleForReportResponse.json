@@ -113,7 +113,15 @@
                         "type": "boolean"
                     },
                     "input_error": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        }
                     },
                     "inputs": {
                         "type": "object",

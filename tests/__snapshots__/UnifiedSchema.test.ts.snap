@@ -4724,13 +4724,18 @@ type query_SampleForReport_workflow_runs_items {
   deprecated: Boolean
   executed_at: String!
   id: String!
-  input_error: String
+  input_error: query_SampleForReport_workflow_runs_items_input_error
   inputs: query_SampleForReport_workflow_runs_items_inputs!
   rails_workflow_run_id: String
   run_finalized: Boolean!
   status: String
   wdl_version: String
   workflow: String
+}
+
+type query_SampleForReport_workflow_runs_items_input_error {
+  label: String
+  message: String
 }
 
 type query_SampleForReport_workflow_runs_items_inputs {

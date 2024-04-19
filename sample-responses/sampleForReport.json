@@ -36,7 +36,10 @@
           "wdl_version": "3.4.18",
           "executed_at": "2023-10-17T07:10:33.000-07:00",
           "deprecated": false,
-          "input_error": "hi",
+          "input_error": {
+            "label": "InsufficientReadsError",
+            "message": "There were not enough reads."
+          },
           "inputs": {
               "accession_id": "11",
               "accession_name": "11",

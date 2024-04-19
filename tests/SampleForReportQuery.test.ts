@@ -46,7 +46,10 @@ describe("SampleForReport query:", () => {
         wdl_version: "3.5.0",
         executed_at: "2024-02-29T15:09:11.000-08:00",
         deprecated: false,
-        input_error: null,
+        input_error: {
+          label: "Error label",
+          message: "Error message",
+        },
         inputs: {
           accession_id: "MN908947.3",
           accession_name:
@@ -124,7 +127,10 @@ describe("SampleForReport query:", () => {
             deprecated: false,
             executed_at: "2024-02-29T15:09:11.000-08:00",
             id: "7126",
-            input_error: null,
+            input_error: {
+              label: "Error label",
+              message: "Error message",
+            },
             inputs: {
               accession_id: "MN908947.3",
               accession_name:
@@ -196,7 +202,8 @@ describe("SampleForReport query:", () => {
             railsWorkflowRunId: 7126,
             status: "SUCCEEDED",
             ownerUserId: 345,
-            errorMessage: null,
+            errorLabel: "Error label",
+            errorMessage: "Error message",
             workflowVersion: {
               version: "3.5.0",
               id: "018df6ca-d3c0-7edd-a243-4127e06eb1d1",
@@ -207,16 +214,16 @@ describe("SampleForReport query:", () => {
                 {
                   node: {
                     inputEntityId: "018ded47-34ac-7f3a-9dff-a43e5036393a",
-                    entityType: "taxon"
+                    entityType: "taxon",
                   },
                 },
                 {
                   node: {
                     inputEntityId: "def",
-                    entityType: "accession"
-                  }
-                }
-              ]
+                    entityType: "accession",
+                  },
+                },
+              ],
             },
             createdAt: "2024-02-29T23:09:10.470257+00:00",
             endedAt: null,
@@ -234,9 +241,9 @@ describe("SampleForReport query:", () => {
             id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
             name: "Severe acute respiratory syndrome coronavirus 2",
             upstreamDatabaseIdentifier: "2697049",
-          }
+          },
         ],
-      }
+      },
     }));
     (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
       data: {
@@ -244,10 +251,11 @@ describe("SampleForReport query:", () => {
           {
             id: "def",
             accessionId: "MN908947.3",
-            accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
-          }
+            accessionName:
+              "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+          },
         ],
-      }
+      },
     }));
 
     const result = await execute(query, {
@@ -281,7 +289,10 @@ describe("SampleForReport query:", () => {
             deprecated: null,
             executed_at: "2024-02-29T23:09:10.470257+00:00",
             id: "018df720-fbd6-77f9-9b4a-1ca468d5207f",
-            input_error: null,
+            input_error: {
+              label: "Error label",
+              message: "Error message",
+            },
             inputs: {
               accession_id: "MN908947.3",
               accession_name:
@@ -353,16 +364,16 @@ describe("SampleForReport query:", () => {
                 {
                   node: {
                     inputEntityId: "018ded47-34ac-7f3a-9dff-a43e5036393a",
-                    entityType: "taxon"
+                    entityType: "taxon",
                   },
                 },
                 {
                   node: {
                     inputEntityId: "def",
-                    entityType: "accession"
-                  }
-                }
-              ]
+                    entityType: "accession",
+                  },
+                },
+              ],
             },
             createdAt: "2024-02-29T23:09:10.470257+00:00",
             endedAt: null,
@@ -380,9 +391,9 @@ describe("SampleForReport query:", () => {
             id: "018ded47-34ac-7f3a-9dff-a43e5036393a",
             name: "Severe acute respiratory syndrome coronavirus 2",
             upstreamDatabaseIdentifier: "2697049",
-          }
+          },
         ],
-      }
+      },
     }));
     (httpUtils.get as jest.Mock).mockImplementationOnce(() => ({
       data: {
@@ -390,10 +401,11 @@ describe("SampleForReport query:", () => {
           {
             id: "def",
             accessionId: "MN908947.3",
-            accessionName: "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
-          }
+            accessionName:
+              "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",
+          },
         ],
-      }
+      },
     }));
 
     const result = await execute(query, {

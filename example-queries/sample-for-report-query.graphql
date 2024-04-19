@@ -36,7 +36,10 @@ query SampleViewSampleQuery($railsSampleId: String, $snapshotLinkId: String) {
       deprecated
       executed_at
       id
-      input_error
+      input_error {
+        label
+        message
+      }
       inputs {
         accession_id
         accession_name
