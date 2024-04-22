@@ -5217,6 +5217,7 @@ type query_fedWorkflowRunsAggregate_aggregate_items_groupBy_workflowVersion_work
 
 type query_fedWorkflowRuns_items {
   entityInputs: query_fedWorkflowRuns_items_entityInputs!
+  errorLabel: String
   id: String!
   ownerUserId: Int!
   rawInputsJson: String
