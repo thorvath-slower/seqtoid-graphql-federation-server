@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.31.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.2...v2.31.0) (2024-04-22)
+
+
+### Features
+
+* Expose errorLabel in fedWorkflowRuns ([#330](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/330)) ([662e546](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/662e5461765310867b01f9fefbc36fd680d71694))
+
 ## [2.30.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.1...v2.30.2) (2024-04-19)
 
 
