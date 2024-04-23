@@ -28,6 +28,20 @@ sources:
         endpoint: ${API_URL}/
         operations:
           - type: Query
+            field: adminSamples
+            path: /samples/index_v2.json
+            method: GET
+            requestSchema: ./json-schemas/adminSamplesRequest.json
+            responseSchema: ./json-schemas/adminSamplesResponse.json
+            responseTypeName: adminSamples
+          - type: Query
+            field: adminWorkflowRuns
+            path: /workflow_runs.json
+            method: GET
+            requestSchema: ./json-schemas/adminWorkflowRunsRequest.json
+            responseSchema: ./json-schemas/adminWorkflowRunsResponse.json
+            responseTypeName: adminWorkflowRuns
+          - type: Query
             field: AmrDeprecatedResults
             path: /samples/{args.sampleId}/amr.json
             method: GET

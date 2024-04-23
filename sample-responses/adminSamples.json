@@ -1,0 +1,74 @@
+[
+  {
+    "id": "e7f86a41-25bc-560e-86e3-a0dfaeb9197b",
+    "ownerUserId": 279,
+    "collectionId": 1198,
+    "createdAt": "2024-04-17T21:06:54+00:00",
+    "railsSampleId": 44265,
+    "sequencingReads": {
+      "edges": [
+        {
+          "node": {
+            "id": "8b15e5cc-039e-5c62-a164-29dec881dd20",
+            "createdAt": "2024-04-17T21:06:54+00:00",
+            "protocol": "artic",
+            "technology": "Nanopore",
+            "medakaModel": "r941_min_high_g360",
+            "clearlabsExport": false,
+            "r1File": {
+              "id": "b1ad836d-349b-56b5-bda9-849eeebaefdf",
+              "protocol": "s3",
+              "path": "samples/1198/44265/fastqs/sars-cov-2_SRR11178050_10p.fastq.gz",
+              "namespace": "idseq-samples-staging"
+            },
+            "r2File": {
+              "id": "b1ad836d-349b-56b5-bda9-849eeebaefdf",
+              "protocol": "s3",
+              "path": "samples/1198/44265/fastqs/sars-cov-2_SRR11178050_10p.fastq.gz",
+              "namespace": "idseq-samples-staging"
+            },
+            "taxon": {
+              "id": "de4ce82a-b41b-5e7e-b51a-7a63b17301ac",
+              "name": "Severe acute respiratory syndrome coronavirus 2",
+              "upstreamDatabaseIdentifier": "2697049"
+            },
+            "primerFile": {
+              "file": {
+                "path": "samples/1224/33171/fastqs/Primer_K.bed",
+                "namespace": "idseq-samples-staging",
+                "id": "397ae4c0-2c88-525a-8f85-0a00e338adf0"
+              }
+            },
+            "consensusGenomes": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "0cf15dfd-1168-5995-93f4-7693cc83c842",
+                    "accession": {
+                      "accessionId": "MN908947.3",
+                      "accessionName": "Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome"
+                    },
+                    "createdAt": "2024-04-17T21:06:54+00:00",
+                    "producingRunId": "dde2e0bf-2f67-5e79-ba14-7ee77a5e07d1",
+                    "referenceGenome": {
+                      "file": {
+                        "path": "samples/1256/38225/fastqs/consensus_TEST_SC2.fa",
+                        "protocol": "s3",
+                        "namespace": "idseq-samples-staging"
+                      }
+                    },
+                    "taxon": {
+                      "id": "de4ce82a-b41b-5e7e-b51a-7a63b17301ac",
+                      "name": "Severe acute respiratory syndrome coronavirus 2",
+                      "upstreamDatabaseIdentifier": "2697049"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+]

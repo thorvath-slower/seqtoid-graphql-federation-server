@@ -1,0 +1,46 @@
+[
+  {
+    "id": "3876163d-6d84-5eda-973c-26711baf42a9",
+    "createdAt": "2024-03-19T00:55:57+00:00",
+    "collectionId": 1256,
+    "executedAt": "2024-03-19T00:55:57+00:00",
+    "errorMessage": "InputError",
+    "rawInputsJson": "{\"accession_id\":null,\"accession_name\":null,\"taxon_id\":null,\"taxon_name\":null,\"technology\":\"Illumina\",\"ref_fasta\":\"consensus_TEST_SC2.fa\",\"primer_bed\":\"Primer_K.bed\",\"creation_source\":\"Viral CG Upload\"}",
+    "railsWorkflowRunId": 9001,
+    "ownerUserId": 406,
+    "status": "SUCCEEDED",
+    "executionId": "arn:aws:states:us-west-2:732052188396:execution:idseq-swipe-staging-default-wdl:idseq-staging-1256-38225-9001-20240318175559",
+    "endedAt": "2024-03-19T01:01:13+00:00",
+    "workflowVersion": {
+      "workflow": {
+        "name": "consensus-genome"
+      },
+      "version": "3.5.0"
+    },
+    "entityInputs": {
+      "edges": [
+        {
+          "node": {
+            "entityType": "reference_genome",
+            "fieldName": "reference_genome",
+            "inputEntityId": "002193f6-93e6-5891-bbac-47db3209fabe"
+          }
+        },
+        {
+          "node": {
+            "entityType": "sample",
+            "fieldName": "sample",
+            "inputEntityId": "3db7b64b-9aa9-5e3a-8824-fd8b63d5abb0"
+          }
+        },
+        {
+          "node": {
+            "entityType": "sequencing_read",
+            "fieldName": "sequencing_read",
+            "inputEntityId": "cbedcbd7-c768-5e62-8e59-063bf2f9ba6f"
+          }
+        }
+      ]
+    }
+  }
+]

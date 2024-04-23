@@ -1,0 +1,240 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "ownerUserId": {
+                "type": "integer"
+            },
+            "collectionId": {
+                "type": "integer"
+            },
+            "createdAt": {
+                "type": "string"
+            },
+            "railsSampleId": {
+                "type": "integer"
+            },
+            "sequencingReads": {
+                "type": "object",
+                "properties": {
+                    "edges": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "node": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "protocol": {
+                                            "type": "string"
+                                        },
+                                        "technology": {
+                                            "type": "string"
+                                        },
+                                        "medakaModel": {
+                                            "type": "string"
+                                        },
+                                        "clearlabsExport": {
+                                            "type": "boolean"
+                                        },
+                                        "r1File": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "protocol": {
+                                                    "type": "string"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "namespace": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "r2File": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "protocol": {
+                                                    "type": "string"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "namespace": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "taxon": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "upstreamDatabaseIdentifier": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "primerFile": {
+                                            "type": "object",
+                                            "properties": {
+                                                "file": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "path": {
+                                                            "type": "string"
+                                                        },
+                                                        "namespace": {
+                                                            "type": "string"
+                                                        },
+                                                        "id": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "consensusGenomes": {
+                                            "type": "object",
+                                            "properties": {
+                                                "edges": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "node": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "accession": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "accessionId": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "accessionName": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "accessionId",
+                                                                            "accessionName"
+                                                                        ]
+                                                                    },
+                                                                    "createdAt": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "producingRunId": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "referenceGenome": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "file": {
+                                                                                "type": "object",
+                                                                                "properties": {
+                                                                                    "path": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "protocol": {
+                                                                                        "type": "string"
+                                                                                    },
+                                                                                    "namespace": {
+                                                                                        "type": "string"
+                                                                                    }
+                                                                                },
+                                                                                "required": [
+                                                                                    "path",
+                                                                                    "protocol",
+                                                                                    "namespace"
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "taxon": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "id": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "name": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "upstreamDatabaseIdentifier": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "id",
+                                                                            "name",
+                                                                            "upstreamDatabaseIdentifier"
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "id",
+                                                                    "createdAt"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "node"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "edges"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "id",
+                                        "createdAt",
+                                        "technology",
+                                        "clearlabsExport",
+                                        "consensusGenomes"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "node"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "edges"
+                ]
+            }
+        },
+        "required": [
+            "id",
+            "ownerUserId",
+            "createdAt",
+            "sequencingReads"
+        ]
+    }
+}

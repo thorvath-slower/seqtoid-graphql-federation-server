@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "where": {
+            "type": "object",
+            "properties": {
+                "entityInputs": {
+                    "type": "object",
+                    "properties": {
+                        "inputEntityId": {
+                            "type": "object",
+                            "properties": {
+                                "_eq": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -85,6 +85,36 @@ export const convertWorkflowRunsQuery = (query: string): string => {
   );
 };
 
+export const convertAdminSamplesQuery = (query: string): string => {
+  return (
+    query
+      // Replace Fed variables.
+      .replace(
+        QUERY_TO_BRACE_REGEX,
+        `query ($where: SampleWhereClause) {`,
+      )
+      // Remove fed prefix.
+      .replaceAll("adminSamples", "samples")
+      // Replace Fed arguments.
+      .replace("input: $input", "where: $where")
+  );
+};
+
+export const convertAdminWorkflowRunsQuery = (query: string): string => {
+  return (
+    query
+      // Replace Fed variables.
+      .replace(
+        QUERY_TO_BRACE_REGEX,
+        `query ($where: WorkflowRunWhereClause) {`,
+      )
+      // Remove fed prefix.
+      .replace("adminWorkflowRuns", "workflowRuns")
+      // Replace Fed arguments.
+      .replace("input: $input", "where: $where")
+  );
+};
+
 export const convertSequencingReadsQuery = (query: string): string => {
   // Remove fed prefix.
   query = query.replaceAll("fedSequencingReads", "sequencingReads");

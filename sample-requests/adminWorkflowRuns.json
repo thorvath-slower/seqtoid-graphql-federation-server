@@ -1,0 +1,9 @@
+{
+  "where": {
+    "entityInputs": {
+      "inputEntityId": {
+        "_eq": "e7f86a41-25bc-560e-86e3-a0dfaeb9197b"
+      }
+    }
+  }
+}

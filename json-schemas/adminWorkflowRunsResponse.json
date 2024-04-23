@@ -1,0 +1,90 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string"
+            },
+            "createdAt": {
+                "type": "string"
+            },
+            "collectionId": {
+                "type": "integer"
+            },
+            "startedAt": {
+                "type": "string"
+            },
+            "errorMessage": {
+                "type": "string"
+            },
+            "rawInputsJson": {
+                "type": "string"
+            },
+            "railsWorkflowRunId": {
+                "type": "integer"
+            },
+            "ownerUserId": {
+                "type": "integer"
+            },
+            "status": {
+                "type": "string"
+            },
+            "executionId": {
+                "type": "string"
+            },
+            "endedAt": {
+                "type": "string"
+            },
+            "workflowVersion": {
+                "type": "object",
+                "properties": {
+                    "workflow": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            },
+            "entityInputs": {
+                "type": "object",
+                "properties": {
+                    "edges": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "node": {
+                                    "type": "object",
+                                    "properties": {
+                                        "entityType": {
+                                            "type": "string"
+                                        },
+                                        "fieldName": {
+                                            "type": "string"
+                                        },
+                                        "inputEntityId": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "required": [
+            "id",
+            "createdAt",
+            "ownerUserId",
+            "entityInputs"
+        ]
+    }
+}

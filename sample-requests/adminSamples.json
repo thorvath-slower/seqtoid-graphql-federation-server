@@ -1,0 +1,7 @@
+{
+  "where": {
+    "railsSampleId": {
+      "_eq": 1234
+    }
+  }
+}

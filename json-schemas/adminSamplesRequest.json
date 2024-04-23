@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "where": {
+            "type": "object",
+            "properties": {
+                "railsSampleId": {
+                    "type": "object",
+                    "properties": {
+                        "_eq": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -28,6 +28,8 @@ import {
 } from "./utils/mngsWorkflowResultsUtils";
 import { formatUrlParams } from "./utils/paramsUtils";
 import {
+  convertAdminSamplesQuery,
+  convertAdminWorkflowRunsQuery,
   convertConsensusGenomesQuery,
   convertSequencingReadsQuery,
   convertValidateConsensusGenomeQuery,
@@ -36,6 +38,8 @@ import {
 } from "./utils/queryFormatUtils";
 import { isRunFinalized, parseRefFasta } from "./utils/responseHelperUtils";
 import { CreateBulkDownloadResolver } from "./resolver-functions/CreateBulkDownload/CreateBulkDownload";
+import { adminSamplesResolver } from "./resolver-functions/admin/adminSamples";
+import { adminWorkflowRunsResolver } from "./resolver-functions/admin/adminWorkflowRuns";
 
 /**
  * Arbitrary very large number used temporarily during Rails read phase to force Rails not to
@@ -45,6 +49,8 @@ const TEN_MILLION = 10_000_000;
 
 export const resolvers: Resolvers = {
   Query: {
+    adminSamples: adminSamplesResolver,
+    adminWorkflowRuns: adminWorkflowRunsResolver,
     AmrWorkflowResults: async (root, args, context, info) => {
       const { quality_metrics, report_table_data } = await get({
         url: `/workflow_runs/${args.workflowRunId}/results`,

@@ -1805,6 +1805,8 @@ type Query {
   ZipLink(workflowRunId: String): ZipLink @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   accessions(limitOffset: LimitOffsetClause = null, orderBy: [AccessionOrderByClause!] = [], where: AccessionWhereClause = null): [Accession!]!
   accessionsAggregate(where: AccessionWhereClause = null): AccessionAggregate!
+  adminSamples(input: queryInput_adminSamples_input_Input): [query_adminSamples_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/index_v2.json", httpMethod: GET)
+  adminWorkflowRuns(input: queryInput_adminWorkflowRuns_input_Input): [query_adminWorkflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
   appConfig(id: ID!): AppConfig
   bulkDownloads(limitOffset: LimitOffsetClause = null, orderBy: [BulkDownloadOrderByClause!] = [], where: BulkDownloadWhereClause = null): [BulkDownload!]!
   bulkDownloadsAggregate(where: BulkDownloadWhereClause = null): BulkDownloadAggregate!
@@ -3950,6 +3952,34 @@ input queryInput_ValidateUserCanDeleteObjects_input_Input @example(subgraph: "CZ
   workflow: String
 }
 
+input queryInput_adminSamples_input_Input {
+  where: queryInput_adminSamples_input_where_Input
+}
+
+input queryInput_adminSamples_input_where_Input {
+  railsSampleId: queryInput_adminSamples_input_where_railsSampleId_Input
+}
+
+input queryInput_adminSamples_input_where_railsSampleId_Input {
+  _eq: Float
+}
+
+input queryInput_adminWorkflowRuns_input_Input {
+  where: queryInput_adminWorkflowRuns_input_where_Input
+}
+
+input queryInput_adminWorkflowRuns_input_where_Input {
+  entityInputs: queryInput_adminWorkflowRuns_input_where_entityInputs_Input
+}
+
+input queryInput_adminWorkflowRuns_input_where_entityInputs_Input {
+  inputEntityId: queryInput_adminWorkflowRuns_input_where_entityInputs_inputEntityId_Input
+}
+
+input queryInput_adminWorkflowRuns_input_where_entityInputs_inputEntityId_Input {
+  _eq: String
+}
+
 input queryInput_fedBulkDownloads_input_Input @example(subgraph: "CZIDREST", value: "{\\"searchBy\\":\\"string to search\\",\\"limit\\":10}") {
   limit: Int
   searchBy: String
@@ -4947,6 +4977,144 @@ type query_Taxons_items {
 type query_UserBlastAnnotations_items {
   annotation: JSON
   tax_id: JSON
+}
+
+type query_adminSamples_items {
+  collectionId: Int
+  createdAt: String!
+  id: String!
+  ownerUserId: Int!
+  railsSampleId: Int
+  sequencingReads: query_adminSamples_items_sequencingReads!
+}
+
+type query_adminSamples_items_sequencingReads {
+  edges: [query_adminSamples_items_sequencingReads_edges_items]!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items {
+  node: query_adminSamples_items_sequencingReads_edges_items_node!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node {
+  clearlabsExport: Boolean!
+  consensusGenomes: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes!
+  createdAt: String!
+  id: String!
+  medakaModel: String
+  primerFile: query_adminSamples_items_sequencingReads_edges_items_node_primerFile
+  protocol: String
+  r1File: query_adminSamples_items_sequencingReads_edges_items_node_r1File
+  r2File: query_adminSamples_items_sequencingReads_edges_items_node_r2File
+  taxon: query_adminSamples_items_sequencingReads_edges_items_node_taxon
+  technology: String!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes {
+  edges: [query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items]!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items {
+  node: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node {
+  accession: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_accession
+  createdAt: String!
+  id: String!
+  producingRunId: String
+  referenceGenome: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome
+  taxon: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_taxon
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_accession {
+  accessionId: String!
+  accessionName: String!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome {
+  file: query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome_file
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_referenceGenome_file {
+  namespace: String!
+  path: String!
+  protocol: String!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_consensusGenomes_edges_items_node_taxon {
+  id: String!
+  name: String!
+  upstreamDatabaseIdentifier: String!
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_primerFile {
+  file: query_adminSamples_items_sequencingReads_edges_items_node_primerFile_file
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_primerFile_file {
+  id: String
+  namespace: String
+  path: String
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_r1File {
+  id: String
+  namespace: String
+  path: String
+  protocol: String
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_r2File {
+  id: String
+  namespace: String
+  path: String
+  protocol: String
+}
+
+type query_adminSamples_items_sequencingReads_edges_items_node_taxon {
+  id: String
+  name: String
+  upstreamDatabaseIdentifier: String
+}
+
+type query_adminWorkflowRuns_items {
+  collectionId: Int
+  createdAt: String!
+  endedAt: String
+  entityInputs: query_adminWorkflowRuns_items_entityInputs!
+  errorMessage: String
+  executionId: String
+  id: String!
+  ownerUserId: Int!
+  railsWorkflowRunId: Int
+  rawInputsJson: String
+  startedAt: String
+  status: String
+  workflowVersion: query_adminWorkflowRuns_items_workflowVersion
+}
+
+type query_adminWorkflowRuns_items_entityInputs {
+  edges: [query_adminWorkflowRuns_items_entityInputs_edges_items]
+}
+
+type query_adminWorkflowRuns_items_entityInputs_edges_items {
+  node: query_adminWorkflowRuns_items_entityInputs_edges_items_node
+}
+
+type query_adminWorkflowRuns_items_entityInputs_edges_items_node {
+  entityType: String
+  fieldName: String
+  inputEntityId: String
+}
+
+type query_adminWorkflowRuns_items_workflowVersion {
+  version: String
+  workflow: query_adminWorkflowRuns_items_workflowVersion_workflow
+}
+
+type query_adminWorkflowRuns_items_workflowVersion_workflow {
+  name: String
 }
 
 type query_fedBulkDownloads_items {
