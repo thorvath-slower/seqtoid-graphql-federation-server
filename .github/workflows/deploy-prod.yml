@@ -54,6 +54,18 @@ jobs:
           app_config_name: CZID_GQL_FED_GIT_VERSION
           app_config_value: ${{ needs.get-release-tag.outputs.release_tag || ''}}
           happy_env: prod
+      - name: Set CZ ID Entities URL
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: NEXTGEN_ENTITIES_URL
+          app_config_value: ${{ vars.NEXTGEN_ENTITIES_URL}}
+          happy_env: prod
+      - name: Set CZ ID Workflows URL
+        uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
+        with:
+          app_config_name: NEXTGEN_WORKFLOWS_URL
+          app_config_value: ${{ vars.NEXTGEN_WORKFLOWS_URL}}
+          happy_env: prod
       - name: Set CZ ID Rails API URL
         uses: chanzuckerberg/czid-graphql-federation-server/.github/actions/happy-config-set@main
         with:
