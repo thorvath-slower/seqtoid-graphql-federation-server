@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [2.32.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.31.0...v2.32.0) (2024-04-24)
+
+
+### Features
+
+* add nextgen entities and workflows url ([#332](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/332)) ([62cf994](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/62cf994df7bdfa9af71c76cb6bf2dc2ec8f0c923))
+* admin entities + workflows endpoints ([#328](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/328)) ([8aae898](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/8aae898348825c63d998a530a9c220582efc431d))
+
+
+### Bug Fixes
+
+* Remove unused resolvers and reorganize ([#329](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/329)) ([c119b83](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c119b83b259c9cb739892535adee10f02c0bb067))
+
 ## [2.31.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.30.2...v2.31.0) (2024-04-22)
 
 
