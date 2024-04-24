@@ -1,7 +1,7 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getMeshInstance } from "./utils/MeshInstance";
-import * as httpUtils from "../utils/httpUtils";
-import { getExampleQuery } from "./utils/ExampleQueryFiles";
+import { getMeshInstance } from "../../tests/utils/MeshInstance";
+import * as httpUtils from "../../utils/httpUtils";
+import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
 
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");

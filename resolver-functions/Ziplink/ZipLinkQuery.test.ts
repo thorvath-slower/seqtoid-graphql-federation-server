@@ -1,9 +1,9 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getExampleQuery } from "./utils/ExampleQueryFiles";
-import { getMeshInstance } from "./utils/MeshInstance";
+import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
+import { getMeshInstance } from "../../tests/utils/MeshInstance";
 
-import * as httpUtils from "../utils/httpUtils";
-jest.mock("../utils/httpUtils");
+import * as httpUtils from "../../utils/httpUtils";
+jest.mock("../../utils/httpUtils");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();

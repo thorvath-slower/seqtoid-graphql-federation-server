@@ -1,12 +1,15 @@
-import { MeshExecuteTestFunction, getMeshExecute } from "./utils/MeshInstance";
+import {
+  MeshExecuteTestFunction,
+  getMeshExecute,
+} from "../../tests/utils/MeshInstance";
 
-import * as httpUtils from "../utils/httpUtils";
-import { getExampleQuery } from "./utils/ExampleQueryFiles";
-import { query_fedWorkflowRunsAggregate_aggregate_items } from "../.mesh";
+import * as httpUtils from "../../utils/httpUtils";
+import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
+import { query_fedWorkflowRunsAggregate_aggregate_items } from "../../.mesh";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getMeshInstance } from "./utils/MeshInstance";
+import { getMeshInstance } from "../../tests/utils/MeshInstance";
 jest.spyOn(httpUtils, "fetchFromNextGen");
 
 beforeEach(() => {

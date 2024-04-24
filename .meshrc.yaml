@@ -89,12 +89,6 @@ sources:
             responseSchema: ./json-schemas/consensusGenomeWorkflowResults.json
             responseTypeName: ConsensusGenomeWorkflowResults
           - type: Query
-            field: CoverageVizSummary
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary
-            method: GET
-            responseSchema: ./json-schemas/coverageVizSummary.json
-            responseTypeName: CoverageVizSummary
-          - type: Query
             field: MetadataFields
             path: /pub/{args.snapshotLinkId}/samples/metadata_fields
             method: POST
@@ -117,73 +111,12 @@ sources:
             responseSchema: ./json-schemas/sampleForReportResponse.json
             responseTypeName: SampleForReport
           - type: Query
-            field: MngsWorkflowResults
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}.json
-            method: GET
-            responseSchema: ./json-schemas/mngsWorkflowResults.json
-            responseTypeName: MngsWorkflowResults
-          - type: Query
-            field: MngsWorkflowResults
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false
-            method: GET
-            responseSchema: ./json-schemas/mngsWorkflowResults.json
-            responseTypeName: MngsWorkflowResults
-          - type: Query
-            field: Pathogens
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
-            method: GET
-            responseSchema: ./json-schemas/pathogens.json
-            responseTypeName: Pathogens
-          - type: Query
-            field: PersistedBackground
-            path: /persisted_backgrounds/{args.projectId}
-            method: GET
-            responseSchema: ./json-schemas/persistedBackground.json
-            responseTypeName: PersistedBackground
-            headers:
-              Cookie: "{context.headers['cookie']}"
-          - type: Query
-            field: PipelineData
-            path: /samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json
-            method: GET
-            responseSchema: ./json-schemas/pipelineData.json
-            responseTypeName: PipelineData
-            headers:
-              Cookie: "{context.headers['cookie']}"
-          - type: Query
-            field: fedSamples
-            method: GET
-            path: /workflow_runs.json
-            requestSchema: ./json-schemas/samplesRequest.json
-            responseSchema: ./json-schemas/samplesResponse.json
-            responseTypeName: fedSamples
-          - type: Query
             field: fedSequencingReads
             method: GET
             path: /workflow_runs.json
             requestSchema: ./json-schemas/sequencingReadsRequest.json
             responseSchema: ./json-schemas/sequencingReadsResponse.json
             responseTypeName: fedSequencingReads
-          - type: Query
-            field: Taxons
-            path: /pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
-            method: GET
-            responseSchema: ./json-schemas/taxons.json
-            responseTypeName: Taxons
-          - type: Query
-            field: TaxonDist
-            path: /backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}
-            method: GET
-            responseSchema: ./json-schemas/taxonDist.json
-            responseTypeName: TaxonDist
-            headers:
-              Cookie: "{context.headers['cookie']}"
-          - type: Query
-            field: UserBlastAnnotations
-            path: /samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false
-            method: GET
-            responseSchema: ./json-schemas/userBlastAnnotations.json
-            responseTypeName: UserBlastAnnotations
           - type: Query
             field: ValidateUserCanDeleteObjects
             path: /samples/validate_user_can_delete_objects.json
@@ -282,20 +215,6 @@ sources:
               }
             responseSchema: ./json-schemas/kickoffWorkflow.json
             responseTypeName: KickoffWGSWorkflow
-            headers:
-              Cookie: "{context.headers['cookie']}"
-          - type: Mutation
-            field: KickoffAMRWorkflow
-            path: /samples/{args.sampleId}/kickoff_workflow
-            method: POST
-            requestSample:
-              {
-                "inputs_json": { "start_from_mngs": true },
-                "workflow": "amr",
-                "authenticityToken": "token",
-              }
-            responseSchema: ./json-schemas/kickoffWorkflow.json
-            responseTypeName: KickoffAMRWorkflow
             headers:
               Cookie: "{context.headers['cookie']}"
           - type: Mutation

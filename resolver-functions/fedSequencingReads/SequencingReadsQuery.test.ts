@@ -3,11 +3,11 @@ import {
   MeshExecuteTestFunction,
   getMeshExecute,
   getMeshInstance,
-} from "./utils/MeshInstance";
-import * as httpUtils from "../utils/httpUtils";
-import { getExampleQuery } from "./utils/ExampleQueryFiles";
-import { assertEqualsNoWhitespace } from "./utils/StringUtils";
-import { convertSequencingReadsQuery } from "../utils/queryFormatUtils";
+} from "../../tests/utils/MeshInstance";
+import * as httpUtils from "../../utils/httpUtils";
+import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
+import { assertEqualsNoWhitespace } from "../../tests/utils/StringUtils";
+import { convertSequencingReadsQuery } from "../../utils/queryFormatUtils";
 
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");

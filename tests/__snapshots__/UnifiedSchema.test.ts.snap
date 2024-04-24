@@ -1589,12 +1589,6 @@ type MngsRunInfo {
   withAssembly: Int
 }
 
-type MngsWorkflowResults {
-  fed_lineage: [query_MngsWorkflowResults_fed_lineage_items]
-  metric_mngs: query_MngsWorkflowResults_metric_mngs
-  taxon_hit_results: query_MngsWorkflowResults_taxon_hit_results
-}
-
 type MultipartUploadCredentials {
   accessKeyId: String!
   expiration: String!
@@ -1613,7 +1607,6 @@ type MultipartUploadResponse {
 type Mutation {
   CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): fedCreateBulkDownload @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
   DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(subgraph: "CZIDREST", path: "/samples/bulk_delete", httpMethod: POST)
-  KickoffAMRWorkflow(input: mutationInput_KickoffAMRWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   KickoffWGSWorkflow(input: mutationInput_KickoffWGSWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   UpdateMetadata(input: mutationInput_UpdateMetadata_input_Input, sampleId: String): UpdateMetadataReponse @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   UpdateSampleName(input: mutationInput_UpdateSampleNotes_input_Input, sampleId: String): UpdateSampleName @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
@@ -1717,16 +1710,6 @@ type PathogenList {
   version: String
 }
 
-type PersistedBackground {
-  background_id: Int
-}
-
-type PipelineData {
-  edges: [query_PipelineData_edges_items]
-  stages: [query_PipelineData_stages_items]
-  status: String
-}
-
 type PipelineRun {
   adjustedRemainingReads: Int
   alertSent: Boolean!
@@ -1789,18 +1772,10 @@ type Query {
   Background(snapshotLinkId: String): Background @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/backgrounds.json", httpMethod: GET)
   BulkDownloadCGOverview(input: queryInput_BulkDownloadCGOverview_input_Input): ConsensusGenomeOverviewRows @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads", httpMethod: POST)
   ConsensusGenomeWorkflowResults(workflowRunId: String): ConsensusGenomeWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/results", httpMethod: GET)
-  CoverageVizSummary(sampleId: String, snapshotLinkId: String): [query_CoverageVizSummary_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/coverage_viz_summary", httpMethod: GET)
   GraphQLFederationVersion: GraphQLFederationVersion
   MetadataFields(input: queryInput_MetadataFields_input_Input, snapshotLinkId: String): [query_MetadataFields_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/metadata_fields", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
-  MngsWorkflowResults(_backgroundId: String, sampleId: String, snapshotLinkId: String, workflowVersionId: String): MngsWorkflowResults @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}.json", httpMethod: GET) @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&background={args._backgroundId}&merge_nt_nr=false", httpMethod: GET)
-  Pathogens(sampleId: String, snapshotLinkId: String, workflowVersionId: String): [query_Pathogens_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  PersistedBackground(projectId: String): PersistedBackground @httpOperation(subgraph: "CZIDREST", path: "/persisted_backgrounds/{args.projectId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  PipelineData(sampleId: String, workflowVersionId: String): PipelineData @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/pipeline_viz/{args.workflowVersionId}.json", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
   SampleForReport(railsSampleId: String, snapshotLinkId: String): SampleForReport @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.railsSampleId}.json", httpMethod: GET)
   SampleMetadata(input: queryInput_SampleMetadata_input_Input, sampleId: String, snapshotLinkId: String): SampleMetadata @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/metadata", httpMethod: GET)
-  TaxonDist(backgroundId: String, taxonId: String): TaxonDist @httpOperation(subgraph: "CZIDREST", path: "/backgrounds/{args.backgroundId}/show_taxon_dist.json?taxid={args.taxonId}", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: GET)
-  Taxons(sampleId: String, snapshotLinkId: String, workflowVersionId: String): [query_Taxons_items] @httpOperation(subgraph: "CZIDREST", path: "/pub/{args.snapshotLinkId}/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
-  UserBlastAnnotations(sampleId: String, workflowVersionId: String): [query_UserBlastAnnotations_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/report_v2?&id={args.sampleId}&pipeline_version={args.workflowVersionId}&merge_nt_nr=false", httpMethod: GET)
   ValidateUserCanDeleteObjects(input: queryInput_ValidateUserCanDeleteObjects_input_Input): ValidateUserCanDeleteObjects @httpOperation(subgraph: "CZIDREST", path: "/samples/validate_user_can_delete_objects.json", httpMethod: POST)
   ZipLink(workflowRunId: String): ZipLink @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs/{args.workflowRunId}/zip_link.json", httpMethod: GET)
   accessions(limitOffset: LimitOffsetClause = null, orderBy: [AccessionOrderByClause!] = [], where: AccessionWhereClause = null): [Accession!]!
@@ -1814,7 +1789,6 @@ type Query {
   consensusGenomesAggregate(where: ConsensusGenomeWhereClause = null): ConsensusGenomeAggregate!
   fedBulkDownloads(input: queryInput_fedBulkDownloads_input_Input): [query_fedBulkDownloads_items] @httpOperation(subgraph: "CZIDREST", path: "/bulk_downloads?searchBy=&n=", httpMethod: GET)
   fedConsensusGenomes(input: queryInput_fedConsensusGenomes_input_Input): [query_fedConsensusGenomes_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
-  fedSamples(input: queryInput_fedSamples_input_Input): [query_fedSamples_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
   fedSequencingReads(input: queryInput_fedSequencingReads_input_Input): [query_fedSequencingReads_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: GET)
   fedWorkflowRuns(input: queryInput_fedWorkflowRuns_input_Input): [query_fedWorkflowRuns_items] @httpOperation(subgraph: "CZIDREST", path: "/workflow_runs.json", httpMethod: POST)
   fedWorkflowRunsAggregate(input: queryInput_fedWorkflowRunsAggregate_input_Input): fedWorkflowRunsAggregate @httpOperation(subgraph: "CZIDREST", path: "/projects.json", httpMethod: GET)
@@ -2649,12 +2623,6 @@ input TaxonCreateInput {
   upstreamDatabaseId: ID!
   upstreamDatabaseIdentifier: String!
   wikipediaId: String = null
-}
-
-type TaxonDist {
-  NR: query_TaxonDist_NR
-  NT: query_TaxonDist_NT
-  merged_NT_NR: query_TaxonDist_merged_NT_NR
 }
 
 """An edge in a connection."""
@@ -3838,16 +3806,6 @@ input mutationInput_DeleteSamples_input_Input @example(subgraph: "CZIDREST", val
   workflow: String
 }
 
-input mutationInput_KickoffAMRWorkflow_input_Input @example(subgraph: "CZIDREST", value: "{\\"inputs_json\\":{\\"start_from_mngs\\":true},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
-  authenticityToken: String
-  inputs_json: mutationInput_KickoffAMRWorkflow_input_inputs_json_Input
-  workflow: String
-}
-
-input mutationInput_KickoffAMRWorkflow_input_inputs_json_Input {
-  start_from_mngs: Boolean
-}
-
 input mutationInput_KickoffWGSWorkflow_input_Input @example(subgraph: "CZIDREST", value: "{\\"inputs_json\\":{\\"accession_id\\":\\"KX882832.1\\",\\"accession_name\\":\\"Hubei mosquito virus 2 strain mosZJ35453 segment 1 hypothetical protein 1 and hypothetical protein 2 genes, complete cds\\",\\"taxon_id\\":\\"1922926\\",\\"taxon_name\\":\\"Menispermaceae\\",\\"alignment_config_name\\":\\"config_name\\",\\"technology\\":\\"Illumina\\"},\\"workflow\\":\\"amr\\",\\"authenticityToken\\":\\"token\\"}") {
   authenticityToken: String
   inputs_json: mutationInput_KickoffWGSWorkflow_input_inputs_json_Input
@@ -4044,118 +4002,6 @@ input queryInput_fedConsensusGenomes_input_where_collectionId_Input {
 
 input queryInput_fedConsensusGenomes_input_where_producingRunId_Input {
   _eq: String
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_Input {
-  orderBy: queryInput_fedSamples_input_orderBy_Input
-  sequencingReadsInput: queryInput_fedSamples_input_sequencingReadsInput_Input
-  todoRemove: queryInput_fedSamples_input_todoRemove_Input
-  where: queryInput_fedSamples_input_where_Input
-}
-
-input queryInput_fedSamples_input_orderBy_Input {
-  dir: String
-  key: String
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_Input {
-  where: queryInput_fedSamples_input_sequencingReadsInput_where_Input
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_Input {
-  consensusGenomes: queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_Input
-  taxon: queryInput_fedSamples_input_sequencingReadsInput_where_taxon_Input
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_Input {
-  taxon: queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_taxon_Input
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_taxon_Input {
-  name: queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_taxon_name_Input
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_consensusGenomes_taxon_name_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_taxon_Input {
-  name: queryInput_fedSamples_input_sequencingReadsInput_where_taxon_name_Input
-}
-
-input queryInput_fedSamples_input_sequencingReadsInput_where_taxon_name_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_todoRemove_Input {
-  domain: String
-  limit: Int
-  listAllIds: Boolean
-  offset: Int
-  projectId: String
-  taxaLevels: [String]
-  taxons: [Int]
-  time: [String]
-  visibility: String
-  workflow: String
-}
-
-input queryInput_fedSamples_input_where_Input {
-  collectionLocation: queryInput_fedSamples_input_where_collectionLocation_Input
-  hostOrganism: queryInput_fedSamples_input_where_hostOrganism_Input
-  id: queryInput_fedSamples_input_where_id_Input
-  name: queryInput_fedSamples_input_where_name_Input
-  sampleType: queryInput_fedSamples_input_where_sampleType_Input
-  sequencingReads: queryInput_fedSamples_input_where_sequencingReads_Input
-}
-
-input queryInput_fedSamples_input_where_collectionLocation_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_where_hostOrganism_Input {
-  name: queryInput_fedSamples_input_where_hostOrganism_name_Input
-}
-
-input queryInput_fedSamples_input_where_hostOrganism_name_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_where_id_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_where_name_Input {
-  _like: String
-}
-
-input queryInput_fedSamples_input_where_sampleType_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_Input {
-  consensusGenomes: queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_Input
-  taxon: queryInput_fedSamples_input_where_sequencingReads_taxon_Input
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_Input {
-  taxon: queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_taxon_Input
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_taxon_Input {
-  name: queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_taxon_name_Input
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_consensusGenomes_taxon_name_Input {
-  _in: [String]
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_taxon_Input {
-  name: queryInput_fedSamples_input_where_sequencingReads_taxon_name_Input
-}
-
-input queryInput_fedSamples_input_where_sequencingReads_taxon_name_Input {
   _in: [String]
 }
 
@@ -4611,17 +4457,6 @@ type query_ConsensusGenomeWorkflowResults_reference_genome_taxon {
   name: String
 }
 
-type query_CoverageVizSummary_items {
-  coverage_breadth: JSON
-  coverage_depth: JSON
-  id: Int
-  name: String
-  num_contigs: Int
-  num_reads: Int
-  pipeline_id: Int
-  score: Int
-}
-
 type query_MetadataFields_items {
   dataType: String
   default_for_new_host_genome: Int
@@ -4638,99 +4473,6 @@ type query_MetadataFields_items {
 
 type query_MetadataFields_items_examples {
   all: [String]
-}
-
-type query_MngsWorkflowResults_fed_lineage_items {
-  name: String
-  rank: String
-  tax_id: String
-}
-
-type query_MngsWorkflowResults_metric_mngs {
-  adjusted_remaining_reads: Int
-  assembled: Int
-  fed_has_byteranges: Boolean
-  num_reads: Int
-  num_reads_after_subsampling: Int
-  total_ercc_reads: Int
-}
-
-type query_MngsWorkflowResults_taxon_hit_results {
-  taxon_hits: [query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items]
-}
-
-type query_MngsWorkflowResults_taxon_hit_results_taxon_hits_items {
-  alignment_length: Float
-  base_count: Int
-  bpm: Float
-  count: Int
-  count_type: String
-  e_value: Float
-  fed_agg_score: Float
-  fed_bg_mean: Float
-  fed_bg_mean_mass_normalized: Float
-  fed_bg_stdev: Float
-  fed_bg_stdev_mass_normalized: Float
-  fed_max_z_score: Float
-  fed_z_score: Float
-  percent_identity: Int
-  rpm: Float
-  tax_id: Int
-}
-
-type query_Pathogens_items {
-  tax_id: JSON
-}
-
-type query_PipelineData_edges_items {
-  files: [query_PipelineData_edges_items_files_items]
-  from: query_PipelineData_edges_items_from
-  isIntraStage: Boolean
-  to: query_PipelineData_edges_items_to
-}
-
-type query_PipelineData_edges_items_files_items {
-  displayName: String
-  url: JSON
-}
-
-type query_PipelineData_edges_items_from {
-  stageIndex: Int
-  stepIndex: Int
-}
-
-type query_PipelineData_edges_items_to {
-  stageIndex: Int
-  stepIndex: Int
-}
-
-type query_PipelineData_stages_items {
-  jobStatus: String
-  name: String
-  steps: [query_PipelineData_stages_items_steps_items]
-}
-
-type query_PipelineData_stages_items_steps_items {
-  description: String
-  endTime: JSON
-  inputEdges: [Int]
-  inputVariables: [query_PipelineData_stages_items_steps_items_inputVariables_items]
-  name: String
-  outputEdges: [Int]
-  outputFiles: [query_PipelineData_stages_items_steps_items_outputFiles_items]
-  resources: [JSON]
-  startTime: JSON
-  status: String
-}
-
-type query_PipelineData_stages_items_steps_items_inputVariables_items {
-  name: String
-  type: String
-}
-
-type query_PipelineData_stages_items_steps_items_outputFiles_items {
-  displayName: String
-  url: JSON
 }
 
 type query_SampleForReport_pipeline_runs_items {
@@ -4941,42 +4683,6 @@ input query_SampleMetadata_metadata_items_location_validated_value_oneOf_1_Input
   subdivision_name: String
   title: String
   updated_at: String
-}
-
-type query_TaxonDist_NR {
-  mean: Float
-  rpm_list: [Float]
-  stdev: Float
-  tax_level: Int
-}
-
-type query_TaxonDist_NT {
-  mean: Float
-  rpm_list: [Float]
-  stdev: Float
-  tax_level: Int
-}
-
-type query_TaxonDist_merged_NT_NR {
-  mean: Float
-  rpm_list: [Float]
-  stdev: Float
-  tax_level: Int
-}
-
-type query_Taxons_items {
-  common_name: JSON
-  fed_category: JSON
-  is_phage: JSON
-  level: JSON
-  name: JSON
-  tax_id: JSON
-  tax_id_genus: JSON
-}
-
-type query_UserBlastAnnotations_items {
-  annotation: JSON
-  tax_id: JSON
 }
 
 type query_adminSamples_items {
@@ -5244,11 +4950,6 @@ type query_fedConsensusGenomes_items_taxon {
   commonName: String
   id: String
   name: String!
-}
-
-type query_fedSamples_items {
-  id: String!
-  railsSampleId: Int
 }
 
 type query_fedSequencingReads_items {

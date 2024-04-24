@@ -3,7 +3,7 @@ import {
   getFromRails,
   postWithCSRF,
   shouldReadFromNextGen,
-} from "../utils/httpUtils";
+} from "../../utils/httpUtils";
 
 export const BulkDownloadsCGOverviewResolver = async (
   root,

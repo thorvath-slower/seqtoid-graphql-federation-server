@@ -21,3 +21,24 @@ export const convertArrayToObject = (array: object[], key: string) => {
     };
   }, initialValue);
 };
+
+export const getMetadataEdges = (
+  sampleMetadata: any,
+): Array<{ node: { fieldName: string; value: string } }> => {
+  return sampleMetadata != null
+    ? Object.entries(sampleMetadata)
+        .filter(
+          ([fieldName]) =>
+            fieldName !== "nucleotide_type" &&
+            fieldName !== "collection_location_v2" &&
+            fieldName !== "sample_type" &&
+            fieldName !== "water_control",
+        )
+        .map(([fieldName, value]) => ({
+          node: {
+            fieldName,
+            value: String(value),
+          },
+        }))
+    : [];
+};

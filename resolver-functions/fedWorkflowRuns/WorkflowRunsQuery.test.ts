@@ -1,10 +1,13 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
-import { getExampleQuery } from "./utils/ExampleQueryFiles";
-import { getMeshInstance } from "./utils/MeshInstance";
-import { assertEqualsNoWhitespace } from "./utils/StringUtils";
+import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
+import { getMeshInstance } from "../../tests/utils/MeshInstance";
+import { assertEqualsNoWhitespace } from "../../tests/utils/StringUtils";
 
-import * as httpUtils from "../utils/httpUtils";
-import { convertValidateConsensusGenomeQuery, convertWorkflowRunsQuery } from "../utils/queryFormatUtils";
+import * as httpUtils from "../../utils/httpUtils";
+import {
+  convertValidateConsensusGenomeQuery,
+  convertWorkflowRunsQuery,
+} from "../../utils/queryFormatUtils";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "postWithCSRF");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
@@ -192,14 +195,17 @@ describe("workflowRuns query:", () => {
     });
 
     it("should call nextgen when shouldReadFromNextGen is true", async () => {
-  
       (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
         Promise.resolve(true),
       );
-      await execute(query, {
-        authenticityToken: "authtoken1234",
-        workflowRunIds: ["1997", "2007"],
-      }, { params: { query } });
+      await execute(
+        query,
+        {
+          authenticityToken: "authtoken1234",
+          workflowRunIds: ["1997", "2007"],
+        },
+        { params: { query } },
+      );
       expect(httpUtils.fetchFromNextGen).toHaveBeenCalledWith(
         expect.objectContaining({
           customQuery: expect.stringContaining("workflowRuns"),
@@ -207,12 +213,11 @@ describe("workflowRuns query:", () => {
             where: expect.objectContaining({
               id: {
                 _in: ["1997", "2007"],
-              }
+              },
             }),
           }),
-        }), 
+        }),
       );
     });
-
   });
 });
