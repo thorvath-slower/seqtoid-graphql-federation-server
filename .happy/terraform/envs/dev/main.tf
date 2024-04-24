@@ -17,8 +17,10 @@ module "stack" {
       name              = "gql-federation",
       desired_count     = 1,
       port              = 4444,
-      memory            = "4000Mi",
-      cpu               = "1500m",
+      memory            = "8000Mi"
+      memory_requests   = "8000Mi"
+      cpu               = "3000m"
+      cpu_requests      = "3000m"
       health_check_path = "/health",
       service_type      = "INTERNAL",
       // INTERNAL - OIDC protected ALB
