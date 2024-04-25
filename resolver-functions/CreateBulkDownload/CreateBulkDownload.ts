@@ -1,3 +1,4 @@
+import { getEnrichedToken } from "../../utils/enrichToken";
 import {
   fetchFromNextGen,
   get,
@@ -73,11 +74,13 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
         }
       }
     `;
+  const enrichedToken = await getEnrichedToken(context);
   const resDefaultVersion = await get({
     args,
     context,
     serviceType: "workflows",
     customQuery: getBulkdownloadDefautVersion,
+    securityToken: enrichedToken,
   });
   const defaultVersion = resDefaultVersion.data?.workflows?.[0]?.defaultVersion;
   const getBulkdownloadVersionId = `
@@ -94,6 +97,7 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
     context,
     serviceType: "workflows",
     customQuery: getBulkdownloadVersionId,
+    securityToken: enrichedToken,
   });
   const bulkdownloadVersionId =
     resWorkflowVersionId.data?.workflowVersions?.[0]?.id;
@@ -109,6 +113,7 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
     context,
     serviceType: "entities",
     customQuery: getFileIdsQuery,
+    securityToken: enrichedToken,
   });
   const files = resFileIds.data?.consensusGenomes?.map(consensusGenome => {
     return `{name: "consensus_genomes", entityType: "consensus_genome", entityId: "${consensusGenome.id}"}`;
@@ -137,6 +142,7 @@ export const CreateBulkDownloadResolver = async (root, args, context, info) => {
       context,
       serviceType: "workflows",
       customQuery: runBulkDownload,
+      securityToken: enrichedToken,
     })
   ).data.runWorkflowVersion;
 };

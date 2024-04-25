@@ -494,6 +494,7 @@ describe("sequencingReads query:", () => {
     );
 
     const sequencingReads = (await execute(query, {})).data.fedSequencingReads;
+    console.log(JSON.stringify(sequencingReads));
 
     expect(sequencingReads).toMatchObject([
       expect.objectContaining({

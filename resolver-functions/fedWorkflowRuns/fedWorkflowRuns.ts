@@ -18,7 +18,6 @@ export const fedWorkflowRunsResolver = async (_, args, context: any) => {
     throw new Error("fedWorkflowRuns input is nullish");
   }
   const nextGenEnabled = await shouldReadFromNextGen(context);
-
   // CG BULK DOWNLOAD MODAL:
   // If we provide a list of workflowRunIds, we assume that this is for getting valid consensus genome workflow runs.
   // This endpoint only provides id, ownerUserId, and status.

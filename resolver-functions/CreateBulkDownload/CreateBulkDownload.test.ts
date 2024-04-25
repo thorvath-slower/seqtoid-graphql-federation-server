@@ -6,11 +6,14 @@ import {
 import { getMeshInstance } from "../../tests/utils/MeshInstance";
 
 import * as httpUtils from "../../utils/httpUtils";
+import * as enrichToken from "../../utils/enrichToken";
 jest.mock("../../utils/httpUtils");
+jest.mock("../../utils/enrichToken");
 
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "shouldReadFromNextGen");
 jest.spyOn(httpUtils, "postWithCSRF");
+jest.spyOn(enrichToken, "getEnrichedToken");
 
 beforeEach(() => {
   (httpUtils.postWithCSRF as jest.Mock).mockClear();
@@ -18,7 +21,7 @@ beforeEach(() => {
   (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
 });
 
-describe.only("CreateBulkDownload Query", () => {
+describe("CreateBulkDownload Query", () => {
   let execute: ExecuteMeshFn;
   let query: string;
 
@@ -60,6 +63,10 @@ describe.only("CreateBulkDownload Query", () => {
   describe("CreateBulkDownload successful response - with nextGen ON", () => {
     const createBulkDownloadResponse = getSampleResponse("fedBulkDownload");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockReturnValueOnce(true);
+    (enrichToken.getEnrichedToken as jest.Mock).mockReturnValueOnce(
+      "123123124234",
+    );
+
     const bulkDownloadDefaultVersion = {
       data: {
         workflows: [
@@ -115,6 +122,7 @@ describe.only("CreateBulkDownload Query", () => {
         workflowRunIds: [1991, 2007],
         workflowRunIdsStrings: ["1991", "2007"],
       });
+      console.log(JSON.stringify(result));
       expect(result.data.CreateBulkDownload).toEqual({
         id: "018e9f6b-5c95-7a0d-933f-c5ab489799f6",
       });
