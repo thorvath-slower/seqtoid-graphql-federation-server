@@ -62,7 +62,13 @@
                                                 "namespace": {
                                                     "type": "string"
                                                 }
-                                            }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "protocol",
+                                                "path",
+                                                "namespace"
+                                            ]
                                         },
                                         "r2File": {
                                             "type": "object",
@@ -79,7 +85,13 @@
                                                 "namespace": {
                                                     "type": "string"
                                                 }
-                                            }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "protocol",
+                                                "path",
+                                                "namespace"
+                                            ]
                                         },
                                         "taxon": {
                                             "type": "object",
@@ -107,10 +119,18 @@
                                                         "namespace": {
                                                             "type": "string"
                                                         },
+                                                        "protocol": {
+                                                            "type": "string"
+                                                        },
                                                         "id": {
                                                             "type": "string"
                                                         }
-                                                    }
+                                                    },
+                                                    "required": [
+                                                        "path",
+                                                        "namespace",
+                                                        "id"
+                                                    ]
                                                 }
                                             }
                                         },

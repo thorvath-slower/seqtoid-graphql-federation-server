@@ -4759,23 +4759,24 @@ type query_adminSamples_items_sequencingReads_edges_items_node_primerFile {
 }
 
 type query_adminSamples_items_sequencingReads_edges_items_node_primerFile_file {
-  id: String
-  namespace: String
-  path: String
+  id: String!
+  namespace: String!
+  path: String!
+  protocol: String
 }
 
 type query_adminSamples_items_sequencingReads_edges_items_node_r1File {
-  id: String
-  namespace: String
-  path: String
-  protocol: String
+  id: String!
+  namespace: String!
+  path: String!
+  protocol: String!
 }
 
 type query_adminSamples_items_sequencingReads_edges_items_node_r2File {
-  id: String
-  namespace: String
-  path: String
-  protocol: String
+  id: String!
+  namespace: String!
+  path: String!
+  protocol: String!
 }
 
 type query_adminSamples_items_sequencingReads_edges_items_node_taxon {

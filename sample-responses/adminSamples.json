@@ -35,6 +35,7 @@
             "primerFile": {
               "file": {
                 "path": "samples/1224/33171/fastqs/Primer_K.bed",
+                "protocol": "s3",
                 "namespace": "idseq-samples-staging",
                 "id": "397ae4c0-2c88-525a-8f85-0a00e338adf0"
               }
