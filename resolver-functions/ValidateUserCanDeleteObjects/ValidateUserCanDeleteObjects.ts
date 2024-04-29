@@ -21,7 +21,8 @@ export const ValidateUserCanDeleteObjectsResolver = async (
     context,
   });
   return {
-    validIds: res.validIds.map((id: number) => id.toString()),
+    validIds: res.validIds,
+    validIdsStrings: res.validIds.map((id: number) => id.toString()),
     ...res,
   };
 };

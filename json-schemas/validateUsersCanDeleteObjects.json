@@ -4,6 +4,12 @@
         "validIds": {
             "type": "array",
             "items": {
+                "type": "number"
+            }
+        },
+        "validIdsStrings": {
+            "type": "array",
+            "items": {
                 "type": "string"
             }
         },
@@ -19,6 +25,7 @@
     },
     "required": [
         "validIds",
+        "validIdsStrings",
         "invalidSampleNames"
     ]
 }

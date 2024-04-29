@@ -2970,7 +2970,8 @@ type User {
 type ValidateUserCanDeleteObjects {
   error: String
   invalidSampleNames: [String]!
-  validIds: [String]!
+  validIds: [Float]!
+  validIdsStrings: [String]!
 }
 
 type Workflow implements EntityInterface & Node {
