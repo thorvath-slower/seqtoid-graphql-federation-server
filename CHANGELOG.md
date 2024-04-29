@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [2.33.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.32.0...v2.33.0) (2024-04-29)
+
+
+### Features
+
+* Bump memory and CPU to avoid 500x errors ([#337](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/337)) ([3366aaa](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/3366aaa7beb904f754da0fdb593d3ec3333cd58e))
+
+
+### Bug Fixes
+
+* add required types to admin samples response ([#336](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/336)) ([9cbf1cb](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/9cbf1cbe8a33a54e45fe8ffe1519b303cdacd73c))
+* Change validIds field back to number, add new validIdsStrings field ([#339](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/339)) ([8a23f0c](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/8a23f0c580f4bcdfc255485649e76770a73a0706))
+
 ## [2.32.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.31.0...v2.32.0) (2024-04-24)
 
 
