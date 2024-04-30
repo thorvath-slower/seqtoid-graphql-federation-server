@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.33.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.0...v2.33.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* Create Bulk Download backward compatibility ([#340](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/340)) ([1bd4a71](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/1bd4a71d158e082a45170886d7d48a1fb3941324))
+
 ## [2.33.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.32.0...v2.33.0) (2024-04-29)
 
 
