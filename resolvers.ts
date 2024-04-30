@@ -23,6 +23,7 @@ import {
   adminSamplesResolver,
   adminWorkflowRunsResolver,
 } from "./resolver-functions";
+import { createAsyncBulkDownloadResolver } from "./resolver-functions/createAsyncBulkDownloads/createAsyncBulkDownloadResolver";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -71,7 +72,9 @@ export const resolvers: Resolvers = {
     }),
   },
   Mutation: {
+    // TO DO: Remove this mutation after the integration is released to production
     CreateBulkDownload: CreateBulkDownloadResolver,
+    createAsyncBulkDownload: createAsyncBulkDownloadResolver,
     DeleteSamples: DeleteSamplesResolver,
     KickoffWGSWorkflow: KickoffWGSWorkflowResolver,
     UpdateMetadata: UpdateMetadataResolver,

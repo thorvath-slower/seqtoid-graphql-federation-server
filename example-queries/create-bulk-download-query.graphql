@@ -6,7 +6,7 @@ mutation BulkDownloadModalMutation(
   $workflow: String!
   $authenticityToken: String!
 ) {
-  CreateBulkDownload(
+  createAsyncBulkDownload(
     input: {
       workflowRunIds: $workflowRunIds
       workflowRunIdsStrings: $workflowRunIdsStrings

@@ -1605,7 +1605,7 @@ type MultipartUploadResponse {
 }
 
 type Mutation {
-  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): fedCreateBulkDownload @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
+  CreateBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): JSON @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
   DeleteSamples(input: mutationInput_DeleteSamples_input_Input): DeleteSamples @httpOperation(subgraph: "CZIDREST", path: "/samples/bulk_delete", httpMethod: POST)
   KickoffWGSWorkflow(input: mutationInput_KickoffWGSWorkflow_input_Input, sampleId: String): [mutation_KickoffWGSWorkflow_items] @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/kickoff_workflow", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   UpdateMetadata(input: mutationInput_UpdateMetadata_input_Input, sampleId: String): UpdateMetadataReponse @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata_v2", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
@@ -1613,6 +1613,7 @@ type Mutation {
   UpdateSampleNotes(input: mutationInput_UpdateSampleNotes_input_Input, sampleId: String): UpdateSampleNotes @httpOperation(subgraph: "CZIDREST", path: "/samples/{args.sampleId}/save_metadata", operationSpecificHeaders: "{\\"Cookie\\":\\"{context.headers['cookie']}\\"}", httpMethod: POST)
   concatenateFiles(ids: [UUID!]!): SignedURL!
   createAccession(input: AccessionCreateInput!): Accession!
+  createAsyncBulkDownload(input: mutationInput_CreateBulkDownload_input_Input): fedCreateBulkDownload @httpOperation(subgraph: "CZIDREST", path: "/bulk_download", httpMethod: POST)
   createBulkDownload(input: BulkDownloadCreateInput!): BulkDownload!
   createConsensusGenome(input: ConsensusGenomeCreateInput!): ConsensusGenome!
   createFile(entityFieldName: String!, entityId: ID!, file: FileCreate!): File!

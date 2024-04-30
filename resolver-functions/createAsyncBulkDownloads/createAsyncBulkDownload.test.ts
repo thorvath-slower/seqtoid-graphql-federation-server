@@ -21,13 +21,13 @@ beforeEach(() => {
   (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
 });
 
-describe("CreateBulkDownload Query", () => {
+describe("createAsynBulkDownload Query", () => {
   let execute: ExecuteMeshFn;
   let query: string;
 
   beforeEach(async () => {
     const mesh$ = await getMeshInstance();
-    // Load CreateBulkDownload example query
+    // Load createAsyncBulkDownload example query
     ({ execute } = mesh$);
     query = getExampleQuery("create-bulk-download-query");
   });
@@ -38,7 +38,7 @@ describe("CreateBulkDownload Query", () => {
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
   });
 
-  describe("CreateBulkDownload - with nextGen OFF", () => {
+  describe("createAsyncBulkDownload - with nextGen OFF", () => {
     const createBulkDownloadResponse = getSampleResponse("fedBulkDownload");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockReturnValueOnce(false);
 
@@ -54,13 +54,13 @@ describe("CreateBulkDownload Query", () => {
         workflowRunIds: [1991, 2007],
         workflowRunIdsStrings: ["1991", "2007"],
       });
-      expect(result.data.CreateBulkDownload).toEqual({
+      expect(result.data.createAsyncBulkDownload).toEqual({
         id: "448",
       });
     });
   });
 
-  describe("CreateBulkDownload successful response - with nextGen ON", () => {
+  describe("createAsyncBulkDownload successful response - with nextGen ON", () => {
     const createBulkDownloadResponse = getSampleResponse("fedBulkDownload");
     (httpUtils.shouldReadFromNextGen as jest.Mock).mockReturnValueOnce(true);
     (enrichToken.getEnrichedToken as jest.Mock).mockReturnValueOnce(
@@ -123,7 +123,7 @@ describe("CreateBulkDownload Query", () => {
         workflowRunIdsStrings: ["1991", "2007"],
       });
       console.log(JSON.stringify(result));
-      expect(result.data.CreateBulkDownload).toEqual({
+      expect(result.data.createAsyncBulkDownload).toEqual({
         id: "018e9f6b-5c95-7a0d-933f-c5ab489799f6",
       });
     });
