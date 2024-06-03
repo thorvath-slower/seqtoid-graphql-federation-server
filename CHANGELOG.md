@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.33.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.1...v2.33.2) (2024-05-31)
+
+
+### Bug Fixes
+
+* Always stringify object query params ([#343](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/343)) ([c28c60f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c28c60f7647a64b611680fb56bf6ff9799a315f7))
+
 ## [2.33.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.0...v2.33.1) (2024-04-30)
 
 
