@@ -10,7 +10,7 @@ To run this service locally, run
 
 ```make local-init```
 
-Note that [set up CZ ID setup](https://github.com/chanzuckerberg/czid-web-private/wiki/%5BDev%5D-A-starting-point:-initial-setup) needs to be completed first, to have the docker network configuration in place.  In the  local development environment, CZ ID is run with a nginx reverse proxy that forwards graphql requests to the federation server.
+Note that [set up CZ ID setup](https://github.com/chanzuckerberg/czid-web-private/wiki/1.1-Dev-%E2%80%90-Setup-basic-local-environment) needs to be completed first, to have the docker network configuration in place.  In the  local development environment, CZ ID is run with a nginx reverse proxy that forwards graphql requests to the federation server.
 
 The [Yoga GraphiQL interface](http://localhost:3000/graphqlfed) can be used to manually perform queries against graphQL Mesh.  Note that you need to login via CZ ID first for queries to succeed.
 
