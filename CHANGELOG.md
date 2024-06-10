@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.34.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.2...v2.34.0) (2024-06-10)
+
+
+### Features
+
+* add pinned_alignment_config to SampleForReportResponse ([#347](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/347)) ([76d3ca6](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/76d3ca6af91b53347722a6a8cb1386b3bc8b532e))
+
 ## [2.33.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.1...v2.33.2) (2024-05-31)
 
 
