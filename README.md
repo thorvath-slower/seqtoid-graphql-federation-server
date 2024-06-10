@@ -12,7 +12,16 @@ To run this service locally, run
 
 Note that [set up CZ ID setup](https://github.com/chanzuckerberg/czid-web-private/wiki/1.1-Dev-%E2%80%90-Setup-basic-local-environment) needs to be completed first, to have the docker network configuration in place.  In the  local development environment, CZ ID is run with a nginx reverse proxy that forwards graphql requests to the federation server.
 
-The [Yoga GraphiQL interface](http://localhost:3000/graphqlfed) can be used to manually perform queries against graphQL Mesh.  Note that you need to login via CZ ID first for queries to succeed.
+The [Yoga GraphiQL interface](http://localhost:3000/graphqlfed) can be used to manually perform queries against graphQL Mesh.
+  - to authenticate your graphiql requests you will need to include an authentication header
+  - find your user's id by opening the rails console in the czid-web project and querying for your user (and set their role to admin)
+    - `make local-railsc`
+    - `User.find_by(email: "{{your email}}")`
+    - `User.find_by(email: "{{your email}}").update(role: 1)`
+  - start up the czid-web project locally and go to (`http://localhost:3000/admin/settings`)[http://localhost:3000/admin/settings]
+    - use the `Generate enriched user token` section to generate an auth token for your user (this will put a header object onto your clipboard)
+  - paste the header object into the `header` section of the Graphiql interface
+    - edit the `x-should-read-from-nextgen` parameter to direct your requests either to czid-web or platformics
 
 ## Configuration Philosophy
 
