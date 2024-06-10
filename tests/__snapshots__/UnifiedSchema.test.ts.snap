@@ -4492,6 +4492,7 @@ type query_SampleForReport_pipeline_runs_items {
 type query_SampleForReport_project {
   id: String
   name: String
+  pinned_alignment_config: String
 }
 
 type query_SampleForReport_workflow_runs_items {
