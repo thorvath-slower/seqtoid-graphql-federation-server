@@ -4501,6 +4501,7 @@ type query_SampleForReport_workflow_runs_items {
   id: String!
   input_error: query_SampleForReport_workflow_runs_items_input_error
   inputs: query_SampleForReport_workflow_runs_items_inputs!
+  parsed_cached_results: query_SampleForReport_workflow_runs_items_parsed_cached_results
   rails_workflow_run_id: String
   run_finalized: Boolean!
   status: String
@@ -4516,11 +4517,28 @@ type query_SampleForReport_workflow_runs_items_input_error {
 type query_SampleForReport_workflow_runs_items_inputs {
   accession_id: String
   accession_name: String
+  card_version: String
   creation_source: String
   ref_fasta: String
   taxon_id: String
   taxon_name: String
   technology: String
+  wildcard_version: String
+}
+
+type query_SampleForReport_workflow_runs_items_parsed_cached_results {
+  quality_metrics: query_SampleForReport_workflow_runs_items_parsed_cached_results_quality_metrics
+}
+
+type query_SampleForReport_workflow_runs_items_parsed_cached_results_quality_metrics {
+  adjusted_remaining_reads: Int
+  compression_ratio: Float
+  insert_size_mean: Float
+  insert_size_standard_deviation: Float
+  percent_remaining: Float
+  qc_percent: Float
+  total_ercc_reads: Int
+  total_reads: Int
 }
 
 type query_SampleMetadata_additional_info {

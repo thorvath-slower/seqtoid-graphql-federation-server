@@ -1,183 +1,218 @@
 {
-    "type": "object",
-    "properties": {
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "railsSampleId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "host_genome_id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "upload_error": {
+      "type": "string"
+    },
+    "initial_workflow": {
+      "type": "string"
+    },
+    "project": {
+      "type": "object",
+      "properties": {
         "id": {
-            "type": "string"
-        },
-        "railsSampleId": {
-            "type": "string"
+          "type": "string"
         },
         "name": {
-            "type": "string"
+          "type": "string"
         },
-        "created_at": {
+        "pinned_alignment_config": {
+          "type": "string"
+        }
+      }
+    },
+    "default_background_id": {
+      "type": "integer"
+    },
+    "default_pipeline_run_id": {
+      "type": "string"
+    },
+    "editable": {
+      "type": "boolean"
+    },
+    "pipeline_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
-        },
-        "updated_at": {
+          },
+          "pipeline_version": {
             "type": "string"
-        },
-        "project_id": {
+          },
+          "wdl_version": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "alignment_config_name": {
+            "type": "string"
+          },
+          "assembled": {
             "type": "integer"
-        },
-        "status": {
-            "type": "string"
-        },
-        "host_genome_id": {
+          },
+          "adjusted_remaining_reads": {
             "type": "integer"
-        },
-        "user_id": {
+          },
+          "total_ercc_reads": {
             "type": "integer"
-        },
-        "upload_error": {
+          },
+          "run_finalized": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "workflow_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
-        },
-        "initial_workflow": {
+          },
+          "status": {
             "type": "string"
-        },
-        "project": {
+          },
+          "workflow": {
+            "type": "string"
+          },
+          "wdl_version": {
+            "type": "string"
+          },
+          "executed_at": {
+            "type": "string"
+          },
+          "deprecated": {
+            "type": "boolean"
+          },
+          "input_error": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "pinned_alignment_config": {
-                    "type": "string"
-                }
+              "label": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
             }
-        },
-        "default_background_id": {
-            "type": "integer"
-        },
-        "default_pipeline_run_id": {
-            "type": "string"
-        },
-        "editable": {
+          },
+          "inputs": {
+            "type": "object",
+            "properties": {
+              "accession_id": {
+                "type": "string"
+              },
+              "accession_name": {
+                "type": "string"
+              },
+              "taxon_id": {
+                "type": "string"
+              },
+              "taxon_name": {
+                "type": "string"
+              },
+              "technology": {
+                "type": "string"
+              },
+              "ref_fasta": {
+                "type": "string"
+              },
+              "creation_source": {
+                "type": "string"
+              },
+              "card_version": {
+                "type": "string"
+              },
+              "wildcard_version": {
+                "type": "string"
+              }
+            }
+          },
+          "parsed_cached_results": {
+            "type": "object",
+            "properties": {
+              "quality_metrics": {
+                "type": "object",
+                "properties": {
+                  "total_reads": {
+                    "type": "integer"
+                  },
+                  "total_ercc_reads": {
+                    "type": "integer"
+                  },
+                  "adjusted_remaining_reads": {
+                    "type": "integer"
+                  },
+                  "percent_remaining": {
+                    "type": "number"
+                  },
+                  "qc_percent": {
+                    "type": "number"
+                  },
+                  "compression_ratio": {
+                    "type": "number"
+                  },
+                  "insert_size_mean": {
+                    "type": "number"
+                  },
+                  "insert_size_standard_deviation": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "run_finalized": {
             "type": "boolean"
+          },
+          "rails_workflow_run_id": {
+            "type": "string"
+          }
         },
-        "pipeline_runs": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "pipeline_version": {
-                        "type": "string"
-                    },
-                    "wdl_version": {
-                        "type": "string"
-                    },
-                    "created_at": {
-                        "type": "string"
-                    },
-                    "alignment_config_name": {
-                        "type": "string"
-                    },
-                    "assembled": {
-                        "type": "integer"
-                    },
-                    "adjusted_remaining_reads": {
-                        "type": "integer"
-                    },
-                    "total_ercc_reads": {
-                        "type": "integer"
-                    },
-                    "run_finalized": {
-                        "type": "boolean"
-                    }
-                }
-            }
-        },
-        "workflow_runs": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "workflow": {
-                        "type": "string"
-                    },
-                    "wdl_version": {
-                        "type": "string"
-                    },
-                    "executed_at": {
-                        "type": "string"
-                    },
-                    "deprecated": {
-                        "type": "boolean"
-                    },
-                    "input_error": {
-                        "type": "object",
-                        "properties": {
-                            "label": {
-                                "type": "string"
-                            },
-                            "message": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "inputs": {
-                        "type": "object",
-                        "properties": {
-                            "accession_id": {
-                                "type": "string"
-                            },
-                            "accession_name": {
-                                "type": "string"
-                            },
-                            "taxon_id": {
-                                "type": "string"
-                            },
-                            "taxon_name": {
-                                "type": "string"
-                            },
-                            "technology": {
-                                "type": "string"
-                            },
-                            "ref_fasta": {
-                                "type": "string"
-                            },
-                            "creation_source": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "run_finalized": {
-                        "type": "boolean"
-                    },
-                    "rails_workflow_run_id": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "executed_at",
-                    "inputs",
-                    "run_finalized"
-                ]
-            }
-        }
-    },
-    "required": [
-        "id",
-        "name",
-        "created_at",
-        "updated_at",
-        "project_id",
-        "status",
-        "user_id",
-        "initial_workflow",
-        "project",
-        "editable"
-    ]
+        "required": ["id", "executed_at", "inputs", "run_finalized"]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "created_at",
+    "updated_at",
+    "project_id",
+    "status",
+    "user_id",
+    "initial_workflow",
+    "project",
+    "editable"
+  ]
 }
