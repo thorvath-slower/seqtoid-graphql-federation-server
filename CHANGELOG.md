@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.34.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.0...v2.34.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* Adding missing workflow run mappings ([#349](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/349)) ([e8b48bb](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/e8b48bbc98fc8922b551f6cb9e90fd4eebba95ca))
+
 ## [2.34.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.33.2...v2.34.0) (2024-06-10)
 
 
