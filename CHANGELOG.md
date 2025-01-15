@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.34.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.1...v2.34.2) (2025-01-15)
+
+
+### Bug Fixes
+
+* bump timeout seconds ([#351](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/351)) ([652874f](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/652874f43f160325796b33f6a5686639a8827666))
+
 ## [2.34.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.0...v2.34.1) (2024-12-10)
 
 
