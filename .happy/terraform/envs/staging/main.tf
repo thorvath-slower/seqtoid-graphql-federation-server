@@ -2,7 +2,7 @@ locals {
   magic_stack_name = module.secrets.values.magic_stack_name
   alb_name         = module.secrets.values.alb_name
   service_type     = var.stack_name == local.magic_stack_name ? "TARGET_GROUP_ONLY" : "INTERNAL"
-  routing_config   = {
+  routing_config = {
     "INTERNAL" = {},
     "TARGET_GROUP_ONLY" = {
       path = "/graphqlfed*",
@@ -35,18 +35,20 @@ module "stack" {
   k8s_namespace    = var.k8s_namespace
   services = {
     gql = merge(local.routing_config[local.service_type], {
-      name              = "graphql-federation"
-      port              = "4444"
-      memory            = "8000Mi"
-      memory_requests   = "8000Mi"
-      cpu               = "3000m"
-      cpu_requests      = "3000m"
-      health_check_path = "/health"
+      name                      = "graphql-federation"
+      port                      = "4444"
+      memory                    = "8000Mi"
+      memory_requests           = "8000Mi"
+      cpu                       = "3000m"
+      cpu_requests              = "3000m"
+      liveness_timeout_seconds  = "60"
+      readiness_timeout_seconds = "60"
+      health_check_path         = "/health"
       // INTERNAL - OIDC protected ALB
       // EXTERNAL - external ALB
       // PRIVATE - cluster IP only, no ALB at all
       // TARGET_GROUP_ONLY - Only create a target group for use with an existing ALB
-      service_type      = local.service_type
+      service_type          = local.service_type
       platform_architecture = "arm64"
     })
   }
