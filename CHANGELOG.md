@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.35.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.4...v2.35.0) (2025-01-16)
+
+
+### Features
+
+* Dummy PR to trigger release please ([#358](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/358)) ([c649ea9](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/c649ea970170161a81230049b7ea19509f97d046))
+
 ## [2.34.4](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.3...v2.34.4) (2025-01-16)
 
 
