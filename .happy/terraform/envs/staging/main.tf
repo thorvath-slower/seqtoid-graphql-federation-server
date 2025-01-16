@@ -41,8 +41,8 @@ module "stack" {
       memory_requests           = "8000Mi"
       cpu                       = "3000m"
       cpu_requests              = "3000m"
-      liveness_timeout_seconds  = "60"
-      readiness_timeout_seconds = "60"
+      liveness_timeout_seconds  = "180"
+      readiness_timeout_seconds = "180"
       health_check_path         = "/health"
       // INTERNAL - OIDC protected ALB
       // EXTERNAL - external ALB
