@@ -35,13 +35,14 @@ module "stack" {
   k8s_namespace    = var.k8s_namespace
   services = {
     gql = merge(local.routing_config[local.service_type], {
-      name              = "graphql-federation"
-      port              = "4444"
-      memory            = "8000Mi"
-      memory_requests   = "8000Mi"
-      cpu               = "3000m"
-      cpu_requests      = "3000m"
-      health_check_path = "/health"
+      name                   = "graphql-federation"
+      port                   = "4444"
+      memory                 = "8000Mi"
+      memory_requests        = "8000Mi"
+      cpu                    = "3000m"
+      cpu_requests           = "3000m"
+      initial_delay_seconds  = "120"
+      health_check_path      = "/health"
       // INTERNAL - OIDC protected ALB
       // EXTERNAL - external ALB
       // PRIVATE - cluster IP only, no ALB at all
