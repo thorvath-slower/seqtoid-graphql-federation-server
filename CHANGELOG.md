@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.35.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.35.0...v2.35.1) (2025-01-17)
+
+
+### Bug Fixes
+
+* add initial_delay_seconds in terraform ([#360](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/360)) ([6779ffc](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/6779ffccdf50470fe4eec2e78963bda9dc1ec6b0))
+
 ## [2.35.0](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.34.4...v2.35.0) (2025-01-16)
 
 
