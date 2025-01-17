@@ -252,7 +252,6 @@ plugins:
 serve:
   port: 4444
   endpoint: "/graphqlfed"
-  healthCheckEndpoint: "/health"
   playground: true
   cors:
     origin: "${ALLOWED_CORS_ORIGINS}"
