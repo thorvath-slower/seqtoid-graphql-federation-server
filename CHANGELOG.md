@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.35.2](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.35.1...v2.35.2) (2025-01-17)
+
+
+### Bug Fixes
+
+* Remove unsupported healthCheckEndpoint config ([#362](https://github.com/chanzuckerberg/czid-graphql-federation-server/issues/362)) ([9515835](https://github.com/chanzuckerberg/czid-graphql-federation-server/commit/951583594b3e1d52c3553331947609041f3ade87))
+
 ## [2.35.1](https://github.com/chanzuckerberg/czid-graphql-federation-server/compare/v2.35.0...v2.35.1) (2025-01-17)
 
 
