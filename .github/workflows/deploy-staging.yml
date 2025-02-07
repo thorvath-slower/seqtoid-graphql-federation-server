@@ -11,7 +11,7 @@ on:
 name: Deploy release to staging
 jobs:
   get-release-tag:
-    runs-on: [ARM64, self-hosted, Linux]
+    runs-on: ARM64
     environment: staging
     outputs:
       release_tag: ${{ steps.get-release.outputs.release_tag}}
@@ -25,7 +25,7 @@ jobs:
   deploy-to-staging-env:
     needs: get-release-tag
     if: needs.get-release-tag.outputs.release_tag != ''
-    runs-on: [ARM64, self-hosted, Linux]
+    runs-on: ARM64
     environment: staging
     permissions:
       id-token: write

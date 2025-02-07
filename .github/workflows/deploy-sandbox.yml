@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy-to-sandbox-env:
-    runs-on: [ARM64, self-hosted, Linux]
+    runs-on: ARM64
     environment: sandbox
     permissions:
       id-token: write

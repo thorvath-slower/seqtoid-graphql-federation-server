@@ -3,7 +3,7 @@ on: push
 
 jobs:
   jest-unit-tests:
-    runs-on: [ARM64, self-hosted, Linux]
+    runs-on: ARM64
     steps:
       - name: Check out code
         uses: actions/checkout@v4
