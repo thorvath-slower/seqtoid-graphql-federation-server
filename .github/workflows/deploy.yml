@@ -24,6 +24,7 @@ env:
   AWS_REGION : us-west-2
   DEPLOYMENT_ENVIRONMENT: ${{ inputs.environment }}
   TF_VAR_image_tag: ${{ inputs.image_tag }}
+  TF_CLI_ARGS_apply: "--auto-approve"
 
 permissions:
   id-token: write
