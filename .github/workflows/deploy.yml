@@ -39,13 +39,13 @@ jobs:
       - name: Sts GetCallerIdentity
         run: |
           aws sts get-caller-identity
-      # - name: Set up runner
-      #   run: source scripts/init_cd_runner.sh
-      # - name: Terraform Init
-      #   run: |
-      #     cd .happy/terraform/envs/${{ env.DEPLOYMENT_ENVIRONMENT }}
-      #     terraform init
-      # - name: Terraform Plan
-      #   run: |
-      #     cd .happy/terraform/envs/${{ env.DEPLOYMENT_ENVIRONMENT }}
-      #     terraform plan
+      - name: Set up runner
+        run: source scripts/init_cd_runner.sh
+      - name: Terraform Init
+        run: |
+          cd .happy/terraform/envs/${{ env.DEPLOYMENT_ENVIRONMENT }}
+          terraform init
+      - name: Terraform Plan
+        run: |
+          cd .happy/terraform/envs/${{ env.DEPLOYMENT_ENVIRONMENT }}
+          terraform plan
