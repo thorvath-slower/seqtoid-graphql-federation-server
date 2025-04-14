@@ -48,4 +48,4 @@ jobs:
       # - name: Terraform Plan
       #   run: |
       #     cd .happy/terraform/envs/${{ env.DEPLOYMENT_ENVIRONMENT }}
-      #     terraform apply
+      #     terraform plan
