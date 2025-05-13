@@ -34,6 +34,9 @@ module "stack" {
   stack_prefix     = "/${var.stack_name}"
   app_name         = var.app
   k8s_namespace    = var.k8s_namespace
+  additional_env_vars = {
+    API_URL = "https://sandbox.ucsf.czid.org"
+  }
   services = {
     gql = merge(local.routing_config[local.service_type], {
       name                  = "graphql-federation"
