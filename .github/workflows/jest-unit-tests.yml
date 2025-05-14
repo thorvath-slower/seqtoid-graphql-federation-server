@@ -3,7 +3,7 @@ on: push
 
 jobs:
   jest-unit-tests:
-    runs-on: ARM64
+    runs-on: ubuntu-22.04-arm
     steps:
       - name: Check out code
         uses: actions/checkout@v4

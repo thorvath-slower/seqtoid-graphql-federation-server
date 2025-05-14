@@ -30,7 +30,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ARM64
+    runs-on: ubuntu-22.04-arm
     environment: ${{ inputs.environment }}
     strategy: 
       matrix: 

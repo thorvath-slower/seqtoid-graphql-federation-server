@@ -11,7 +11,7 @@ on:
 name: Deploy release to staging
 jobs:
   get-release-tag:
-    runs-on: ARM64
+    runs-on: ubuntu-22.04-arm
     environment: staging
     outputs:
       release_tag: ${{ steps.get-release.outputs.release_tag}}
