@@ -32,7 +32,7 @@ permissions:
 
 jobs:
   DeployTerraform:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v4
