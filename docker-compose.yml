@@ -1,14 +1,16 @@
-version: "3.8"
+#version: "3.8"
 
 services:
   gql:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "czid-graphql"
-    platform: linux/arm64
+    image: "491013321714.dkr.ecr.us-west-2.amazonaws.com/seqtoid-gql/dev/gql-federation:v5"
+    platform: linux/amd64
     restart: always
+    hostname: web
     environment:
+#      API_URL: http://web:4444
       API_URL: http://web:3001
       LEGACY_API_URL: http://web:3001
       ALLOWED_CORS_ORIGINS: "http://web:3001,http://localhost:3000"
@@ -16,9 +18,11 @@ services:
       NEXTGEN_WORKFLOWS_URL: "http://workflows.czidnet:8042"
     ports:
       - "4444:4444"
+#      - "3001:3001"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules # Use node_modules built in container, not from the mounted source dir
+    # TODO: Remove this
     command: ["npm", "run", "dev"]
     networks:
       czidnet:

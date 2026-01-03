@@ -1,6 +1,8 @@
 import { ResolverContext, getEnrichedToken } from "./enrichToken";
 
 export const callGraphqlSource = async (args, context) => {
+  console.log(`TBD:callGraphqlSource`);
+
   const enrichedToken = await getEnrichedToken(context as unknown as ResolverContext);
 
   // TODO: Implement the actual call to the graphql source, something like the below

@@ -3,7 +3,7 @@
 set -a
 AWS_DEFAULT_REGION=us-west-2
 AWS_DEFAULT_OUTPUT=json
-TERRAFORM_VERSION=1.11.3
+TERRAFORM_VERSION=1.14.3
 TF_CLI_ARGS_apply="--auto-approve"
 set +a
 

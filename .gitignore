@@ -1,7 +1,12 @@
 .mesh/
 node_modules/
 dist/
-.mesh/
 /tmp/*
 
 .DS_Store
+/.idea
+*.iml
+/.ruby-version
+.terraform.lock.hcl
+.terraform/
+#.terraform.dev/

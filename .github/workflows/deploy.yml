@@ -18,7 +18,7 @@ on:
         description: 'The profile name to use'
         required: true
         type: string
-        default: 'default'
+        default: 'idseq-newdev'
 
 env:
   AWS_REGION : us-west-2
@@ -39,7 +39,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::941377154785:role/gha-seqtoid
+          role-to-assume: arn:aws:iam::491013321714:role/gha-seqtoid
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
       - name: Setup Profile

@@ -3,7 +3,7 @@
 # Cache and compose are noise.
 set -euo pipefail
 
-export REPO="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/seqtoid-graphql"
+export REPO="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/seqtoid-gql/dev/gql-federation"
 
 BRANCH="$1"
 BRANCH_CLEANED=$(echo $BRANCH | sed 's/\//-/g')

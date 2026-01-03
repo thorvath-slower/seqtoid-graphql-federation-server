@@ -45,13 +45,13 @@ jobs:
         id: configure_aws_credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::941377154785:role/gha-seqtoid
+          role-to-assume: arn:aws:iam::491013321714:role/gha-seqtoid
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
       - name: Login to ECR
         uses: docker/login-action@v3
         with:
-          registry: 941377154785.dkr.ecr.us-west-2.amazonaws.com/seqtoid-graphql
+          registry: 491013321714.dkr.ecr.us-west-2.amazonaws.com/seqtoid-graphql
       - name: Export variables
         run: |
           AWS_ACCOUNT_ID=${{ steps.configure_aws_credentials.outputs.aws-account-id }}
