@@ -42,6 +42,7 @@ module "stack" {
     API_URL = "https://${var.env}.seqtoid.org"
     # NEXTGEN_ENTITIES_URL = "http://ryan-test-entities.czid-dev-happy-happy-env.svc.cluster.local:8008"
     # NEXTGEN_WORKFLOWS_URL = "http://workflows.czidnet"
+    FORK = 2 # TODO: Might help with OOM errors
   }
 
   services = {
@@ -50,10 +51,10 @@ module "stack" {
       name                  = "graphql-federation"
       desired_count         = 1
       port                  = "4444"
-      memory                = "1024Mi"
-      memory_requests       = "1024Mi"
-      cpu                   = "500m"
-      cpu_requests          = "500m"
+      memory                = "8Gi" # TODO: was 1024Mi; might help with OOM errors
+      memory_requests       = "4Gi" # TODO: was 1024Mi; might help with OOM errors
+      cpu                   = "4000m" # TODO: was 500m; might help with OOM errors
+      cpu_requests          = "1000m" # TODO: was 500m; might help with OOM errors
       initial_delay_seconds = "120"
       health_check_path     = "/health"
       // INTERNAL - OIDC protected ALB
@@ -63,9 +64,9 @@ module "stack" {
       service_type          = local.service_type
       platform_architecture = "amd64" # TODO: Was arm64
 
-      # additional_env_vars_from_secrets = {
-      #   items = ["integration-secret"]
-      # }
+      additional_env_vars_from_secrets = {
+        items = ["integration-secret"]
+      }
     })
   }
 
