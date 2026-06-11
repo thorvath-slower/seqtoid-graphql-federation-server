@@ -1,4 +1,5 @@
-FROM node:18.16.0
+# bug-#003/#004: Node 18 (EOL-soon) -> 20 LTS, pinned by multi-arch digest.
+FROM node:20.18.1@sha256:968ca0550acc7589a8b1324401ec6e39ace53b2c82d2aed3a278e9ff491c2b1c
 
 WORKDIR /usr/src/app
 ENV UWS_HTTP_MAX_HEADERS_SIZE=24576
