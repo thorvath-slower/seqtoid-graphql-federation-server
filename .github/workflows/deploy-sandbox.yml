@@ -15,7 +15,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Assume happy-api deployment role
         uses: aws-actions/configure-aws-credentials@v4
         with:
