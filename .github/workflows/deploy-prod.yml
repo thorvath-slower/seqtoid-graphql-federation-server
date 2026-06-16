@@ -30,7 +30,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: '${{ needs.get-release-tag.outputs.release_tag }}'
       - name: Assume happy-api deployment role
