@@ -1,0 +1,20 @@
+# gitleaks config (improvement-#010 / CZID-137).
+# Extends the default ruleset and allowlists known-safe EXAMPLE data so the
+# hard-fail secret gate stays meaningful (any real secret still fails the build).
+title = "seqtoid-graphql-federation-server gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = """Sample request/response fixtures hold example payloads only, not live credentials:
+- sample-responses/*: `presigned_output_url` values are S3 presigned URLs whose
+  X-Amz-Credential carries a short-lived ASIA (STS) token — captured 2023-2024 and
+  long expired (presigned URLs are time-boxed), so they are inert.
+- sample-requests/*: `authenticityToken` is an ephemeral Rails CSRF token, not an API key.
+Real secrets must never be committed anywhere, including here; this only scopes the
+known fixture false-positives."""
+paths = [
+  '''sample-requests/.*''',
+  '''sample-responses/.*''',
+]
