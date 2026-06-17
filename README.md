@@ -1,8 +1,14 @@
-# czid-graphql-federation-server
+# seqtoid-graphql-federation-server
+
+> **Naming:** the platform is being renamed to **seqtoid**. This repo already uses
+> the `seqtoid-*` convention. Prose below refers to the platform as **seqtoid**;
+> **functional** references kept as-is on purpose — external/upstream URLs
+> (`czid.org`, `github.com/chanzuckerberg/czid-*`) and the legacy app/project
+> names still resolve to live resources until a coordinated cutover.
 
 ## Project overview
 
-The CZ ID graphQL federation server runs on [graphQL Mesh](https://the-guild.dev/graphql/mesh).  The server federates responses from REST and graphQL queries to the [CZ ID Rails application](https://github.com/chanzuckerberg/czid-web-private), to a graphQL schema based on our next generatation data model, and will eventually federate responses from graphQL queries to new services into that data model.  This server is an integral piece of our transition to a system architecture and data model.
+The seqtoid graphQL federation server runs on [graphQL Mesh](https://the-guild.dev/graphql/mesh).  The server federates responses from REST and graphQL queries to the [seqtoid Rails application](https://github.com/chanzuckerberg/czid-web-private), to a graphQL schema based on our next generatation data model, and will eventually federate responses from graphQL queries to new services into that data model.  This server is an integral piece of our transition to a system architecture and data model.
 
 ## Development Environment setup
 
