@@ -9,10 +9,9 @@ nothing will remind you — so this list is how we avoid silently drifting.
 > (CZID-212).** `.github/workflows/security.yml` (header) notes Actions are disabled on
 > the thorvath fork. Until enabled, *everything* below is effectively human-maintained.
 
-> ⚠️ **Renovate and Dependabot overlap.** Both `renovate.json` and `.github/dependabot.yml`
-> declare an **npm** manager for `/`. Once Renovate is enabled they will open duplicate npm
-> PRs — pick one (the doctrine is Renovate) and delete `.github/dependabot.yml`, or scope
-> them so they don't collide.
+> ℹ️ **Dependency updates consolidated on Renovate.** `.github/dependabot.yml` was removed
+> (CZID-231) to avoid duplicate npm PRs — Renovate (`config:recommended`) is the single
+> updater for npm + Actions + Docker.
 
 ## A. Human-maintained (Renovate / SSOT cannot track these)
 
@@ -41,7 +40,7 @@ nothing will remind you — so this list is how we avoid silently drifting.
 
 | # | Item | Where (path → location in file) | Maintained by |
 |---|------|--------------------------------|---------------|
-| B1 | npm dependencies + lockfile | `package.json` `dependencies`/`devDependencies`; `package-lock.json` | Renovate `npm` (`config:recommended`). **Also** in `.github/dependabot.yml` — overlapping (see banner); lockfile maintenance disabled via `:maintainLockFilesDisabled` |
+| B1 | npm dependencies + lockfile | `package.json` `dependencies`/`devDependencies`; `package-lock.json` | Renovate `npm` (`config:recommended`); lockfile maintenance disabled via `:maintainLockFilesDisabled`. (Dependabot was removed — CZID-231 — so Renovate is the sole npm updater) |
 | B2 | Node runtime (SSOT + Docker base, grouped) | `.node-version` → `20.18.1`; `Dockerfile` line 8 | Renovate `nodenv` + `dockerfile` managers, grouped into one "node runtime" PR. `actions/setup-node` reads `.node-version` via `node-version-file:` |
 | B3 | Dockerfile base-image digest | `Dockerfile` line 8 → `@sha256:…` | Renovate `dockerfile` manager + `pinDigests: true` |
 | B4 | GitHub Actions `uses:` (external, tagged) | `.github/workflows/*` (`actions/checkout@v6`, `setup-node@v6`, `github-script@v7`, `aws-actions/configure-aws-credentials@v4`, `github/codeql-action/*@v3`, `aquasecurity/trivy-action`, `release-please-action@…`) | Renovate `github-actions` manager (grouped) + `pinDigests:true`. **`@main` refs and first-party actions are NOT covered → A13** |
