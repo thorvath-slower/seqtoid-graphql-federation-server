@@ -15,9 +15,8 @@ jobs:
           app_id: ${{ secrets.CZI_RELEASE_PLEASE_APP_ID }}
           private_key: ${{ secrets.CZI_RELEASE_PLEASE_PK }}
       - name: release please
-        uses: google-github-actions/release-please-action@v3.7.11
+        uses: googleapis/release-please-action@v4.4.1
         id: release
         with:
           release-type: node
           token: ${{ steps.generate_token.outputs.token }}
-          bump-minor-pre-major: true
