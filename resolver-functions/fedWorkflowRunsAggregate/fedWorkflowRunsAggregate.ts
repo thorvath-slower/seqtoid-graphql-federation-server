@@ -1,11 +1,6 @@
-import { query_fedWorkflowRunsAggregate_aggregate_items } from "../../.mesh";
 import { processWorkflowsAggregateResponse } from "../../utils/aggregateUtils";
 import { TEN_MILLION } from "../../utils/constants";
-import {
-  fetchFromNextGen,
-  get,
-  shouldReadFromNextGen,
-} from "../../utils/httpUtils";
+import { get } from "../../utils/httpUtils";
 import { formatUrlParams } from "../../utils/paramsUtils";
 
 export const fedWorkflowRunsAggregateResolver = async (
@@ -43,49 +38,11 @@ export const fedWorkflowRunsAggregateResolver = async (
     context,
   });
 
-  const nextGenEnabled = await shouldReadFromNextGen(context);
-
-  let nextGenProjectAggregates: query_fedWorkflowRunsAggregate_aggregate_items[] =
-    [];
-
-  if (nextGenEnabled) {
-    const customQuery = `
-      query nextGenWorkflowsAggregate($where: WorkflowRunWhereClause) {
-        workflowRunsAggregate(where: $where) {
-          aggregate {
-            groupBy {
-              collectionId
-              workflowVersion {
-                workflow {
-                  name
-                }
-              }
-            }
-            count
-          }
-        }
-      }
-    `;
-    const consensusGenomesAggregateResponse = await fetchFromNextGen({
-      args,
-      context,
-      serviceType: "workflows",
-      customQuery,
-      customVariables: {
-        where: args.input?.where,
-      },
-    });
-    nextGenProjectAggregates =
-      consensusGenomesAggregateResponse?.data?.workflowRunsAggregate?.aggregate;
-  }
-
   return processWorkflowsAggregateResponse(
-    nextGenProjectAggregates,
     projects.filter(
       project =>
         paginatedProjectIds === undefined ||
         paginatedProjectIds.has(project.id),
     ),
-    nextGenEnabled,
   );
 };

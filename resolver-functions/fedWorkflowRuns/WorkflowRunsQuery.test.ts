@@ -1,23 +1,14 @@
 import { ExecuteMeshFn } from "@graphql-mesh/runtime";
 import { getExampleQuery } from "../../tests/utils/ExampleQueryFiles";
 import { getMeshInstance } from "../../tests/utils/MeshInstance";
-import { assertEqualsNoWhitespace } from "../../tests/utils/StringUtils";
 
 import * as httpUtils from "../../utils/httpUtils";
-import {
-  convertValidateConsensusGenomeQuery,
-  convertWorkflowRunsQuery,
-} from "../../utils/queryFormatUtils";
 jest.spyOn(httpUtils, "get");
 jest.spyOn(httpUtils, "postWithCSRF");
-jest.spyOn(httpUtils, "shouldReadFromNextGen");
-jest.spyOn(httpUtils, "fetchFromNextGen");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
   (httpUtils.postWithCSRF as jest.Mock).mockClear();
-  (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
-  (httpUtils.fetchFromNextGen as jest.Mock).mockClear();
 });
 
 describe("workflowRuns query:", () => {
@@ -29,9 +20,6 @@ describe("workflowRuns query:", () => {
   });
 
   it("Returns input sequencing read", async () => {
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve(false),
-    );
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       workflow_runs: [
         {
@@ -97,9 +85,6 @@ describe("workflowRuns query:", () => {
   });
 
   it("Called with order by", async () => {
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve(false),
-    );
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       workflow_runs: [],
     }));
@@ -118,54 +103,6 @@ describe("workflowRuns query:", () => {
     expect(result.data.fedWorkflowRuns).toHaveLength(0);
   });
 
-  it("Constructs correct NextGen query", async () => {
-    assertEqualsNoWhitespace(
-      convertWorkflowRunsQuery(getExampleQuery("workflow-runs-query-fe")),
-      `query ($where: WorkflowRunWhereClause, $orderBy: [WorkflowRunOrderByClause!]) {
-        workflowRuns(where: $where, orderBy: $orderBy) {
-          id
-          startedAt
-          status
-          rawInputsJson
-          workflowVersion {
-            version
-            workflow {
-              name
-            }
-          }
-          entityInputs(where: { 
-            entityType: { _eq: "sequencing_read" },
-            inputEntityId: { _is_null: false } 
-          }) {
-            edges {
-              node {
-                inputEntityId
-                entityType
-              }
-            }
-          }
-        }
-      }`,
-    );
-  });
-
-  it("Uses orderBy array field for NextGen", async () => {
-    const query = getExampleQuery("workflow-runs-query-order-by-array");
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve(true),
-    );
-
-    await execute(query, {}, { params: { query } });
-
-    expect(httpUtils.fetchFromNextGen as jest.Mock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        customVariables: expect.objectContaining({
-          orderBy: [{ startedAt: "asc" }],
-        }),
-      }),
-    );
-  });
-
   describe("validConsensusGenomes query", () => {
     let execute: ExecuteMeshFn;
     const query = getExampleQuery("workflow-runs-query-id-list");
@@ -176,9 +113,6 @@ describe("workflowRuns query:", () => {
     });
 
     it("should call the correct rails endpoint when shouldReadFromNextGen is false", async () => {
-      (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-        Promise.resolve(false),
-      );
       await execute(query, {
         authenticityToken: "authtoken1234",
         workflowRunIds: ["1997", "2007"],
@@ -192,32 +126,6 @@ describe("workflowRuns query:", () => {
         context: expect.anything(),
         args: expect.anything(),
       });
-    });
-
-    it("should call nextgen when shouldReadFromNextGen is true", async () => {
-      (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-        Promise.resolve(true),
-      );
-      await execute(
-        query,
-        {
-          authenticityToken: "authtoken1234",
-          workflowRunIds: ["1997", "2007"],
-        },
-        { params: { query } },
-      );
-      expect(httpUtils.fetchFromNextGen).toHaveBeenCalledWith(
-        expect.objectContaining({
-          customQuery: expect.stringContaining("workflowRuns"),
-          customVariables: expect.objectContaining({
-            where: expect.objectContaining({
-              id: {
-                _in: ["1997", "2007"],
-              },
-            }),
-          }),
-        }),
-      );
     });
   });
 });

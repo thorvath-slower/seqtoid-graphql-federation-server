@@ -5,13 +5,9 @@ import { getMeshInstance } from "../../tests/utils/MeshInstance";
 import * as httpUtils from "../../utils/httpUtils";
 import { query_fedWorkflowRunsAggregateTotalCount_aggregate_items } from "../../.mesh";
 jest.spyOn(httpUtils, "get");
-jest.spyOn(httpUtils, "shouldReadFromNextGen");
-jest.spyOn(httpUtils, "fetchFromNextGen");
 
 beforeEach(() => {
   (httpUtils.get as jest.Mock).mockClear();
-  (httpUtils.shouldReadFromNextGen as jest.Mock).mockClear();
-  (httpUtils.fetchFromNextGen as jest.Mock).mockClear();
 });
 
 describe("workflowRuns aggregate total count query:", () => {
@@ -23,9 +19,6 @@ describe("workflowRuns aggregate total count query:", () => {
   });
 
   it("Returns aggregate counts for each workflow", async () => {
-    (httpUtils.shouldReadFromNextGen as jest.Mock).mockImplementation(() =>
-      Promise.resolve(false),
-    );
     (httpUtils.get as jest.Mock).mockImplementation(() => ({
       countByWorkflow: {
         benchmark: 0,
