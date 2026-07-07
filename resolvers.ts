@@ -20,15 +20,11 @@ import {
   UpdateMetadataResolver,
   UpdateSampleNotesResolver,
   UpdateSampleNameResolver,
-  adminSamplesResolver,
-  adminWorkflowRunsResolver,
 } from "./resolver-functions";
 import { createAsyncBulkDownloadResolver } from "./resolver-functions/createAsyncBulkDownloads/createAsyncBulkDownloadResolver";
 
 export const resolvers: Resolvers = {
   Query: {
-    adminSamples: adminSamplesResolver,
-    adminWorkflowRuns: adminWorkflowRunsResolver,
     fedBulkDownloads: fedBulkDowloadsResolver,
     BulkDownloadCGOverview: BulkDownloadsCGOverviewResolver,
     fedConsensusGenomes: fedConsensusGenomesResolver,

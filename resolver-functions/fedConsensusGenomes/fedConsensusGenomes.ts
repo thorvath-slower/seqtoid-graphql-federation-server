@@ -1,14 +1,8 @@
 import { TEN_MILLION } from "../../utils/constants";
-import {
-  fetchFromNextGen,
-  get,
-  shouldReadFromNextGen,
-} from "../../utils/httpUtils";
+import { get } from "../../utils/httpUtils";
 import { formatUrlParams } from "../../utils/paramsUtils";
-import { convertConsensusGenomesQuery } from "../../utils/queryFormatUtils";
 
 export const fedConsensusGenomesResolver = async (root, args, context: any) => {
-  const nextGenEnabled = await shouldReadFromNextGen(context);
   const input = args.input;
   if (input == null) {
     throw new Error("fedConsensusGenomes input was nullish");
@@ -16,11 +10,6 @@ export const fedConsensusGenomesResolver = async (root, args, context: any) => {
 
   // if there is an _eq in the response then it is a call for a single workflow run result
   if (input.where?.producingRunId?._eq) {
-    /* --------------------- Next Gen ------------------------- */
-    if (nextGenEnabled) {
-      const ret = await get({ args, context, serviceType: "entities" });
-      return ret.data.consensusGenomes;
-    }
     /* --------------------- Rails ----------------------------- */
     const workflowRunId = input.where.producingRunId._eq;
     const data = await get({
@@ -82,21 +71,6 @@ export const fedConsensusGenomesResolver = async (root, args, context: any) => {
   }
 
   // DISCOVERY VIEW:
-  if (nextGenEnabled) {
-    return (
-      await fetchFromNextGen({
-        customQuery: convertConsensusGenomesQuery(context.params.query),
-        customVariables: {
-          where: input.where,
-          orderBy: input.orderBy,
-        },
-        serviceType: "entities",
-        args,
-        context,
-      })
-    ).data.consensusGenomes;
-  }
-
   const { workflow_runs } = await get({
     url:
       "/workflow_runs.json" +

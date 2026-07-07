@@ -1,45 +1,20 @@
-import { getEnrichedToken } from "./enrichToken";
-import { formatFedQueryForNextGen } from "./queryFormatUtils";
-
 export const get = async ({
   url,
   args,
   context,
-  serviceType,
   fullResponse,
-  customQuery,
-  securityToken,
 }: {
   url?: string;
   args: any;
   context: any;
-  serviceType?: "workflows" | "entities";
   fullResponse?: boolean;
-  customQuery?: string;
-  securityToken?: string;
 }) => {
   try {
-    const nextGenEnabled = await shouldReadFromNextGen(context);
-    const shouldQueryNextGen = nextGenEnabled && serviceType;
-    if (shouldQueryNextGen) {
-      return fetchFromNextGen({
-        args,
-        context,
-        serviceType,
-        customQuery,
-        securityToken,
-      });
-    } else {
-      if (!url) {
-        console.error(
-          `You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`,
-        );
-        throw new Error(
-          `You must pass a url to call rails. If you meant to call NextGen, set the serviceType. url: ${url}, serviceType: ${serviceType}`,
-        );
-      }
-      return getFromRails({ url, args, context, fullResponse });
+    if (!url) {
+      console.error(`You must pass a url to call rails. url: ${url}`);
+      throw new Error(`You must pass a url to call rails. url: ${url}`);
     }
+    return getFromRails({ url, args, context, fullResponse });
   } catch (e) {
     handleFetchError(e);
   }
@@ -71,77 +46,6 @@ export const postWithCSRF = async ({
     console.log(
       `Rails POST to ${url} response: ${JSON.stringify(responseJson)}`,
     );
-    return responseJson;
-  } catch (e) {
-    handleFetchError(e);
-  }
-};
-
-export const getFeatureFlagsFromRequest = context => {
-  return context.request.headers.get("x-should-read-from-nextgen");
-};
-
-export const shouldReadFromNextGen = async context => {
-  let shouldReadFromNextGen = getFeatureFlagsFromRequest(context);
-  if (shouldReadFromNextGen === "true") {
-    // if the header is set, return the value
-    return true;
-  }
-  return false;
-};
-
-/**
- * Gets an enriched token and then makes a call to NextGen.
- *
- * undefined properties in variables will not be sent (due to JSON.stringify() ignoring them).
- */
-export const fetchFromNextGen = async ({
-  args,
-  context,
-  serviceType,
-  customQuery,
-  customVariables,
-  securityToken,
-}: {
-  args;
-  context;
-  serviceType: "workflows" | "entities";
-  customQuery?: string;
-  customVariables?: object;
-  securityToken?: string;
-}) => {
-  try {
-    const enrichedToken = securityToken || (await getEnrichedToken(context));
-    const baseUrl =
-      serviceType === "workflows"
-        ? process.env.NEXTGEN_WORKFLOWS_URL
-        : process.env.NEXTGEN_ENTITIES_URL;
-    const formattedQuery = customQuery
-      ? customQuery
-      : formatFedQueryForNextGen(context.params.query);
-    console.log("fetchFromNextGen");
-    console.log({ formattedQuery });
-    console.log("%j", customVariables);
-    const response = await fetch(`${baseUrl}/graphql`, {
-      method: "POST",
-      headers: {
-        Cookie: context.request.headers.get("cookie"),
-        "Content-Type": "application/json",
-        "X-CSRF-Token": args?.input?.authenticityToken,
-        Authorization: `Bearer ${enrichedToken}`,
-      },
-      body: JSON.stringify({
-        query: formattedQuery,
-        variables: customVariables ?? context.params.variables,
-      }),
-    });
-
-    const responseJson = await response.json();
-    if (responseJson.errors?.length) {
-      throw new Error(
-        `${responseJson.errors.length} error(s) from NextGen: ${responseJson.errors.map((error, i) => `${i + 1}. ${error.message}`).join(" ")}`,
-      );
-    }
     return responseJson;
   } catch (e) {
     handleFetchError(e);

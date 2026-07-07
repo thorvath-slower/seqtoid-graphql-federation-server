@@ -1,9 +1,16 @@
 name: Jest unit tests
-on: push
+# Runs on a GitHub-hosted runner. Previously targeted a self-hosted `ARM64`
+# label that does not exist on the thorvath fork, so the `jest-unit-tests`
+# check sat "pending" forever and blocked every PR. The suite runs natively
+# (npm ci + npm test) — no Docker is required, mesh build + jest run directly
+# on the hosted runner.
+on:
+  push:
+  pull_request:
 
 jobs:
   jest-unit-tests:
-    runs-on: ARM64
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v6
@@ -11,17 +18,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: '.node-version'
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev
-      - name: Build Docker image
-        run: |
-          make build
-      - name: Create Docker network
-        run: |
-          docker swarm init
-          docker network create czidnet --attachable --driver overlay
-      - name: Run tests in Docker container
-        run: |
-          make test
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test

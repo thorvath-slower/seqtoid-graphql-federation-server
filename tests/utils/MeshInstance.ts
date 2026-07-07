@@ -15,5 +15,6 @@ export type MeshExecuteTestFunction = (
 
 export const getMeshExecute = async (): Promise<MeshExecuteTestFunction> => {
   const mesh = await getMeshInstance();
-  return (query, input) => mesh.execute(query, input, { params: { query } });
+  return async (query, input) =>
+    mesh.execute(query, input, { params: { query } });
 };

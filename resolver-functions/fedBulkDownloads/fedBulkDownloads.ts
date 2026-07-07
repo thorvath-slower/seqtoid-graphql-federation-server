@@ -1,11 +1,6 @@
-import { getEnrichedToken } from "../../utils/enrichToken";
-import { get, shouldReadFromNextGen } from "../../utils/httpUtils";
+import { get } from "../../utils/httpUtils";
 import { formatUrlParams } from "../../utils/paramsUtils";
-import {
-  convertArrayToObject,
-  snakeToCamel,
-  toKebabCase,
-} from "../../utils/utils";
+import { snakeToCamel } from "../../utils/utils";
 
 interface BulkDownloadFromRails {
   id: number;
@@ -127,148 +122,11 @@ export const fedBulkDowloadsResolver = async (root, args, context, info) => {
         entityInputs,
         errorMessage: error_message,
         params,
-        logUrl: log_url, // used in admin only, we will deprecate log_url in NextGen and use something like executionId
+        logUrl: log_url, // used in admin only
       };
     });
     return mappedRes;
   };
-  const getNextGenBulkDownloads = async (args, context) => {
-    const nextGenEnabled = await shouldReadFromNextGen(context);
-    if (nextGenEnabled) {
-      const enrichedToken = await getEnrichedToken(context);
-      const getAllBulkDownloadsQuery = `query GetAllBulkDownloadsQuery {
-        workflowRuns(
-          where: {
-            workflowVersion: {workflow: {name: {_eq: "bulk-download"}}},
-            deletedAt: {_is_null: true}
-          }
-      ) {
-          id
-          status
-          rawInputsJson
-          createdAt
-          ownerUserId
-          errorMessage
-          workflowVersion {
-            id
-          }
-          entityInputs{
-            edges{
-              node{
-                fieldName
-                inputEntityId
-                entityType
-              }
-            }
-          }
-        }
-      }`;
-      const allBulkDownloadsResp = await get({
-        args,
-        context,
-        serviceType: "workflows",
-        customQuery: getAllBulkDownloadsQuery,
-        securityToken: enrichedToken,
-      });
-      // If the workflow run is successful, get the download link
-      // Add the URL to the workflow run object
-      const succeededWorkflowRunIds = allBulkDownloadsResp?.data?.workflowRuns
-        ?.filter(bulkDownload => bulkDownload.status === "SUCCEEDED")
-        .map(bulkDownload => bulkDownload.id);
-      const allEntityInputsIds =
-        allBulkDownloadsResp?.data?.workflowRuns?.flatMap(bulkDownload =>
-          bulkDownload?.entityInputs?.edges?.map(
-            entityInput => entityInput?.node?.inputEntityId,
-          ),
-        );
-      const downloadLinkQuery = `query GetDownloadURLAndSampleNames {
-        bulkDownloads(where: {producingRunId: {_in: [${succeededWorkflowRunIds?.map(id => `"${id}"`)}]}}) {
-          producingRunId
-          file {
-            size
-            downloadLink {
-              url
-            }
-          }
-        }
-        consensusGenomes(where: {id: {_in: [${allEntityInputsIds?.map(id => `"${id}"`)}]}}) {
-          id
-          sequencingRead {
-            sample {
-              name
-            }
-          }
-        }
-      }`;
-      const downloadLinksResp = await get({
-        args,
-        context,
-        serviceType: "entities",
-        customQuery: downloadLinkQuery,
-        securityToken: enrichedToken,
-      });
-      const bulkDownloads =
-        downloadLinksResp?.data?.bulkDownloads &&
-        convertArrayToObject(
-          downloadLinksResp.data.bulkDownloads,
-          "producingRunId",
-        );
-      const consensusGenomes =
-        downloadLinksResp?.data?.consensusGenomes &&
-        convertArrayToObject(downloadLinksResp.data.consensusGenomes, "id");
-      const nextGenBulkDownloads = allBulkDownloadsResp?.data?.workflowRuns
-        ?.filter(wr => wr)
-        .map(workflowRun => {
-          const file = bulkDownloads[workflowRun.id]?.file;
-          const {
-            createdAt,
-            rawInputsJson,
-            id,
-            status,
-            ownerUserId,
-            entityInputs,
-            errorMessage,
-          } = workflowRun;
-          const inputs = entityInputs?.edges || [];
-          const { bulk_download_type, aggregate_action } =
-            JSON.parse(rawInputsJson) || {};
-          return {
-            id,
-            startedAt: createdAt,
-            status,
-            downloadType: bulk_download_type,
-            ownerUserId,
-            fileSize:
-              file?.size && !isNaN(parseInt(file?.size))
-                ? parseInt(file.size)
-                : null,
-            url: file?.downloadLink?.url,
-            analysisCount: entityInputs?.edges?.length,
-            entityInputFileType: toKebabCase(inputs[0]?.node?.entityType),
-            entityInputs: inputs.map(edge => {
-              return {
-                id: edge.node?.inputEntityId,
-                name: consensusGenomes[edge.node?.inputEntityId]?.sequencingRead
-                  ?.sample?.name,
-              };
-            }),
-            errorMessage: errorMessage,
-            params: [
-              {
-                paramType: "downloadFormat",
-                value: aggregate_action,
-              },
-            ],
-            logUrl: null,
-          };
-        });
-      return nextGenBulkDownloads ?? [];
-    }
-    return [];
-  };
   const railsBulkDownloads = await getRailsBulkDownloads(args, context);
-  const nextGenBulkDownloads = await getNextGenBulkDownloads(args, context);
-
-  const mappedRes = [...railsBulkDownloads, ...nextGenBulkDownloads];
-  return mappedRes;
+  return [...railsBulkDownloads];
 };
